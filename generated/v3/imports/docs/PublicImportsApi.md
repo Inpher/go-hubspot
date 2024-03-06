@@ -1,10 +1,10 @@
-# \PublicImportsApi
+# \PublicImportsAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetErrors**](PublicImportsApi.md#GetErrors) | **Get** /crm/v3/imports/{importId}/errors | 
+[**GetErrors**](PublicImportsAPI.md#GetErrors) | **Get** /crm/v3/imports/{importId}/errors | 
 
 
 
@@ -20,26 +20,26 @@ Method | HTTP request | Description
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    importId := int64(789) // int64 | 
-    after := "after_example" // string | The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results. (optional)
-    limit := int32(56) // int32 | The maximum number of results to display per page. (optional)
+	importId := int64(789) // int64 | 
+	after := "after_example" // string | The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results. (optional)
+	limit := int32(56) // int32 | The maximum number of results to display per page. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PublicImportsApi.GetErrors(context.Background(), importId).After(after).Limit(limit).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PublicImportsApi.GetErrors``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetErrors`: CollectionResponsePublicImportErrorForwardPaging
-    fmt.Fprintf(os.Stdout, "Response from `PublicImportsApi.GetErrors`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PublicImportsAPI.GetErrors(context.Background(), importId).After(after).Limit(limit).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PublicImportsAPI.GetErrors``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetErrors`: CollectionResponsePublicImportErrorForwardPaging
+	fmt.Fprintf(os.Stdout, "Response from `PublicImportsAPI.GetErrors`: %v\n", resp)
 }
 ```
 

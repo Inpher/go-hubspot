@@ -1,15 +1,15 @@
-# \BasicApi
+# \BasicAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Create**](BasicApi.md#Create) | **Post** /marketing/v3/marketing-events/events | Create a marketing event
-[**ExternalArchive**](BasicApi.md#ExternalArchive) | **Delete** /marketing/v3/marketing-events/events/{externalEventId} | Delete a marketing event
-[**ExternalCancel**](BasicApi.md#ExternalCancel) | **Post** /marketing/v3/marketing-events/events/{externalEventId}/cancel | Mark a marketing event as cancelled
-[**ExternalGetByID**](BasicApi.md#ExternalGetByID) | **Get** /marketing/v3/marketing-events/events/{externalEventId} | Get a marketing event
-[**ExternalReplace**](BasicApi.md#ExternalReplace) | **Put** /marketing/v3/marketing-events/events/{externalEventId} | Create or update a marketing event
-[**ExternalUpdate**](BasicApi.md#ExternalUpdate) | **Patch** /marketing/v3/marketing-events/events/{externalEventId} | Update a marketing event
+[**Create**](BasicAPI.md#Create) | **Post** /marketing/v3/marketing-events/events | Create a marketing event
+[**ExternalArchive**](BasicAPI.md#ExternalArchive) | **Delete** /marketing/v3/marketing-events/events/{externalEventId} | Delete a marketing event
+[**ExternalCancel**](BasicAPI.md#ExternalCancel) | **Post** /marketing/v3/marketing-events/events/{externalEventId}/cancel | Mark a marketing event as cancelled
+[**ExternalGetByID**](BasicAPI.md#ExternalGetByID) | **Get** /marketing/v3/marketing-events/events/{externalEventId} | Get a marketing event
+[**ExternalReplace**](BasicAPI.md#ExternalReplace) | **Put** /marketing/v3/marketing-events/events/{externalEventId} | Create or update a marketing event
+[**ExternalUpdate**](BasicAPI.md#ExternalUpdate) | **Patch** /marketing/v3/marketing-events/events/{externalEventId} | Update a marketing event
 
 
 
@@ -27,24 +27,24 @@ Create a marketing event
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    marketingEventCreateRequestParams := *openapiclient.NewMarketingEventCreateRequestParams("ExternalAccountId_example", "EventOrganizer_example", "ExternalEventId_example", "EventName_example") // MarketingEventCreateRequestParams | The details of the marketing event to create
+	marketingEventCreateRequestParams := *openapiclient.NewMarketingEventCreateRequestParams("ExternalAccountId_example", "EventOrganizer_example", "ExternalEventId_example", "EventName_example") // MarketingEventCreateRequestParams | The details of the marketing event to create
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BasicApi.Create(context.Background()).MarketingEventCreateRequestParams(marketingEventCreateRequestParams).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.Create``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `Create`: MarketingEventDefaultResponse
-    fmt.Fprintf(os.Stdout, "Response from `BasicApi.Create`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BasicAPI.Create(context.Background()).MarketingEventCreateRequestParams(marketingEventCreateRequestParams).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BasicAPI.Create``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `Create`: MarketingEventDefaultResponse
+	fmt.Fprintf(os.Stdout, "Response from `BasicAPI.Create`: %v\n", resp)
 }
 ```
 
@@ -93,23 +93,23 @@ Delete a marketing event
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    externalEventId := "externalEventId_example" // string | The id of the marketing event to delete
-    externalAccountId := "externalAccountId_example" // string | The account id associated with the marketing event
+	externalEventId := "externalEventId_example" // string | The id of the marketing event to delete
+	externalAccountId := "externalAccountId_example" // string | The account id associated with the marketing event
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BasicApi.ExternalArchive(context.Background(), externalEventId).ExternalAccountId(externalAccountId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.ExternalArchive``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.BasicAPI.ExternalArchive(context.Background(), externalEventId).ExternalAccountId(externalAccountId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BasicAPI.ExternalArchive``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -163,25 +163,25 @@ Mark a marketing event as cancelled
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    externalEventId := "externalEventId_example" // string | The id of the marketing event to mark as cancelled
-    externalAccountId := "externalAccountId_example" // string | The account id associated with the marketing event
+	externalEventId := "externalEventId_example" // string | The id of the marketing event to mark as cancelled
+	externalAccountId := "externalAccountId_example" // string | The account id associated with the marketing event
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BasicApi.ExternalCancel(context.Background(), externalEventId).ExternalAccountId(externalAccountId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.ExternalCancel``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ExternalCancel`: MarketingEventDefaultResponse
-    fmt.Fprintf(os.Stdout, "Response from `BasicApi.ExternalCancel`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BasicAPI.ExternalCancel(context.Background(), externalEventId).ExternalAccountId(externalAccountId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BasicAPI.ExternalCancel``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ExternalCancel`: MarketingEventDefaultResponse
+	fmt.Fprintf(os.Stdout, "Response from `BasicAPI.ExternalCancel`: %v\n", resp)
 }
 ```
 
@@ -235,25 +235,25 @@ Get a marketing event
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    externalEventId := "externalEventId_example" // string | The id of the marketing event to return
-    externalAccountId := "externalAccountId_example" // string | The account id associated with the marketing event
+	externalEventId := "externalEventId_example" // string | The id of the marketing event to return
+	externalAccountId := "externalAccountId_example" // string | The account id associated with the marketing event
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BasicApi.ExternalGetByID(context.Background(), externalEventId).ExternalAccountId(externalAccountId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.ExternalGetByID``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ExternalGetByID`: MarketingEventPublicReadResponse
-    fmt.Fprintf(os.Stdout, "Response from `BasicApi.ExternalGetByID`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BasicAPI.ExternalGetByID(context.Background(), externalEventId).ExternalAccountId(externalAccountId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BasicAPI.ExternalGetByID``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ExternalGetByID`: MarketingEventPublicReadResponse
+	fmt.Fprintf(os.Stdout, "Response from `BasicAPI.ExternalGetByID`: %v\n", resp)
 }
 ```
 
@@ -307,25 +307,25 @@ Create or update a marketing event
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    externalEventId := "externalEventId_example" // string | The id of the marketing event to upsert
-    marketingEventCreateRequestParams := *openapiclient.NewMarketingEventCreateRequestParams("ExternalAccountId_example", "EventOrganizer_example", "ExternalEventId_example", "EventName_example") // MarketingEventCreateRequestParams | The details of the marketing event to upsert
+	externalEventId := "externalEventId_example" // string | The id of the marketing event to upsert
+	marketingEventCreateRequestParams := *openapiclient.NewMarketingEventCreateRequestParams("ExternalAccountId_example", "EventOrganizer_example", "ExternalEventId_example", "EventName_example") // MarketingEventCreateRequestParams | The details of the marketing event to upsert
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BasicApi.ExternalReplace(context.Background(), externalEventId).MarketingEventCreateRequestParams(marketingEventCreateRequestParams).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.ExternalReplace``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ExternalReplace`: MarketingEventPublicDefaultResponse
-    fmt.Fprintf(os.Stdout, "Response from `BasicApi.ExternalReplace`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BasicAPI.ExternalReplace(context.Background(), externalEventId).MarketingEventCreateRequestParams(marketingEventCreateRequestParams).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BasicAPI.ExternalReplace``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ExternalReplace`: MarketingEventPublicDefaultResponse
+	fmt.Fprintf(os.Stdout, "Response from `BasicAPI.ExternalReplace`: %v\n", resp)
 }
 ```
 
@@ -379,26 +379,26 @@ Update a marketing event
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    externalEventId := "externalEventId_example" // string | The id of the marketing event to update
-    externalAccountId := "externalAccountId_example" // string | The account id associated with the marketing event
-    marketingEventUpdateRequestParams := *openapiclient.NewMarketingEventUpdateRequestParams() // MarketingEventUpdateRequestParams | The details of the marketing event to update
+	externalEventId := "externalEventId_example" // string | The id of the marketing event to update
+	externalAccountId := "externalAccountId_example" // string | The account id associated with the marketing event
+	marketingEventUpdateRequestParams := *openapiclient.NewMarketingEventUpdateRequestParams() // MarketingEventUpdateRequestParams | The details of the marketing event to update
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BasicApi.ExternalUpdate(context.Background(), externalEventId).ExternalAccountId(externalAccountId).MarketingEventUpdateRequestParams(marketingEventUpdateRequestParams).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.ExternalUpdate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ExternalUpdate`: MarketingEventPublicDefaultResponse
-    fmt.Fprintf(os.Stdout, "Response from `BasicApi.ExternalUpdate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BasicAPI.ExternalUpdate(context.Background(), externalEventId).ExternalAccountId(externalAccountId).MarketingEventUpdateRequestParams(marketingEventUpdateRequestParams).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BasicAPI.ExternalUpdate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ExternalUpdate`: MarketingEventPublicDefaultResponse
+	fmt.Fprintf(os.Stdout, "Response from `BasicAPI.ExternalUpdate`: %v\n", resp)
 }
 ```
 

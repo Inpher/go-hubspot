@@ -11,13 +11,20 @@ API version: v4
 package actions
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the CallbackCompletionRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CallbackCompletionRequest{}
 
 // CallbackCompletionRequest struct for CallbackCompletionRequest
 type CallbackCompletionRequest struct {
 	OutputFields map[string]string `json:"outputFields"`
 }
+
+type _CallbackCompletionRequest CallbackCompletionRequest
 
 // NewCallbackCompletionRequest instantiates a new CallbackCompletionRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -62,11 +69,54 @@ func (o *CallbackCompletionRequest) SetOutputFields(v map[string]string) {
 }
 
 func (o CallbackCompletionRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["outputFields"] = o.OutputFields
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CallbackCompletionRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["outputFields"] = o.OutputFields
+	return toSerialize, nil
+}
+
+func (o *CallbackCompletionRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"outputFields",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCallbackCompletionRequest := _CallbackCompletionRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varCallbackCompletionRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CallbackCompletionRequest(varCallbackCompletionRequest)
+
+	return err
 }
 
 type NullableCallbackCompletionRequest struct {

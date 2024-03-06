@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PublicBusinessUnitLogoMetadata type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PublicBusinessUnitLogoMetadata{}
+
 // PublicBusinessUnitLogoMetadata A Business Unit's logo metadata
 type PublicBusinessUnitLogoMetadata struct {
 	// The logo's alt text
@@ -43,7 +46,7 @@ func NewPublicBusinessUnitLogoMetadataWithDefaults() *PublicBusinessUnitLogoMeta
 
 // GetLogoAltText returns the LogoAltText field value if set, zero value otherwise.
 func (o *PublicBusinessUnitLogoMetadata) GetLogoAltText() string {
-	if o == nil || o.LogoAltText == nil {
+	if o == nil || IsNil(o.LogoAltText) {
 		var ret string
 		return ret
 	}
@@ -53,7 +56,7 @@ func (o *PublicBusinessUnitLogoMetadata) GetLogoAltText() string {
 // GetLogoAltTextOk returns a tuple with the LogoAltText field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicBusinessUnitLogoMetadata) GetLogoAltTextOk() (*string, bool) {
-	if o == nil || o.LogoAltText == nil {
+	if o == nil || IsNil(o.LogoAltText) {
 		return nil, false
 	}
 	return o.LogoAltText, true
@@ -61,7 +64,7 @@ func (o *PublicBusinessUnitLogoMetadata) GetLogoAltTextOk() (*string, bool) {
 
 // HasLogoAltText returns a boolean if a field has been set.
 func (o *PublicBusinessUnitLogoMetadata) HasLogoAltText() bool {
-	if o != nil && o.LogoAltText != nil {
+	if o != nil && !IsNil(o.LogoAltText) {
 		return true
 	}
 
@@ -75,7 +78,7 @@ func (o *PublicBusinessUnitLogoMetadata) SetLogoAltText(v string) {
 
 // GetResizedUrl returns the ResizedUrl field value if set, zero value otherwise.
 func (o *PublicBusinessUnitLogoMetadata) GetResizedUrl() string {
-	if o == nil || o.ResizedUrl == nil {
+	if o == nil || IsNil(o.ResizedUrl) {
 		var ret string
 		return ret
 	}
@@ -85,7 +88,7 @@ func (o *PublicBusinessUnitLogoMetadata) GetResizedUrl() string {
 // GetResizedUrlOk returns a tuple with the ResizedUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicBusinessUnitLogoMetadata) GetResizedUrlOk() (*string, bool) {
-	if o == nil || o.ResizedUrl == nil {
+	if o == nil || IsNil(o.ResizedUrl) {
 		return nil, false
 	}
 	return o.ResizedUrl, true
@@ -93,7 +96,7 @@ func (o *PublicBusinessUnitLogoMetadata) GetResizedUrlOk() (*string, bool) {
 
 // HasResizedUrl returns a boolean if a field has been set.
 func (o *PublicBusinessUnitLogoMetadata) HasResizedUrl() bool {
-	if o != nil && o.ResizedUrl != nil {
+	if o != nil && !IsNil(o.ResizedUrl) {
 		return true
 	}
 
@@ -107,7 +110,7 @@ func (o *PublicBusinessUnitLogoMetadata) SetResizedUrl(v string) {
 
 // GetLogoUrl returns the LogoUrl field value if set, zero value otherwise.
 func (o *PublicBusinessUnitLogoMetadata) GetLogoUrl() string {
-	if o == nil || o.LogoUrl == nil {
+	if o == nil || IsNil(o.LogoUrl) {
 		var ret string
 		return ret
 	}
@@ -117,7 +120,7 @@ func (o *PublicBusinessUnitLogoMetadata) GetLogoUrl() string {
 // GetLogoUrlOk returns a tuple with the LogoUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicBusinessUnitLogoMetadata) GetLogoUrlOk() (*string, bool) {
-	if o == nil || o.LogoUrl == nil {
+	if o == nil || IsNil(o.LogoUrl) {
 		return nil, false
 	}
 	return o.LogoUrl, true
@@ -125,7 +128,7 @@ func (o *PublicBusinessUnitLogoMetadata) GetLogoUrlOk() (*string, bool) {
 
 // HasLogoUrl returns a boolean if a field has been set.
 func (o *PublicBusinessUnitLogoMetadata) HasLogoUrl() bool {
-	if o != nil && o.LogoUrl != nil {
+	if o != nil && !IsNil(o.LogoUrl) {
 		return true
 	}
 
@@ -138,17 +141,25 @@ func (o *PublicBusinessUnitLogoMetadata) SetLogoUrl(v string) {
 }
 
 func (o PublicBusinessUnitLogoMetadata) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.LogoAltText != nil {
-		toSerialize["logoAltText"] = o.LogoAltText
-	}
-	if o.ResizedUrl != nil {
-		toSerialize["resizedUrl"] = o.ResizedUrl
-	}
-	if o.LogoUrl != nil {
-		toSerialize["logoUrl"] = o.LogoUrl
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PublicBusinessUnitLogoMetadata) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.LogoAltText) {
+		toSerialize["logoAltText"] = o.LogoAltText
+	}
+	if !IsNil(o.ResizedUrl) {
+		toSerialize["resizedUrl"] = o.ResizedUrl
+	}
+	if !IsNil(o.LogoUrl) {
+		toSerialize["logoUrl"] = o.LogoUrl
+	}
+	return toSerialize, nil
 }
 
 type NullablePublicBusinessUnitLogoMetadata struct {

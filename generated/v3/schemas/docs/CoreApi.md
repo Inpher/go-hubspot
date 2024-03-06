@@ -1,16 +1,16 @@
-# \CoreApi
+# \CoreAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteCrmV3SchemasObjectTypeArchive**](CoreApi.md#DeleteCrmV3SchemasObjectTypeArchive) | **Delete** /crm/v3/schemas/{objectType} | Delete a schema
-[**DeleteCrmV3SchemasObjectTypeAssociationsAssociationIdentifierArchiveAssociation**](CoreApi.md#DeleteCrmV3SchemasObjectTypeAssociationsAssociationIdentifierArchiveAssociation) | **Delete** /crm/v3/schemas/{objectType}/associations/{associationIdentifier} | Remove an association
-[**GetCrmV3SchemasGetAll**](CoreApi.md#GetCrmV3SchemasGetAll) | **Get** /crm/v3/schemas | Get all schemas
-[**GetCrmV3SchemasObjectTypeGetById**](CoreApi.md#GetCrmV3SchemasObjectTypeGetById) | **Get** /crm/v3/schemas/{objectType} | Get an existing schema
-[**PatchCrmV3SchemasObjectTypeUpdate**](CoreApi.md#PatchCrmV3SchemasObjectTypeUpdate) | **Patch** /crm/v3/schemas/{objectType} | Update a schema
-[**PostCrmV3SchemasCreate**](CoreApi.md#PostCrmV3SchemasCreate) | **Post** /crm/v3/schemas | Create a new schema
-[**PostCrmV3SchemasObjectTypeAssociationsCreateAssociation**](CoreApi.md#PostCrmV3SchemasObjectTypeAssociationsCreateAssociation) | **Post** /crm/v3/schemas/{objectType}/associations | Create an association
+[**DeleteCrmV3SchemasObjectTypeArchive**](CoreAPI.md#DeleteCrmV3SchemasObjectTypeArchive) | **Delete** /crm/v3/schemas/{objectType} | Delete a schema
+[**DeleteCrmV3SchemasObjectTypeAssociationsAssociationIdentifierArchiveAssociation**](CoreAPI.md#DeleteCrmV3SchemasObjectTypeAssociationsAssociationIdentifierArchiveAssociation) | **Delete** /crm/v3/schemas/{objectType}/associations/{associationIdentifier} | Remove an association
+[**GetCrmV3SchemasGetAll**](CoreAPI.md#GetCrmV3SchemasGetAll) | **Get** /crm/v3/schemas | Get all schemas
+[**GetCrmV3SchemasObjectTypeGetById**](CoreAPI.md#GetCrmV3SchemasObjectTypeGetById) | **Get** /crm/v3/schemas/{objectType} | Get an existing schema
+[**PatchCrmV3SchemasObjectTypeUpdate**](CoreAPI.md#PatchCrmV3SchemasObjectTypeUpdate) | **Patch** /crm/v3/schemas/{objectType} | Update a schema
+[**PostCrmV3SchemasCreate**](CoreAPI.md#PostCrmV3SchemasCreate) | **Post** /crm/v3/schemas | Create a new schema
+[**PostCrmV3SchemasObjectTypeAssociationsCreateAssociation**](CoreAPI.md#PostCrmV3SchemasObjectTypeAssociationsCreateAssociation) | **Post** /crm/v3/schemas/{objectType}/associations | Create an association
 
 
 
@@ -28,23 +28,23 @@ Delete a schema
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    objectType := "objectType_example" // string | Fully qualified name or object type ID of your schema.
-    archived := true // bool | Whether to return only results that have been archived. (optional) (default to false)
+	objectType := "objectType_example" // string | Fully qualified name or object type ID of your schema.
+	archived := true // bool | Whether to return only results that have been archived. (optional) (default to false)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CoreApi.DeleteCrmV3SchemasObjectTypeArchive(context.Background(), objectType).Archived(archived).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CoreApi.DeleteCrmV3SchemasObjectTypeArchive``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CoreAPI.DeleteCrmV3SchemasObjectTypeArchive(context.Background(), objectType).Archived(archived).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CoreAPI.DeleteCrmV3SchemasObjectTypeArchive``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -98,23 +98,23 @@ Remove an association
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    objectType := "objectType_example" // string | Fully qualified name or object type ID of your schema.
-    associationIdentifier := "associationIdentifier_example" // string | Unique ID of the association to remove.
+	objectType := "objectType_example" // string | Fully qualified name or object type ID of your schema.
+	associationIdentifier := "associationIdentifier_example" // string | Unique ID of the association to remove.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CoreApi.DeleteCrmV3SchemasObjectTypeAssociationsAssociationIdentifierArchiveAssociation(context.Background(), objectType, associationIdentifier).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CoreApi.DeleteCrmV3SchemasObjectTypeAssociationsAssociationIdentifierArchiveAssociation``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CoreAPI.DeleteCrmV3SchemasObjectTypeAssociationsAssociationIdentifierArchiveAssociation(context.Background(), objectType, associationIdentifier).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CoreAPI.DeleteCrmV3SchemasObjectTypeAssociationsAssociationIdentifierArchiveAssociation``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -169,24 +169,24 @@ Get all schemas
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    archived := true // bool | Whether to return only results that have been archived. (optional) (default to false)
+	archived := true // bool | Whether to return only results that have been archived. (optional) (default to false)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CoreApi.GetCrmV3SchemasGetAll(context.Background()).Archived(archived).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CoreApi.GetCrmV3SchemasGetAll``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetCrmV3SchemasGetAll`: CollectionResponseObjectSchemaNoPaging
-    fmt.Fprintf(os.Stdout, "Response from `CoreApi.GetCrmV3SchemasGetAll`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CoreAPI.GetCrmV3SchemasGetAll(context.Background()).Archived(archived).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CoreAPI.GetCrmV3SchemasGetAll``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetCrmV3SchemasGetAll`: CollectionResponseObjectSchemaNoPaging
+	fmt.Fprintf(os.Stdout, "Response from `CoreAPI.GetCrmV3SchemasGetAll`: %v\n", resp)
 }
 ```
 
@@ -235,24 +235,24 @@ Get an existing schema
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    objectType := "objectType_example" // string | Fully qualified name or object type ID of your schema.
+	objectType := "objectType_example" // string | Fully qualified name or object type ID of your schema.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CoreApi.GetCrmV3SchemasObjectTypeGetById(context.Background(), objectType).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CoreApi.GetCrmV3SchemasObjectTypeGetById``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetCrmV3SchemasObjectTypeGetById`: ObjectSchema
-    fmt.Fprintf(os.Stdout, "Response from `CoreApi.GetCrmV3SchemasObjectTypeGetById`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CoreAPI.GetCrmV3SchemasObjectTypeGetById(context.Background(), objectType).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CoreAPI.GetCrmV3SchemasObjectTypeGetById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetCrmV3SchemasObjectTypeGetById`: ObjectSchema
+	fmt.Fprintf(os.Stdout, "Response from `CoreAPI.GetCrmV3SchemasObjectTypeGetById`: %v\n", resp)
 }
 ```
 
@@ -305,25 +305,25 @@ Update a schema
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    objectType := "objectType_example" // string | Fully qualified name or object type ID of your schema.
-    objectTypeDefinitionPatch := *openapiclient.NewObjectTypeDefinitionPatch() // ObjectTypeDefinitionPatch | Attributes to update in your schema.
+	objectType := "objectType_example" // string | Fully qualified name or object type ID of your schema.
+	objectTypeDefinitionPatch := *openapiclient.NewObjectTypeDefinitionPatch() // ObjectTypeDefinitionPatch | Attributes to update in your schema.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CoreApi.PatchCrmV3SchemasObjectTypeUpdate(context.Background(), objectType).ObjectTypeDefinitionPatch(objectTypeDefinitionPatch).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CoreApi.PatchCrmV3SchemasObjectTypeUpdate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PatchCrmV3SchemasObjectTypeUpdate`: ObjectTypeDefinition
-    fmt.Fprintf(os.Stdout, "Response from `CoreApi.PatchCrmV3SchemasObjectTypeUpdate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CoreAPI.PatchCrmV3SchemasObjectTypeUpdate(context.Background(), objectType).ObjectTypeDefinitionPatch(objectTypeDefinitionPatch).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CoreAPI.PatchCrmV3SchemasObjectTypeUpdate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchCrmV3SchemasObjectTypeUpdate`: ObjectTypeDefinition
+	fmt.Fprintf(os.Stdout, "Response from `CoreAPI.PatchCrmV3SchemasObjectTypeUpdate`: %v\n", resp)
 }
 ```
 
@@ -377,24 +377,24 @@ Create a new schema
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    objectSchemaEgg := *openapiclient.NewObjectSchemaEgg([]string{"RequiredProperties_example"}, "my_object", []string{"AssociatedObjects_example"}, []openapiclient.ObjectTypePropertyCreate{*openapiclient.NewObjectTypePropertyCreate("My object property", "enumeration", "Name_example", "select")}, *openapiclient.NewObjectTypeDefinitionLabels()) // ObjectSchemaEgg | Object schema definition, including properties and associations.
+	objectSchemaEgg := *openapiclient.NewObjectSchemaEgg([]string{"RequiredProperties_example"}, "my_object", []string{"AssociatedObjects_example"}, []openapiclient.ObjectTypePropertyCreate{*openapiclient.NewObjectTypePropertyCreate("My object property", "enumeration", "Name_example", "select")}, *openapiclient.NewObjectTypeDefinitionLabels()) // ObjectSchemaEgg | Object schema definition, including properties and associations.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CoreApi.PostCrmV3SchemasCreate(context.Background()).ObjectSchemaEgg(objectSchemaEgg).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CoreApi.PostCrmV3SchemasCreate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostCrmV3SchemasCreate`: ObjectSchema
-    fmt.Fprintf(os.Stdout, "Response from `CoreApi.PostCrmV3SchemasCreate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CoreAPI.PostCrmV3SchemasCreate(context.Background()).ObjectSchemaEgg(objectSchemaEgg).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CoreAPI.PostCrmV3SchemasCreate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostCrmV3SchemasCreate`: ObjectSchema
+	fmt.Fprintf(os.Stdout, "Response from `CoreAPI.PostCrmV3SchemasCreate`: %v\n", resp)
 }
 ```
 
@@ -443,25 +443,25 @@ Create an association
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    objectType := "objectType_example" // string | Fully qualified name or object type ID of your schema.
-    associationDefinitionEgg := *openapiclient.NewAssociationDefinitionEgg("2-123456", "contact") // AssociationDefinitionEgg | Attributes that define the association.
+	objectType := "objectType_example" // string | Fully qualified name or object type ID of your schema.
+	associationDefinitionEgg := *openapiclient.NewAssociationDefinitionEgg("2-123456", "contact") // AssociationDefinitionEgg | Attributes that define the association.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CoreApi.PostCrmV3SchemasObjectTypeAssociationsCreateAssociation(context.Background(), objectType).AssociationDefinitionEgg(associationDefinitionEgg).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CoreApi.PostCrmV3SchemasObjectTypeAssociationsCreateAssociation``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostCrmV3SchemasObjectTypeAssociationsCreateAssociation`: AssociationDefinition
-    fmt.Fprintf(os.Stdout, "Response from `CoreApi.PostCrmV3SchemasObjectTypeAssociationsCreateAssociation`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CoreAPI.PostCrmV3SchemasObjectTypeAssociationsCreateAssociation(context.Background(), objectType).AssociationDefinitionEgg(associationDefinitionEgg).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CoreAPI.PostCrmV3SchemasObjectTypeAssociationsCreateAssociation``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostCrmV3SchemasObjectTypeAssociationsCreateAssociation`: AssociationDefinition
+	fmt.Fprintf(os.Stdout, "Response from `CoreAPI.PostCrmV3SchemasObjectTypeAssociationsCreateAssociation`: %v\n", resp)
 }
 ```
 

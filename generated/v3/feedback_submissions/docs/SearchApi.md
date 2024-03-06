@@ -1,10 +1,10 @@
-# \SearchApi
+# \SearchAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PostCrmV3ObjectsFeedbackSubmissionsSearchDoSearch**](SearchApi.md#PostCrmV3ObjectsFeedbackSubmissionsSearchDoSearch) | **Post** /crm/v3/objects/feedback_submissions/search | 
+[**PostCrmV3ObjectsFeedbackSubmissionsSearchDoSearch**](SearchAPI.md#PostCrmV3ObjectsFeedbackSubmissionsSearchDoSearch) | **Post** /crm/v3/objects/feedback_submissions/search | 
 
 
 
@@ -20,24 +20,24 @@ Method | HTTP request | Description
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    publicObjectSearchRequest := *openapiclient.NewPublicObjectSearchRequest(int32(123), "After_example", []string{"Sorts_example"}, []string{"Properties_example"}, []openapiclient.FilterGroup{*openapiclient.NewFilterGroup([]openapiclient.Filter{*openapiclient.NewFilter("PropertyName_example", "Operator_example")})}) // PublicObjectSearchRequest | 
+	publicObjectSearchRequest := *openapiclient.NewPublicObjectSearchRequest(int32(123), "After_example", []string{"Sorts_example"}, []string{"Properties_example"}, []openapiclient.FilterGroup{*openapiclient.NewFilterGroup([]openapiclient.Filter{*openapiclient.NewFilter("PropertyName_example", "Operator_example")})}) // PublicObjectSearchRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SearchApi.PostCrmV3ObjectsFeedbackSubmissionsSearchDoSearch(context.Background()).PublicObjectSearchRequest(publicObjectSearchRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SearchApi.PostCrmV3ObjectsFeedbackSubmissionsSearchDoSearch``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostCrmV3ObjectsFeedbackSubmissionsSearchDoSearch`: CollectionResponseWithTotalSimplePublicObjectForwardPaging
-    fmt.Fprintf(os.Stdout, "Response from `SearchApi.PostCrmV3ObjectsFeedbackSubmissionsSearchDoSearch`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SearchAPI.PostCrmV3ObjectsFeedbackSubmissionsSearchDoSearch(context.Background()).PublicObjectSearchRequest(publicObjectSearchRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SearchAPI.PostCrmV3ObjectsFeedbackSubmissionsSearchDoSearch``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostCrmV3ObjectsFeedbackSubmissionsSearchDoSearch`: CollectionResponseWithTotalSimplePublicObjectForwardPaging
+	fmt.Fprintf(os.Stdout, "Response from `SearchAPI.PostCrmV3ObjectsFeedbackSubmissionsSearchDoSearch`: %v\n", resp)
 }
 ```
 

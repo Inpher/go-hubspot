@@ -11,8 +11,13 @@ API version: v3
 package timeline
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the TimelineEventIFrame type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TimelineEventIFrame{}
 
 // TimelineEventIFrame struct for TimelineEventIFrame
 type TimelineEventIFrame struct {
@@ -27,6 +32,8 @@ type TimelineEventIFrame struct {
 	// The height of the modal window in pixels.
 	Height int32 `json:"height"`
 }
+
+type _TimelineEventIFrame TimelineEventIFrame
 
 // NewTimelineEventIFrame instantiates a new TimelineEventIFrame object
 // This constructor will assign default values to properties that have it defined,
@@ -171,23 +178,62 @@ func (o *TimelineEventIFrame) SetHeight(v int32) {
 }
 
 func (o TimelineEventIFrame) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["linkLabel"] = o.LinkLabel
-	}
-	if true {
-		toSerialize["headerLabel"] = o.HeaderLabel
-	}
-	if true {
-		toSerialize["width"] = o.Width
-	}
-	if true {
-		toSerialize["url"] = o.Url
-	}
-	if true {
-		toSerialize["height"] = o.Height
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o TimelineEventIFrame) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["linkLabel"] = o.LinkLabel
+	toSerialize["headerLabel"] = o.HeaderLabel
+	toSerialize["width"] = o.Width
+	toSerialize["url"] = o.Url
+	toSerialize["height"] = o.Height
+	return toSerialize, nil
+}
+
+func (o *TimelineEventIFrame) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"linkLabel",
+		"headerLabel",
+		"width",
+		"url",
+		"height",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varTimelineEventIFrame := _TimelineEventIFrame{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varTimelineEventIFrame)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TimelineEventIFrame(varTimelineEventIFrame)
+
+	return err
 }
 
 type NullableTimelineEventIFrame struct {

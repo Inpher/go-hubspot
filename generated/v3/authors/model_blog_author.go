@@ -11,9 +11,14 @@ API version: v3
 package authors
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the BlogAuthor type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BlogAuthor{}
 
 // BlogAuthor Model definition for a Blog Author.
 type BlogAuthor struct {
@@ -47,6 +52,8 @@ type BlogAuthor struct {
 	Email string `json:"email"`
 	Slug  string `json:"slug"`
 }
+
+type _BlogAuthor BlogAuthor
 
 // NewBlogAuthor instantiates a new BlogAuthor object
 // This constructor will assign default values to properties that have it defined,
@@ -491,59 +498,86 @@ func (o *BlogAuthor) SetSlug(v string) {
 }
 
 func (o BlogAuthor) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["website"] = o.Website
-	}
-	if true {
-		toSerialize["displayName"] = o.DisplayName
-	}
-	if true {
-		toSerialize["created"] = o.Created
-	}
-	if true {
-		toSerialize["facebook"] = o.Facebook
-	}
-	if true {
-		toSerialize["fullName"] = o.FullName
-	}
-	if true {
-		toSerialize["bio"] = o.Bio
-	}
-	if true {
-		toSerialize["language"] = o.Language
-	}
-	if true {
-		toSerialize["linkedin"] = o.Linkedin
-	}
-	if true {
-		toSerialize["avatar"] = o.Avatar
-	}
-	if true {
-		toSerialize["translatedFromId"] = o.TranslatedFromId
-	}
-	if true {
-		toSerialize["twitter"] = o.Twitter
-	}
-	if true {
-		toSerialize["deletedAt"] = o.DeletedAt
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["updated"] = o.Updated
-	}
-	if true {
-		toSerialize["email"] = o.Email
-	}
-	if true {
-		toSerialize["slug"] = o.Slug
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o BlogAuthor) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["website"] = o.Website
+	toSerialize["displayName"] = o.DisplayName
+	toSerialize["created"] = o.Created
+	toSerialize["facebook"] = o.Facebook
+	toSerialize["fullName"] = o.FullName
+	toSerialize["bio"] = o.Bio
+	toSerialize["language"] = o.Language
+	toSerialize["linkedin"] = o.Linkedin
+	toSerialize["avatar"] = o.Avatar
+	toSerialize["translatedFromId"] = o.TranslatedFromId
+	toSerialize["twitter"] = o.Twitter
+	toSerialize["deletedAt"] = o.DeletedAt
+	toSerialize["name"] = o.Name
+	toSerialize["id"] = o.Id
+	toSerialize["updated"] = o.Updated
+	toSerialize["email"] = o.Email
+	toSerialize["slug"] = o.Slug
+	return toSerialize, nil
+}
+
+func (o *BlogAuthor) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"website",
+		"displayName",
+		"created",
+		"facebook",
+		"fullName",
+		"bio",
+		"language",
+		"linkedin",
+		"avatar",
+		"translatedFromId",
+		"twitter",
+		"deletedAt",
+		"name",
+		"id",
+		"updated",
+		"email",
+		"slug",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varBlogAuthor := _BlogAuthor{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varBlogAuthor)
+
+	if err != nil {
+		return err
+	}
+
+	*o = BlogAuthor(varBlogAuthor)
+
+	return err
 }
 
 type NullableBlogAuthor struct {

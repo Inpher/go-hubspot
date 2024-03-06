@@ -11,8 +11,13 @@ API version: v4
 package actions
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the PublicSingleFieldDependency type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PublicSingleFieldDependency{}
 
 // PublicSingleFieldDependency struct for PublicSingleFieldDependency
 type PublicSingleFieldDependency struct {
@@ -20,6 +25,8 @@ type PublicSingleFieldDependency struct {
 	DependentFieldNames  []string `json:"dependentFieldNames"`
 	ControllingFieldName string   `json:"controllingFieldName"`
 }
+
+type _PublicSingleFieldDependency PublicSingleFieldDependency
 
 // NewPublicSingleFieldDependency instantiates a new PublicSingleFieldDependency object
 // This constructor will assign default values to properties that have it defined,
@@ -116,17 +123,58 @@ func (o *PublicSingleFieldDependency) SetControllingFieldName(v string) {
 }
 
 func (o PublicSingleFieldDependency) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["dependencyType"] = o.DependencyType
-	}
-	if true {
-		toSerialize["dependentFieldNames"] = o.DependentFieldNames
-	}
-	if true {
-		toSerialize["controllingFieldName"] = o.ControllingFieldName
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PublicSingleFieldDependency) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["dependencyType"] = o.DependencyType
+	toSerialize["dependentFieldNames"] = o.DependentFieldNames
+	toSerialize["controllingFieldName"] = o.ControllingFieldName
+	return toSerialize, nil
+}
+
+func (o *PublicSingleFieldDependency) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"dependencyType",
+		"dependentFieldNames",
+		"controllingFieldName",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPublicSingleFieldDependency := _PublicSingleFieldDependency{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPublicSingleFieldDependency)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PublicSingleFieldDependency(varPublicSingleFieldDependency)
+
+	return err
 }
 
 type NullablePublicSingleFieldDependency struct {

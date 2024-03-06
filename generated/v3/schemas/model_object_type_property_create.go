@@ -11,8 +11,13 @@ API version: v3
 package schemas
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ObjectTypePropertyCreate type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ObjectTypePropertyCreate{}
 
 // ObjectTypePropertyCreate Defines a property to create.
 type ObjectTypePropertyCreate struct {
@@ -51,6 +56,8 @@ type ObjectTypePropertyCreate struct {
 	FieldType string `json:"fieldType"`
 }
 
+type _ObjectTypePropertyCreate ObjectTypePropertyCreate
+
 // NewObjectTypePropertyCreate instantiates a new ObjectTypePropertyCreate object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
@@ -74,7 +81,7 @@ func NewObjectTypePropertyCreateWithDefaults() *ObjectTypePropertyCreate {
 
 // GetHidden returns the Hidden field value if set, zero value otherwise.
 func (o *ObjectTypePropertyCreate) GetHidden() bool {
-	if o == nil || o.Hidden == nil {
+	if o == nil || IsNil(o.Hidden) {
 		var ret bool
 		return ret
 	}
@@ -84,7 +91,7 @@ func (o *ObjectTypePropertyCreate) GetHidden() bool {
 // GetHiddenOk returns a tuple with the Hidden field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ObjectTypePropertyCreate) GetHiddenOk() (*bool, bool) {
-	if o == nil || o.Hidden == nil {
+	if o == nil || IsNil(o.Hidden) {
 		return nil, false
 	}
 	return o.Hidden, true
@@ -92,7 +99,7 @@ func (o *ObjectTypePropertyCreate) GetHiddenOk() (*bool, bool) {
 
 // HasHidden returns a boolean if a field has been set.
 func (o *ObjectTypePropertyCreate) HasHidden() bool {
-	if o != nil && o.Hidden != nil {
+	if o != nil && !IsNil(o.Hidden) {
 		return true
 	}
 
@@ -106,7 +113,7 @@ func (o *ObjectTypePropertyCreate) SetHidden(v bool) {
 
 // GetOptionSortStrategy returns the OptionSortStrategy field value if set, zero value otherwise.
 func (o *ObjectTypePropertyCreate) GetOptionSortStrategy() string {
-	if o == nil || o.OptionSortStrategy == nil {
+	if o == nil || IsNil(o.OptionSortStrategy) {
 		var ret string
 		return ret
 	}
@@ -116,7 +123,7 @@ func (o *ObjectTypePropertyCreate) GetOptionSortStrategy() string {
 // GetOptionSortStrategyOk returns a tuple with the OptionSortStrategy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ObjectTypePropertyCreate) GetOptionSortStrategyOk() (*string, bool) {
-	if o == nil || o.OptionSortStrategy == nil {
+	if o == nil || IsNil(o.OptionSortStrategy) {
 		return nil, false
 	}
 	return o.OptionSortStrategy, true
@@ -124,7 +131,7 @@ func (o *ObjectTypePropertyCreate) GetOptionSortStrategyOk() (*string, bool) {
 
 // HasOptionSortStrategy returns a boolean if a field has been set.
 func (o *ObjectTypePropertyCreate) HasOptionSortStrategy() bool {
-	if o != nil && o.OptionSortStrategy != nil {
+	if o != nil && !IsNil(o.OptionSortStrategy) {
 		return true
 	}
 
@@ -138,7 +145,7 @@ func (o *ObjectTypePropertyCreate) SetOptionSortStrategy(v string) {
 
 // GetDisplayOrder returns the DisplayOrder field value if set, zero value otherwise.
 func (o *ObjectTypePropertyCreate) GetDisplayOrder() int32 {
-	if o == nil || o.DisplayOrder == nil {
+	if o == nil || IsNil(o.DisplayOrder) {
 		var ret int32
 		return ret
 	}
@@ -148,7 +155,7 @@ func (o *ObjectTypePropertyCreate) GetDisplayOrder() int32 {
 // GetDisplayOrderOk returns a tuple with the DisplayOrder field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ObjectTypePropertyCreate) GetDisplayOrderOk() (*int32, bool) {
-	if o == nil || o.DisplayOrder == nil {
+	if o == nil || IsNil(o.DisplayOrder) {
 		return nil, false
 	}
 	return o.DisplayOrder, true
@@ -156,7 +163,7 @@ func (o *ObjectTypePropertyCreate) GetDisplayOrderOk() (*int32, bool) {
 
 // HasDisplayOrder returns a boolean if a field has been set.
 func (o *ObjectTypePropertyCreate) HasDisplayOrder() bool {
-	if o != nil && o.DisplayOrder != nil {
+	if o != nil && !IsNil(o.DisplayOrder) {
 		return true
 	}
 
@@ -170,7 +177,7 @@ func (o *ObjectTypePropertyCreate) SetDisplayOrder(v int32) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *ObjectTypePropertyCreate) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -180,7 +187,7 @@ func (o *ObjectTypePropertyCreate) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ObjectTypePropertyCreate) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -188,7 +195,7 @@ func (o *ObjectTypePropertyCreate) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *ObjectTypePropertyCreate) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -202,7 +209,7 @@ func (o *ObjectTypePropertyCreate) SetDescription(v string) {
 
 // GetShowCurrencySymbol returns the ShowCurrencySymbol field value if set, zero value otherwise.
 func (o *ObjectTypePropertyCreate) GetShowCurrencySymbol() bool {
-	if o == nil || o.ShowCurrencySymbol == nil {
+	if o == nil || IsNil(o.ShowCurrencySymbol) {
 		var ret bool
 		return ret
 	}
@@ -212,7 +219,7 @@ func (o *ObjectTypePropertyCreate) GetShowCurrencySymbol() bool {
 // GetShowCurrencySymbolOk returns a tuple with the ShowCurrencySymbol field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ObjectTypePropertyCreate) GetShowCurrencySymbolOk() (*bool, bool) {
-	if o == nil || o.ShowCurrencySymbol == nil {
+	if o == nil || IsNil(o.ShowCurrencySymbol) {
 		return nil, false
 	}
 	return o.ShowCurrencySymbol, true
@@ -220,7 +227,7 @@ func (o *ObjectTypePropertyCreate) GetShowCurrencySymbolOk() (*bool, bool) {
 
 // HasShowCurrencySymbol returns a boolean if a field has been set.
 func (o *ObjectTypePropertyCreate) HasShowCurrencySymbol() bool {
-	if o != nil && o.ShowCurrencySymbol != nil {
+	if o != nil && !IsNil(o.ShowCurrencySymbol) {
 		return true
 	}
 
@@ -282,7 +289,7 @@ func (o *ObjectTypePropertyCreate) SetType(v string) {
 
 // GetFormField returns the FormField field value if set, zero value otherwise.
 func (o *ObjectTypePropertyCreate) GetFormField() bool {
-	if o == nil || o.FormField == nil {
+	if o == nil || IsNil(o.FormField) {
 		var ret bool
 		return ret
 	}
@@ -292,7 +299,7 @@ func (o *ObjectTypePropertyCreate) GetFormField() bool {
 // GetFormFieldOk returns a tuple with the FormField field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ObjectTypePropertyCreate) GetFormFieldOk() (*bool, bool) {
-	if o == nil || o.FormField == nil {
+	if o == nil || IsNil(o.FormField) {
 		return nil, false
 	}
 	return o.FormField, true
@@ -300,7 +307,7 @@ func (o *ObjectTypePropertyCreate) GetFormFieldOk() (*bool, bool) {
 
 // HasFormField returns a boolean if a field has been set.
 func (o *ObjectTypePropertyCreate) HasFormField() bool {
-	if o != nil && o.FormField != nil {
+	if o != nil && !IsNil(o.FormField) {
 		return true
 	}
 
@@ -314,7 +321,7 @@ func (o *ObjectTypePropertyCreate) SetFormField(v bool) {
 
 // GetGroupName returns the GroupName field value if set, zero value otherwise.
 func (o *ObjectTypePropertyCreate) GetGroupName() string {
-	if o == nil || o.GroupName == nil {
+	if o == nil || IsNil(o.GroupName) {
 		var ret string
 		return ret
 	}
@@ -324,7 +331,7 @@ func (o *ObjectTypePropertyCreate) GetGroupName() string {
 // GetGroupNameOk returns a tuple with the GroupName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ObjectTypePropertyCreate) GetGroupNameOk() (*string, bool) {
-	if o == nil || o.GroupName == nil {
+	if o == nil || IsNil(o.GroupName) {
 		return nil, false
 	}
 	return o.GroupName, true
@@ -332,7 +339,7 @@ func (o *ObjectTypePropertyCreate) GetGroupNameOk() (*string, bool) {
 
 // HasGroupName returns a boolean if a field has been set.
 func (o *ObjectTypePropertyCreate) HasGroupName() bool {
-	if o != nil && o.GroupName != nil {
+	if o != nil && !IsNil(o.GroupName) {
 		return true
 	}
 
@@ -346,7 +353,7 @@ func (o *ObjectTypePropertyCreate) SetGroupName(v string) {
 
 // GetReferencedObjectType returns the ReferencedObjectType field value if set, zero value otherwise.
 func (o *ObjectTypePropertyCreate) GetReferencedObjectType() string {
-	if o == nil || o.ReferencedObjectType == nil {
+	if o == nil || IsNil(o.ReferencedObjectType) {
 		var ret string
 		return ret
 	}
@@ -356,7 +363,7 @@ func (o *ObjectTypePropertyCreate) GetReferencedObjectType() string {
 // GetReferencedObjectTypeOk returns a tuple with the ReferencedObjectType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ObjectTypePropertyCreate) GetReferencedObjectTypeOk() (*string, bool) {
-	if o == nil || o.ReferencedObjectType == nil {
+	if o == nil || IsNil(o.ReferencedObjectType) {
 		return nil, false
 	}
 	return o.ReferencedObjectType, true
@@ -364,7 +371,7 @@ func (o *ObjectTypePropertyCreate) GetReferencedObjectTypeOk() (*string, bool) {
 
 // HasReferencedObjectType returns a boolean if a field has been set.
 func (o *ObjectTypePropertyCreate) HasReferencedObjectType() bool {
-	if o != nil && o.ReferencedObjectType != nil {
+	if o != nil && !IsNil(o.ReferencedObjectType) {
 		return true
 	}
 
@@ -378,7 +385,7 @@ func (o *ObjectTypePropertyCreate) SetReferencedObjectType(v string) {
 
 // GetTextDisplayHint returns the TextDisplayHint field value if set, zero value otherwise.
 func (o *ObjectTypePropertyCreate) GetTextDisplayHint() string {
-	if o == nil || o.TextDisplayHint == nil {
+	if o == nil || IsNil(o.TextDisplayHint) {
 		var ret string
 		return ret
 	}
@@ -388,7 +395,7 @@ func (o *ObjectTypePropertyCreate) GetTextDisplayHint() string {
 // GetTextDisplayHintOk returns a tuple with the TextDisplayHint field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ObjectTypePropertyCreate) GetTextDisplayHintOk() (*string, bool) {
-	if o == nil || o.TextDisplayHint == nil {
+	if o == nil || IsNil(o.TextDisplayHint) {
 		return nil, false
 	}
 	return o.TextDisplayHint, true
@@ -396,7 +403,7 @@ func (o *ObjectTypePropertyCreate) GetTextDisplayHintOk() (*string, bool) {
 
 // HasTextDisplayHint returns a boolean if a field has been set.
 func (o *ObjectTypePropertyCreate) HasTextDisplayHint() bool {
-	if o != nil && o.TextDisplayHint != nil {
+	if o != nil && !IsNil(o.TextDisplayHint) {
 		return true
 	}
 
@@ -434,7 +441,7 @@ func (o *ObjectTypePropertyCreate) SetName(v string) {
 
 // GetOptions returns the Options field value if set, zero value otherwise.
 func (o *ObjectTypePropertyCreate) GetOptions() []OptionInput {
-	if o == nil || o.Options == nil {
+	if o == nil || IsNil(o.Options) {
 		var ret []OptionInput
 		return ret
 	}
@@ -444,7 +451,7 @@ func (o *ObjectTypePropertyCreate) GetOptions() []OptionInput {
 // GetOptionsOk returns a tuple with the Options field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ObjectTypePropertyCreate) GetOptionsOk() ([]OptionInput, bool) {
-	if o == nil || o.Options == nil {
+	if o == nil || IsNil(o.Options) {
 		return nil, false
 	}
 	return o.Options, true
@@ -452,7 +459,7 @@ func (o *ObjectTypePropertyCreate) GetOptionsOk() ([]OptionInput, bool) {
 
 // HasOptions returns a boolean if a field has been set.
 func (o *ObjectTypePropertyCreate) HasOptions() bool {
-	if o != nil && o.Options != nil {
+	if o != nil && !IsNil(o.Options) {
 		return true
 	}
 
@@ -466,7 +473,7 @@ func (o *ObjectTypePropertyCreate) SetOptions(v []OptionInput) {
 
 // GetSearchableInGlobalSearch returns the SearchableInGlobalSearch field value if set, zero value otherwise.
 func (o *ObjectTypePropertyCreate) GetSearchableInGlobalSearch() bool {
-	if o == nil || o.SearchableInGlobalSearch == nil {
+	if o == nil || IsNil(o.SearchableInGlobalSearch) {
 		var ret bool
 		return ret
 	}
@@ -476,7 +483,7 @@ func (o *ObjectTypePropertyCreate) GetSearchableInGlobalSearch() bool {
 // GetSearchableInGlobalSearchOk returns a tuple with the SearchableInGlobalSearch field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ObjectTypePropertyCreate) GetSearchableInGlobalSearchOk() (*bool, bool) {
-	if o == nil || o.SearchableInGlobalSearch == nil {
+	if o == nil || IsNil(o.SearchableInGlobalSearch) {
 		return nil, false
 	}
 	return o.SearchableInGlobalSearch, true
@@ -484,7 +491,7 @@ func (o *ObjectTypePropertyCreate) GetSearchableInGlobalSearchOk() (*bool, bool)
 
 // HasSearchableInGlobalSearch returns a boolean if a field has been set.
 func (o *ObjectTypePropertyCreate) HasSearchableInGlobalSearch() bool {
-	if o != nil && o.SearchableInGlobalSearch != nil {
+	if o != nil && !IsNil(o.SearchableInGlobalSearch) {
 		return true
 	}
 
@@ -498,7 +505,7 @@ func (o *ObjectTypePropertyCreate) SetSearchableInGlobalSearch(v bool) {
 
 // GetNumberDisplayHint returns the NumberDisplayHint field value if set, zero value otherwise.
 func (o *ObjectTypePropertyCreate) GetNumberDisplayHint() string {
-	if o == nil || o.NumberDisplayHint == nil {
+	if o == nil || IsNil(o.NumberDisplayHint) {
 		var ret string
 		return ret
 	}
@@ -508,7 +515,7 @@ func (o *ObjectTypePropertyCreate) GetNumberDisplayHint() string {
 // GetNumberDisplayHintOk returns a tuple with the NumberDisplayHint field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ObjectTypePropertyCreate) GetNumberDisplayHintOk() (*string, bool) {
-	if o == nil || o.NumberDisplayHint == nil {
+	if o == nil || IsNil(o.NumberDisplayHint) {
 		return nil, false
 	}
 	return o.NumberDisplayHint, true
@@ -516,7 +523,7 @@ func (o *ObjectTypePropertyCreate) GetNumberDisplayHintOk() (*string, bool) {
 
 // HasNumberDisplayHint returns a boolean if a field has been set.
 func (o *ObjectTypePropertyCreate) HasNumberDisplayHint() bool {
-	if o != nil && o.NumberDisplayHint != nil {
+	if o != nil && !IsNil(o.NumberDisplayHint) {
 		return true
 	}
 
@@ -530,7 +537,7 @@ func (o *ObjectTypePropertyCreate) SetNumberDisplayHint(v string) {
 
 // GetHasUniqueValue returns the HasUniqueValue field value if set, zero value otherwise.
 func (o *ObjectTypePropertyCreate) GetHasUniqueValue() bool {
-	if o == nil || o.HasUniqueValue == nil {
+	if o == nil || IsNil(o.HasUniqueValue) {
 		var ret bool
 		return ret
 	}
@@ -540,7 +547,7 @@ func (o *ObjectTypePropertyCreate) GetHasUniqueValue() bool {
 // GetHasUniqueValueOk returns a tuple with the HasUniqueValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ObjectTypePropertyCreate) GetHasUniqueValueOk() (*bool, bool) {
-	if o == nil || o.HasUniqueValue == nil {
+	if o == nil || IsNil(o.HasUniqueValue) {
 		return nil, false
 	}
 	return o.HasUniqueValue, true
@@ -548,7 +555,7 @@ func (o *ObjectTypePropertyCreate) GetHasUniqueValueOk() (*bool, bool) {
 
 // HasHasUniqueValue returns a boolean if a field has been set.
 func (o *ObjectTypePropertyCreate) HasHasUniqueValue() bool {
-	if o != nil && o.HasUniqueValue != nil {
+	if o != nil && !IsNil(o.HasUniqueValue) {
 		return true
 	}
 
@@ -585,59 +592,99 @@ func (o *ObjectTypePropertyCreate) SetFieldType(v string) {
 }
 
 func (o ObjectTypePropertyCreate) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Hidden != nil {
-		toSerialize["hidden"] = o.Hidden
-	}
-	if o.OptionSortStrategy != nil {
-		toSerialize["optionSortStrategy"] = o.OptionSortStrategy
-	}
-	if o.DisplayOrder != nil {
-		toSerialize["displayOrder"] = o.DisplayOrder
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.ShowCurrencySymbol != nil {
-		toSerialize["showCurrencySymbol"] = o.ShowCurrencySymbol
-	}
-	if true {
-		toSerialize["label"] = o.Label
-	}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if o.FormField != nil {
-		toSerialize["formField"] = o.FormField
-	}
-	if o.GroupName != nil {
-		toSerialize["groupName"] = o.GroupName
-	}
-	if o.ReferencedObjectType != nil {
-		toSerialize["referencedObjectType"] = o.ReferencedObjectType
-	}
-	if o.TextDisplayHint != nil {
-		toSerialize["textDisplayHint"] = o.TextDisplayHint
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Options != nil {
-		toSerialize["options"] = o.Options
-	}
-	if o.SearchableInGlobalSearch != nil {
-		toSerialize["searchableInGlobalSearch"] = o.SearchableInGlobalSearch
-	}
-	if o.NumberDisplayHint != nil {
-		toSerialize["numberDisplayHint"] = o.NumberDisplayHint
-	}
-	if o.HasUniqueValue != nil {
-		toSerialize["hasUniqueValue"] = o.HasUniqueValue
-	}
-	if true {
-		toSerialize["fieldType"] = o.FieldType
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ObjectTypePropertyCreate) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Hidden) {
+		toSerialize["hidden"] = o.Hidden
+	}
+	if !IsNil(o.OptionSortStrategy) {
+		toSerialize["optionSortStrategy"] = o.OptionSortStrategy
+	}
+	if !IsNil(o.DisplayOrder) {
+		toSerialize["displayOrder"] = o.DisplayOrder
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.ShowCurrencySymbol) {
+		toSerialize["showCurrencySymbol"] = o.ShowCurrencySymbol
+	}
+	toSerialize["label"] = o.Label
+	toSerialize["type"] = o.Type
+	if !IsNil(o.FormField) {
+		toSerialize["formField"] = o.FormField
+	}
+	if !IsNil(o.GroupName) {
+		toSerialize["groupName"] = o.GroupName
+	}
+	if !IsNil(o.ReferencedObjectType) {
+		toSerialize["referencedObjectType"] = o.ReferencedObjectType
+	}
+	if !IsNil(o.TextDisplayHint) {
+		toSerialize["textDisplayHint"] = o.TextDisplayHint
+	}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Options) {
+		toSerialize["options"] = o.Options
+	}
+	if !IsNil(o.SearchableInGlobalSearch) {
+		toSerialize["searchableInGlobalSearch"] = o.SearchableInGlobalSearch
+	}
+	if !IsNil(o.NumberDisplayHint) {
+		toSerialize["numberDisplayHint"] = o.NumberDisplayHint
+	}
+	if !IsNil(o.HasUniqueValue) {
+		toSerialize["hasUniqueValue"] = o.HasUniqueValue
+	}
+	toSerialize["fieldType"] = o.FieldType
+	return toSerialize, nil
+}
+
+func (o *ObjectTypePropertyCreate) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"label",
+		"type",
+		"name",
+		"fieldType",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varObjectTypePropertyCreate := _ObjectTypePropertyCreate{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varObjectTypePropertyCreate)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ObjectTypePropertyCreate(varObjectTypePropertyCreate)
+
+	return err
 }
 
 type NullableObjectTypePropertyCreate struct {

@@ -11,8 +11,13 @@ API version: v3
 package calling
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the SettingsRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SettingsRequest{}
 
 // SettingsRequest Settings create request
 type SettingsRequest struct {
@@ -29,6 +34,8 @@ type SettingsRequest struct {
 	// The target height of the iframe that will contain your phone/calling UI.
 	Height *int32 `json:"height,omitempty"`
 }
+
+type _SettingsRequest SettingsRequest
 
 // NewSettingsRequest instantiates a new SettingsRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -51,7 +58,7 @@ func NewSettingsRequestWithDefaults() *SettingsRequest {
 
 // GetSupportsCustomObjects returns the SupportsCustomObjects field value if set, zero value otherwise.
 func (o *SettingsRequest) GetSupportsCustomObjects() bool {
-	if o == nil || o.SupportsCustomObjects == nil {
+	if o == nil || IsNil(o.SupportsCustomObjects) {
 		var ret bool
 		return ret
 	}
@@ -61,7 +68,7 @@ func (o *SettingsRequest) GetSupportsCustomObjects() bool {
 // GetSupportsCustomObjectsOk returns a tuple with the SupportsCustomObjects field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SettingsRequest) GetSupportsCustomObjectsOk() (*bool, bool) {
-	if o == nil || o.SupportsCustomObjects == nil {
+	if o == nil || IsNil(o.SupportsCustomObjects) {
 		return nil, false
 	}
 	return o.SupportsCustomObjects, true
@@ -69,7 +76,7 @@ func (o *SettingsRequest) GetSupportsCustomObjectsOk() (*bool, bool) {
 
 // HasSupportsCustomObjects returns a boolean if a field has been set.
 func (o *SettingsRequest) HasSupportsCustomObjects() bool {
-	if o != nil && o.SupportsCustomObjects != nil {
+	if o != nil && !IsNil(o.SupportsCustomObjects) {
 		return true
 	}
 
@@ -83,7 +90,7 @@ func (o *SettingsRequest) SetSupportsCustomObjects(v bool) {
 
 // GetIsReady returns the IsReady field value if set, zero value otherwise.
 func (o *SettingsRequest) GetIsReady() bool {
-	if o == nil || o.IsReady == nil {
+	if o == nil || IsNil(o.IsReady) {
 		var ret bool
 		return ret
 	}
@@ -93,7 +100,7 @@ func (o *SettingsRequest) GetIsReady() bool {
 // GetIsReadyOk returns a tuple with the IsReady field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SettingsRequest) GetIsReadyOk() (*bool, bool) {
-	if o == nil || o.IsReady == nil {
+	if o == nil || IsNil(o.IsReady) {
 		return nil, false
 	}
 	return o.IsReady, true
@@ -101,7 +108,7 @@ func (o *SettingsRequest) GetIsReadyOk() (*bool, bool) {
 
 // HasIsReady returns a boolean if a field has been set.
 func (o *SettingsRequest) HasIsReady() bool {
-	if o != nil && o.IsReady != nil {
+	if o != nil && !IsNil(o.IsReady) {
 		return true
 	}
 
@@ -139,7 +146,7 @@ func (o *SettingsRequest) SetName(v string) {
 
 // GetWidth returns the Width field value if set, zero value otherwise.
 func (o *SettingsRequest) GetWidth() int32 {
-	if o == nil || o.Width == nil {
+	if o == nil || IsNil(o.Width) {
 		var ret int32
 		return ret
 	}
@@ -149,7 +156,7 @@ func (o *SettingsRequest) GetWidth() int32 {
 // GetWidthOk returns a tuple with the Width field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SettingsRequest) GetWidthOk() (*int32, bool) {
-	if o == nil || o.Width == nil {
+	if o == nil || IsNil(o.Width) {
 		return nil, false
 	}
 	return o.Width, true
@@ -157,7 +164,7 @@ func (o *SettingsRequest) GetWidthOk() (*int32, bool) {
 
 // HasWidth returns a boolean if a field has been set.
 func (o *SettingsRequest) HasWidth() bool {
-	if o != nil && o.Width != nil {
+	if o != nil && !IsNil(o.Width) {
 		return true
 	}
 
@@ -195,7 +202,7 @@ func (o *SettingsRequest) SetUrl(v string) {
 
 // GetHeight returns the Height field value if set, zero value otherwise.
 func (o *SettingsRequest) GetHeight() int32 {
-	if o == nil || o.Height == nil {
+	if o == nil || IsNil(o.Height) {
 		var ret int32
 		return ret
 	}
@@ -205,7 +212,7 @@ func (o *SettingsRequest) GetHeight() int32 {
 // GetHeightOk returns a tuple with the Height field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SettingsRequest) GetHeightOk() (*int32, bool) {
-	if o == nil || o.Height == nil {
+	if o == nil || IsNil(o.Height) {
 		return nil, false
 	}
 	return o.Height, true
@@ -213,7 +220,7 @@ func (o *SettingsRequest) GetHeightOk() (*int32, bool) {
 
 // HasHeight returns a boolean if a field has been set.
 func (o *SettingsRequest) HasHeight() bool {
-	if o != nil && o.Height != nil {
+	if o != nil && !IsNil(o.Height) {
 		return true
 	}
 
@@ -226,26 +233,68 @@ func (o *SettingsRequest) SetHeight(v int32) {
 }
 
 func (o SettingsRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.SupportsCustomObjects != nil {
-		toSerialize["supportsCustomObjects"] = o.SupportsCustomObjects
-	}
-	if o.IsReady != nil {
-		toSerialize["isReady"] = o.IsReady
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Width != nil {
-		toSerialize["width"] = o.Width
-	}
-	if true {
-		toSerialize["url"] = o.Url
-	}
-	if o.Height != nil {
-		toSerialize["height"] = o.Height
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SettingsRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.SupportsCustomObjects) {
+		toSerialize["supportsCustomObjects"] = o.SupportsCustomObjects
+	}
+	if !IsNil(o.IsReady) {
+		toSerialize["isReady"] = o.IsReady
+	}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Width) {
+		toSerialize["width"] = o.Width
+	}
+	toSerialize["url"] = o.Url
+	if !IsNil(o.Height) {
+		toSerialize["height"] = o.Height
+	}
+	return toSerialize, nil
+}
+
+func (o *SettingsRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"url",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSettingsRequest := _SettingsRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varSettingsRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SettingsRequest(varSettingsRequest)
+
+	return err
 }
 
 type NullableSettingsRequest struct {

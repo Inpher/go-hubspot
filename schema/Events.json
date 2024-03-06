@@ -16,7 +16,7 @@
       "name" : "Web Analytics Guide",
       "url" : "https://hubspot.dev/guides/api/events/web-analytics"
     } ],
-    "x-hubspot-introduction" : "Use the web analytics API to fetch events associated with CRM records of any type. This includes standard events, such as website page views and email opens, as well as custom behavioral events."
+    "x-hubspot-introduction" : "Use the web analytics API to fetch events associated with CRM records of any type. This includes standard events, such as website page views and email opens, as well as custom events."
   },
   "servers" : [ {
     "url" : "https://api.hubapi.com"

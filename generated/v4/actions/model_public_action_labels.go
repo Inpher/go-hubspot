@@ -11,8 +11,13 @@ API version: v4
 package actions
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the PublicActionLabels type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PublicActionLabels{}
 
 // PublicActionLabels struct for PublicActionLabels
 type PublicActionLabels struct {
@@ -26,6 +31,8 @@ type PublicActionLabels struct {
 	ActionName             string                        `json:"actionName"`
 	ActionCardContent      *string                       `json:"actionCardContent,omitempty"`
 }
+
+type _PublicActionLabels PublicActionLabels
 
 // NewPublicActionLabels instantiates a new PublicActionLabels object
 // This constructor will assign default values to properties that have it defined,
@@ -47,7 +54,7 @@ func NewPublicActionLabelsWithDefaults() *PublicActionLabels {
 
 // GetInputFieldDescriptions returns the InputFieldDescriptions field value if set, zero value otherwise.
 func (o *PublicActionLabels) GetInputFieldDescriptions() map[string]string {
-	if o == nil || o.InputFieldDescriptions == nil {
+	if o == nil || IsNil(o.InputFieldDescriptions) {
 		var ret map[string]string
 		return ret
 	}
@@ -57,7 +64,7 @@ func (o *PublicActionLabels) GetInputFieldDescriptions() map[string]string {
 // GetInputFieldDescriptionsOk returns a tuple with the InputFieldDescriptions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicActionLabels) GetInputFieldDescriptionsOk() (*map[string]string, bool) {
-	if o == nil || o.InputFieldDescriptions == nil {
+	if o == nil || IsNil(o.InputFieldDescriptions) {
 		return nil, false
 	}
 	return o.InputFieldDescriptions, true
@@ -65,7 +72,7 @@ func (o *PublicActionLabels) GetInputFieldDescriptionsOk() (*map[string]string, 
 
 // HasInputFieldDescriptions returns a boolean if a field has been set.
 func (o *PublicActionLabels) HasInputFieldDescriptions() bool {
-	if o != nil && o.InputFieldDescriptions != nil {
+	if o != nil && !IsNil(o.InputFieldDescriptions) {
 		return true
 	}
 
@@ -79,7 +86,7 @@ func (o *PublicActionLabels) SetInputFieldDescriptions(v map[string]string) {
 
 // GetAppDisplayName returns the AppDisplayName field value if set, zero value otherwise.
 func (o *PublicActionLabels) GetAppDisplayName() string {
-	if o == nil || o.AppDisplayName == nil {
+	if o == nil || IsNil(o.AppDisplayName) {
 		var ret string
 		return ret
 	}
@@ -89,7 +96,7 @@ func (o *PublicActionLabels) GetAppDisplayName() string {
 // GetAppDisplayNameOk returns a tuple with the AppDisplayName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicActionLabels) GetAppDisplayNameOk() (*string, bool) {
-	if o == nil || o.AppDisplayName == nil {
+	if o == nil || IsNil(o.AppDisplayName) {
 		return nil, false
 	}
 	return o.AppDisplayName, true
@@ -97,7 +104,7 @@ func (o *PublicActionLabels) GetAppDisplayNameOk() (*string, bool) {
 
 // HasAppDisplayName returns a boolean if a field has been set.
 func (o *PublicActionLabels) HasAppDisplayName() bool {
-	if o != nil && o.AppDisplayName != nil {
+	if o != nil && !IsNil(o.AppDisplayName) {
 		return true
 	}
 
@@ -111,7 +118,7 @@ func (o *PublicActionLabels) SetAppDisplayName(v string) {
 
 // GetOutputFieldLabels returns the OutputFieldLabels field value if set, zero value otherwise.
 func (o *PublicActionLabels) GetOutputFieldLabels() map[string]string {
-	if o == nil || o.OutputFieldLabels == nil {
+	if o == nil || IsNil(o.OutputFieldLabels) {
 		var ret map[string]string
 		return ret
 	}
@@ -121,7 +128,7 @@ func (o *PublicActionLabels) GetOutputFieldLabels() map[string]string {
 // GetOutputFieldLabelsOk returns a tuple with the OutputFieldLabels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicActionLabels) GetOutputFieldLabelsOk() (*map[string]string, bool) {
-	if o == nil || o.OutputFieldLabels == nil {
+	if o == nil || IsNil(o.OutputFieldLabels) {
 		return nil, false
 	}
 	return o.OutputFieldLabels, true
@@ -129,7 +136,7 @@ func (o *PublicActionLabels) GetOutputFieldLabelsOk() (*map[string]string, bool)
 
 // HasOutputFieldLabels returns a boolean if a field has been set.
 func (o *PublicActionLabels) HasOutputFieldLabels() bool {
-	if o != nil && o.OutputFieldLabels != nil {
+	if o != nil && !IsNil(o.OutputFieldLabels) {
 		return true
 	}
 
@@ -143,7 +150,7 @@ func (o *PublicActionLabels) SetOutputFieldLabels(v map[string]string) {
 
 // GetInputFieldOptionLabels returns the InputFieldOptionLabels field value if set, zero value otherwise.
 func (o *PublicActionLabels) GetInputFieldOptionLabels() map[string]map[string]string {
-	if o == nil || o.InputFieldOptionLabels == nil {
+	if o == nil || IsNil(o.InputFieldOptionLabels) {
 		var ret map[string]map[string]string
 		return ret
 	}
@@ -153,7 +160,7 @@ func (o *PublicActionLabels) GetInputFieldOptionLabels() map[string]map[string]s
 // GetInputFieldOptionLabelsOk returns a tuple with the InputFieldOptionLabels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicActionLabels) GetInputFieldOptionLabelsOk() (*map[string]map[string]string, bool) {
-	if o == nil || o.InputFieldOptionLabels == nil {
+	if o == nil || IsNil(o.InputFieldOptionLabels) {
 		return nil, false
 	}
 	return o.InputFieldOptionLabels, true
@@ -161,7 +168,7 @@ func (o *PublicActionLabels) GetInputFieldOptionLabelsOk() (*map[string]map[stri
 
 // HasInputFieldOptionLabels returns a boolean if a field has been set.
 func (o *PublicActionLabels) HasInputFieldOptionLabels() bool {
-	if o != nil && o.InputFieldOptionLabels != nil {
+	if o != nil && !IsNil(o.InputFieldOptionLabels) {
 		return true
 	}
 
@@ -175,7 +182,7 @@ func (o *PublicActionLabels) SetInputFieldOptionLabels(v map[string]map[string]s
 
 // GetActionDescription returns the ActionDescription field value if set, zero value otherwise.
 func (o *PublicActionLabels) GetActionDescription() string {
-	if o == nil || o.ActionDescription == nil {
+	if o == nil || IsNil(o.ActionDescription) {
 		var ret string
 		return ret
 	}
@@ -185,7 +192,7 @@ func (o *PublicActionLabels) GetActionDescription() string {
 // GetActionDescriptionOk returns a tuple with the ActionDescription field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicActionLabels) GetActionDescriptionOk() (*string, bool) {
-	if o == nil || o.ActionDescription == nil {
+	if o == nil || IsNil(o.ActionDescription) {
 		return nil, false
 	}
 	return o.ActionDescription, true
@@ -193,7 +200,7 @@ func (o *PublicActionLabels) GetActionDescriptionOk() (*string, bool) {
 
 // HasActionDescription returns a boolean if a field has been set.
 func (o *PublicActionLabels) HasActionDescription() bool {
-	if o != nil && o.ActionDescription != nil {
+	if o != nil && !IsNil(o.ActionDescription) {
 		return true
 	}
 
@@ -207,7 +214,7 @@ func (o *PublicActionLabels) SetActionDescription(v string) {
 
 // GetExecutionRules returns the ExecutionRules field value if set, zero value otherwise.
 func (o *PublicActionLabels) GetExecutionRules() map[string]string {
-	if o == nil || o.ExecutionRules == nil {
+	if o == nil || IsNil(o.ExecutionRules) {
 		var ret map[string]string
 		return ret
 	}
@@ -217,7 +224,7 @@ func (o *PublicActionLabels) GetExecutionRules() map[string]string {
 // GetExecutionRulesOk returns a tuple with the ExecutionRules field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicActionLabels) GetExecutionRulesOk() (*map[string]string, bool) {
-	if o == nil || o.ExecutionRules == nil {
+	if o == nil || IsNil(o.ExecutionRules) {
 		return nil, false
 	}
 	return o.ExecutionRules, true
@@ -225,7 +232,7 @@ func (o *PublicActionLabels) GetExecutionRulesOk() (*map[string]string, bool) {
 
 // HasExecutionRules returns a boolean if a field has been set.
 func (o *PublicActionLabels) HasExecutionRules() bool {
-	if o != nil && o.ExecutionRules != nil {
+	if o != nil && !IsNil(o.ExecutionRules) {
 		return true
 	}
 
@@ -239,7 +246,7 @@ func (o *PublicActionLabels) SetExecutionRules(v map[string]string) {
 
 // GetInputFieldLabels returns the InputFieldLabels field value if set, zero value otherwise.
 func (o *PublicActionLabels) GetInputFieldLabels() map[string]string {
-	if o == nil || o.InputFieldLabels == nil {
+	if o == nil || IsNil(o.InputFieldLabels) {
 		var ret map[string]string
 		return ret
 	}
@@ -249,7 +256,7 @@ func (o *PublicActionLabels) GetInputFieldLabels() map[string]string {
 // GetInputFieldLabelsOk returns a tuple with the InputFieldLabels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicActionLabels) GetInputFieldLabelsOk() (*map[string]string, bool) {
-	if o == nil || o.InputFieldLabels == nil {
+	if o == nil || IsNil(o.InputFieldLabels) {
 		return nil, false
 	}
 	return o.InputFieldLabels, true
@@ -257,7 +264,7 @@ func (o *PublicActionLabels) GetInputFieldLabelsOk() (*map[string]string, bool) 
 
 // HasInputFieldLabels returns a boolean if a field has been set.
 func (o *PublicActionLabels) HasInputFieldLabels() bool {
-	if o != nil && o.InputFieldLabels != nil {
+	if o != nil && !IsNil(o.InputFieldLabels) {
 		return true
 	}
 
@@ -295,7 +302,7 @@ func (o *PublicActionLabels) SetActionName(v string) {
 
 // GetActionCardContent returns the ActionCardContent field value if set, zero value otherwise.
 func (o *PublicActionLabels) GetActionCardContent() string {
-	if o == nil || o.ActionCardContent == nil {
+	if o == nil || IsNil(o.ActionCardContent) {
 		var ret string
 		return ret
 	}
@@ -305,7 +312,7 @@ func (o *PublicActionLabels) GetActionCardContent() string {
 // GetActionCardContentOk returns a tuple with the ActionCardContent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicActionLabels) GetActionCardContentOk() (*string, bool) {
-	if o == nil || o.ActionCardContent == nil {
+	if o == nil || IsNil(o.ActionCardContent) {
 		return nil, false
 	}
 	return o.ActionCardContent, true
@@ -313,7 +320,7 @@ func (o *PublicActionLabels) GetActionCardContentOk() (*string, bool) {
 
 // HasActionCardContent returns a boolean if a field has been set.
 func (o *PublicActionLabels) HasActionCardContent() bool {
-	if o != nil && o.ActionCardContent != nil {
+	if o != nil && !IsNil(o.ActionCardContent) {
 		return true
 	}
 
@@ -326,35 +333,78 @@ func (o *PublicActionLabels) SetActionCardContent(v string) {
 }
 
 func (o PublicActionLabels) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.InputFieldDescriptions != nil {
-		toSerialize["inputFieldDescriptions"] = o.InputFieldDescriptions
-	}
-	if o.AppDisplayName != nil {
-		toSerialize["appDisplayName"] = o.AppDisplayName
-	}
-	if o.OutputFieldLabels != nil {
-		toSerialize["outputFieldLabels"] = o.OutputFieldLabels
-	}
-	if o.InputFieldOptionLabels != nil {
-		toSerialize["inputFieldOptionLabels"] = o.InputFieldOptionLabels
-	}
-	if o.ActionDescription != nil {
-		toSerialize["actionDescription"] = o.ActionDescription
-	}
-	if o.ExecutionRules != nil {
-		toSerialize["executionRules"] = o.ExecutionRules
-	}
-	if o.InputFieldLabels != nil {
-		toSerialize["inputFieldLabels"] = o.InputFieldLabels
-	}
-	if true {
-		toSerialize["actionName"] = o.ActionName
-	}
-	if o.ActionCardContent != nil {
-		toSerialize["actionCardContent"] = o.ActionCardContent
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PublicActionLabels) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.InputFieldDescriptions) {
+		toSerialize["inputFieldDescriptions"] = o.InputFieldDescriptions
+	}
+	if !IsNil(o.AppDisplayName) {
+		toSerialize["appDisplayName"] = o.AppDisplayName
+	}
+	if !IsNil(o.OutputFieldLabels) {
+		toSerialize["outputFieldLabels"] = o.OutputFieldLabels
+	}
+	if !IsNil(o.InputFieldOptionLabels) {
+		toSerialize["inputFieldOptionLabels"] = o.InputFieldOptionLabels
+	}
+	if !IsNil(o.ActionDescription) {
+		toSerialize["actionDescription"] = o.ActionDescription
+	}
+	if !IsNil(o.ExecutionRules) {
+		toSerialize["executionRules"] = o.ExecutionRules
+	}
+	if !IsNil(o.InputFieldLabels) {
+		toSerialize["inputFieldLabels"] = o.InputFieldLabels
+	}
+	toSerialize["actionName"] = o.ActionName
+	if !IsNil(o.ActionCardContent) {
+		toSerialize["actionCardContent"] = o.ActionCardContent
+	}
+	return toSerialize, nil
+}
+
+func (o *PublicActionLabels) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"actionName",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPublicActionLabels := _PublicActionLabels{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPublicActionLabels)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PublicActionLabels(varPublicActionLabels)
+
+	return err
 }
 
 type NullablePublicActionLabels struct {

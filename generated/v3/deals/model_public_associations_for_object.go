@@ -11,14 +11,21 @@ API version: v3
 package deals
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the PublicAssociationsForObject type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PublicAssociationsForObject{}
 
 // PublicAssociationsForObject struct for PublicAssociationsForObject
 type PublicAssociationsForObject struct {
 	Types []AssociationSpec `json:"types"`
 	To    PublicObjectId    `json:"to"`
 }
+
+type _PublicAssociationsForObject PublicAssociationsForObject
 
 // NewPublicAssociationsForObject instantiates a new PublicAssociationsForObject object
 // This constructor will assign default values to properties that have it defined,
@@ -88,14 +95,56 @@ func (o *PublicAssociationsForObject) SetTo(v PublicObjectId) {
 }
 
 func (o PublicAssociationsForObject) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["types"] = o.Types
-	}
-	if true {
-		toSerialize["to"] = o.To
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PublicAssociationsForObject) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["types"] = o.Types
+	toSerialize["to"] = o.To
+	return toSerialize, nil
+}
+
+func (o *PublicAssociationsForObject) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"types",
+		"to",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPublicAssociationsForObject := _PublicAssociationsForObject{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPublicAssociationsForObject)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PublicAssociationsForObject(varPublicAssociationsForObject)
+
+	return err
 }
 
 type NullablePublicAssociationsForObject struct {

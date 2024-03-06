@@ -13,20 +13,20 @@ package calling
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 
-	"github.com/clarkmcc/go-hubspot"
+	"github.com/inpher/go-hubspot"
 	"net/url"
 	"strings"
 )
 
-// SettingsApiService SettingsApi service
-type SettingsApiService service
+// SettingsAPIService SettingsAPI service
+type SettingsAPIService service
 
 type ApiArchiveRequest struct {
 	ctx        context.Context
-	ApiService *SettingsApiService
+	ApiService *SettingsAPIService
 	appId      int32
 }
 
@@ -39,11 +39,11 @@ Archive Delete calling settings
 
 Deletes this calling extension. This will remove your service as an option for all connected accounts.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId The ID of the target app.
- @return ApiArchiveRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId The ID of the target app.
+	@return ApiArchiveRequest
 */
-func (a *SettingsApiService) Archive(ctx context.Context, appId int32) ApiArchiveRequest {
+func (a *SettingsAPIService) Archive(ctx context.Context, appId int32) ApiArchiveRequest {
 	return ApiArchiveRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -52,20 +52,20 @@ func (a *SettingsApiService) Archive(ctx context.Context, appId int32) ApiArchiv
 }
 
 // Execute executes the request
-func (a *SettingsApiService) ArchiveExecute(r ApiArchiveRequest) (*http.Response, error) {
+func (a *SettingsAPIService) ArchiveExecute(r ApiArchiveRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsApiService.Archive")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsAPIService.Archive")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/extensions/calling/{appId}/settings"
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterValueToString(r.appId, "appId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -108,9 +108,9 @@ func (a *SettingsApiService) ArchiveExecute(r ApiArchiveRequest) (*http.Response
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -126,6 +126,7 @@ func (a *SettingsApiService) ArchiveExecute(r ApiArchiveRequest) (*http.Response
 			newErr.error = err.Error()
 			return localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
@@ -135,7 +136,7 @@ func (a *SettingsApiService) ArchiveExecute(r ApiArchiveRequest) (*http.Response
 
 type ApiCreateRequest struct {
 	ctx             context.Context
-	ApiService      *SettingsApiService
+	ApiService      *SettingsAPIService
 	appId           int32
 	settingsRequest *SettingsRequest
 }
@@ -155,11 +156,11 @@ Create Configure a calling extension
 
 Used to set the menu label, target iframe URL, and dimensions for your calling extension.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId The ID of the target app.
- @return ApiCreateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId The ID of the target app.
+	@return ApiCreateRequest
 */
-func (a *SettingsApiService) Create(ctx context.Context, appId int32) ApiCreateRequest {
+func (a *SettingsAPIService) Create(ctx context.Context, appId int32) ApiCreateRequest {
 	return ApiCreateRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -168,8 +169,9 @@ func (a *SettingsApiService) Create(ctx context.Context, appId int32) ApiCreateR
 }
 
 // Execute executes the request
-//  @return SettingsResponse
-func (a *SettingsApiService) CreateExecute(r ApiCreateRequest) (*SettingsResponse, *http.Response, error) {
+//
+//	@return SettingsResponse
+func (a *SettingsAPIService) CreateExecute(r ApiCreateRequest) (*SettingsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -177,13 +179,13 @@ func (a *SettingsApiService) CreateExecute(r ApiCreateRequest) (*SettingsRespons
 		localVarReturnValue *SettingsResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsApiService.Create")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsAPIService.Create")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/extensions/calling/{appId}/settings"
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterValueToString(r.appId, "appId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -231,9 +233,9 @@ func (a *SettingsApiService) CreateExecute(r ApiCreateRequest) (*SettingsRespons
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -249,6 +251,7 @@ func (a *SettingsApiService) CreateExecute(r ApiCreateRequest) (*SettingsRespons
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -267,7 +270,7 @@ func (a *SettingsApiService) CreateExecute(r ApiCreateRequest) (*SettingsRespons
 
 type ApiGetByIDRequest struct {
 	ctx        context.Context
-	ApiService *SettingsApiService
+	ApiService *SettingsAPIService
 	appId      int32
 }
 
@@ -280,11 +283,11 @@ GetByID Get calling settings
 
 Returns the calling extension settings configured for your app.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId The ID of the target app.
- @return ApiGetByIDRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId The ID of the target app.
+	@return ApiGetByIDRequest
 */
-func (a *SettingsApiService) GetByID(ctx context.Context, appId int32) ApiGetByIDRequest {
+func (a *SettingsAPIService) GetByID(ctx context.Context, appId int32) ApiGetByIDRequest {
 	return ApiGetByIDRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -293,8 +296,9 @@ func (a *SettingsApiService) GetByID(ctx context.Context, appId int32) ApiGetByI
 }
 
 // Execute executes the request
-//  @return SettingsResponse
-func (a *SettingsApiService) GetByIDExecute(r ApiGetByIDRequest) (*SettingsResponse, *http.Response, error) {
+//
+//	@return SettingsResponse
+func (a *SettingsAPIService) GetByIDExecute(r ApiGetByIDRequest) (*SettingsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -302,13 +306,13 @@ func (a *SettingsApiService) GetByIDExecute(r ApiGetByIDRequest) (*SettingsRespo
 		localVarReturnValue *SettingsResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsApiService.GetByID")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsAPIService.GetByID")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/extensions/calling/{appId}/settings"
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterValueToString(r.appId, "appId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -351,9 +355,9 @@ func (a *SettingsApiService) GetByIDExecute(r ApiGetByIDRequest) (*SettingsRespo
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -369,6 +373,7 @@ func (a *SettingsApiService) GetByIDExecute(r ApiGetByIDRequest) (*SettingsRespo
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -387,7 +392,7 @@ func (a *SettingsApiService) GetByIDExecute(r ApiGetByIDRequest) (*SettingsRespo
 
 type ApiUpdateRequest struct {
 	ctx                  context.Context
-	ApiService           *SettingsApiService
+	ApiService           *SettingsAPIService
 	appId                int32
 	settingsPatchRequest *SettingsPatchRequest
 }
@@ -407,11 +412,11 @@ Update Update settings
 
 Updates existing calling extension settings.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId The ID of the target app.
- @return ApiUpdateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId The ID of the target app.
+	@return ApiUpdateRequest
 */
-func (a *SettingsApiService) Update(ctx context.Context, appId int32) ApiUpdateRequest {
+func (a *SettingsAPIService) Update(ctx context.Context, appId int32) ApiUpdateRequest {
 	return ApiUpdateRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -420,8 +425,9 @@ func (a *SettingsApiService) Update(ctx context.Context, appId int32) ApiUpdateR
 }
 
 // Execute executes the request
-//  @return SettingsResponse
-func (a *SettingsApiService) UpdateExecute(r ApiUpdateRequest) (*SettingsResponse, *http.Response, error) {
+//
+//	@return SettingsResponse
+func (a *SettingsAPIService) UpdateExecute(r ApiUpdateRequest) (*SettingsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
 		localVarPostBody    interface{}
@@ -429,13 +435,13 @@ func (a *SettingsApiService) UpdateExecute(r ApiUpdateRequest) (*SettingsRespons
 		localVarReturnValue *SettingsResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsApiService.Update")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SettingsAPIService.Update")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/extensions/calling/{appId}/settings"
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterValueToString(r.appId, "appId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -483,9 +489,9 @@ func (a *SettingsApiService) UpdateExecute(r ApiUpdateRequest) (*SettingsRespons
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -501,6 +507,7 @@ func (a *SettingsApiService) UpdateExecute(r ApiUpdateRequest) (*SettingsRespons
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

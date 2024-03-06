@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PipelinePatchInput type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PipelinePatchInput{}
+
 // PipelinePatchInput An input used to update some properties on a pipeline definition.
 type PipelinePatchInput struct {
 	// Whether the pipeline is archived. This property should only be provided when restoring an archived pipeline. If it's provided in any other call, the request will fail and a `400 Bad Request` will be returned.
@@ -43,7 +46,7 @@ func NewPipelinePatchInputWithDefaults() *PipelinePatchInput {
 
 // GetArchived returns the Archived field value if set, zero value otherwise.
 func (o *PipelinePatchInput) GetArchived() bool {
-	if o == nil || o.Archived == nil {
+	if o == nil || IsNil(o.Archived) {
 		var ret bool
 		return ret
 	}
@@ -53,7 +56,7 @@ func (o *PipelinePatchInput) GetArchived() bool {
 // GetArchivedOk returns a tuple with the Archived field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PipelinePatchInput) GetArchivedOk() (*bool, bool) {
-	if o == nil || o.Archived == nil {
+	if o == nil || IsNil(o.Archived) {
 		return nil, false
 	}
 	return o.Archived, true
@@ -61,7 +64,7 @@ func (o *PipelinePatchInput) GetArchivedOk() (*bool, bool) {
 
 // HasArchived returns a boolean if a field has been set.
 func (o *PipelinePatchInput) HasArchived() bool {
-	if o != nil && o.Archived != nil {
+	if o != nil && !IsNil(o.Archived) {
 		return true
 	}
 
@@ -75,7 +78,7 @@ func (o *PipelinePatchInput) SetArchived(v bool) {
 
 // GetDisplayOrder returns the DisplayOrder field value if set, zero value otherwise.
 func (o *PipelinePatchInput) GetDisplayOrder() int32 {
-	if o == nil || o.DisplayOrder == nil {
+	if o == nil || IsNil(o.DisplayOrder) {
 		var ret int32
 		return ret
 	}
@@ -85,7 +88,7 @@ func (o *PipelinePatchInput) GetDisplayOrder() int32 {
 // GetDisplayOrderOk returns a tuple with the DisplayOrder field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PipelinePatchInput) GetDisplayOrderOk() (*int32, bool) {
-	if o == nil || o.DisplayOrder == nil {
+	if o == nil || IsNil(o.DisplayOrder) {
 		return nil, false
 	}
 	return o.DisplayOrder, true
@@ -93,7 +96,7 @@ func (o *PipelinePatchInput) GetDisplayOrderOk() (*int32, bool) {
 
 // HasDisplayOrder returns a boolean if a field has been set.
 func (o *PipelinePatchInput) HasDisplayOrder() bool {
-	if o != nil && o.DisplayOrder != nil {
+	if o != nil && !IsNil(o.DisplayOrder) {
 		return true
 	}
 
@@ -107,7 +110,7 @@ func (o *PipelinePatchInput) SetDisplayOrder(v int32) {
 
 // GetLabel returns the Label field value if set, zero value otherwise.
 func (o *PipelinePatchInput) GetLabel() string {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		var ret string
 		return ret
 	}
@@ -117,7 +120,7 @@ func (o *PipelinePatchInput) GetLabel() string {
 // GetLabelOk returns a tuple with the Label field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PipelinePatchInput) GetLabelOk() (*string, bool) {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		return nil, false
 	}
 	return o.Label, true
@@ -125,7 +128,7 @@ func (o *PipelinePatchInput) GetLabelOk() (*string, bool) {
 
 // HasLabel returns a boolean if a field has been set.
 func (o *PipelinePatchInput) HasLabel() bool {
-	if o != nil && o.Label != nil {
+	if o != nil && !IsNil(o.Label) {
 		return true
 	}
 
@@ -138,17 +141,25 @@ func (o *PipelinePatchInput) SetLabel(v string) {
 }
 
 func (o PipelinePatchInput) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Archived != nil {
-		toSerialize["archived"] = o.Archived
-	}
-	if o.DisplayOrder != nil {
-		toSerialize["displayOrder"] = o.DisplayOrder
-	}
-	if o.Label != nil {
-		toSerialize["label"] = o.Label
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PipelinePatchInput) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Archived) {
+		toSerialize["archived"] = o.Archived
+	}
+	if !IsNil(o.DisplayOrder) {
+		toSerialize["displayOrder"] = o.DisplayOrder
+	}
+	if !IsNil(o.Label) {
+		toSerialize["label"] = o.Label
+	}
+	return toSerialize, nil
 }
 
 type NullablePipelinePatchInput struct {

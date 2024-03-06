@@ -11,9 +11,14 @@ API version: v3
 package transactional
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the SmtpApiTokenView type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SmtpApiTokenView{}
 
 // SmtpApiTokenView A SMTP API token provides both an ID and password that can be used to send email through the HubSpot SMTP API.
 type SmtpApiTokenView struct {
@@ -32,6 +37,8 @@ type SmtpApiTokenView struct {
 	// A name for the campaign tied to the token.
 	CampaignName string `json:"campaignName"`
 }
+
+type _SmtpApiTokenView SmtpApiTokenView
 
 // NewSmtpApiTokenView instantiates a new SmtpApiTokenView object
 // This constructor will assign default values to properties that have it defined,
@@ -82,7 +89,7 @@ func (o *SmtpApiTokenView) SetCreatedAt(v time.Time) {
 
 // GetPassword returns the Password field value if set, zero value otherwise.
 func (o *SmtpApiTokenView) GetPassword() string {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		var ret string
 		return ret
 	}
@@ -92,7 +99,7 @@ func (o *SmtpApiTokenView) GetPassword() string {
 // GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SmtpApiTokenView) GetPasswordOk() (*string, bool) {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		return nil, false
 	}
 	return o.Password, true
@@ -100,7 +107,7 @@ func (o *SmtpApiTokenView) GetPasswordOk() (*string, bool) {
 
 // HasPassword returns a boolean if a field has been set.
 func (o *SmtpApiTokenView) HasPassword() bool {
-	if o != nil && o.Password != nil {
+	if o != nil && !IsNil(o.Password) {
 		return true
 	}
 
@@ -233,29 +240,67 @@ func (o *SmtpApiTokenView) SetCampaignName(v string) {
 }
 
 func (o SmtpApiTokenView) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if o.Password != nil {
-		toSerialize["password"] = o.Password
-	}
-	if true {
-		toSerialize["createdBy"] = o.CreatedBy
-	}
-	if true {
-		toSerialize["createContact"] = o.CreateContact
-	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["emailCampaignId"] = o.EmailCampaignId
-	}
-	if true {
-		toSerialize["campaignName"] = o.CampaignName
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SmtpApiTokenView) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["createdAt"] = o.CreatedAt
+	if !IsNil(o.Password) {
+		toSerialize["password"] = o.Password
+	}
+	toSerialize["createdBy"] = o.CreatedBy
+	toSerialize["createContact"] = o.CreateContact
+	toSerialize["id"] = o.Id
+	toSerialize["emailCampaignId"] = o.EmailCampaignId
+	toSerialize["campaignName"] = o.CampaignName
+	return toSerialize, nil
+}
+
+func (o *SmtpApiTokenView) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"createdAt",
+		"createdBy",
+		"createContact",
+		"id",
+		"emailCampaignId",
+		"campaignName",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSmtpApiTokenView := _SmtpApiTokenView{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varSmtpApiTokenView)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SmtpApiTokenView(varSmtpApiTokenView)
+
+	return err
 }
 
 type NullableSmtpApiTokenView struct {

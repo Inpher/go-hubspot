@@ -1,15 +1,15 @@
-# \PipelinesApi
+# \PipelinesAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Archive**](PipelinesApi.md#Archive) | **Delete** /crm/v3/pipelines/{objectType}/{pipelineId} | Delete a pipeline
-[**Create**](PipelinesApi.md#Create) | **Post** /crm/v3/pipelines/{objectType} | Create a pipeline
-[**GetAll**](PipelinesApi.md#GetAll) | **Get** /crm/v3/pipelines/{objectType} | Retrieve all pipelines
-[**GetByID**](PipelinesApi.md#GetByID) | **Get** /crm/v3/pipelines/{objectType}/{pipelineId} | Return a pipeline by ID
-[**Replace**](PipelinesApi.md#Replace) | **Put** /crm/v3/pipelines/{objectType}/{pipelineId} | Replace a pipeline
-[**Update**](PipelinesApi.md#Update) | **Patch** /crm/v3/pipelines/{objectType}/{pipelineId} | Update a pipeline
+[**Archive**](PipelinesAPI.md#Archive) | **Delete** /crm/v3/pipelines/{objectType}/{pipelineId} | Delete a pipeline
+[**Create**](PipelinesAPI.md#Create) | **Post** /crm/v3/pipelines/{objectType} | Create a pipeline
+[**GetAll**](PipelinesAPI.md#GetAll) | **Get** /crm/v3/pipelines/{objectType} | Retrieve all pipelines
+[**GetByID**](PipelinesAPI.md#GetByID) | **Get** /crm/v3/pipelines/{objectType}/{pipelineId} | Return a pipeline by ID
+[**Replace**](PipelinesAPI.md#Replace) | **Put** /crm/v3/pipelines/{objectType}/{pipelineId} | Replace a pipeline
+[**Update**](PipelinesAPI.md#Update) | **Patch** /crm/v3/pipelines/{objectType}/{pipelineId} | Update a pipeline
 
 
 
@@ -27,25 +27,25 @@ Delete a pipeline
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    objectType := "objectType_example" // string | 
-    pipelineId := "pipelineId_example" // string | 
-    validateReferencesBeforeDelete := true // bool |  (optional) (default to false)
-    validateDealStageUsagesBeforeDelete := true // bool |  (optional) (default to false)
+	objectType := "objectType_example" // string | 
+	pipelineId := "pipelineId_example" // string | 
+	validateReferencesBeforeDelete := true // bool |  (optional) (default to false)
+	validateDealStageUsagesBeforeDelete := true // bool |  (optional) (default to false)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PipelinesApi.Archive(context.Background(), objectType, pipelineId).ValidateReferencesBeforeDelete(validateReferencesBeforeDelete).ValidateDealStageUsagesBeforeDelete(validateDealStageUsagesBeforeDelete).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PipelinesApi.Archive``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.PipelinesAPI.Archive(context.Background(), objectType, pipelineId).ValidateReferencesBeforeDelete(validateReferencesBeforeDelete).ValidateDealStageUsagesBeforeDelete(validateDealStageUsagesBeforeDelete).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PipelinesAPI.Archive``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -76,7 +76,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [oauth2](../README.md#oauth2), [private_apps_legacy](../README.md#private_apps_legacy), [private_apps](../README.md#private_apps)
 
 ### HTTP request headers
 
@@ -102,25 +102,25 @@ Create a pipeline
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    objectType := "objectType_example" // string | 
-    pipelineInput := *openapiclient.NewPipelineInput(int32(0), []openapiclient.PipelineStageInput{*openapiclient.NewPipelineStageInput(map[string]string{"key": "Inner_example"}, int32(1), "Done")}, "My replaced pipeline") // PipelineInput | 
+	objectType := "objectType_example" // string | 
+	pipelineInput := *openapiclient.NewPipelineInput(int32(0), []openapiclient.PipelineStageInput{*openapiclient.NewPipelineStageInput(map[string]string{"key": "Inner_example"}, int32(1), "Done")}, "My replaced pipeline") // PipelineInput | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PipelinesApi.Create(context.Background(), objectType).PipelineInput(pipelineInput).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PipelinesApi.Create``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `Create`: Pipeline
-    fmt.Fprintf(os.Stdout, "Response from `PipelinesApi.Create`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PipelinesAPI.Create(context.Background(), objectType).PipelineInput(pipelineInput).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PipelinesAPI.Create``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `Create`: Pipeline
+	fmt.Fprintf(os.Stdout, "Response from `PipelinesAPI.Create`: %v\n", resp)
 }
 ```
 
@@ -148,7 +148,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [oauth2](../README.md#oauth2), [private_apps_legacy](../README.md#private_apps_legacy), [private_apps](../README.md#private_apps)
 
 ### HTTP request headers
 
@@ -174,24 +174,24 @@ Retrieve all pipelines
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    objectType := "objectType_example" // string | 
+	objectType := "objectType_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PipelinesApi.GetAll(context.Background(), objectType).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PipelinesApi.GetAll``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetAll`: CollectionResponsePipelineNoPaging
-    fmt.Fprintf(os.Stdout, "Response from `PipelinesApi.GetAll`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PipelinesAPI.GetAll(context.Background(), objectType).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PipelinesAPI.GetAll``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAll`: CollectionResponsePipelineNoPaging
+	fmt.Fprintf(os.Stdout, "Response from `PipelinesAPI.GetAll`: %v\n", resp)
 }
 ```
 
@@ -218,7 +218,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [private_apps_legacy](../README.md#private_apps_legacy), [oauth2](../README.md#oauth2), [private_apps](../README.md#private_apps)
 
 ### HTTP request headers
 
@@ -244,25 +244,25 @@ Return a pipeline by ID
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    objectType := "objectType_example" // string | 
-    pipelineId := "pipelineId_example" // string | 
+	objectType := "objectType_example" // string | 
+	pipelineId := "pipelineId_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PipelinesApi.GetByID(context.Background(), objectType, pipelineId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PipelinesApi.GetByID``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetByID`: Pipeline
-    fmt.Fprintf(os.Stdout, "Response from `PipelinesApi.GetByID`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PipelinesAPI.GetByID(context.Background(), objectType, pipelineId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PipelinesAPI.GetByID``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetByID`: Pipeline
+	fmt.Fprintf(os.Stdout, "Response from `PipelinesAPI.GetByID`: %v\n", resp)
 }
 ```
 
@@ -291,7 +291,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [private_apps_legacy](../README.md#private_apps_legacy), [oauth2](../README.md#oauth2), [private_apps](../README.md#private_apps)
 
 ### HTTP request headers
 
@@ -317,28 +317,28 @@ Replace a pipeline
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    objectType := "objectType_example" // string | 
-    pipelineId := "pipelineId_example" // string | 
-    pipelineInput := *openapiclient.NewPipelineInput(int32(0), []openapiclient.PipelineStageInput{*openapiclient.NewPipelineStageInput(map[string]string{"key": "Inner_example"}, int32(1), "Done")}, "My replaced pipeline") // PipelineInput | 
-    validateReferencesBeforeDelete := true // bool |  (optional) (default to false)
-    validateDealStageUsagesBeforeDelete := true // bool |  (optional) (default to false)
+	objectType := "objectType_example" // string | 
+	pipelineId := "pipelineId_example" // string | 
+	pipelineInput := *openapiclient.NewPipelineInput(int32(0), []openapiclient.PipelineStageInput{*openapiclient.NewPipelineStageInput(map[string]string{"key": "Inner_example"}, int32(1), "Done")}, "My replaced pipeline") // PipelineInput | 
+	validateReferencesBeforeDelete := true // bool |  (optional) (default to false)
+	validateDealStageUsagesBeforeDelete := true // bool |  (optional) (default to false)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PipelinesApi.Replace(context.Background(), objectType, pipelineId).PipelineInput(pipelineInput).ValidateReferencesBeforeDelete(validateReferencesBeforeDelete).ValidateDealStageUsagesBeforeDelete(validateDealStageUsagesBeforeDelete).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PipelinesApi.Replace``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `Replace`: Pipeline
-    fmt.Fprintf(os.Stdout, "Response from `PipelinesApi.Replace`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PipelinesAPI.Replace(context.Background(), objectType, pipelineId).PipelineInput(pipelineInput).ValidateReferencesBeforeDelete(validateReferencesBeforeDelete).ValidateDealStageUsagesBeforeDelete(validateDealStageUsagesBeforeDelete).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PipelinesAPI.Replace``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `Replace`: Pipeline
+	fmt.Fprintf(os.Stdout, "Response from `PipelinesAPI.Replace`: %v\n", resp)
 }
 ```
 
@@ -370,7 +370,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [oauth2](../README.md#oauth2), [private_apps_legacy](../README.md#private_apps_legacy), [private_apps](../README.md#private_apps)
 
 ### HTTP request headers
 
@@ -396,28 +396,28 @@ Update a pipeline
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    objectType := "objectType_example" // string | 
-    pipelineId := "pipelineId_example" // string | 
-    pipelinePatchInput := *openapiclient.NewPipelinePatchInput() // PipelinePatchInput | 
-    validateReferencesBeforeDelete := true // bool |  (optional) (default to false)
-    validateDealStageUsagesBeforeDelete := true // bool |  (optional) (default to false)
+	objectType := "objectType_example" // string | 
+	pipelineId := "pipelineId_example" // string | 
+	pipelinePatchInput := *openapiclient.NewPipelinePatchInput() // PipelinePatchInput | 
+	validateReferencesBeforeDelete := true // bool |  (optional) (default to false)
+	validateDealStageUsagesBeforeDelete := true // bool |  (optional) (default to false)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PipelinesApi.Update(context.Background(), objectType, pipelineId).PipelinePatchInput(pipelinePatchInput).ValidateReferencesBeforeDelete(validateReferencesBeforeDelete).ValidateDealStageUsagesBeforeDelete(validateDealStageUsagesBeforeDelete).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PipelinesApi.Update``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `Update`: Pipeline
-    fmt.Fprintf(os.Stdout, "Response from `PipelinesApi.Update`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PipelinesAPI.Update(context.Background(), objectType, pipelineId).PipelinePatchInput(pipelinePatchInput).ValidateReferencesBeforeDelete(validateReferencesBeforeDelete).ValidateDealStageUsagesBeforeDelete(validateDealStageUsagesBeforeDelete).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PipelinesAPI.Update``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `Update`: Pipeline
+	fmt.Fprintf(os.Stdout, "Response from `PipelinesAPI.Update`: %v\n", resp)
 }
 ```
 
@@ -449,7 +449,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [oauth2](../README.md#oauth2), [private_apps_legacy](../README.md#private_apps_legacy), [private_apps](../README.md#private_apps)
 
 ### HTTP request headers
 

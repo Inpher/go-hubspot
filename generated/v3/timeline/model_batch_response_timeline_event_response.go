@@ -11,9 +11,14 @@ API version: v3
 package timeline
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the BatchResponseTimelineEventResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BatchResponseTimelineEventResponse{}
 
 // BatchResponseTimelineEventResponse The state of the batch event request.
 type BatchResponseTimelineEventResponse struct {
@@ -29,6 +34,8 @@ type BatchResponseTimelineEventResponse struct {
 	// The status of the batch response. Should always be COMPLETED if processed.
 	Status string `json:"status"`
 }
+
+type _BatchResponseTimelineEventResponse BatchResponseTimelineEventResponse
 
 // NewBatchResponseTimelineEventResponse instantiates a new BatchResponseTimelineEventResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -77,7 +84,7 @@ func (o *BatchResponseTimelineEventResponse) SetCompletedAt(v time.Time) {
 
 // GetRequestedAt returns the RequestedAt field value if set, zero value otherwise.
 func (o *BatchResponseTimelineEventResponse) GetRequestedAt() time.Time {
-	if o == nil || o.RequestedAt == nil {
+	if o == nil || IsNil(o.RequestedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -87,7 +94,7 @@ func (o *BatchResponseTimelineEventResponse) GetRequestedAt() time.Time {
 // GetRequestedAtOk returns a tuple with the RequestedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BatchResponseTimelineEventResponse) GetRequestedAtOk() (*time.Time, bool) {
-	if o == nil || o.RequestedAt == nil {
+	if o == nil || IsNil(o.RequestedAt) {
 		return nil, false
 	}
 	return o.RequestedAt, true
@@ -95,7 +102,7 @@ func (o *BatchResponseTimelineEventResponse) GetRequestedAtOk() (*time.Time, boo
 
 // HasRequestedAt returns a boolean if a field has been set.
 func (o *BatchResponseTimelineEventResponse) HasRequestedAt() bool {
-	if o != nil && o.RequestedAt != nil {
+	if o != nil && !IsNil(o.RequestedAt) {
 		return true
 	}
 
@@ -133,7 +140,7 @@ func (o *BatchResponseTimelineEventResponse) SetStartedAt(v time.Time) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *BatchResponseTimelineEventResponse) GetLinks() map[string]string {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret map[string]string
 		return ret
 	}
@@ -143,7 +150,7 @@ func (o *BatchResponseTimelineEventResponse) GetLinks() map[string]string {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BatchResponseTimelineEventResponse) GetLinksOk() (*map[string]string, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -151,7 +158,7 @@ func (o *BatchResponseTimelineEventResponse) GetLinksOk() (*map[string]string, b
 
 // HasLinks returns a boolean if a field has been set.
 func (o *BatchResponseTimelineEventResponse) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -212,26 +219,66 @@ func (o *BatchResponseTimelineEventResponse) SetStatus(v string) {
 }
 
 func (o BatchResponseTimelineEventResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["completedAt"] = o.CompletedAt
-	}
-	if o.RequestedAt != nil {
-		toSerialize["requestedAt"] = o.RequestedAt
-	}
-	if true {
-		toSerialize["startedAt"] = o.StartedAt
-	}
-	if o.Links != nil {
-		toSerialize["links"] = o.Links
-	}
-	if true {
-		toSerialize["results"] = o.Results
-	}
-	if true {
-		toSerialize["status"] = o.Status
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o BatchResponseTimelineEventResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["completedAt"] = o.CompletedAt
+	if !IsNil(o.RequestedAt) {
+		toSerialize["requestedAt"] = o.RequestedAt
+	}
+	toSerialize["startedAt"] = o.StartedAt
+	if !IsNil(o.Links) {
+		toSerialize["links"] = o.Links
+	}
+	toSerialize["results"] = o.Results
+	toSerialize["status"] = o.Status
+	return toSerialize, nil
+}
+
+func (o *BatchResponseTimelineEventResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"completedAt",
+		"startedAt",
+		"results",
+		"status",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varBatchResponseTimelineEventResponse := _BatchResponseTimelineEventResponse{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varBatchResponseTimelineEventResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = BatchResponseTimelineEventResponse(varBatchResponseTimelineEventResponse)
+
+	return err
 }
 
 type NullableBatchResponseTimelineEventResponse struct {

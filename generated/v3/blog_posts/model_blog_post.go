@@ -11,9 +11,14 @@ API version: v3
 package blog_posts
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the BlogPost type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BlogPost{}
 
 // BlogPost Model definition for a Blog Post.
 type BlogPost struct {
@@ -134,6 +139,8 @@ type BlogPost struct {
 	// Optional override to set the URL to be used in the rel=canonical link tag on the page.
 	LinkRelCanonicalUrl string `json:"linkRelCanonicalUrl"`
 }
+
+type _BlogPost BlogPost
 
 // NewBlogPost instantiates a new BlogPost object
 // This constructor will assign default values to properties that have it defined,
@@ -755,7 +762,7 @@ func (o *BlogPost) GetWidgetContainers() map[string]map[string]interface{} {
 // and a boolean to check if the value has been set.
 func (o *BlogPost) GetWidgetContainersOk() (map[string]map[string]interface{}, bool) {
 	if o == nil {
-		return nil, false
+		return map[string]map[string]interface{}{}, false
 	}
 	return o.WidgetContainers, true
 }
@@ -1139,7 +1146,7 @@ func (o *BlogPost) GetWidgets() map[string]map[string]interface{} {
 // and a boolean to check if the value has been set.
 func (o *BlogPost) GetWidgetsOk() (map[string]map[string]interface{}, bool) {
 	if o == nil {
-		return nil, false
+		return map[string]map[string]interface{}{}, false
 	}
 	return o.Widgets, true
 }
@@ -1547,7 +1554,7 @@ func (o *BlogPost) GetThemeSettingsValues() map[string]map[string]interface{} {
 // and a boolean to check if the value has been set.
 func (o *BlogPost) GetThemeSettingsValuesOk() (map[string]map[string]interface{}, bool) {
 	if o == nil {
-		return nil, false
+		return map[string]map[string]interface{}{}, false
 	}
 	return o.ThemeSettingsValues, true
 }
@@ -1678,191 +1685,174 @@ func (o *BlogPost) SetLinkRelCanonicalUrl(v string) {
 }
 
 func (o BlogPost) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["publishDate"] = o.PublishDate
-	}
-	if true {
-		toSerialize["language"] = o.Language
-	}
-	if true {
-		toSerialize["enableLayoutStylesheets"] = o.EnableLayoutStylesheets
-	}
-	if true {
-		toSerialize["metaDescription"] = o.MetaDescription
-	}
-	if true {
-		toSerialize["attachedStylesheets"] = o.AttachedStylesheets
-	}
-	if true {
-		toSerialize["password"] = o.Password
-	}
-	if true {
-		toSerialize["htmlTitle"] = o.HtmlTitle
-	}
-	if true {
-		toSerialize["publishImmediately"] = o.PublishImmediately
-	}
-	if true {
-		toSerialize["translations"] = o.Translations
-	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["state"] = o.State
-	}
-	if true {
-		toSerialize["slug"] = o.Slug
-	}
-	if true {
-		toSerialize["createdById"] = o.CreatedById
-	}
-	if true {
-		toSerialize["rssBody"] = o.RssBody
-	}
-	if true {
-		toSerialize["currentlyPublished"] = o.CurrentlyPublished
-	}
-	if true {
-		toSerialize["archivedInDashboard"] = o.ArchivedInDashboard
-	}
-	if true {
-		toSerialize["created"] = o.Created
-	}
-	if true {
-		toSerialize["contentTypeCategory"] = o.ContentTypeCategory
-	}
-	if true {
-		toSerialize["mabExperimentId"] = o.MabExperimentId
-	}
-	if true {
-		toSerialize["updatedById"] = o.UpdatedById
-	}
-	if true {
-		toSerialize["translatedFromId"] = o.TranslatedFromId
-	}
-	if true {
-		toSerialize["folderId"] = o.FolderId
-	}
-	if true {
-		toSerialize["widgetContainers"] = o.WidgetContainers
-	}
-	if true {
-		toSerialize["pageExpiryRedirectId"] = o.PageExpiryRedirectId
-	}
-	if true {
-		toSerialize["dynamicPageDataSourceType"] = o.DynamicPageDataSourceType
-	}
-	if true {
-		toSerialize["featuredImage"] = o.FeaturedImage
-	}
-	if true {
-		toSerialize["authorName"] = o.AuthorName
-	}
-	if true {
-		toSerialize["domain"] = o.Domain
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["dynamicPageHubDbTableId"] = o.DynamicPageHubDbTableId
-	}
-	if true {
-		toSerialize["campaign"] = o.Campaign
-	}
-	if true {
-		toSerialize["dynamicPageDataSourceId"] = o.DynamicPageDataSourceId
-	}
-	if true {
-		toSerialize["enableDomainStylesheets"] = o.EnableDomainStylesheets
-	}
-	if true {
-		toSerialize["includeDefaultCustomCss"] = o.IncludeDefaultCustomCss
-	}
-	if true {
-		toSerialize["layoutSections"] = o.LayoutSections
-	}
-	if true {
-		toSerialize["updated"] = o.Updated
-	}
-	if true {
-		toSerialize["footerHtml"] = o.FooterHtml
-	}
-	if true {
-		toSerialize["tagIds"] = o.TagIds
-	}
-	if true {
-		toSerialize["widgets"] = o.Widgets
-	}
-	if true {
-		toSerialize["postSummary"] = o.PostSummary
-	}
-	if true {
-		toSerialize["headHtml"] = o.HeadHtml
-	}
-	if true {
-		toSerialize["pageExpiryRedirectUrl"] = o.PageExpiryRedirectUrl
-	}
-	if true {
-		toSerialize["abStatus"] = o.AbStatus
-	}
-	if true {
-		toSerialize["useFeaturedImage"] = o.UseFeaturedImage
-	}
-	if true {
-		toSerialize["abTestId"] = o.AbTestId
-	}
-	if true {
-		toSerialize["featuredImageAltText"] = o.FeaturedImageAltText
-	}
-	if true {
-		toSerialize["blogAuthorId"] = o.BlogAuthorId
-	}
-	if true {
-		toSerialize["contentGroupId"] = o.ContentGroupId
-	}
-	if true {
-		toSerialize["rssSummary"] = o.RssSummary
-	}
-	if true {
-		toSerialize["pageExpiryEnabled"] = o.PageExpiryEnabled
-	}
-	if true {
-		toSerialize["url"] = o.Url
-	}
-	if true {
-		toSerialize["publicAccessRules"] = o.PublicAccessRules
-	}
-	if true {
-		toSerialize["enableGoogleAmpOutputOverride"] = o.EnableGoogleAmpOutputOverride
-	}
-	if true {
-		toSerialize["archivedAt"] = o.ArchivedAt
-	}
-	if true {
-		toSerialize["postBody"] = o.PostBody
-	}
-	if true {
-		toSerialize["themeSettingsValues"] = o.ThemeSettingsValues
-	}
-	if true {
-		toSerialize["pageExpiryDate"] = o.PageExpiryDate
-	}
-	if true {
-		toSerialize["publicAccessRulesEnabled"] = o.PublicAccessRulesEnabled
-	}
-	if true {
-		toSerialize["currentState"] = o.CurrentState
-	}
-	if true {
-		toSerialize["categoryId"] = o.CategoryId
-	}
-	if true {
-		toSerialize["linkRelCanonicalUrl"] = o.LinkRelCanonicalUrl
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o BlogPost) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["publishDate"] = o.PublishDate
+	toSerialize["language"] = o.Language
+	toSerialize["enableLayoutStylesheets"] = o.EnableLayoutStylesheets
+	toSerialize["metaDescription"] = o.MetaDescription
+	toSerialize["attachedStylesheets"] = o.AttachedStylesheets
+	toSerialize["password"] = o.Password
+	toSerialize["htmlTitle"] = o.HtmlTitle
+	toSerialize["publishImmediately"] = o.PublishImmediately
+	toSerialize["translations"] = o.Translations
+	toSerialize["id"] = o.Id
+	toSerialize["state"] = o.State
+	toSerialize["slug"] = o.Slug
+	toSerialize["createdById"] = o.CreatedById
+	toSerialize["rssBody"] = o.RssBody
+	toSerialize["currentlyPublished"] = o.CurrentlyPublished
+	toSerialize["archivedInDashboard"] = o.ArchivedInDashboard
+	toSerialize["created"] = o.Created
+	toSerialize["contentTypeCategory"] = o.ContentTypeCategory
+	toSerialize["mabExperimentId"] = o.MabExperimentId
+	toSerialize["updatedById"] = o.UpdatedById
+	toSerialize["translatedFromId"] = o.TranslatedFromId
+	toSerialize["folderId"] = o.FolderId
+	toSerialize["widgetContainers"] = o.WidgetContainers
+	toSerialize["pageExpiryRedirectId"] = o.PageExpiryRedirectId
+	toSerialize["dynamicPageDataSourceType"] = o.DynamicPageDataSourceType
+	toSerialize["featuredImage"] = o.FeaturedImage
+	toSerialize["authorName"] = o.AuthorName
+	toSerialize["domain"] = o.Domain
+	toSerialize["name"] = o.Name
+	toSerialize["dynamicPageHubDbTableId"] = o.DynamicPageHubDbTableId
+	toSerialize["campaign"] = o.Campaign
+	toSerialize["dynamicPageDataSourceId"] = o.DynamicPageDataSourceId
+	toSerialize["enableDomainStylesheets"] = o.EnableDomainStylesheets
+	toSerialize["includeDefaultCustomCss"] = o.IncludeDefaultCustomCss
+	toSerialize["layoutSections"] = o.LayoutSections
+	toSerialize["updated"] = o.Updated
+	toSerialize["footerHtml"] = o.FooterHtml
+	toSerialize["tagIds"] = o.TagIds
+	toSerialize["widgets"] = o.Widgets
+	toSerialize["postSummary"] = o.PostSummary
+	toSerialize["headHtml"] = o.HeadHtml
+	toSerialize["pageExpiryRedirectUrl"] = o.PageExpiryRedirectUrl
+	toSerialize["abStatus"] = o.AbStatus
+	toSerialize["useFeaturedImage"] = o.UseFeaturedImage
+	toSerialize["abTestId"] = o.AbTestId
+	toSerialize["featuredImageAltText"] = o.FeaturedImageAltText
+	toSerialize["blogAuthorId"] = o.BlogAuthorId
+	toSerialize["contentGroupId"] = o.ContentGroupId
+	toSerialize["rssSummary"] = o.RssSummary
+	toSerialize["pageExpiryEnabled"] = o.PageExpiryEnabled
+	toSerialize["url"] = o.Url
+	toSerialize["publicAccessRules"] = o.PublicAccessRules
+	toSerialize["enableGoogleAmpOutputOverride"] = o.EnableGoogleAmpOutputOverride
+	toSerialize["archivedAt"] = o.ArchivedAt
+	toSerialize["postBody"] = o.PostBody
+	toSerialize["themeSettingsValues"] = o.ThemeSettingsValues
+	toSerialize["pageExpiryDate"] = o.PageExpiryDate
+	toSerialize["publicAccessRulesEnabled"] = o.PublicAccessRulesEnabled
+	toSerialize["currentState"] = o.CurrentState
+	toSerialize["categoryId"] = o.CategoryId
+	toSerialize["linkRelCanonicalUrl"] = o.LinkRelCanonicalUrl
+	return toSerialize, nil
+}
+
+func (o *BlogPost) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"publishDate",
+		"language",
+		"enableLayoutStylesheets",
+		"metaDescription",
+		"attachedStylesheets",
+		"password",
+		"htmlTitle",
+		"publishImmediately",
+		"translations",
+		"id",
+		"state",
+		"slug",
+		"createdById",
+		"rssBody",
+		"currentlyPublished",
+		"archivedInDashboard",
+		"created",
+		"contentTypeCategory",
+		"mabExperimentId",
+		"updatedById",
+		"translatedFromId",
+		"folderId",
+		"widgetContainers",
+		"pageExpiryRedirectId",
+		"dynamicPageDataSourceType",
+		"featuredImage",
+		"authorName",
+		"domain",
+		"name",
+		"dynamicPageHubDbTableId",
+		"campaign",
+		"dynamicPageDataSourceId",
+		"enableDomainStylesheets",
+		"includeDefaultCustomCss",
+		"layoutSections",
+		"updated",
+		"footerHtml",
+		"tagIds",
+		"widgets",
+		"postSummary",
+		"headHtml",
+		"pageExpiryRedirectUrl",
+		"abStatus",
+		"useFeaturedImage",
+		"abTestId",
+		"featuredImageAltText",
+		"blogAuthorId",
+		"contentGroupId",
+		"rssSummary",
+		"pageExpiryEnabled",
+		"url",
+		"publicAccessRules",
+		"enableGoogleAmpOutputOverride",
+		"archivedAt",
+		"postBody",
+		"themeSettingsValues",
+		"pageExpiryDate",
+		"publicAccessRulesEnabled",
+		"currentState",
+		"categoryId",
+		"linkRelCanonicalUrl",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varBlogPost := _BlogPost{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varBlogPost)
+
+	if err != nil {
+		return err
+	}
+
+	*o = BlogPost(varBlogPost)
+
+	return err
 }
 
 type NullableBlogPost struct {

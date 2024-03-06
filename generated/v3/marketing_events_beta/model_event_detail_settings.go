@@ -11,8 +11,13 @@ API version: v3
 package marketing_events_beta
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the EventDetailSettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EventDetailSettings{}
 
 // EventDetailSettings struct for EventDetailSettings
 type EventDetailSettings struct {
@@ -21,6 +26,8 @@ type EventDetailSettings struct {
 	// The url that will be used to fetch marketing event details by id
 	EventDetailsUrl string `json:"eventDetailsUrl"`
 }
+
+type _EventDetailSettings EventDetailSettings
 
 // NewEventDetailSettings instantiates a new EventDetailSettings object
 // This constructor will assign default values to properties that have it defined,
@@ -90,14 +97,56 @@ func (o *EventDetailSettings) SetEventDetailsUrl(v string) {
 }
 
 func (o EventDetailSettings) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["appId"] = o.AppId
-	}
-	if true {
-		toSerialize["eventDetailsUrl"] = o.EventDetailsUrl
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o EventDetailSettings) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["appId"] = o.AppId
+	toSerialize["eventDetailsUrl"] = o.EventDetailsUrl
+	return toSerialize, nil
+}
+
+func (o *EventDetailSettings) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"appId",
+		"eventDetailsUrl",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varEventDetailSettings := _EventDetailSettings{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varEventDetailSettings)
+
+	if err != nil {
+		return err
+	}
+
+	*o = EventDetailSettings(varEventDetailSettings)
+
+	return err
 }
 
 type NullableEventDetailSettings struct {

@@ -11,9 +11,14 @@ API version: v3
 package domains
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the Domain type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Domain{}
 
 // Domain struct for Domain
 type Domain struct {
@@ -46,6 +51,8 @@ type Domain struct {
 	Updated      *time.Time `json:"updated,omitempty"`
 	PrimaryEmail *bool      `json:"primaryEmail,omitempty"`
 }
+
+type _Domain Domain
 
 // NewDomain instantiates a new Domain object
 // This constructor will assign default values to properties that have it defined,
@@ -98,7 +105,7 @@ func (o *Domain) SetIsUsedForLandingPage(v bool) {
 
 // GetPrimaryBlogPost returns the PrimaryBlogPost field value if set, zero value otherwise.
 func (o *Domain) GetPrimaryBlogPost() bool {
-	if o == nil || o.PrimaryBlogPost == nil {
+	if o == nil || IsNil(o.PrimaryBlogPost) {
 		var ret bool
 		return ret
 	}
@@ -108,7 +115,7 @@ func (o *Domain) GetPrimaryBlogPost() bool {
 // GetPrimaryBlogPostOk returns a tuple with the PrimaryBlogPost field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Domain) GetPrimaryBlogPostOk() (*bool, bool) {
-	if o == nil || o.PrimaryBlogPost == nil {
+	if o == nil || IsNil(o.PrimaryBlogPost) {
 		return nil, false
 	}
 	return o.PrimaryBlogPost, true
@@ -116,7 +123,7 @@ func (o *Domain) GetPrimaryBlogPostOk() (*bool, bool) {
 
 // HasPrimaryBlogPost returns a boolean if a field has been set.
 func (o *Domain) HasPrimaryBlogPost() bool {
-	if o != nil && o.PrimaryBlogPost != nil {
+	if o != nil && !IsNil(o.PrimaryBlogPost) {
 		return true
 	}
 
@@ -130,7 +137,7 @@ func (o *Domain) SetPrimaryBlogPost(v bool) {
 
 // GetPrimaryKnowledge returns the PrimaryKnowledge field value if set, zero value otherwise.
 func (o *Domain) GetPrimaryKnowledge() bool {
-	if o == nil || o.PrimaryKnowledge == nil {
+	if o == nil || IsNil(o.PrimaryKnowledge) {
 		var ret bool
 		return ret
 	}
@@ -140,7 +147,7 @@ func (o *Domain) GetPrimaryKnowledge() bool {
 // GetPrimaryKnowledgeOk returns a tuple with the PrimaryKnowledge field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Domain) GetPrimaryKnowledgeOk() (*bool, bool) {
-	if o == nil || o.PrimaryKnowledge == nil {
+	if o == nil || IsNil(o.PrimaryKnowledge) {
 		return nil, false
 	}
 	return o.PrimaryKnowledge, true
@@ -148,7 +155,7 @@ func (o *Domain) GetPrimaryKnowledgeOk() (*bool, bool) {
 
 // HasPrimaryKnowledge returns a boolean if a field has been set.
 func (o *Domain) HasPrimaryKnowledge() bool {
-	if o != nil && o.PrimaryKnowledge != nil {
+	if o != nil && !IsNil(o.PrimaryKnowledge) {
 		return true
 	}
 
@@ -162,7 +169,7 @@ func (o *Domain) SetPrimaryKnowledge(v bool) {
 
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *Domain) GetCreated() time.Time {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
@@ -172,7 +179,7 @@ func (o *Domain) GetCreated() time.Time {
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Domain) GetCreatedOk() (*time.Time, bool) {
-	if o == nil || o.Created == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
 	return o.Created, true
@@ -180,7 +187,7 @@ func (o *Domain) GetCreatedOk() (*time.Time, bool) {
 
 // HasCreated returns a boolean if a field has been set.
 func (o *Domain) HasCreated() bool {
-	if o != nil && o.Created != nil {
+	if o != nil && !IsNil(o.Created) {
 		return true
 	}
 
@@ -194,7 +201,7 @@ func (o *Domain) SetCreated(v time.Time) {
 
 // GetSecondaryToDomain returns the SecondaryToDomain field value if set, zero value otherwise.
 func (o *Domain) GetSecondaryToDomain() string {
-	if o == nil || o.SecondaryToDomain == nil {
+	if o == nil || IsNil(o.SecondaryToDomain) {
 		var ret string
 		return ret
 	}
@@ -204,7 +211,7 @@ func (o *Domain) GetSecondaryToDomain() string {
 // GetSecondaryToDomainOk returns a tuple with the SecondaryToDomain field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Domain) GetSecondaryToDomainOk() (*string, bool) {
-	if o == nil || o.SecondaryToDomain == nil {
+	if o == nil || IsNil(o.SecondaryToDomain) {
 		return nil, false
 	}
 	return o.SecondaryToDomain, true
@@ -212,7 +219,7 @@ func (o *Domain) GetSecondaryToDomainOk() (*string, bool) {
 
 // HasSecondaryToDomain returns a boolean if a field has been set.
 func (o *Domain) HasSecondaryToDomain() bool {
-	if o != nil && o.SecondaryToDomain != nil {
+	if o != nil && !IsNil(o.SecondaryToDomain) {
 		return true
 	}
 
@@ -226,7 +233,7 @@ func (o *Domain) SetSecondaryToDomain(v string) {
 
 // GetManuallyMarkedAsResolving returns the ManuallyMarkedAsResolving field value if set, zero value otherwise.
 func (o *Domain) GetManuallyMarkedAsResolving() bool {
-	if o == nil || o.ManuallyMarkedAsResolving == nil {
+	if o == nil || IsNil(o.ManuallyMarkedAsResolving) {
 		var ret bool
 		return ret
 	}
@@ -236,7 +243,7 @@ func (o *Domain) GetManuallyMarkedAsResolving() bool {
 // GetManuallyMarkedAsResolvingOk returns a tuple with the ManuallyMarkedAsResolving field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Domain) GetManuallyMarkedAsResolvingOk() (*bool, bool) {
-	if o == nil || o.ManuallyMarkedAsResolving == nil {
+	if o == nil || IsNil(o.ManuallyMarkedAsResolving) {
 		return nil, false
 	}
 	return o.ManuallyMarkedAsResolving, true
@@ -244,7 +251,7 @@ func (o *Domain) GetManuallyMarkedAsResolvingOk() (*bool, bool) {
 
 // HasManuallyMarkedAsResolving returns a boolean if a field has been set.
 func (o *Domain) HasManuallyMarkedAsResolving() bool {
-	if o != nil && o.ManuallyMarkedAsResolving != nil {
+	if o != nil && !IsNil(o.ManuallyMarkedAsResolving) {
 		return true
 	}
 
@@ -354,7 +361,7 @@ func (o *Domain) SetIsResolving(v bool) {
 
 // GetIsSslEnabled returns the IsSslEnabled field value if set, zero value otherwise.
 func (o *Domain) GetIsSslEnabled() bool {
-	if o == nil || o.IsSslEnabled == nil {
+	if o == nil || IsNil(o.IsSslEnabled) {
 		var ret bool
 		return ret
 	}
@@ -364,7 +371,7 @@ func (o *Domain) GetIsSslEnabled() bool {
 // GetIsSslEnabledOk returns a tuple with the IsSslEnabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Domain) GetIsSslEnabledOk() (*bool, bool) {
-	if o == nil || o.IsSslEnabled == nil {
+	if o == nil || IsNil(o.IsSslEnabled) {
 		return nil, false
 	}
 	return o.IsSslEnabled, true
@@ -372,7 +379,7 @@ func (o *Domain) GetIsSslEnabledOk() (*bool, bool) {
 
 // HasIsSslEnabled returns a boolean if a field has been set.
 func (o *Domain) HasIsSslEnabled() bool {
-	if o != nil && o.IsSslEnabled != nil {
+	if o != nil && !IsNil(o.IsSslEnabled) {
 		return true
 	}
 
@@ -434,7 +441,7 @@ func (o *Domain) SetDomain(v string) {
 
 // GetPrimarySitePage returns the PrimarySitePage field value if set, zero value otherwise.
 func (o *Domain) GetPrimarySitePage() bool {
-	if o == nil || o.PrimarySitePage == nil {
+	if o == nil || IsNil(o.PrimarySitePage) {
 		var ret bool
 		return ret
 	}
@@ -444,7 +451,7 @@ func (o *Domain) GetPrimarySitePage() bool {
 // GetPrimarySitePageOk returns a tuple with the PrimarySitePage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Domain) GetPrimarySitePageOk() (*bool, bool) {
-	if o == nil || o.PrimarySitePage == nil {
+	if o == nil || IsNil(o.PrimarySitePage) {
 		return nil, false
 	}
 	return o.PrimarySitePage, true
@@ -452,7 +459,7 @@ func (o *Domain) GetPrimarySitePageOk() (*bool, bool) {
 
 // HasPrimarySitePage returns a boolean if a field has been set.
 func (o *Domain) HasPrimarySitePage() bool {
-	if o != nil && o.PrimarySitePage != nil {
+	if o != nil && !IsNil(o.PrimarySitePage) {
 		return true
 	}
 
@@ -466,7 +473,7 @@ func (o *Domain) SetPrimarySitePage(v bool) {
 
 // GetPrimaryLandingPage returns the PrimaryLandingPage field value if set, zero value otherwise.
 func (o *Domain) GetPrimaryLandingPage() bool {
-	if o == nil || o.PrimaryLandingPage == nil {
+	if o == nil || IsNil(o.PrimaryLandingPage) {
 		var ret bool
 		return ret
 	}
@@ -476,7 +483,7 @@ func (o *Domain) GetPrimaryLandingPage() bool {
 // GetPrimaryLandingPageOk returns a tuple with the PrimaryLandingPage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Domain) GetPrimaryLandingPageOk() (*bool, bool) {
-	if o == nil || o.PrimaryLandingPage == nil {
+	if o == nil || IsNil(o.PrimaryLandingPage) {
 		return nil, false
 	}
 	return o.PrimaryLandingPage, true
@@ -484,7 +491,7 @@ func (o *Domain) GetPrimaryLandingPageOk() (*bool, bool) {
 
 // HasPrimaryLandingPage returns a boolean if a field has been set.
 func (o *Domain) HasPrimaryLandingPage() bool {
-	if o != nil && o.PrimaryLandingPage != nil {
+	if o != nil && !IsNil(o.PrimaryLandingPage) {
 		return true
 	}
 
@@ -522,7 +529,7 @@ func (o *Domain) SetId(v string) {
 
 // GetCorrectCname returns the CorrectCname field value if set, zero value otherwise.
 func (o *Domain) GetCorrectCname() string {
-	if o == nil || o.CorrectCname == nil {
+	if o == nil || IsNil(o.CorrectCname) {
 		var ret string
 		return ret
 	}
@@ -532,7 +539,7 @@ func (o *Domain) GetCorrectCname() string {
 // GetCorrectCnameOk returns a tuple with the CorrectCname field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Domain) GetCorrectCnameOk() (*string, bool) {
-	if o == nil || o.CorrectCname == nil {
+	if o == nil || IsNil(o.CorrectCname) {
 		return nil, false
 	}
 	return o.CorrectCname, true
@@ -540,7 +547,7 @@ func (o *Domain) GetCorrectCnameOk() (*string, bool) {
 
 // HasCorrectCname returns a boolean if a field has been set.
 func (o *Domain) HasCorrectCname() bool {
-	if o != nil && o.CorrectCname != nil {
+	if o != nil && !IsNil(o.CorrectCname) {
 		return true
 	}
 
@@ -554,7 +561,7 @@ func (o *Domain) SetCorrectCname(v string) {
 
 // GetIsSslOnly returns the IsSslOnly field value if set, zero value otherwise.
 func (o *Domain) GetIsSslOnly() bool {
-	if o == nil || o.IsSslOnly == nil {
+	if o == nil || IsNil(o.IsSslOnly) {
 		var ret bool
 		return ret
 	}
@@ -564,7 +571,7 @@ func (o *Domain) GetIsSslOnly() bool {
 // GetIsSslOnlyOk returns a tuple with the IsSslOnly field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Domain) GetIsSslOnlyOk() (*bool, bool) {
-	if o == nil || o.IsSslOnly == nil {
+	if o == nil || IsNil(o.IsSslOnly) {
 		return nil, false
 	}
 	return o.IsSslOnly, true
@@ -572,7 +579,7 @@ func (o *Domain) GetIsSslOnlyOk() (*bool, bool) {
 
 // HasIsSslOnly returns a boolean if a field has been set.
 func (o *Domain) HasIsSslOnly() bool {
-	if o != nil && o.IsSslOnly != nil {
+	if o != nil && !IsNil(o.IsSslOnly) {
 		return true
 	}
 
@@ -586,7 +593,7 @@ func (o *Domain) SetIsSslOnly(v bool) {
 
 // GetUpdated returns the Updated field value if set, zero value otherwise.
 func (o *Domain) GetUpdated() time.Time {
-	if o == nil || o.Updated == nil {
+	if o == nil || IsNil(o.Updated) {
 		var ret time.Time
 		return ret
 	}
@@ -596,7 +603,7 @@ func (o *Domain) GetUpdated() time.Time {
 // GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Domain) GetUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.Updated == nil {
+	if o == nil || IsNil(o.Updated) {
 		return nil, false
 	}
 	return o.Updated, true
@@ -604,7 +611,7 @@ func (o *Domain) GetUpdatedOk() (*time.Time, bool) {
 
 // HasUpdated returns a boolean if a field has been set.
 func (o *Domain) HasUpdated() bool {
-	if o != nil && o.Updated != nil {
+	if o != nil && !IsNil(o.Updated) {
 		return true
 	}
 
@@ -618,7 +625,7 @@ func (o *Domain) SetUpdated(v time.Time) {
 
 // GetPrimaryEmail returns the PrimaryEmail field value if set, zero value otherwise.
 func (o *Domain) GetPrimaryEmail() bool {
-	if o == nil || o.PrimaryEmail == nil {
+	if o == nil || IsNil(o.PrimaryEmail) {
 		var ret bool
 		return ret
 	}
@@ -628,7 +635,7 @@ func (o *Domain) GetPrimaryEmail() bool {
 // GetPrimaryEmailOk returns a tuple with the PrimaryEmail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Domain) GetPrimaryEmailOk() (*bool, bool) {
-	if o == nil || o.PrimaryEmail == nil {
+	if o == nil || IsNil(o.PrimaryEmail) {
 		return nil, false
 	}
 	return o.PrimaryEmail, true
@@ -636,7 +643,7 @@ func (o *Domain) GetPrimaryEmailOk() (*bool, bool) {
 
 // HasPrimaryEmail returns a boolean if a field has been set.
 func (o *Domain) HasPrimaryEmail() bool {
-	if o != nil && o.PrimaryEmail != nil {
+	if o != nil && !IsNil(o.PrimaryEmail) {
 		return true
 	}
 
@@ -649,68 +656,104 @@ func (o *Domain) SetPrimaryEmail(v bool) {
 }
 
 func (o Domain) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["isUsedForLandingPage"] = o.IsUsedForLandingPage
-	}
-	if o.PrimaryBlogPost != nil {
-		toSerialize["primaryBlogPost"] = o.PrimaryBlogPost
-	}
-	if o.PrimaryKnowledge != nil {
-		toSerialize["primaryKnowledge"] = o.PrimaryKnowledge
-	}
-	if o.Created != nil {
-		toSerialize["created"] = o.Created
-	}
-	if o.SecondaryToDomain != nil {
-		toSerialize["secondaryToDomain"] = o.SecondaryToDomain
-	}
-	if o.ManuallyMarkedAsResolving != nil {
-		toSerialize["manuallyMarkedAsResolving"] = o.ManuallyMarkedAsResolving
-	}
-	if true {
-		toSerialize["isUsedForKnowledge"] = o.IsUsedForKnowledge
-	}
-	if true {
-		toSerialize["isUsedForBlogPost"] = o.IsUsedForBlogPost
-	}
-	if true {
-		toSerialize["isUsedForSitePage"] = o.IsUsedForSitePage
-	}
-	if true {
-		toSerialize["isResolving"] = o.IsResolving
-	}
-	if o.IsSslEnabled != nil {
-		toSerialize["isSslEnabled"] = o.IsSslEnabled
-	}
-	if true {
-		toSerialize["isUsedForEmail"] = o.IsUsedForEmail
-	}
-	if true {
-		toSerialize["domain"] = o.Domain
-	}
-	if o.PrimarySitePage != nil {
-		toSerialize["primarySitePage"] = o.PrimarySitePage
-	}
-	if o.PrimaryLandingPage != nil {
-		toSerialize["primaryLandingPage"] = o.PrimaryLandingPage
-	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if o.CorrectCname != nil {
-		toSerialize["correctCname"] = o.CorrectCname
-	}
-	if o.IsSslOnly != nil {
-		toSerialize["isSslOnly"] = o.IsSslOnly
-	}
-	if o.Updated != nil {
-		toSerialize["updated"] = o.Updated
-	}
-	if o.PrimaryEmail != nil {
-		toSerialize["primaryEmail"] = o.PrimaryEmail
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Domain) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["isUsedForLandingPage"] = o.IsUsedForLandingPage
+	if !IsNil(o.PrimaryBlogPost) {
+		toSerialize["primaryBlogPost"] = o.PrimaryBlogPost
+	}
+	if !IsNil(o.PrimaryKnowledge) {
+		toSerialize["primaryKnowledge"] = o.PrimaryKnowledge
+	}
+	if !IsNil(o.Created) {
+		toSerialize["created"] = o.Created
+	}
+	if !IsNil(o.SecondaryToDomain) {
+		toSerialize["secondaryToDomain"] = o.SecondaryToDomain
+	}
+	if !IsNil(o.ManuallyMarkedAsResolving) {
+		toSerialize["manuallyMarkedAsResolving"] = o.ManuallyMarkedAsResolving
+	}
+	toSerialize["isUsedForKnowledge"] = o.IsUsedForKnowledge
+	toSerialize["isUsedForBlogPost"] = o.IsUsedForBlogPost
+	toSerialize["isUsedForSitePage"] = o.IsUsedForSitePage
+	toSerialize["isResolving"] = o.IsResolving
+	if !IsNil(o.IsSslEnabled) {
+		toSerialize["isSslEnabled"] = o.IsSslEnabled
+	}
+	toSerialize["isUsedForEmail"] = o.IsUsedForEmail
+	toSerialize["domain"] = o.Domain
+	if !IsNil(o.PrimarySitePage) {
+		toSerialize["primarySitePage"] = o.PrimarySitePage
+	}
+	if !IsNil(o.PrimaryLandingPage) {
+		toSerialize["primaryLandingPage"] = o.PrimaryLandingPage
+	}
+	toSerialize["id"] = o.Id
+	if !IsNil(o.CorrectCname) {
+		toSerialize["correctCname"] = o.CorrectCname
+	}
+	if !IsNil(o.IsSslOnly) {
+		toSerialize["isSslOnly"] = o.IsSslOnly
+	}
+	if !IsNil(o.Updated) {
+		toSerialize["updated"] = o.Updated
+	}
+	if !IsNil(o.PrimaryEmail) {
+		toSerialize["primaryEmail"] = o.PrimaryEmail
+	}
+	return toSerialize, nil
+}
+
+func (o *Domain) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"isUsedForLandingPage",
+		"isUsedForKnowledge",
+		"isUsedForBlogPost",
+		"isUsedForSitePage",
+		"isResolving",
+		"isUsedForEmail",
+		"domain",
+		"id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varDomain := _Domain{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varDomain)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Domain(varDomain)
+
+	return err
 }
 
 type NullableDomain struct {

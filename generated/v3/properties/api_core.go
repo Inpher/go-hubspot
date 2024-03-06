@@ -13,20 +13,20 @@ package properties
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 
-	"github.com/clarkmcc/go-hubspot"
+	"github.com/inpher/go-hubspot"
 	"net/url"
 	"strings"
 )
 
-// CoreApiService CoreApi service
-type CoreApiService service
+// CoreAPIService CoreAPI service
+type CoreAPIService service
 
 type ApiArchiveRequest struct {
 	ctx          context.Context
-	ApiService   *CoreApiService
+	ApiService   *CoreAPIService
 	objectType   string
 	propertyName string
 }
@@ -40,12 +40,12 @@ Archive Archive a property
 
 Move a property identified by {propertyName} to the recycling bin.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param objectType
- @param propertyName
- @return ApiArchiveRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param objectType
+	@param propertyName
+	@return ApiArchiveRequest
 */
-func (a *CoreApiService) Archive(ctx context.Context, objectType string, propertyName string) ApiArchiveRequest {
+func (a *CoreAPIService) Archive(ctx context.Context, objectType string, propertyName string) ApiArchiveRequest {
 	return ApiArchiveRequest{
 		ApiService:   a,
 		ctx:          ctx,
@@ -55,21 +55,21 @@ func (a *CoreApiService) Archive(ctx context.Context, objectType string, propert
 }
 
 // Execute executes the request
-func (a *CoreApiService) ArchiveExecute(r ApiArchiveRequest) (*http.Response, error) {
+func (a *CoreAPIService) ArchiveExecute(r ApiArchiveRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CoreApiService.Archive")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CoreAPIService.Archive")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/properties/{objectType}/{propertyName}"
-	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterToString(r.objectType, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"propertyName"+"}", url.PathEscape(parameterToString(r.propertyName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterValueToString(r.objectType, "objectType")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"propertyName"+"}", url.PathEscape(parameterValueToString(r.propertyName, "propertyName")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -94,16 +94,6 @@ func (a *CoreApiService) ArchiveExecute(r ApiArchiveRequest) (*http.Response, er
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
-		}
-	}
-	if r.ctx != nil {
-		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["private_apps_legacy"]; ok {
 				var key string
@@ -116,6 +106,16 @@ func (a *CoreApiService) ArchiveExecute(r ApiArchiveRequest) (*http.Response, er
 			}
 		}
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -126,9 +126,9 @@ func (a *CoreApiService) ArchiveExecute(r ApiArchiveRequest) (*http.Response, er
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -144,6 +144,7 @@ func (a *CoreApiService) ArchiveExecute(r ApiArchiveRequest) (*http.Response, er
 			newErr.error = err.Error()
 			return localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
@@ -153,7 +154,7 @@ func (a *CoreApiService) ArchiveExecute(r ApiArchiveRequest) (*http.Response, er
 
 type ApiCreateRequest struct {
 	ctx            context.Context
-	ApiService     *CoreApiService
+	ApiService     *CoreAPIService
 	objectType     string
 	propertyCreate *PropertyCreate
 }
@@ -172,11 +173,11 @@ Create Create a property
 
 Create and return a copy of a new property for the specified object type.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param objectType
- @return ApiCreateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param objectType
+	@return ApiCreateRequest
 */
-func (a *CoreApiService) Create(ctx context.Context, objectType string) ApiCreateRequest {
+func (a *CoreAPIService) Create(ctx context.Context, objectType string) ApiCreateRequest {
 	return ApiCreateRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -185,8 +186,9 @@ func (a *CoreApiService) Create(ctx context.Context, objectType string) ApiCreat
 }
 
 // Execute executes the request
-//  @return Property
-func (a *CoreApiService) CreateExecute(r ApiCreateRequest) (*Property, *http.Response, error) {
+//
+//	@return Property
+func (a *CoreAPIService) CreateExecute(r ApiCreateRequest) (*Property, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -194,13 +196,13 @@ func (a *CoreApiService) CreateExecute(r ApiCreateRequest) (*Property, *http.Res
 		localVarReturnValue *Property
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CoreApiService.Create")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CoreAPIService.Create")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/properties/{objectType}"
-	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterToString(r.objectType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterValueToString(r.objectType, "objectType")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -230,16 +232,6 @@ func (a *CoreApiService) CreateExecute(r ApiCreateRequest) (*Property, *http.Res
 	localVarPostBody = r.propertyCreate
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
-		}
-	}
-	if r.ctx != nil {
-		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["private_apps_legacy"]; ok {
 				var key string
@@ -252,6 +244,16 @@ func (a *CoreApiService) CreateExecute(r ApiCreateRequest) (*Property, *http.Res
 			}
 		}
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -262,9 +264,9 @@ func (a *CoreApiService) CreateExecute(r ApiCreateRequest) (*Property, *http.Res
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -280,6 +282,7 @@ func (a *CoreApiService) CreateExecute(r ApiCreateRequest) (*Property, *http.Res
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -298,7 +301,7 @@ func (a *CoreApiService) CreateExecute(r ApiCreateRequest) (*Property, *http.Res
 
 type ApiGetAllRequest struct {
 	ctx        context.Context
-	ApiService *CoreApiService
+	ApiService *CoreAPIService
 	objectType string
 	archived   *bool
 	properties *string
@@ -324,11 +327,11 @@ GetAll Read all properties
 
 Read all existing properties for the specified object type and HubSpot account.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param objectType
- @return ApiGetAllRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param objectType
+	@return ApiGetAllRequest
 */
-func (a *CoreApiService) GetAll(ctx context.Context, objectType string) ApiGetAllRequest {
+func (a *CoreAPIService) GetAll(ctx context.Context, objectType string) ApiGetAllRequest {
 	return ApiGetAllRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -337,8 +340,9 @@ func (a *CoreApiService) GetAll(ctx context.Context, objectType string) ApiGetAl
 }
 
 // Execute executes the request
-//  @return CollectionResponsePropertyNoPaging
-func (a *CoreApiService) GetAllExecute(r ApiGetAllRequest) (*CollectionResponsePropertyNoPaging, *http.Response, error) {
+//
+//	@return CollectionResponsePropertyNoPaging
+func (a *CoreAPIService) GetAllExecute(r ApiGetAllRequest) (*CollectionResponsePropertyNoPaging, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -346,23 +350,26 @@ func (a *CoreApiService) GetAllExecute(r ApiGetAllRequest) (*CollectionResponseP
 		localVarReturnValue *CollectionResponsePropertyNoPaging
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CoreApiService.GetAll")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CoreAPIService.GetAll")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/properties/{objectType}"
-	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterToString(r.objectType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterValueToString(r.objectType, "objectType")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.archived != nil {
-		localVarQueryParams.Add("archived", parameterToString(*r.archived, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "archived", r.archived, "")
+	} else {
+		var defaultValue bool = false
+		r.archived = &defaultValue
 	}
 	if r.properties != nil {
-		localVarQueryParams.Add("properties", parameterToString(*r.properties, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "properties", r.properties, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -383,16 +390,6 @@ func (a *CoreApiService) GetAllExecute(r ApiGetAllRequest) (*CollectionResponseP
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
-		}
-	}
-	if r.ctx != nil {
-		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["private_apps_legacy"]; ok {
 				var key string
@@ -405,6 +402,16 @@ func (a *CoreApiService) GetAllExecute(r ApiGetAllRequest) (*CollectionResponseP
 			}
 		}
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -415,9 +422,9 @@ func (a *CoreApiService) GetAllExecute(r ApiGetAllRequest) (*CollectionResponseP
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -433,6 +440,7 @@ func (a *CoreApiService) GetAllExecute(r ApiGetAllRequest) (*CollectionResponseP
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -451,7 +459,7 @@ func (a *CoreApiService) GetAllExecute(r ApiGetAllRequest) (*CollectionResponseP
 
 type ApiGetByNameRequest struct {
 	ctx          context.Context
-	ApiService   *CoreApiService
+	ApiService   *CoreAPIService
 	objectType   string
 	propertyName string
 	archived     *bool
@@ -478,12 +486,12 @@ GetByName Read a property
 
 Read a property identified by {propertyName}.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param objectType
- @param propertyName
- @return ApiGetByNameRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param objectType
+	@param propertyName
+	@return ApiGetByNameRequest
 */
-func (a *CoreApiService) GetByName(ctx context.Context, objectType string, propertyName string) ApiGetByNameRequest {
+func (a *CoreAPIService) GetByName(ctx context.Context, objectType string, propertyName string) ApiGetByNameRequest {
 	return ApiGetByNameRequest{
 		ApiService:   a,
 		ctx:          ctx,
@@ -493,8 +501,9 @@ func (a *CoreApiService) GetByName(ctx context.Context, objectType string, prope
 }
 
 // Execute executes the request
-//  @return Property
-func (a *CoreApiService) GetByNameExecute(r ApiGetByNameRequest) (*Property, *http.Response, error) {
+//
+//	@return Property
+func (a *CoreAPIService) GetByNameExecute(r ApiGetByNameRequest) (*Property, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -502,24 +511,27 @@ func (a *CoreApiService) GetByNameExecute(r ApiGetByNameRequest) (*Property, *ht
 		localVarReturnValue *Property
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CoreApiService.GetByName")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CoreAPIService.GetByName")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/properties/{objectType}/{propertyName}"
-	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterToString(r.objectType, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"propertyName"+"}", url.PathEscape(parameterToString(r.propertyName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterValueToString(r.objectType, "objectType")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"propertyName"+"}", url.PathEscape(parameterValueToString(r.propertyName, "propertyName")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.archived != nil {
-		localVarQueryParams.Add("archived", parameterToString(*r.archived, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "archived", r.archived, "")
+	} else {
+		var defaultValue bool = false
+		r.archived = &defaultValue
 	}
 	if r.properties != nil {
-		localVarQueryParams.Add("properties", parameterToString(*r.properties, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "properties", r.properties, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -540,16 +552,6 @@ func (a *CoreApiService) GetByNameExecute(r ApiGetByNameRequest) (*Property, *ht
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
-		}
-	}
-	if r.ctx != nil {
-		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["private_apps_legacy"]; ok {
 				var key string
@@ -562,6 +564,16 @@ func (a *CoreApiService) GetByNameExecute(r ApiGetByNameRequest) (*Property, *ht
 			}
 		}
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -572,9 +584,9 @@ func (a *CoreApiService) GetByNameExecute(r ApiGetByNameRequest) (*Property, *ht
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -590,6 +602,7 @@ func (a *CoreApiService) GetByNameExecute(r ApiGetByNameRequest) (*Property, *ht
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -608,7 +621,7 @@ func (a *CoreApiService) GetByNameExecute(r ApiGetByNameRequest) (*Property, *ht
 
 type ApiUpdateRequest struct {
 	ctx            context.Context
-	ApiService     *CoreApiService
+	ApiService     *CoreAPIService
 	objectType     string
 	propertyName   string
 	propertyUpdate *PropertyUpdate
@@ -628,12 +641,12 @@ Update Update a property
 
 Perform a partial update of a property identified by {propertyName}. Provided fields will be overwritten.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param objectType
- @param propertyName
- @return ApiUpdateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param objectType
+	@param propertyName
+	@return ApiUpdateRequest
 */
-func (a *CoreApiService) Update(ctx context.Context, objectType string, propertyName string) ApiUpdateRequest {
+func (a *CoreAPIService) Update(ctx context.Context, objectType string, propertyName string) ApiUpdateRequest {
 	return ApiUpdateRequest{
 		ApiService:   a,
 		ctx:          ctx,
@@ -643,8 +656,9 @@ func (a *CoreApiService) Update(ctx context.Context, objectType string, property
 }
 
 // Execute executes the request
-//  @return Property
-func (a *CoreApiService) UpdateExecute(r ApiUpdateRequest) (*Property, *http.Response, error) {
+//
+//	@return Property
+func (a *CoreAPIService) UpdateExecute(r ApiUpdateRequest) (*Property, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
 		localVarPostBody    interface{}
@@ -652,14 +666,14 @@ func (a *CoreApiService) UpdateExecute(r ApiUpdateRequest) (*Property, *http.Res
 		localVarReturnValue *Property
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CoreApiService.Update")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CoreAPIService.Update")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/properties/{objectType}/{propertyName}"
-	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterToString(r.objectType, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"propertyName"+"}", url.PathEscape(parameterToString(r.propertyName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterValueToString(r.objectType, "objectType")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"propertyName"+"}", url.PathEscape(parameterValueToString(r.propertyName, "propertyName")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -689,16 +703,6 @@ func (a *CoreApiService) UpdateExecute(r ApiUpdateRequest) (*Property, *http.Res
 	localVarPostBody = r.propertyUpdate
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
-		}
-	}
-	if r.ctx != nil {
-		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["private_apps_legacy"]; ok {
 				var key string
@@ -711,6 +715,16 @@ func (a *CoreApiService) UpdateExecute(r ApiUpdateRequest) (*Property, *http.Res
 			}
 		}
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -721,9 +735,9 @@ func (a *CoreApiService) UpdateExecute(r ApiUpdateRequest) (*Property, *http.Res
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -739,6 +753,7 @@ func (a *CoreApiService) UpdateExecute(r ApiUpdateRequest) (*Property, *http.Res
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

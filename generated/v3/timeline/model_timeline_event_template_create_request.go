@@ -11,8 +11,13 @@ API version: v3
 package timeline
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the TimelineEventTemplateCreateRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TimelineEventTemplateCreateRequest{}
 
 // TimelineEventTemplateCreateRequest State of the template definition being created.
 type TimelineEventTemplateCreateRequest struct {
@@ -27,6 +32,8 @@ type TimelineEventTemplateCreateRequest struct {
 	// The type of CRM object this template is for. [Contacts, companies, tickets, and deals] are supported.
 	ObjectType string `json:"objectType"`
 }
+
+type _TimelineEventTemplateCreateRequest TimelineEventTemplateCreateRequest
 
 // NewTimelineEventTemplateCreateRequest instantiates a new TimelineEventTemplateCreateRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -50,7 +57,7 @@ func NewTimelineEventTemplateCreateRequestWithDefaults() *TimelineEventTemplateC
 
 // GetDetailTemplate returns the DetailTemplate field value if set, zero value otherwise.
 func (o *TimelineEventTemplateCreateRequest) GetDetailTemplate() string {
-	if o == nil || o.DetailTemplate == nil {
+	if o == nil || IsNil(o.DetailTemplate) {
 		var ret string
 		return ret
 	}
@@ -60,7 +67,7 @@ func (o *TimelineEventTemplateCreateRequest) GetDetailTemplate() string {
 // GetDetailTemplateOk returns a tuple with the DetailTemplate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TimelineEventTemplateCreateRequest) GetDetailTemplateOk() (*string, bool) {
-	if o == nil || o.DetailTemplate == nil {
+	if o == nil || IsNil(o.DetailTemplate) {
 		return nil, false
 	}
 	return o.DetailTemplate, true
@@ -68,7 +75,7 @@ func (o *TimelineEventTemplateCreateRequest) GetDetailTemplateOk() (*string, boo
 
 // HasDetailTemplate returns a boolean if a field has been set.
 func (o *TimelineEventTemplateCreateRequest) HasDetailTemplate() bool {
-	if o != nil && o.DetailTemplate != nil {
+	if o != nil && !IsNil(o.DetailTemplate) {
 		return true
 	}
 
@@ -130,7 +137,7 @@ func (o *TimelineEventTemplateCreateRequest) SetTokens(v []TimelineEventTemplate
 
 // GetHeaderTemplate returns the HeaderTemplate field value if set, zero value otherwise.
 func (o *TimelineEventTemplateCreateRequest) GetHeaderTemplate() string {
-	if o == nil || o.HeaderTemplate == nil {
+	if o == nil || IsNil(o.HeaderTemplate) {
 		var ret string
 		return ret
 	}
@@ -140,7 +147,7 @@ func (o *TimelineEventTemplateCreateRequest) GetHeaderTemplate() string {
 // GetHeaderTemplateOk returns a tuple with the HeaderTemplate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TimelineEventTemplateCreateRequest) GetHeaderTemplateOk() (*string, bool) {
-	if o == nil || o.HeaderTemplate == nil {
+	if o == nil || IsNil(o.HeaderTemplate) {
 		return nil, false
 	}
 	return o.HeaderTemplate, true
@@ -148,7 +155,7 @@ func (o *TimelineEventTemplateCreateRequest) GetHeaderTemplateOk() (*string, boo
 
 // HasHeaderTemplate returns a boolean if a field has been set.
 func (o *TimelineEventTemplateCreateRequest) HasHeaderTemplate() bool {
-	if o != nil && o.HeaderTemplate != nil {
+	if o != nil && !IsNil(o.HeaderTemplate) {
 		return true
 	}
 
@@ -185,23 +192,64 @@ func (o *TimelineEventTemplateCreateRequest) SetObjectType(v string) {
 }
 
 func (o TimelineEventTemplateCreateRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.DetailTemplate != nil {
-		toSerialize["detailTemplate"] = o.DetailTemplate
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["tokens"] = o.Tokens
-	}
-	if o.HeaderTemplate != nil {
-		toSerialize["headerTemplate"] = o.HeaderTemplate
-	}
-	if true {
-		toSerialize["objectType"] = o.ObjectType
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o TimelineEventTemplateCreateRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.DetailTemplate) {
+		toSerialize["detailTemplate"] = o.DetailTemplate
+	}
+	toSerialize["name"] = o.Name
+	toSerialize["tokens"] = o.Tokens
+	if !IsNil(o.HeaderTemplate) {
+		toSerialize["headerTemplate"] = o.HeaderTemplate
+	}
+	toSerialize["objectType"] = o.ObjectType
+	return toSerialize, nil
+}
+
+func (o *TimelineEventTemplateCreateRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"tokens",
+		"objectType",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varTimelineEventTemplateCreateRequest := _TimelineEventTemplateCreateRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varTimelineEventTemplateCreateRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TimelineEventTemplateCreateRequest(varTimelineEventTemplateCreateRequest)
+
+	return err
 }
 
 type NullableTimelineEventTemplateCreateRequest struct {

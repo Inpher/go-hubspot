@@ -11,13 +11,20 @@ API version: v3
 package calling
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the RecordingSettingsResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RecordingSettingsResponse{}
 
 // RecordingSettingsResponse struct for RecordingSettingsResponse
 type RecordingSettingsResponse struct {
 	UrlToRetrieveAuthedRecording string `json:"urlToRetrieveAuthedRecording"`
 }
+
+type _RecordingSettingsResponse RecordingSettingsResponse
 
 // NewRecordingSettingsResponse instantiates a new RecordingSettingsResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -62,11 +69,54 @@ func (o *RecordingSettingsResponse) SetUrlToRetrieveAuthedRecording(v string) {
 }
 
 func (o RecordingSettingsResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["urlToRetrieveAuthedRecording"] = o.UrlToRetrieveAuthedRecording
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RecordingSettingsResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["urlToRetrieveAuthedRecording"] = o.UrlToRetrieveAuthedRecording
+	return toSerialize, nil
+}
+
+func (o *RecordingSettingsResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"urlToRetrieveAuthedRecording",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRecordingSettingsResponse := _RecordingSettingsResponse{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varRecordingSettingsResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RecordingSettingsResponse(varRecordingSettingsResponse)
+
+	return err
 }
 
 type NullableRecordingSettingsResponse struct {

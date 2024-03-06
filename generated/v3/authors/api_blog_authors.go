@@ -13,22 +13,22 @@ package authors
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 
-	"github.com/clarkmcc/go-hubspot"
+	"github.com/inpher/go-hubspot"
 	"net/url"
 	"reflect"
 	"strings"
 	"time"
 )
 
-// BlogAuthorsApiService BlogAuthorsApi service
-type BlogAuthorsApiService service
+// BlogAuthorsAPIService BlogAuthorsAPI service
+type BlogAuthorsAPIService service
 
 type ApiArchiveRequest struct {
 	ctx        context.Context
-	ApiService *BlogAuthorsApiService
+	ApiService *BlogAuthorsAPIService
 	objectId   string
 	archived   *bool
 }
@@ -48,11 +48,11 @@ Archive Delete a Blog Author
 
 Delete the Blog Author object identified by the id in the path.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param objectId The Blog Author id.
- @return ApiArchiveRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param objectId The Blog Author id.
+	@return ApiArchiveRequest
 */
-func (a *BlogAuthorsApiService) Archive(ctx context.Context, objectId string) ApiArchiveRequest {
+func (a *BlogAuthorsAPIService) Archive(ctx context.Context, objectId string) ApiArchiveRequest {
 	return ApiArchiveRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -61,27 +61,27 @@ func (a *BlogAuthorsApiService) Archive(ctx context.Context, objectId string) Ap
 }
 
 // Execute executes the request
-func (a *BlogAuthorsApiService) ArchiveExecute(r ApiArchiveRequest) (*http.Response, error) {
+func (a *BlogAuthorsAPIService) ArchiveExecute(r ApiArchiveRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlogAuthorsApiService.Archive")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlogAuthorsAPIService.Archive")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/cms/v3/blogs/authors/{objectId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"objectId"+"}", url.PathEscape(parameterToString(r.objectId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"objectId"+"}", url.PathEscape(parameterValueToString(r.objectId, "objectId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.archived != nil {
-		localVarQueryParams.Add("archived", parameterToString(*r.archived, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "archived", r.archived, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -120,9 +120,9 @@ func (a *BlogAuthorsApiService) ArchiveExecute(r ApiArchiveRequest) (*http.Respo
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -138,6 +138,7 @@ func (a *BlogAuthorsApiService) ArchiveExecute(r ApiArchiveRequest) (*http.Respo
 			newErr.error = err.Error()
 			return localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
@@ -147,7 +148,7 @@ func (a *BlogAuthorsApiService) ArchiveExecute(r ApiArchiveRequest) (*http.Respo
 
 type ApiAttachToLanguageGroupRequest struct {
 	ctx                             context.Context
-	ApiService                      *BlogAuthorsApiService
+	ApiService                      *BlogAuthorsAPIService
 	attachToLangPrimaryRequestVNext *AttachToLangPrimaryRequestVNext
 }
 
@@ -166,10 +167,10 @@ AttachToLanguageGroup Attach a Blog Author to a multi-language group
 
 Attach a Blog Author to a multi-language group.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiAttachToLanguageGroupRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiAttachToLanguageGroupRequest
 */
-func (a *BlogAuthorsApiService) AttachToLanguageGroup(ctx context.Context) ApiAttachToLanguageGroupRequest {
+func (a *BlogAuthorsAPIService) AttachToLanguageGroup(ctx context.Context) ApiAttachToLanguageGroupRequest {
 	return ApiAttachToLanguageGroupRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -177,14 +178,14 @@ func (a *BlogAuthorsApiService) AttachToLanguageGroup(ctx context.Context) ApiAt
 }
 
 // Execute executes the request
-func (a *BlogAuthorsApiService) AttachToLanguageGroupExecute(r ApiAttachToLanguageGroupRequest) (*http.Response, error) {
+func (a *BlogAuthorsAPIService) AttachToLanguageGroupExecute(r ApiAttachToLanguageGroupRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlogAuthorsApiService.AttachToLanguageGroup")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlogAuthorsAPIService.AttachToLanguageGroup")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -237,9 +238,9 @@ func (a *BlogAuthorsApiService) AttachToLanguageGroupExecute(r ApiAttachToLangua
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -255,6 +256,7 @@ func (a *BlogAuthorsApiService) AttachToLanguageGroupExecute(r ApiAttachToLangua
 			newErr.error = err.Error()
 			return localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
@@ -264,7 +266,7 @@ func (a *BlogAuthorsApiService) AttachToLanguageGroupExecute(r ApiAttachToLangua
 
 type ApiBatchArchiveRequest struct {
 	ctx              context.Context
-	ApiService       *BlogAuthorsApiService
+	ApiService       *BlogAuthorsAPIService
 	batchInputString *BatchInputString
 }
 
@@ -283,10 +285,10 @@ BatchArchive Delete a batch of Blog Authors
 
 Delete the Blog Author objects identified in the request body.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiBatchArchiveRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiBatchArchiveRequest
 */
-func (a *BlogAuthorsApiService) BatchArchive(ctx context.Context) ApiBatchArchiveRequest {
+func (a *BlogAuthorsAPIService) BatchArchive(ctx context.Context) ApiBatchArchiveRequest {
 	return ApiBatchArchiveRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -294,14 +296,14 @@ func (a *BlogAuthorsApiService) BatchArchive(ctx context.Context) ApiBatchArchiv
 }
 
 // Execute executes the request
-func (a *BlogAuthorsApiService) BatchArchiveExecute(r ApiBatchArchiveRequest) (*http.Response, error) {
+func (a *BlogAuthorsAPIService) BatchArchiveExecute(r ApiBatchArchiveRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlogAuthorsApiService.BatchArchive")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlogAuthorsAPIService.BatchArchive")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -354,9 +356,9 @@ func (a *BlogAuthorsApiService) BatchArchiveExecute(r ApiBatchArchiveRequest) (*
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -372,6 +374,7 @@ func (a *BlogAuthorsApiService) BatchArchiveExecute(r ApiBatchArchiveRequest) (*
 			newErr.error = err.Error()
 			return localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
@@ -381,7 +384,7 @@ func (a *BlogAuthorsApiService) BatchArchiveExecute(r ApiBatchArchiveRequest) (*
 
 type ApiBatchCreateRequest struct {
 	ctx                  context.Context
-	ApiService           *BlogAuthorsApiService
+	ApiService           *BlogAuthorsAPIService
 	batchInputBlogAuthor *BatchInputBlogAuthor
 }
 
@@ -400,10 +403,10 @@ BatchCreate Create a batch of Blog Authors
 
 Create the Blog Author objects detailed in the request body.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiBatchCreateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiBatchCreateRequest
 */
-func (a *BlogAuthorsApiService) BatchCreate(ctx context.Context) ApiBatchCreateRequest {
+func (a *BlogAuthorsAPIService) BatchCreate(ctx context.Context) ApiBatchCreateRequest {
 	return ApiBatchCreateRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -411,8 +414,9 @@ func (a *BlogAuthorsApiService) BatchCreate(ctx context.Context) ApiBatchCreateR
 }
 
 // Execute executes the request
-//  @return BatchResponseBlogAuthor
-func (a *BlogAuthorsApiService) BatchCreateExecute(r ApiBatchCreateRequest) (*BatchResponseBlogAuthor, *http.Response, error) {
+//
+//	@return BatchResponseBlogAuthor
+func (a *BlogAuthorsAPIService) BatchCreateExecute(r ApiBatchCreateRequest) (*BatchResponseBlogAuthor, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -420,7 +424,7 @@ func (a *BlogAuthorsApiService) BatchCreateExecute(r ApiBatchCreateRequest) (*Ba
 		localVarReturnValue *BatchResponseBlogAuthor
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlogAuthorsApiService.BatchCreate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlogAuthorsAPIService.BatchCreate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -473,9 +477,9 @@ func (a *BlogAuthorsApiService) BatchCreateExecute(r ApiBatchCreateRequest) (*Ba
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -491,6 +495,7 @@ func (a *BlogAuthorsApiService) BatchCreateExecute(r ApiBatchCreateRequest) (*Ba
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -509,7 +514,7 @@ func (a *BlogAuthorsApiService) BatchCreateExecute(r ApiBatchCreateRequest) (*Ba
 
 type ApiBatchReadRequest struct {
 	ctx              context.Context
-	ApiService       *BlogAuthorsApiService
+	ApiService       *BlogAuthorsAPIService
 	batchInputString *BatchInputString
 	archived         *bool
 }
@@ -535,10 +540,10 @@ BatchRead Retrieve a batch of Blog Authors
 
 Retrieve the Blog Author objects identified in the request body.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiBatchReadRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiBatchReadRequest
 */
-func (a *BlogAuthorsApiService) BatchRead(ctx context.Context) ApiBatchReadRequest {
+func (a *BlogAuthorsAPIService) BatchRead(ctx context.Context) ApiBatchReadRequest {
 	return ApiBatchReadRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -546,8 +551,9 @@ func (a *BlogAuthorsApiService) BatchRead(ctx context.Context) ApiBatchReadReque
 }
 
 // Execute executes the request
-//  @return BatchResponseBlogAuthor
-func (a *BlogAuthorsApiService) BatchReadExecute(r ApiBatchReadRequest) (*BatchResponseBlogAuthor, *http.Response, error) {
+//
+//	@return BatchResponseBlogAuthor
+func (a *BlogAuthorsAPIService) BatchReadExecute(r ApiBatchReadRequest) (*BatchResponseBlogAuthor, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -555,7 +561,7 @@ func (a *BlogAuthorsApiService) BatchReadExecute(r ApiBatchReadRequest) (*BatchR
 		localVarReturnValue *BatchResponseBlogAuthor
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlogAuthorsApiService.BatchRead")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlogAuthorsAPIService.BatchRead")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -570,7 +576,7 @@ func (a *BlogAuthorsApiService) BatchReadExecute(r ApiBatchReadRequest) (*BatchR
 	}
 
 	if r.archived != nil {
-		localVarQueryParams.Add("archived", parameterToString(*r.archived, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "archived", r.archived, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -611,9 +617,9 @@ func (a *BlogAuthorsApiService) BatchReadExecute(r ApiBatchReadRequest) (*BatchR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -629,6 +635,7 @@ func (a *BlogAuthorsApiService) BatchReadExecute(r ApiBatchReadRequest) (*BatchR
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -647,7 +654,7 @@ func (a *BlogAuthorsApiService) BatchReadExecute(r ApiBatchReadRequest) (*BatchR
 
 type ApiBatchUpdateRequest struct {
 	ctx                context.Context
-	ApiService         *BlogAuthorsApiService
+	ApiService         *BlogAuthorsAPIService
 	batchInputJsonNode *BatchInputJsonNode
 	archived           *bool
 }
@@ -673,10 +680,10 @@ BatchUpdate Update a batch of Blog Authors
 
 Update the Blog Author objects identified in the request body.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiBatchUpdateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiBatchUpdateRequest
 */
-func (a *BlogAuthorsApiService) BatchUpdate(ctx context.Context) ApiBatchUpdateRequest {
+func (a *BlogAuthorsAPIService) BatchUpdate(ctx context.Context) ApiBatchUpdateRequest {
 	return ApiBatchUpdateRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -684,8 +691,9 @@ func (a *BlogAuthorsApiService) BatchUpdate(ctx context.Context) ApiBatchUpdateR
 }
 
 // Execute executes the request
-//  @return BatchResponseBlogAuthor
-func (a *BlogAuthorsApiService) BatchUpdateExecute(r ApiBatchUpdateRequest) (*BatchResponseBlogAuthor, *http.Response, error) {
+//
+//	@return BatchResponseBlogAuthor
+func (a *BlogAuthorsAPIService) BatchUpdateExecute(r ApiBatchUpdateRequest) (*BatchResponseBlogAuthor, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -693,7 +701,7 @@ func (a *BlogAuthorsApiService) BatchUpdateExecute(r ApiBatchUpdateRequest) (*Ba
 		localVarReturnValue *BatchResponseBlogAuthor
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlogAuthorsApiService.BatchUpdate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlogAuthorsAPIService.BatchUpdate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -708,7 +716,7 @@ func (a *BlogAuthorsApiService) BatchUpdateExecute(r ApiBatchUpdateRequest) (*Ba
 	}
 
 	if r.archived != nil {
-		localVarQueryParams.Add("archived", parameterToString(*r.archived, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "archived", r.archived, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -749,9 +757,9 @@ func (a *BlogAuthorsApiService) BatchUpdateExecute(r ApiBatchUpdateRequest) (*Ba
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -767,6 +775,7 @@ func (a *BlogAuthorsApiService) BatchUpdateExecute(r ApiBatchUpdateRequest) (*Ba
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -785,7 +794,7 @@ func (a *BlogAuthorsApiService) BatchUpdateExecute(r ApiBatchUpdateRequest) (*Ba
 
 type ApiCreateRequest struct {
 	ctx        context.Context
-	ApiService *BlogAuthorsApiService
+	ApiService *BlogAuthorsAPIService
 	blogAuthor *BlogAuthor
 }
 
@@ -804,10 +813,10 @@ Create Create a new Blog Author
 
 Create a new Blog Author.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateRequest
 */
-func (a *BlogAuthorsApiService) Create(ctx context.Context) ApiCreateRequest {
+func (a *BlogAuthorsAPIService) Create(ctx context.Context) ApiCreateRequest {
 	return ApiCreateRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -815,8 +824,9 @@ func (a *BlogAuthorsApiService) Create(ctx context.Context) ApiCreateRequest {
 }
 
 // Execute executes the request
-//  @return BlogAuthor
-func (a *BlogAuthorsApiService) CreateExecute(r ApiCreateRequest) (*BlogAuthor, *http.Response, error) {
+//
+//	@return BlogAuthor
+func (a *BlogAuthorsAPIService) CreateExecute(r ApiCreateRequest) (*BlogAuthor, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -824,7 +834,7 @@ func (a *BlogAuthorsApiService) CreateExecute(r ApiCreateRequest) (*BlogAuthor, 
 		localVarReturnValue *BlogAuthor
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlogAuthorsApiService.Create")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlogAuthorsAPIService.Create")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -877,9 +887,9 @@ func (a *BlogAuthorsApiService) CreateExecute(r ApiCreateRequest) (*BlogAuthor, 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -895,6 +905,7 @@ func (a *BlogAuthorsApiService) CreateExecute(r ApiCreateRequest) (*BlogAuthor, 
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -913,7 +924,7 @@ func (a *BlogAuthorsApiService) CreateExecute(r ApiCreateRequest) (*BlogAuthor, 
 
 type ApiCreateLanguageVariationRequest struct {
 	ctx                         context.Context
-	ApiService                  *BlogAuthorsApiService
+	ApiService                  *BlogAuthorsAPIService
 	blogAuthorCloneRequestVNext *BlogAuthorCloneRequestVNext
 }
 
@@ -932,10 +943,10 @@ CreateLanguageVariation Create a new language variation
 
 Create a new language variation from an existing Blog Author.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateLanguageVariationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateLanguageVariationRequest
 */
-func (a *BlogAuthorsApiService) CreateLanguageVariation(ctx context.Context) ApiCreateLanguageVariationRequest {
+func (a *BlogAuthorsAPIService) CreateLanguageVariation(ctx context.Context) ApiCreateLanguageVariationRequest {
 	return ApiCreateLanguageVariationRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -943,8 +954,9 @@ func (a *BlogAuthorsApiService) CreateLanguageVariation(ctx context.Context) Api
 }
 
 // Execute executes the request
-//  @return BlogAuthor
-func (a *BlogAuthorsApiService) CreateLanguageVariationExecute(r ApiCreateLanguageVariationRequest) (*BlogAuthor, *http.Response, error) {
+//
+//	@return BlogAuthor
+func (a *BlogAuthorsAPIService) CreateLanguageVariationExecute(r ApiCreateLanguageVariationRequest) (*BlogAuthor, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -952,7 +964,7 @@ func (a *BlogAuthorsApiService) CreateLanguageVariationExecute(r ApiCreateLangua
 		localVarReturnValue *BlogAuthor
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlogAuthorsApiService.CreateLanguageVariation")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlogAuthorsAPIService.CreateLanguageVariation")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1005,9 +1017,9 @@ func (a *BlogAuthorsApiService) CreateLanguageVariationExecute(r ApiCreateLangua
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1023,6 +1035,7 @@ func (a *BlogAuthorsApiService) CreateLanguageVariationExecute(r ApiCreateLangua
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1041,7 +1054,7 @@ func (a *BlogAuthorsApiService) CreateLanguageVariationExecute(r ApiCreateLangua
 
 type ApiDetachFromLanguageGroupRequest struct {
 	ctx                             context.Context
-	ApiService                      *BlogAuthorsApiService
+	ApiService                      *BlogAuthorsAPIService
 	detachFromLangGroupRequestVNext *DetachFromLangGroupRequestVNext
 }
 
@@ -1060,10 +1073,10 @@ DetachFromLanguageGroup Detach a Blog Author from a multi-language group
 
 Detach a Blog Author from a multi-language group.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiDetachFromLanguageGroupRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiDetachFromLanguageGroupRequest
 */
-func (a *BlogAuthorsApiService) DetachFromLanguageGroup(ctx context.Context) ApiDetachFromLanguageGroupRequest {
+func (a *BlogAuthorsAPIService) DetachFromLanguageGroup(ctx context.Context) ApiDetachFromLanguageGroupRequest {
 	return ApiDetachFromLanguageGroupRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -1071,14 +1084,14 @@ func (a *BlogAuthorsApiService) DetachFromLanguageGroup(ctx context.Context) Api
 }
 
 // Execute executes the request
-func (a *BlogAuthorsApiService) DetachFromLanguageGroupExecute(r ApiDetachFromLanguageGroupRequest) (*http.Response, error) {
+func (a *BlogAuthorsAPIService) DetachFromLanguageGroupExecute(r ApiDetachFromLanguageGroupRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlogAuthorsApiService.DetachFromLanguageGroup")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlogAuthorsAPIService.DetachFromLanguageGroup")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1131,9 +1144,9 @@ func (a *BlogAuthorsApiService) DetachFromLanguageGroupExecute(r ApiDetachFromLa
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -1149,6 +1162,7 @@ func (a *BlogAuthorsApiService) DetachFromLanguageGroupExecute(r ApiDetachFromLa
 			newErr.error = err.Error()
 			return localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
@@ -1158,7 +1172,7 @@ func (a *BlogAuthorsApiService) DetachFromLanguageGroupExecute(r ApiDetachFromLa
 
 type ApiGetByIDRequest struct {
 	ctx        context.Context
-	ApiService *BlogAuthorsApiService
+	ApiService *BlogAuthorsAPIService
 	objectId   string
 	archived   *bool
 	property   *string
@@ -1184,11 +1198,11 @@ GetByID Retrieve a Blog Author
 
 Retrieve the Blog Author object identified by the id in the path.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param objectId The Blog Author id.
- @return ApiGetByIDRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param objectId The Blog Author id.
+	@return ApiGetByIDRequest
 */
-func (a *BlogAuthorsApiService) GetByID(ctx context.Context, objectId string) ApiGetByIDRequest {
+func (a *BlogAuthorsAPIService) GetByID(ctx context.Context, objectId string) ApiGetByIDRequest {
 	return ApiGetByIDRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -1197,8 +1211,9 @@ func (a *BlogAuthorsApiService) GetByID(ctx context.Context, objectId string) Ap
 }
 
 // Execute executes the request
-//  @return BlogAuthor
-func (a *BlogAuthorsApiService) GetByIDExecute(r ApiGetByIDRequest) (*BlogAuthor, *http.Response, error) {
+//
+//	@return BlogAuthor
+func (a *BlogAuthorsAPIService) GetByIDExecute(r ApiGetByIDRequest) (*BlogAuthor, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1206,23 +1221,23 @@ func (a *BlogAuthorsApiService) GetByIDExecute(r ApiGetByIDRequest) (*BlogAuthor
 		localVarReturnValue *BlogAuthor
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlogAuthorsApiService.GetByID")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlogAuthorsAPIService.GetByID")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/cms/v3/blogs/authors/{objectId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"objectId"+"}", url.PathEscape(parameterToString(r.objectId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"objectId"+"}", url.PathEscape(parameterValueToString(r.objectId, "objectId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.archived != nil {
-		localVarQueryParams.Add("archived", parameterToString(*r.archived, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "archived", r.archived, "")
 	}
 	if r.property != nil {
-		localVarQueryParams.Add("property", parameterToString(*r.property, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "property", r.property, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1261,9 +1276,9 @@ func (a *BlogAuthorsApiService) GetByIDExecute(r ApiGetByIDRequest) (*BlogAuthor
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1279,6 +1294,7 @@ func (a *BlogAuthorsApiService) GetByIDExecute(r ApiGetByIDRequest) (*BlogAuthor
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1297,7 +1313,7 @@ func (a *BlogAuthorsApiService) GetByIDExecute(r ApiGetByIDRequest) (*BlogAuthor
 
 type ApiGetPageRequest struct {
 	ctx           context.Context
-	ApiService    *BlogAuthorsApiService
+	ApiService    *BlogAuthorsAPIService
 	createdAt     *time.Time
 	createdAfter  *time.Time
 	createdBefore *time.Time
@@ -1385,11 +1401,10 @@ GetPage Get all Blog Authors
 
 Get the list of blog authors. Supports paging and filtering. This method would be useful for an integration that examined these models and used an external service to suggest edits.
 
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetPageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetPageRequest
 */
-func (a *BlogAuthorsApiService) GetPage(ctx context.Context) ApiGetPageRequest {
+func (a *BlogAuthorsAPIService) GetPage(ctx context.Context) ApiGetPageRequest {
 	return ApiGetPageRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -1397,8 +1412,9 @@ func (a *BlogAuthorsApiService) GetPage(ctx context.Context) ApiGetPageRequest {
 }
 
 // Execute executes the request
-//  @return CollectionResponseWithTotalBlogAuthorForwardPaging
-func (a *BlogAuthorsApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionResponseWithTotalBlogAuthorForwardPaging, *http.Response, error) {
+//
+//	@return CollectionResponseWithTotalBlogAuthorForwardPaging
+func (a *BlogAuthorsAPIService) GetPageExecute(r ApiGetPageRequest) (*CollectionResponseWithTotalBlogAuthorForwardPaging, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1406,7 +1422,7 @@ func (a *BlogAuthorsApiService) GetPageExecute(r ApiGetPageRequest) (*Collection
 		localVarReturnValue *CollectionResponseWithTotalBlogAuthorForwardPaging
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlogAuthorsApiService.GetPage")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlogAuthorsAPIService.GetPage")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1418,45 +1434,45 @@ func (a *BlogAuthorsApiService) GetPageExecute(r ApiGetPageRequest) (*Collection
 	localVarFormParams := url.Values{}
 
 	if r.createdAt != nil {
-		localVarQueryParams.Add("createdAt", parameterToString(*r.createdAt, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "createdAt", r.createdAt, "")
 	}
 	if r.createdAfter != nil {
-		localVarQueryParams.Add("createdAfter", parameterToString(*r.createdAfter, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "createdAfter", r.createdAfter, "")
 	}
 	if r.createdBefore != nil {
-		localVarQueryParams.Add("createdBefore", parameterToString(*r.createdBefore, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "createdBefore", r.createdBefore, "")
 	}
 	if r.updatedAt != nil {
-		localVarQueryParams.Add("updatedAt", parameterToString(*r.updatedAt, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "updatedAt", r.updatedAt, "")
 	}
 	if r.updatedAfter != nil {
-		localVarQueryParams.Add("updatedAfter", parameterToString(*r.updatedAfter, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "updatedAfter", r.updatedAfter, "")
 	}
 	if r.updatedBefore != nil {
-		localVarQueryParams.Add("updatedBefore", parameterToString(*r.updatedBefore, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "updatedBefore", r.updatedBefore, "")
 	}
 	if r.sort != nil {
 		t := *r.sort
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("sort", parameterToString(s.Index(i), "multi"))
+				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "multi")
 			}
 		} else {
-			localVarQueryParams.Add("sort", parameterToString(t, "multi"))
+			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "multi")
 		}
 	}
 	if r.after != nil {
-		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "after", r.after, "")
 	}
 	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
 	}
 	if r.archived != nil {
-		localVarQueryParams.Add("archived", parameterToString(*r.archived, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "archived", r.archived, "")
 	}
 	if r.property != nil {
-		localVarQueryParams.Add("property", parameterToString(*r.property, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "property", r.property, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1495,9 +1511,9 @@ func (a *BlogAuthorsApiService) GetPageExecute(r ApiGetPageRequest) (*Collection
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1513,6 +1529,7 @@ func (a *BlogAuthorsApiService) GetPageExecute(r ApiGetPageRequest) (*Collection
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1531,7 +1548,7 @@ func (a *BlogAuthorsApiService) GetPageExecute(r ApiGetPageRequest) (*Collection
 
 type ApiSetLanguagePrimaryRequest struct {
 	ctx                               context.Context
-	ApiService                        *BlogAuthorsApiService
+	ApiService                        *BlogAuthorsAPIService
 	setNewLanguagePrimaryRequestVNext *SetNewLanguagePrimaryRequestVNext
 }
 
@@ -1550,10 +1567,10 @@ SetLanguagePrimary Set a new primary language
 
 Set a Blog Author as the primary language of a multi-language group.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiSetLanguagePrimaryRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiSetLanguagePrimaryRequest
 */
-func (a *BlogAuthorsApiService) SetLanguagePrimary(ctx context.Context) ApiSetLanguagePrimaryRequest {
+func (a *BlogAuthorsAPIService) SetLanguagePrimary(ctx context.Context) ApiSetLanguagePrimaryRequest {
 	return ApiSetLanguagePrimaryRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -1561,14 +1578,14 @@ func (a *BlogAuthorsApiService) SetLanguagePrimary(ctx context.Context) ApiSetLa
 }
 
 // Execute executes the request
-func (a *BlogAuthorsApiService) SetLanguagePrimaryExecute(r ApiSetLanguagePrimaryRequest) (*http.Response, error) {
+func (a *BlogAuthorsAPIService) SetLanguagePrimaryExecute(r ApiSetLanguagePrimaryRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPut
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlogAuthorsApiService.SetLanguagePrimary")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlogAuthorsAPIService.SetLanguagePrimary")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1621,9 +1638,9 @@ func (a *BlogAuthorsApiService) SetLanguagePrimaryExecute(r ApiSetLanguagePrimar
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -1639,6 +1656,7 @@ func (a *BlogAuthorsApiService) SetLanguagePrimaryExecute(r ApiSetLanguagePrimar
 			newErr.error = err.Error()
 			return localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
@@ -1648,7 +1666,7 @@ func (a *BlogAuthorsApiService) SetLanguagePrimaryExecute(r ApiSetLanguagePrimar
 
 type ApiUpdateRequest struct {
 	ctx        context.Context
-	ApiService *BlogAuthorsApiService
+	ApiService *BlogAuthorsAPIService
 	objectId   string
 	blogAuthor *BlogAuthor
 	archived   *bool
@@ -1676,12 +1694,11 @@ Update Update a Blog Author
 Sparse updates a single Blog Author object identified by the id in the path.
 All the column values need not be specified. Only the that need to be modified can be specified.
 
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param objectId The Blog Author id.
- @return ApiUpdateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param objectId The Blog Author id.
+	@return ApiUpdateRequest
 */
-func (a *BlogAuthorsApiService) Update(ctx context.Context, objectId string) ApiUpdateRequest {
+func (a *BlogAuthorsAPIService) Update(ctx context.Context, objectId string) ApiUpdateRequest {
 	return ApiUpdateRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -1690,8 +1707,9 @@ func (a *BlogAuthorsApiService) Update(ctx context.Context, objectId string) Api
 }
 
 // Execute executes the request
-//  @return BlogAuthor
-func (a *BlogAuthorsApiService) UpdateExecute(r ApiUpdateRequest) (*BlogAuthor, *http.Response, error) {
+//
+//	@return BlogAuthor
+func (a *BlogAuthorsAPIService) UpdateExecute(r ApiUpdateRequest) (*BlogAuthor, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
 		localVarPostBody    interface{}
@@ -1699,13 +1717,13 @@ func (a *BlogAuthorsApiService) UpdateExecute(r ApiUpdateRequest) (*BlogAuthor, 
 		localVarReturnValue *BlogAuthor
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlogAuthorsApiService.Update")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlogAuthorsAPIService.Update")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/cms/v3/blogs/authors/{objectId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"objectId"+"}", url.PathEscape(parameterToString(r.objectId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"objectId"+"}", url.PathEscape(parameterValueToString(r.objectId, "objectId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1715,7 +1733,7 @@ func (a *BlogAuthorsApiService) UpdateExecute(r ApiUpdateRequest) (*BlogAuthor, 
 	}
 
 	if r.archived != nil {
-		localVarQueryParams.Add("archived", parameterToString(*r.archived, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "archived", r.archived, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -1756,9 +1774,9 @@ func (a *BlogAuthorsApiService) UpdateExecute(r ApiUpdateRequest) (*BlogAuthor, 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1774,6 +1792,7 @@ func (a *BlogAuthorsApiService) UpdateExecute(r ApiUpdateRequest) (*BlogAuthor, 
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1792,7 +1811,7 @@ func (a *BlogAuthorsApiService) UpdateExecute(r ApiUpdateRequest) (*BlogAuthor, 
 
 type ApiUpdateLanguagesRequest struct {
 	ctx                         context.Context
-	ApiService                  *BlogAuthorsApiService
+	ApiService                  *BlogAuthorsAPIService
 	updateLanguagesRequestVNext *UpdateLanguagesRequestVNext
 }
 
@@ -1811,10 +1830,10 @@ UpdateLanguages Update languages of multi-language group
 
 Explicitly set new languages for each Blog Author in a multi-language group.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiUpdateLanguagesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiUpdateLanguagesRequest
 */
-func (a *BlogAuthorsApiService) UpdateLanguages(ctx context.Context) ApiUpdateLanguagesRequest {
+func (a *BlogAuthorsAPIService) UpdateLanguages(ctx context.Context) ApiUpdateLanguagesRequest {
 	return ApiUpdateLanguagesRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -1822,14 +1841,14 @@ func (a *BlogAuthorsApiService) UpdateLanguages(ctx context.Context) ApiUpdateLa
 }
 
 // Execute executes the request
-func (a *BlogAuthorsApiService) UpdateLanguagesExecute(r ApiUpdateLanguagesRequest) (*http.Response, error) {
+func (a *BlogAuthorsAPIService) UpdateLanguagesExecute(r ApiUpdateLanguagesRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlogAuthorsApiService.UpdateLanguages")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BlogAuthorsAPIService.UpdateLanguages")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1882,9 +1901,9 @@ func (a *BlogAuthorsApiService) UpdateLanguagesExecute(r ApiUpdateLanguagesReque
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -1900,6 +1919,7 @@ func (a *BlogAuthorsApiService) UpdateLanguagesExecute(r ApiUpdateLanguagesReque
 			newErr.error = err.Error()
 			return localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}

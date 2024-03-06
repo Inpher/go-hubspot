@@ -13,20 +13,20 @@ package imports
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 
-	"github.com/clarkmcc/go-hubspot"
+	"github.com/inpher/go-hubspot"
 	"net/url"
 	"strings"
 )
 
-// PublicImportsApiService PublicImportsApi service
-type PublicImportsApiService service
+// PublicImportsAPIService PublicImportsAPI service
+type PublicImportsAPIService service
 
 type ApiGetErrorsRequest struct {
 	ctx        context.Context
-	ApiService *PublicImportsApiService
+	ApiService *PublicImportsAPIService
 	importId   int64
 	after      *string
 	limit      *int32
@@ -51,11 +51,11 @@ func (r ApiGetErrorsRequest) Execute() (*CollectionResponsePublicImportErrorForw
 /*
 GetErrors Method for GetErrors
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param importId
- @return ApiGetErrorsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param importId
+	@return ApiGetErrorsRequest
 */
-func (a *PublicImportsApiService) GetErrors(ctx context.Context, importId int64) ApiGetErrorsRequest {
+func (a *PublicImportsAPIService) GetErrors(ctx context.Context, importId int64) ApiGetErrorsRequest {
 	return ApiGetErrorsRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -64,8 +64,9 @@ func (a *PublicImportsApiService) GetErrors(ctx context.Context, importId int64)
 }
 
 // Execute executes the request
-//  @return CollectionResponsePublicImportErrorForwardPaging
-func (a *PublicImportsApiService) GetErrorsExecute(r ApiGetErrorsRequest) (*CollectionResponsePublicImportErrorForwardPaging, *http.Response, error) {
+//
+//	@return CollectionResponsePublicImportErrorForwardPaging
+func (a *PublicImportsAPIService) GetErrorsExecute(r ApiGetErrorsRequest) (*CollectionResponsePublicImportErrorForwardPaging, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -73,23 +74,23 @@ func (a *PublicImportsApiService) GetErrorsExecute(r ApiGetErrorsRequest) (*Coll
 		localVarReturnValue *CollectionResponsePublicImportErrorForwardPaging
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicImportsApiService.GetErrors")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicImportsAPIService.GetErrors")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/imports/{importId}/errors"
-	localVarPath = strings.Replace(localVarPath, "{"+"importId"+"}", url.PathEscape(parameterToString(r.importId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"importId"+"}", url.PathEscape(parameterValueToString(r.importId, "importId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.after != nil {
-		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "after", r.after, "")
 	}
 	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -128,9 +129,9 @@ func (a *PublicImportsApiService) GetErrorsExecute(r ApiGetErrorsRequest) (*Coll
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -146,6 +147,7 @@ func (a *PublicImportsApiService) GetErrorsExecute(r ApiGetErrorsRequest) (*Coll
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

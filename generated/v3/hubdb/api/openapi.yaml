@@ -1,21 +1,9 @@
 openapi: 3.0.1
 info:
-  description: "HubDB is a relational data store that presents data as rows, columns,\
-    \ and cells in a table, much like a spreadsheet. HubDB tables can be added or\
-    \ modified [in the HubSpot CMS](https://knowledge.hubspot.com/cos-general/how-to-edit-hubdb-tables),\
-    \ but you can also use the API endpoints documented here. For more information\
-    \ on HubDB tables and using their data on a HubSpot site, see the [CMS developers\
-    \ site](https://designers.hubspot.com/docs/tools/hubdb). You can also see the\
-    \ [documentation for dynamic pages](https://designers.hubspot.com/docs/tutorials/how-to-build-dynamic-pages-with-hubdb)\
-    \ for more details about the `useForPages` field.\n\nHubDB tables support `draft`\
-    \ and `published` versions. This allows you to update data in the table, either\
-    \ for testing or to allow for a manual approval process, without affecting any\
-    \ live pages using the existing data. Draft data can be reviewed, and published\
-    \ by a user working in HubSpot or published via the API. Draft data can also be\
-    \ discarded, allowing users to go back to the published version of the data without\
-    \ disrupting it. If a table is set to be `allowed for public access`, you can\
-    \ access the published version of the table and rows without any authentication\
-    \ by specifying the portal id via the query parameter `portalId`."
+  description: |-
+    HubDB is a relational data store that presents data as rows, columns, and cells in a table, much like a spreadsheet. HubDB tables can be added or modified [in the HubSpot CMS](https://knowledge.hubspot.com/cos-general/how-to-edit-hubdb-tables), but you can also use the API endpoints documented here. For more information on HubDB tables and using their data on a HubSpot site, see the [CMS developers site](https://designers.hubspot.com/docs/tools/hubdb). You can also see the [documentation for dynamic pages](https://designers.hubspot.com/docs/tutorials/how-to-build-dynamic-pages-with-hubdb) for more details about the `useForPages` field.
+
+    HubDB tables support `draft` and `published` versions. This allows you to update data in the table, either for testing or to allow for a manual approval process, without affecting any live pages using the existing data. Draft data can be reviewed, and published by a user working in HubSpot or published via the API. Draft data can also be discarded, allowing users to go back to the published version of the data without disrupting it. If a table is set to be `allowed for public access`, you can access the published version of the table and rows without any authentication by specifying the portal id via the query parameter `portalId`.
   title: Hubdb
   version: v3
   x-hubspot-product-tier-requirements:
@@ -293,9 +281,9 @@ paths:
       - Rows
   /cms/v3/hubdb/tables/{tableIdOrName}/rows/{rowId}:
     get:
-      description: "Get a single row by ID from a table's `published` version.\n**Note:**\
-        \ This endpoint can be accessed without any authentication, if the table is\
-        \ set to be allowed for public access."
+      description: |-
+        Get a single row by ID from a table's `published` version.
+        **Note:** This endpoint can be accessed without any authentication, if the table is set to be allowed for public access.
       operationId: GetTableRow
       parameters:
       - description: The ID or name of the table
@@ -606,14 +594,9 @@ paths:
       - Rows Batch
   /cms/v3/hubdb/tables/{tableIdOrName}/draft/import:
     post:
-      description: "Import the contents of a CSV file into an existing HubDB table.\
-        \ The data will always be imported into the `draft` version of the table.\
-        \ Use `/publish` endpoint to push these changes to `published` version.\n\
-        This endpoint takes a multi-part POST request. The first part will be a set\
-        \ of JSON-formatted options for the import and you can specify this with the\
-        \ name as `config`.  The second part will be the CSV file you want to import\
-        \ and you can specify this with the name as `file`. Refer the [overview section](https://developers.hubspot.com/docs/api/cms/hubdb#importing-tables)\
-        \ to check the details and format of the JSON-formatted options for the import."
+      description: |-
+        Import the contents of a CSV file into an existing HubDB table. The data will always be imported into the `draft` version of the table. Use `/publish` endpoint to push these changes to `published` version.
+        This endpoint takes a multi-part POST request. The first part will be a set of JSON-formatted options for the import and you can specify this with the name as `config`.  The second part will be the CSV file you want to import and you can specify this with the name as `file`. Refer the [overview section](https://developers.hubspot.com/docs/api/cms/hubdb#importing-tables) to check the details and format of the JSON-formatted options for the import.
       operationId: ImportDraftTable
       parameters:
       - description: The ID of the destination table where data will be imported.
@@ -786,10 +769,10 @@ paths:
       tags:
       - Rows
     put:
-      description: "Replace a single row in the table's `draft` version.\nAll the\
-        \ column values must be specified. If a column has a value in the target table\
-        \ and this request doesn't define that value, it will be deleted.\nSee the\
-        \ `Create a row` endpoint for instructions on how to format the JSON row definitions."
+      description: |-
+        Replace a single row in the table's `draft` version.
+        All the column values must be specified. If a column has a value in the target table and this request doesn't define that value, it will be deleted.
+        See the `Create a row` endpoint for instructions on how to format the JSON row definitions.
       operationId: ReplaceDraftTableRow
       parameters:
       - description: The ID or name of the table
@@ -839,15 +822,9 @@ paths:
       - Rows
   /cms/v3/hubdb/tables/{tableIdOrName}/rows:
     get:
-      description: "Returns a set of rows in the `published` version of the specified\
-        \ table. Row results can be filtered and sorted. Filtering and sorting options\
-        \ will be sent as query parameters to the API request. For example, by adding\
-        \ the query parameters `column1__gt=5&sort=-column1`, API returns the rows\
-        \ with values for column `column1` greater than 5 and in the descending order\
-        \ of `column1` values. Refer to the [overview section](https://developers.hubspot.com/docs/api/cms/hubdb#filtering-and-sorting-table-rows)\
-        \ for detailed filtering and sorting options.\n**Note:** This endpoint can\
-        \ be accessed without any authentication, if the table is set to be allowed\
-        \ for public access."
+      description: |-
+        Returns a set of rows in the `published` version of the specified table. Row results can be filtered and sorted. Filtering and sorting options will be sent as query parameters to the API request. For example, by adding the query parameters `column1__gt=5&sort=-column1`, API returns the rows with values for column `column1` greater than 5 and in the descending order of `column1` values. Refer to the [overview section](https://developers.hubspot.com/docs/api/cms/hubdb#filtering-and-sorting-table-rows) for detailed filtering and sorting options.
+        **Note:** This endpoint can be accessed without any authentication, if the table is set to be allowed for public access.
       operationId: GetTableRows
       parameters:
       - description: The ID or name of the table to query.
@@ -964,9 +941,9 @@ paths:
       - Rows
   /cms/v3/hubdb/tables/{tableIdOrName}/rows/batch/read:
     post:
-      description: "Returns rows in the `published` version of the specified table,\
-        \ given a set of row ids.\n**Note:** This endpoint can be accessed without\
-        \ any authentication if the table is set to be allowed for public access."
+      description: |-
+        Returns rows in the `published` version of the specified table, given a set of row ids.
+        **Note:** This endpoint can be accessed without any authentication if the table is set to be allowed for public access.
       operationId: "post-/cms/v3/hubdb/tables/{tableIdOrName}/rows/batch/read_readTableRows"
       parameters:
       - description: The ID or name of the table to query.
@@ -1096,7 +1073,7 @@ paths:
       description: |-
         Returns the details for the `published` version of the specified table. This will include the definitions for the columns in the table and the number of rows in the table.
 
-        **Note:** This endpoint can be accessed without any authentication if the table is set to be allowed for public access.
+        **Note:** This endpoint can be accessed without any authentication if the table is set to be allowed for public access. To do so, you'll need to include the HubSpot account ID in a `portalId` query parameter.
       operationId: GetTableDetails
       parameters:
       - description: The ID or name of the table to return.
@@ -1142,7 +1119,7 @@ paths:
         - hubdb
       - oauth2_legacy:
         - hubdb
-      summary: Get details for a published table
+      summary: Get details of a published table
       tags:
       - Tables
   /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft/batch/read:
@@ -1484,15 +1461,9 @@ paths:
       tags:
       - Tables
     patch:
-      description: "Update an existing HubDB table. You can use this endpoint to add\
-        \ or remove columns to the table as well as restore an archived table. Tables\
-        \ updated using the endpoint will only modify the `draft` verion of the table.\
-        \ Use `publish` endpoint to push all the changes to the `published` version.\
-        \ To restore a table, include the query parameter `archived=true` and `\"\
-        archived\": false` in the json body.\n**Note:** You need to include all the\
-        \ columns in the input when you are adding/removing/updating a column. If\
-        \ you do not include an already existing column in the request, it will be\
-        \ deleted."
+      description: |-
+        Update an existing HubDB table. You can use this endpoint to add or remove columns to the table as well as restore an archived table. Tables updated using the endpoint will only modify the `draft` verion of the table. Use `publish` endpoint to push all the changes to the `published` version. To restore a table, include the query parameter `archived=true` and `"archived": false` in the json body.
+        **Note:** You need to include all the columns in the input when you are adding/removing/updating a column. If you do not include an already existing column in the request, it will be deleted.
       operationId: UpdateDraftTable
       parameters:
       - description: The ID or name of the table to update.
@@ -1664,6 +1635,35 @@ components:
       - inputs
       type: object
     StandardError:
+      example:
+        subCategory: "{}"
+        context:
+          key:
+          - context
+          - context
+        links:
+          key: links
+        id: id
+        category: category
+        message: message
+        errors:
+        - subCategory: subCategory
+          code: code
+          in: in
+          context:
+            missingScopes:
+            - scope1
+            - scope2
+          message: message
+        - subCategory: subCategory
+          code: code
+          in: in
+          context:
+            missingScopes:
+            - scope1
+            - scope2
+          message: message
+        status: status
       properties:
         subCategory:
           description: ""
@@ -1706,6 +1706,26 @@ components:
       - message
       - status
       type: object
+    SimpleUser:
+      properties:
+        firstName:
+          description: ""
+          type: string
+        lastName:
+          description: ""
+          type: string
+        id:
+          description: ""
+          type: string
+        email:
+          description: ""
+          type: string
+      required:
+      - email
+      - firstName
+      - id
+      - lastName
+      type: object
     HubDbTableCloneRequest:
       example:
         newName: test_table_new
@@ -1726,26 +1746,6 @@ components:
           type: boolean
       required:
       - copyRows
-      type: object
-    SimpleUser:
-      properties:
-        firstName:
-          description: ""
-          type: string
-        lastName:
-          description: ""
-          type: string
-        id:
-          description: ""
-          type: string
-        email:
-          description: ""
-          type: string
-      required:
-      - email
-      - firstName
-      - id
-      - lastName
       type: object
     CollectionResponseWithTotalHubDbTableV3ForwardPaging:
       example:
@@ -1858,6 +1858,15 @@ components:
       - inputs
       type: object
     ErrorDetail:
+      example:
+        subCategory: subCategory
+        code: code
+        in: in
+        context:
+          missingScopes:
+          - scope1
+          - scope2
+        message: message
       properties:
         subCategory:
           description: A specific category that contains more specific detail about
@@ -2405,6 +2414,108 @@ components:
       - message
       type: object
     BatchResponseHubDbTableRowV3WithErrors:
+      example:
+        completedAt: 2000-01-23T04:56:07.000+00:00
+        numErrors: 0
+        requestedAt: 2000-01-23T04:56:07.000+00:00
+        startedAt: 2000-01-23T04:56:07.000+00:00
+        links:
+          key: links
+        results:
+        - id: "4099275931"
+          createdAt: 2020-03-30T20:39:52.328Z
+          updatedAt: 2020-03-30T20:39:52.328Z
+          values:
+            text_column: sample text value
+            number_column: 76
+            multiselect:
+            - id: "1"
+              name: Option 1
+              type: option
+              order: 0
+            - id: "2"
+              name: Option 2
+              type: option
+              order: 1
+          path: test_path
+          name: test_title
+          childTableId: "1902373"
+        - id: "4099275931"
+          createdAt: 2020-03-30T20:39:52.328Z
+          updatedAt: 2020-03-30T20:39:52.328Z
+          values:
+            text_column: sample text value
+            number_column: 76
+            multiselect:
+            - id: "1"
+              name: Option 1
+              type: option
+              order: 0
+            - id: "2"
+              name: Option 2
+              type: option
+              order: 1
+          path: test_path
+          name: test_title
+          childTableId: "1902373"
+        errors:
+        - subCategory: "{}"
+          context:
+            key:
+            - context
+            - context
+          links:
+            key: links
+          id: id
+          category: category
+          message: message
+          errors:
+          - subCategory: subCategory
+            code: code
+            in: in
+            context:
+              missingScopes:
+              - scope1
+              - scope2
+            message: message
+          - subCategory: subCategory
+            code: code
+            in: in
+            context:
+              missingScopes:
+              - scope1
+              - scope2
+            message: message
+          status: status
+        - subCategory: "{}"
+          context:
+            key:
+            - context
+            - context
+          links:
+            key: links
+          id: id
+          category: category
+          message: message
+          errors:
+          - subCategory: subCategory
+            code: code
+            in: in
+            context:
+              missingScopes:
+              - scope1
+              - scope2
+            message: message
+          - subCategory: subCategory
+            code: code
+            in: in
+            context:
+              missingScopes:
+              - scope1
+              - scope2
+            message: message
+          status: status
+        status: PENDING
       properties:
         completedAt:
           description: ""
@@ -2450,6 +2561,9 @@ components:
       - results
       - startedAt
       - status
+      type: object
+    Variant:
+      properties: {}
       type: object
     ColumnRequest:
       example:
@@ -2515,9 +2629,6 @@ components:
       - options
       - type
       type: object
-    Variant:
-      properties: {}
-      type: object
     HubDbTableRowV3BatchUpdateRequest:
       example:
         id: "4099275931"
@@ -2578,6 +2689,62 @@ components:
           type: integer
       required:
       - id
+      - values
+      type: object
+    HubDbTableRowV3Request:
+      example:
+        values:
+          text_column: sample text value
+          number_column: 76
+          multiselect:
+          - id: "1"
+            name: Option 1
+            type: option
+            order: 0
+          - id: "2"
+            name: Option 2
+            type: option
+            order: 1
+        path: test_path
+        name: test_title
+        childTableId: "1902373"
+      properties:
+        path:
+          description: "Specifies the value for `hs_path` column, which will be used\
+            \ as slug in the dynamic pages"
+          example: test_path
+          type: string
+        childTableId:
+          description: Specifies the value for the column child table id
+          example: 1902373
+          format: int32
+          type: integer
+        values:
+          additionalProperties:
+            $ref: '#/components/schemas/Variant'
+          description: List of key value pairs with the column name and column value
+          example:
+            multiselect:
+            - id: "1"
+              name: Option 1
+              type: option
+              order: 0
+            - id: "2"
+              name: Option 2
+              type: option
+              order: 1
+            text_column: sample text value
+            number_column: 76
+          type: object
+        name:
+          description: "Specifies the value for `hs_name` column, which will be used\
+            \ as title in the dynamic pages"
+          example: test_title
+          type: string
+        displayIndex:
+          format: int32
+          type: integer
+      required:
       - values
       type: object
     HubDbTableRowV3:
@@ -2648,62 +2815,6 @@ components:
           description: Timestamp at which the row is updated last time
           format: date-time
           type: string
-      required:
-      - values
-      type: object
-    HubDbTableRowV3Request:
-      example:
-        values:
-          text_column: sample text value
-          number_column: 76
-          multiselect:
-          - id: "1"
-            name: Option 1
-            type: option
-            order: 0
-          - id: "2"
-            name: Option 2
-            type: option
-            order: 1
-        path: test_path
-        name: test_title
-        childTableId: "1902373"
-      properties:
-        path:
-          description: "Specifies the value for `hs_path` column, which will be used\
-            \ as slug in the dynamic pages"
-          example: test_path
-          type: string
-        childTableId:
-          description: Specifies the value for the column child table id
-          example: 1902373
-          format: int32
-          type: integer
-        values:
-          additionalProperties:
-            $ref: '#/components/schemas/Variant'
-          description: List of key value pairs with the column name and column value
-          example:
-            multiselect:
-            - id: "1"
-              name: Option 1
-              type: option
-              order: 0
-            - id: "2"
-              name: Option 2
-              type: option
-              order: 1
-            text_column: sample text value
-            number_column: 76
-          type: object
-        name:
-          description: "Specifies the value for `hs_name` column, which will be used\
-            \ as title in the dynamic pages"
-          example: test_title
-          type: string
-        displayIndex:
-          format: int32
-          type: integer
       required:
       - values
       type: object

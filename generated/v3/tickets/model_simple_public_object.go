@@ -11,9 +11,14 @@ API version: v3
 package tickets
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the SimplePublicObject type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SimplePublicObject{}
 
 // SimplePublicObject struct for SimplePublicObject
 type SimplePublicObject struct {
@@ -25,6 +30,8 @@ type SimplePublicObject struct {
 	Properties            map[string]string                `json:"properties"`
 	UpdatedAt             time.Time                        `json:"updatedAt"`
 }
+
+type _SimplePublicObject SimplePublicObject
 
 // NewSimplePublicObject instantiates a new SimplePublicObject object
 // This constructor will assign default values to properties that have it defined,
@@ -73,7 +80,7 @@ func (o *SimplePublicObject) SetCreatedAt(v time.Time) {
 
 // GetArchived returns the Archived field value if set, zero value otherwise.
 func (o *SimplePublicObject) GetArchived() bool {
-	if o == nil || o.Archived == nil {
+	if o == nil || IsNil(o.Archived) {
 		var ret bool
 		return ret
 	}
@@ -83,7 +90,7 @@ func (o *SimplePublicObject) GetArchived() bool {
 // GetArchivedOk returns a tuple with the Archived field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SimplePublicObject) GetArchivedOk() (*bool, bool) {
-	if o == nil || o.Archived == nil {
+	if o == nil || IsNil(o.Archived) {
 		return nil, false
 	}
 	return o.Archived, true
@@ -91,7 +98,7 @@ func (o *SimplePublicObject) GetArchivedOk() (*bool, bool) {
 
 // HasArchived returns a boolean if a field has been set.
 func (o *SimplePublicObject) HasArchived() bool {
-	if o != nil && o.Archived != nil {
+	if o != nil && !IsNil(o.Archived) {
 		return true
 	}
 
@@ -105,7 +112,7 @@ func (o *SimplePublicObject) SetArchived(v bool) {
 
 // GetArchivedAt returns the ArchivedAt field value if set, zero value otherwise.
 func (o *SimplePublicObject) GetArchivedAt() time.Time {
-	if o == nil || o.ArchivedAt == nil {
+	if o == nil || IsNil(o.ArchivedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -115,7 +122,7 @@ func (o *SimplePublicObject) GetArchivedAt() time.Time {
 // GetArchivedAtOk returns a tuple with the ArchivedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SimplePublicObject) GetArchivedAtOk() (*time.Time, bool) {
-	if o == nil || o.ArchivedAt == nil {
+	if o == nil || IsNil(o.ArchivedAt) {
 		return nil, false
 	}
 	return o.ArchivedAt, true
@@ -123,7 +130,7 @@ func (o *SimplePublicObject) GetArchivedAtOk() (*time.Time, bool) {
 
 // HasArchivedAt returns a boolean if a field has been set.
 func (o *SimplePublicObject) HasArchivedAt() bool {
-	if o != nil && o.ArchivedAt != nil {
+	if o != nil && !IsNil(o.ArchivedAt) {
 		return true
 	}
 
@@ -137,7 +144,7 @@ func (o *SimplePublicObject) SetArchivedAt(v time.Time) {
 
 // GetPropertiesWithHistory returns the PropertiesWithHistory field value if set, zero value otherwise.
 func (o *SimplePublicObject) GetPropertiesWithHistory() map[string][]ValueWithTimestamp {
-	if o == nil || o.PropertiesWithHistory == nil {
+	if o == nil || IsNil(o.PropertiesWithHistory) {
 		var ret map[string][]ValueWithTimestamp
 		return ret
 	}
@@ -147,7 +154,7 @@ func (o *SimplePublicObject) GetPropertiesWithHistory() map[string][]ValueWithTi
 // GetPropertiesWithHistoryOk returns a tuple with the PropertiesWithHistory field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SimplePublicObject) GetPropertiesWithHistoryOk() (*map[string][]ValueWithTimestamp, bool) {
-	if o == nil || o.PropertiesWithHistory == nil {
+	if o == nil || IsNil(o.PropertiesWithHistory) {
 		return nil, false
 	}
 	return o.PropertiesWithHistory, true
@@ -155,7 +162,7 @@ func (o *SimplePublicObject) GetPropertiesWithHistoryOk() (*map[string][]ValueWi
 
 // HasPropertiesWithHistory returns a boolean if a field has been set.
 func (o *SimplePublicObject) HasPropertiesWithHistory() bool {
-	if o != nil && o.PropertiesWithHistory != nil {
+	if o != nil && !IsNil(o.PropertiesWithHistory) {
 		return true
 	}
 
@@ -240,29 +247,69 @@ func (o *SimplePublicObject) SetUpdatedAt(v time.Time) {
 }
 
 func (o SimplePublicObject) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if o.Archived != nil {
-		toSerialize["archived"] = o.Archived
-	}
-	if o.ArchivedAt != nil {
-		toSerialize["archivedAt"] = o.ArchivedAt
-	}
-	if o.PropertiesWithHistory != nil {
-		toSerialize["propertiesWithHistory"] = o.PropertiesWithHistory
-	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["properties"] = o.Properties
-	}
-	if true {
-		toSerialize["updatedAt"] = o.UpdatedAt
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SimplePublicObject) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["createdAt"] = o.CreatedAt
+	if !IsNil(o.Archived) {
+		toSerialize["archived"] = o.Archived
+	}
+	if !IsNil(o.ArchivedAt) {
+		toSerialize["archivedAt"] = o.ArchivedAt
+	}
+	if !IsNil(o.PropertiesWithHistory) {
+		toSerialize["propertiesWithHistory"] = o.PropertiesWithHistory
+	}
+	toSerialize["id"] = o.Id
+	toSerialize["properties"] = o.Properties
+	toSerialize["updatedAt"] = o.UpdatedAt
+	return toSerialize, nil
+}
+
+func (o *SimplePublicObject) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"createdAt",
+		"id",
+		"properties",
+		"updatedAt",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSimplePublicObject := _SimplePublicObject{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varSimplePublicObject)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SimplePublicObject(varSimplePublicObject)
+
+	return err
 }
 
 type NullableSimplePublicObject struct {

@@ -11,9 +11,14 @@ API version: v4
 package actions
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the PublicActionRevision type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PublicActionRevision{}
 
 // PublicActionRevision struct for PublicActionRevision
 type PublicActionRevision struct {
@@ -22,6 +27,8 @@ type PublicActionRevision struct {
 	Definition PublicActionDefinition `json:"definition"`
 	Id         string                 `json:"id"`
 }
+
+type _PublicActionRevision PublicActionRevision
 
 // NewPublicActionRevision instantiates a new PublicActionRevision object
 // This constructor will assign default values to properties that have it defined,
@@ -141,20 +148,60 @@ func (o *PublicActionRevision) SetId(v string) {
 }
 
 func (o PublicActionRevision) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["revisionId"] = o.RevisionId
-	}
-	if true {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if true {
-		toSerialize["definition"] = o.Definition
-	}
-	if true {
-		toSerialize["id"] = o.Id
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PublicActionRevision) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["revisionId"] = o.RevisionId
+	toSerialize["createdAt"] = o.CreatedAt
+	toSerialize["definition"] = o.Definition
+	toSerialize["id"] = o.Id
+	return toSerialize, nil
+}
+
+func (o *PublicActionRevision) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"revisionId",
+		"createdAt",
+		"definition",
+		"id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPublicActionRevision := _PublicActionRevision{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPublicActionRevision)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PublicActionRevision(varPublicActionRevision)
+
+	return err
 }
 
 type NullablePublicActionRevision struct {

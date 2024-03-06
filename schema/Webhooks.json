@@ -414,7 +414,7 @@
           },
           "maxConcurrentRequests" : {
             "type" : "integer",
-            "description" : "The maximum number of HTTP requests HubSpot will attempt to make to your app in a given time frame determined by `period`.",
+            "description" : "The maximum number of concurrent HTTP requests HubSpot will attempt to make to your app.",
             "format" : "int32"
           }
         },
@@ -511,6 +511,28 @@
         },
         "description" : "List of event subscriptions for your app"
       },
+      "SettingsChangeRequest" : {
+        "required" : [ "targetUrl", "throttling" ],
+        "type" : "object",
+        "properties" : {
+          "throttling" : {
+            "$ref" : "#/components/schemas/ThrottlingSettings"
+          },
+          "targetUrl" : {
+            "type" : "string",
+            "description" : "A publicly available URL for HubSpot to call where event payloads will be delivered.",
+            "example" : "https://www.example.com/hubspot/target"
+          }
+        },
+        "description" : "New or updated webhook settings for an app.",
+        "example" : {
+          "targetUrl" : "https://www.example.com/hubspot/target",
+          "throttling" : {
+            "maxConcurrentRequests" : 10,
+            "period" : "SECONDLY"
+          }
+        }
+      },
       "Error" : {
         "required" : [ "category", "correlationId", "message" ],
         "type" : "object",
@@ -573,28 +595,6 @@
           "category" : "VALIDATION_ERROR",
           "links" : {
             "knowledge-base" : "https://www.hubspot.com/products/service/knowledge-base"
-          }
-        }
-      },
-      "SettingsChangeRequest" : {
-        "required" : [ "targetUrl", "throttling" ],
-        "type" : "object",
-        "properties" : {
-          "throttling" : {
-            "$ref" : "#/components/schemas/ThrottlingSettings"
-          },
-          "targetUrl" : {
-            "type" : "string",
-            "description" : "A publicly available URL for Hubspot to call where event payloads will be delivered. See [link-so-some-doc](#) for details about the format of these event payloads.",
-            "example" : "https://www.example.com/hubspot/target"
-          }
-        },
-        "description" : "New or updated webhook settings for an app.",
-        "example" : {
-          "targetUrl" : "https://www.example.com/hubspot/target",
-          "throttling" : {
-            "maxConcurrentRequests" : 10,
-            "period" : "SECONDLY"
           }
         }
       },
@@ -705,7 +705,7 @@
           },
           "targetUrl" : {
             "type" : "string",
-            "description" : "A publicly available URL for Hubspot to call where event payloads will be delivered. See [link-so-some-doc](#) for details about the format of these event payloads.",
+            "description" : "A publicly available URL for HubSpot to call where event payloads will be delivered. See [link-so-some-doc](#) for details about the format of these event payloads.",
             "example" : "https://www.example.com/hubspot/target"
           },
           "updatedAt" : {
@@ -734,19 +734,6 @@
             "items" : {
               "$ref" : "#/components/schemas/SubscriptionBatchUpdateRequest"
             }
-          }
-        }
-      },
-      "SubscriptionBatchUpdateRequest" : {
-        "required" : [ "active", "id" ],
-        "type" : "object",
-        "properties" : {
-          "active" : {
-            "type" : "boolean"
-          },
-          "id" : {
-            "type" : "integer",
-            "format" : "int32"
           }
         }
       },
@@ -783,6 +770,19 @@
           }
         },
         "description" : "Complete details for an event subscription."
+      },
+      "SubscriptionBatchUpdateRequest" : {
+        "required" : [ "active", "id" ],
+        "type" : "object",
+        "properties" : {
+          "active" : {
+            "type" : "boolean"
+          },
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
       },
       "SubscriptionCreateRequest" : {
         "required" : [ "eventType" ],

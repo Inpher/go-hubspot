@@ -1,14 +1,14 @@
-# \BasicApi
+# \BasicAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteCrmV3ObjectsLineItemsLineItemIdArchive**](BasicApi.md#DeleteCrmV3ObjectsLineItemsLineItemIdArchive) | **Delete** /crm/v3/objects/line_items/{lineItemId} | Archive
-[**GetCrmV3ObjectsLineItemsGetPage**](BasicApi.md#GetCrmV3ObjectsLineItemsGetPage) | **Get** /crm/v3/objects/line_items | List
-[**GetCrmV3ObjectsLineItemsLineItemIdGetById**](BasicApi.md#GetCrmV3ObjectsLineItemsLineItemIdGetById) | **Get** /crm/v3/objects/line_items/{lineItemId} | Read
-[**PatchCrmV3ObjectsLineItemsLineItemIdUpdate**](BasicApi.md#PatchCrmV3ObjectsLineItemsLineItemIdUpdate) | **Patch** /crm/v3/objects/line_items/{lineItemId} | Update
-[**PostCrmV3ObjectsLineItemsCreate**](BasicApi.md#PostCrmV3ObjectsLineItemsCreate) | **Post** /crm/v3/objects/line_items | Create
+[**DeleteCrmV3ObjectsLineItemsLineItemIdArchive**](BasicAPI.md#DeleteCrmV3ObjectsLineItemsLineItemIdArchive) | **Delete** /crm/v3/objects/line_items/{lineItemId} | Archive
+[**GetCrmV3ObjectsLineItemsGetPage**](BasicAPI.md#GetCrmV3ObjectsLineItemsGetPage) | **Get** /crm/v3/objects/line_items | List
+[**GetCrmV3ObjectsLineItemsLineItemIdGetById**](BasicAPI.md#GetCrmV3ObjectsLineItemsLineItemIdGetById) | **Get** /crm/v3/objects/line_items/{lineItemId} | Read
+[**PatchCrmV3ObjectsLineItemsLineItemIdUpdate**](BasicAPI.md#PatchCrmV3ObjectsLineItemsLineItemIdUpdate) | **Patch** /crm/v3/objects/line_items/{lineItemId} | Update
+[**PostCrmV3ObjectsLineItemsCreate**](BasicAPI.md#PostCrmV3ObjectsLineItemsCreate) | **Post** /crm/v3/objects/line_items | Create
 
 
 
@@ -26,22 +26,22 @@ Archive
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    lineItemId := "lineItemId_example" // string | 
+	lineItemId := "lineItemId_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BasicApi.DeleteCrmV3ObjectsLineItemsLineItemIdArchive(context.Background(), lineItemId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.DeleteCrmV3ObjectsLineItemsLineItemIdArchive``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.BasicAPI.DeleteCrmV3ObjectsLineItemsLineItemIdArchive(context.Background(), lineItemId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BasicAPI.DeleteCrmV3ObjectsLineItemsLineItemIdArchive``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -94,29 +94,29 @@ List
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    limit := int32(56) // int32 | The maximum number of results to display per page. (optional) (default to 10)
-    after := "after_example" // string | The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results. (optional)
-    properties := []string{"Inner_example"} // []string | A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored. (optional)
-    propertiesWithHistory := []string{"Inner_example"} // []string | A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored. Usage of this parameter will reduce the maximum number of objects that can be read by a single request. (optional)
-    associations := []string{"Inner_example"} // []string | A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored. (optional)
-    archived := true // bool | Whether to return only results that have been archived. (optional) (default to false)
+	limit := int32(56) // int32 | The maximum number of results to display per page. (optional) (default to 10)
+	after := "after_example" // string | The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results. (optional)
+	properties := []string{"Inner_example"} // []string | A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored. (optional)
+	propertiesWithHistory := []string{"Inner_example"} // []string | A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored. Usage of this parameter will reduce the maximum number of objects that can be read by a single request. (optional)
+	associations := []string{"Inner_example"} // []string | A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored. (optional)
+	archived := true // bool | Whether to return only results that have been archived. (optional) (default to false)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BasicApi.GetCrmV3ObjectsLineItemsGetPage(context.Background()).Limit(limit).After(after).Properties(properties).PropertiesWithHistory(propertiesWithHistory).Associations(associations).Archived(archived).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.GetCrmV3ObjectsLineItemsGetPage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetCrmV3ObjectsLineItemsGetPage`: CollectionResponseSimplePublicObjectWithAssociationsForwardPaging
-    fmt.Fprintf(os.Stdout, "Response from `BasicApi.GetCrmV3ObjectsLineItemsGetPage`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BasicAPI.GetCrmV3ObjectsLineItemsGetPage(context.Background()).Limit(limit).After(after).Properties(properties).PropertiesWithHistory(propertiesWithHistory).Associations(associations).Archived(archived).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BasicAPI.GetCrmV3ObjectsLineItemsGetPage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetCrmV3ObjectsLineItemsGetPage`: CollectionResponseSimplePublicObjectWithAssociationsForwardPaging
+	fmt.Fprintf(os.Stdout, "Response from `BasicAPI.GetCrmV3ObjectsLineItemsGetPage`: %v\n", resp)
 }
 ```
 
@@ -170,29 +170,29 @@ Read
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    lineItemId := "lineItemId_example" // string | 
-    properties := []string{"Inner_example"} // []string | A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored. (optional)
-    propertiesWithHistory := []string{"Inner_example"} // []string | A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored. (optional)
-    associations := []string{"Inner_example"} // []string | A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored. (optional)
-    archived := true // bool | Whether to return only results that have been archived. (optional) (default to false)
-    idProperty := "idProperty_example" // string | The name of a property whose values are unique for this object type (optional)
+	lineItemId := "lineItemId_example" // string | 
+	properties := []string{"Inner_example"} // []string | A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored. (optional)
+	propertiesWithHistory := []string{"Inner_example"} // []string | A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored. (optional)
+	associations := []string{"Inner_example"} // []string | A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored. (optional)
+	archived := true // bool | Whether to return only results that have been archived. (optional) (default to false)
+	idProperty := "idProperty_example" // string | The name of a property whose values are unique for this object type (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BasicApi.GetCrmV3ObjectsLineItemsLineItemIdGetById(context.Background(), lineItemId).Properties(properties).PropertiesWithHistory(propertiesWithHistory).Associations(associations).Archived(archived).IdProperty(idProperty).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.GetCrmV3ObjectsLineItemsLineItemIdGetById``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetCrmV3ObjectsLineItemsLineItemIdGetById`: SimplePublicObjectWithAssociations
-    fmt.Fprintf(os.Stdout, "Response from `BasicApi.GetCrmV3ObjectsLineItemsLineItemIdGetById`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BasicAPI.GetCrmV3ObjectsLineItemsLineItemIdGetById(context.Background(), lineItemId).Properties(properties).PropertiesWithHistory(propertiesWithHistory).Associations(associations).Archived(archived).IdProperty(idProperty).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BasicAPI.GetCrmV3ObjectsLineItemsLineItemIdGetById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetCrmV3ObjectsLineItemsLineItemIdGetById`: SimplePublicObjectWithAssociations
+	fmt.Fprintf(os.Stdout, "Response from `BasicAPI.GetCrmV3ObjectsLineItemsLineItemIdGetById`: %v\n", resp)
 }
 ```
 
@@ -250,26 +250,26 @@ Update
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    lineItemId := "lineItemId_example" // string | 
-    simplePublicObjectInput := *openapiclient.NewSimplePublicObjectInput(map[string]string{"key": "Inner_example"}) // SimplePublicObjectInput | 
-    idProperty := "idProperty_example" // string | The name of a property whose values are unique for this object type (optional)
+	lineItemId := "lineItemId_example" // string | 
+	simplePublicObjectInput := *openapiclient.NewSimplePublicObjectInput() // SimplePublicObjectInput | 
+	idProperty := "idProperty_example" // string | The name of a property whose values are unique for this object type (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BasicApi.PatchCrmV3ObjectsLineItemsLineItemIdUpdate(context.Background(), lineItemId).SimplePublicObjectInput(simplePublicObjectInput).IdProperty(idProperty).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.PatchCrmV3ObjectsLineItemsLineItemIdUpdate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PatchCrmV3ObjectsLineItemsLineItemIdUpdate`: SimplePublicObject
-    fmt.Fprintf(os.Stdout, "Response from `BasicApi.PatchCrmV3ObjectsLineItemsLineItemIdUpdate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BasicAPI.PatchCrmV3ObjectsLineItemsLineItemIdUpdate(context.Background(), lineItemId).SimplePublicObjectInput(simplePublicObjectInput).IdProperty(idProperty).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BasicAPI.PatchCrmV3ObjectsLineItemsLineItemIdUpdate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchCrmV3ObjectsLineItemsLineItemIdUpdate`: SimplePublicObject
+	fmt.Fprintf(os.Stdout, "Response from `BasicAPI.PatchCrmV3ObjectsLineItemsLineItemIdUpdate`: %v\n", resp)
 }
 ```
 
@@ -324,24 +324,24 @@ Create
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    simplePublicObjectInputForCreate := *openapiclient.NewSimplePublicObjectInputForCreate([]openapiclient.PublicAssociationsForObject{*openapiclient.NewPublicAssociationsForObject([]openapiclient.AssociationSpec{*openapiclient.NewAssociationSpec("AssociationCategory_example", int32(123))}, *openapiclient.NewPublicObjectId("Id_example"))}, map[string]string{"key": "Inner_example"}) // SimplePublicObjectInputForCreate | 
+	simplePublicObjectInputForCreate := *openapiclient.NewSimplePublicObjectInputForCreate([]openapiclient.PublicAssociationsForObject{*openapiclient.NewPublicAssociationsForObject([]openapiclient.AssociationSpec{*openapiclient.NewAssociationSpec("AssociationCategory_example", int32(123))}, *openapiclient.NewPublicObjectId("Id_example"))}) // SimplePublicObjectInputForCreate | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BasicApi.PostCrmV3ObjectsLineItemsCreate(context.Background()).SimplePublicObjectInputForCreate(simplePublicObjectInputForCreate).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BasicApi.PostCrmV3ObjectsLineItemsCreate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostCrmV3ObjectsLineItemsCreate`: SimplePublicObject
-    fmt.Fprintf(os.Stdout, "Response from `BasicApi.PostCrmV3ObjectsLineItemsCreate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BasicAPI.PostCrmV3ObjectsLineItemsCreate(context.Background()).SimplePublicObjectInputForCreate(simplePublicObjectInputForCreate).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BasicAPI.PostCrmV3ObjectsLineItemsCreate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostCrmV3ObjectsLineItemsCreate`: SimplePublicObject
+	fmt.Fprintf(os.Stdout, "Response from `BasicAPI.PostCrmV3ObjectsLineItemsCreate`: %v\n", resp)
 }
 ```
 

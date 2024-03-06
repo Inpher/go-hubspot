@@ -13,7 +13,7 @@ docs/BatchResponseBlogAuthor.md
 docs/BatchResponseBlogAuthorWithErrors.md
 docs/BlogAuthor.md
 docs/BlogAuthorCloneRequestVNext.md
-docs/BlogAuthorsApi.md
+docs/BlogAuthorsAPI.md
 docs/CollectionResponseWithTotalBlogAuthorForwardPaging.md
 docs/DetachFromLangGroupRequestVNext.md
 docs/Error.md

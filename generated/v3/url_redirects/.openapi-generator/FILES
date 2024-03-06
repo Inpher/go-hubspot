@@ -10,7 +10,7 @@ docs/Error.md
 docs/ErrorDetail.md
 docs/ForwardPaging.md
 docs/NextPage.md
-docs/RedirectsApi.md
+docs/RedirectsAPI.md
 docs/UrlMapping.md
 docs/UrlMappingCreateRequestBody.md
 git_push.sh

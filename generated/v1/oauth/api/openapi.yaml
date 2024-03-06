@@ -1,8 +1,15 @@
 openapi: 3.0.1
 info:
+  title: Auth Oauth
   version: v1
+  x-hubspot-product-tier-requirements:
+    marketing: FREE
+    sales: FREE
+    service: FREE
+    cms: FREE
+  x-hubspot-documentation-banner: NONE
 servers:
-- url: https://api.hubapi.com/
+- url: https://api.hubapi.com
 tags:
 - name: Access_Tokens
 - name: Refresh_Tokens
@@ -47,15 +54,15 @@ paths:
           type: string
         style: simple
       responses:
+        "204":
+          content: {}
+          description: No content
         default:
           content:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-        "204":
-          content: {}
-          description: No content
       security: []
       tags:
       - Refresh_Tokens
@@ -88,6 +95,7 @@ paths:
   /oauth/v1/token:
     post:
       operationId: post-/oauth/v1/token_create
+      parameters: []
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -120,19 +128,15 @@ components:
   schemas:
     ErrorDetail:
       properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          type: string
-        in:
-          description: The name of the field or parameter in which the error was found.
+        subCategory:
+          description: A specific category that contains more specific detail about
+            the error
           type: string
         code:
           description: The status code associated with the error detail
           type: string
-        subCategory:
-          description: A specific category that contains more specific detail about
-            the error
+        in:
+          description: The name of the field or parameter in which the error was found.
           type: string
         context:
           additionalProperties:
@@ -145,6 +149,10 @@ components:
             - scope1
             - scope2
           type: object
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          type: string
       required:
       - message
       type: object
@@ -156,29 +164,10 @@ components:
         links:
           knowledge-base: https://www.hubspot.com/products/service/knowledge-base
       properties:
-        message:
-          description: A human readable message describing the error along with remediation
-            steps where appropriate
-          example: An error occurred
-          type: string
-        correlationId:
-          description: A unique identifier for the request. Include this value with
-            any error reports or support tickets
-          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
-          format: uuid
-          type: string
-        category:
-          description: The error category
-          type: string
         subCategory:
           description: A specific category that contains more specific detail about
             the error
           type: string
-        errors:
-          description: further information about the error
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          type: array
         context:
           additionalProperties:
             items:
@@ -186,18 +175,37 @@ components:
             type: array
           description: Context about the error condition
           example:
-            invalidPropertyName:
-            - propertyValue
             missingScopes:
             - scope1
             - scope2
+            invalidPropertyName:
+            - propertyValue
           type: object
+        correlationId:
+          description: A unique identifier for the request. Include this value with
+            any error reports or support tickets
+          example: aeb5f871-7f07-4993-9211-075dc63e7cbf
+          format: uuid
+          type: string
         links:
           additionalProperties:
             type: string
           description: A map of link names to associated URIs containing documentation
             about the error or recommended remediation steps
           type: object
+        message:
+          description: A human readable message describing the error along with remediation
+            steps where appropriate
+          example: An error occurred
+          type: string
+        category:
+          description: The error category
+          type: string
+        errors:
+          description: further information about the error
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
       required:
       - category
       - correlationId
@@ -205,75 +213,58 @@ components:
       type: object
     AccessTokenInfoResponse:
       example:
-        hub_id: 1
-        user_id: 2
-        trial_scope_to_scope_group_pks:
-        - 6
-        - 6
+        hub_id: 0
+        user_id: 6
         scopes:
         - scopes
         - scopes
         token_type: token_type
         user: user
         hub_domain: hub_domain
-        scope_to_scope_group_pks:
-        - 0
-        - 0
-        app_id: 5
+        app_id: 1
         expires_in: 5
         token: token
-        trial_scopes:
-        - trial_scopes
-        - trial_scopes
       properties:
-        token:
-          type: string
-        user:
-          type: string
-        hub_domain:
-          type: string
-        scopes:
-          items:
-            type: string
-          type: array
-        scope_to_scope_group_pks:
-          items:
-            format: int32
-            type: integer
-          type: array
-        trial_scopes:
-          items:
-            type: string
-          type: array
-        trial_scope_to_scope_group_pks:
-          items:
-            format: int32
-            type: integer
-          type: array
         hub_id:
-          format: int32
-          type: integer
-        app_id:
-          format: int32
-          type: integer
-        expires_in:
+          description: ""
           format: int32
           type: integer
         user_id:
+          description: ""
           format: int32
           type: integer
+        scopes:
+          description: ""
+          items:
+            type: string
+          type: array
         token_type:
+          description: ""
+          type: string
+        user:
+          description: ""
+          type: string
+        hub_domain:
+          description: ""
+          type: string
+        app_id:
+          description: ""
+          format: int32
+          type: integer
+        expires_in:
+          description: ""
+          format: int32
+          type: integer
+        token:
+          description: ""
           type: string
       required:
       - app_id
       - expires_in
       - hub_id
-      - scope_to_scope_group_pks
       - scopes
       - token
       - token_type
-      - trial_scope_to_scope_group_pks
-      - trial_scopes
       - user_id
       type: object
     TokenResponseIF:
@@ -285,16 +276,21 @@ components:
         expires_in: 0
       properties:
         access_token:
+          description: ""
           type: string
-        expires_in:
-          format: int32
-          type: integer
         refresh_token:
-          type: string
-        token_type:
+          description: ""
           type: string
         id_token:
+          description: ""
           type: string
+        token_type:
+          description: ""
+          type: string
+        expires_in:
+          description: ""
+          format: int32
+          type: integer
       required:
       - access_token
       - expires_in
@@ -314,25 +310,33 @@ components:
         client_id: client_id
         token: token
       properties:
-        token:
-          type: string
-        user:
-          type: string
-        hub_domain:
-          type: string
+        hub_id:
+          description: ""
+          format: int32
+          type: integer
+        user_id:
+          description: ""
+          format: int32
+          type: integer
         scopes:
+          description: ""
           items:
             type: string
           type: array
-        hub_id:
-          format: int32
-          type: integer
-        client_id:
-          type: string
-        user_id:
-          format: int32
-          type: integer
         token_type:
+          description: ""
+          type: string
+        user:
+          description: ""
+          type: string
+        hub_domain:
+          description: ""
+          type: string
+        client_id:
+          description: ""
+          type: string
+        token:
+          description: ""
           type: string
       required:
       - client_id
@@ -359,9 +363,16 @@ components:
           type: string
         refresh_token:
           type: string
+      type: object
   securitySchemes: {}
 x-hubspot-available-client-libraries:
 - PHP
 - Node
-- Python
 - Ruby
+- Python
+x-hubspot-product-tier-requirements:
+  marketing: FREE
+  sales: FREE
+  service: FREE
+  cms: FREE
+x-hubspot-documentation-banner: NONE

@@ -13,20 +13,20 @@ package pipelines
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 
-	"github.com/clarkmcc/go-hubspot"
+	"github.com/inpher/go-hubspot"
 	"net/url"
 	"strings"
 )
 
-// PipelineStageAuditsApiService PipelineStageAuditsApi service
-type PipelineStageAuditsApiService service
+// PipelineStageAuditsAPIService PipelineStageAuditsAPI service
+type PipelineStageAuditsAPIService service
 
 type ApiStagesGetAuditRequest struct {
 	ctx        context.Context
-	ApiService *PipelineStageAuditsApiService
+	ApiService *PipelineStageAuditsAPIService
 	objectType string
 	stageId    string
 }
@@ -40,12 +40,12 @@ StagesGetAudit Return an audit of all changes to the pipeline stage
 
 Return a reverse chronological list of all mutations that have occurred on the pipeline stage identified by `{stageId}`.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param objectType
- @param stageId
- @return ApiStagesGetAuditRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param objectType
+	@param stageId
+	@return ApiStagesGetAuditRequest
 */
-func (a *PipelineStageAuditsApiService) StagesGetAudit(ctx context.Context, objectType string, stageId string) ApiStagesGetAuditRequest {
+func (a *PipelineStageAuditsAPIService) StagesGetAudit(ctx context.Context, objectType string, stageId string) ApiStagesGetAuditRequest {
 	return ApiStagesGetAuditRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -55,8 +55,9 @@ func (a *PipelineStageAuditsApiService) StagesGetAudit(ctx context.Context, obje
 }
 
 // Execute executes the request
-//  @return CollectionResponsePublicAuditInfoNoPaging
-func (a *PipelineStageAuditsApiService) StagesGetAuditExecute(r ApiStagesGetAuditRequest) (*CollectionResponsePublicAuditInfoNoPaging, *http.Response, error) {
+//
+//	@return CollectionResponsePublicAuditInfoNoPaging
+func (a *PipelineStageAuditsAPIService) StagesGetAuditExecute(r ApiStagesGetAuditRequest) (*CollectionResponsePublicAuditInfoNoPaging, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -64,14 +65,14 @@ func (a *PipelineStageAuditsApiService) StagesGetAuditExecute(r ApiStagesGetAudi
 		localVarReturnValue *CollectionResponsePublicAuditInfoNoPaging
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PipelineStageAuditsApiService.StagesGetAudit")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PipelineStageAuditsAPIService.StagesGetAudit")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId}/audit"
-	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterToString(r.objectType, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"stageId"+"}", url.PathEscape(parameterToString(r.stageId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterValueToString(r.objectType, "objectType")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"stageId"+"}", url.PathEscape(parameterValueToString(r.stageId, "stageId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -96,16 +97,6 @@ func (a *PipelineStageAuditsApiService) StagesGetAuditExecute(r ApiStagesGetAudi
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
-		}
-	}
-	if r.ctx != nil {
-		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["private_apps_legacy"]; ok {
 				var key string
@@ -118,6 +109,16 @@ func (a *PipelineStageAuditsApiService) StagesGetAuditExecute(r ApiStagesGetAudi
 			}
 		}
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -128,9 +129,9 @@ func (a *PipelineStageAuditsApiService) StagesGetAuditExecute(r ApiStagesGetAudi
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -146,6 +147,7 @@ func (a *PipelineStageAuditsApiService) StagesGetAuditExecute(r ApiStagesGetAudi
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

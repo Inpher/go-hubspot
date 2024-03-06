@@ -13,47 +13,48 @@ package products
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 
-	"github.com/clarkmcc/go-hubspot"
+	"github.com/inpher/go-hubspot"
 	"net/url"
 )
 
-// PublicObjectApiService PublicObjectApi service
-type PublicObjectApiService service
+// PublicObjectAPIService PublicObjectAPI service
+type PublicObjectAPIService service
 
-type ApiPostCrmV3ObjectsProductsMergeRequest struct {
+type ApiMergeRequest struct {
 	ctx              context.Context
-	ApiService       *PublicObjectApiService
+	ApiService       *PublicObjectAPIService
 	publicMergeInput *PublicMergeInput
 }
 
-func (r ApiPostCrmV3ObjectsProductsMergeRequest) PublicMergeInput(publicMergeInput PublicMergeInput) ApiPostCrmV3ObjectsProductsMergeRequest {
+func (r ApiMergeRequest) PublicMergeInput(publicMergeInput PublicMergeInput) ApiMergeRequest {
 	r.publicMergeInput = &publicMergeInput
 	return r
 }
 
-func (r ApiPostCrmV3ObjectsProductsMergeRequest) Execute() (*SimplePublicObject, *http.Response, error) {
-	return r.ApiService.PostCrmV3ObjectsProductsMergeExecute(r)
+func (r ApiMergeRequest) Execute() (*SimplePublicObject, *http.Response, error) {
+	return r.ApiService.MergeExecute(r)
 }
 
 /*
-PostCrmV3ObjectsProductsMerge Merge two products with same type
+Merge Merge two products with same type
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostCrmV3ObjectsProductsMergeRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiMergeRequest
 */
-func (a *PublicObjectApiService) PostCrmV3ObjectsProductsMerge(ctx context.Context) ApiPostCrmV3ObjectsProductsMergeRequest {
-	return ApiPostCrmV3ObjectsProductsMergeRequest{
+func (a *PublicObjectAPIService) Merge(ctx context.Context) ApiMergeRequest {
+	return ApiMergeRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return SimplePublicObject
-func (a *PublicObjectApiService) PostCrmV3ObjectsProductsMergeExecute(r ApiPostCrmV3ObjectsProductsMergeRequest) (*SimplePublicObject, *http.Response, error) {
+//
+//	@return SimplePublicObject
+func (a *PublicObjectAPIService) MergeExecute(r ApiMergeRequest) (*SimplePublicObject, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -61,7 +62,7 @@ func (a *PublicObjectApiService) PostCrmV3ObjectsProductsMergeExecute(r ApiPostC
 		localVarReturnValue *SimplePublicObject
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicObjectApiService.PostCrmV3ObjectsProductsMerge")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicObjectAPIService.Merge")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -96,16 +97,6 @@ func (a *PublicObjectApiService) PostCrmV3ObjectsProductsMergeExecute(r ApiPostC
 	localVarPostBody = r.publicMergeInput
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
-		}
-	}
-	if r.ctx != nil {
-		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["private_apps_legacy"]; ok {
 				var key string
@@ -118,6 +109,16 @@ func (a *PublicObjectApiService) PostCrmV3ObjectsProductsMergeExecute(r ApiPostC
 			}
 		}
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -128,9 +129,9 @@ func (a *PublicObjectApiService) PostCrmV3ObjectsProductsMergeExecute(r ApiPostC
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -146,6 +147,7 @@ func (a *PublicObjectApiService) PostCrmV3ObjectsProductsMergeExecute(r ApiPostC
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

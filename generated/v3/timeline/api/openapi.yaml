@@ -155,10 +155,10 @@ paths:
       - Events
   /crm/v3/timeline/{appId}/event-templates/{eventTemplateId}:
     delete:
-      description: "This will delete the event template. All associated events will\
-        \ be removed from search results and the timeline UI.\n\nThis action can't\
-        \ be undone, so it's highly recommended that you stop using any associated\
-        \ events before deleting a template."
+      description: |-
+        This will delete the event template. All associated events will be removed from search results and the timeline UI.
+
+        This action can't be undone, so it's highly recommended that you stop using any associated events before deleting a template.
       operationId: "delete-/crm/v3/timeline/{appId}/event-templates/{eventTemplateId}_archive"
       parameters:
       - description: The event template ID.
@@ -225,9 +225,15 @@ paths:
                 updatedAt: 2020-02-12T20:58:26Z
                 name: PetSpot Registration
                 headerTemplate: "Registered for [{{petName}}](https://my.petspot.com/pets/{{petName}})"
-                detailTemplate: "Registration occurred at {{#formatDate timestamp}}{{/formatDate}}\n\
-                  \n#### Questions\n{{#each extraData.questions}}\n  **{{question}}**:\
-                  \ {{answer}}\n{{/each}}\n\nEDIT"
+                detailTemplate: |-
+                  Registration occurred at {{#formatDate timestamp}}{{/formatDate}}
+
+                  #### Questions
+                  {{#each extraData.questions}}
+                    **{{question}}**: {{answer}}
+                  {{/each}}
+
+                  EDIT
                 tokens:
                 - name: petAge
                   type: number
@@ -272,11 +278,10 @@ paths:
       tags:
       - Templates
     put:
-      description: "Updates an existing template and its tokens. This is primarily\
-        \ used to update the headerTemplate/detailTemplate, and those changes will\
-        \ take effect for existing events.\n\nYou can also update or replace all the\
-        \ tokens in the template here instead of doing individual API calls on the\
-        \ `/tokens` endpoint."
+      description: |-
+        Updates an existing template and its tokens. This is primarily used to update the headerTemplate/detailTemplate, and those changes will take effect for existing events.
+
+        You can also update or replace all the tokens in the template here instead of doing individual API calls on the `/tokens` endpoint.
       operationId: "put-/crm/v3/timeline/{appId}/event-templates/{eventTemplateId}_update"
       parameters:
       - description: The event template ID.
@@ -314,9 +319,15 @@ paths:
                 updatedAt: 2020-02-12T20:58:26Z
                 name: PetSpot Registration
                 headerTemplate: "Registered for [{{petName}}](https://my.petspot.com/pets/{{petName}})"
-                detailTemplate: "Registration occurred at {{#formatDate timestamp}}{{/formatDate}}\n\
-                  \n#### Questions\n{{#each extraData.questions}}\n  **{{question}}**:\
-                  \ {{answer}}\n{{/each}}\n\nEDIT"
+                detailTemplate: |-
+                  Registration occurred at {{#formatDate timestamp}}{{/formatDate}}
+
+                  #### Questions
+                  {{#each extraData.questions}}
+                    **{{question}}**: {{answer}}
+                  {{/each}}
+
+                  EDIT
                 tokens:
                 - name: petAge
                   type: number
@@ -452,13 +463,14 @@ paths:
       - Events
   /crm/v3/timeline/{appId}/event-templates/{eventTemplateId}/tokens:
     post:
-      description: "Once you've defined an event template, it's likely that you'll\
-        \ want to define tokens for it as well. You can do this on the event template\
-        \ itself or update individual tokens here.\n\nEvent type tokens allow you\
-        \ to attach custom data to events displayed in a timeline or used for list\
-        \ segmentation.\n\nYou can also use `objectPropertyName` to associate any\
-        \ CRM object properties. This will allow you to fully build out CRM objects.\n\
-        \nToken names should be unique across the template."
+      description: |-
+        Once you've defined an event template, it's likely that you'll want to define tokens for it as well. You can do this on the event template itself or update individual tokens here.
+
+        Event type tokens allow you to attach custom data to events displayed in a timeline or used for list segmentation.
+
+        You can also use `objectPropertyName` to associate any CRM object properties. This will allow you to fully build out CRM objects.
+
+        Token names should be unique across the template.
       operationId: "post-/crm/v3/timeline/{appId}/event-templates/{eventTemplateId}/tokens_create"
       parameters:
       - description: The event template ID.
@@ -516,13 +528,12 @@ paths:
       - Tokens
   /crm/v3/timeline/{appId}/event-templates/{eventTemplateId}/tokens/{tokenName}:
     delete:
-      description: "This will remove the token from an existing template. Existing\
-        \ events and CRM objects will still retain the token and its mapped object\
-        \ properties, but new ones will not.\n\nThe timeline will still display this\
-        \ property for older CRM objects if it's still referenced in the template\
-        \ `Markdown`. New events will not.\n\nAny lists or reports referencing deleted\
-        \ tokens will no longer return new contacts, but old ones will still exist\
-        \ in the lists."
+      description: |-
+        This will remove the token from an existing template. Existing events and CRM objects will still retain the token and its mapped object properties, but new ones will not.
+
+        The timeline will still display this property for older CRM objects if it's still referenced in the template `Markdown`. New events will not.
+
+        Any lists or reports referencing deleted tokens will no longer return new contacts, but old ones will still exist in the lists.
       operationId: "delete-/crm/v3/timeline/{appId}/event-templates/{eventTemplateId}/tokens/{tokenName}_archive"
       parameters:
       - description: The event template ID.
@@ -812,8 +823,10 @@ paths:
                   updatedAt: 2020-02-12T20:58:26Z
                   name: deal test
                   headerTemplate: deal
-                  detailTemplate: "Deal occurred at {{#formatDate timestamp}}{{/formatDate}}\n\
-                    \ntest"
+                  detailTemplate: |-
+                    Deal occurred at {{#formatDate timestamp}}{{/formatDate}}
+
+                    test
                   tokens:
                   - name: test
                     type: string
@@ -828,9 +841,15 @@ paths:
                   updatedAt: 2020-02-12T20:58:26Z
                   name: PetSpot Registration
                   headerTemplate: "Registered for [{{petName}}](https://my.petspot.com/pets/{{petName}})"
-                  detailTemplate: "Registration occurred at {{#formatDate timestamp}}{{/formatDate}}\n\
-                    \n#### Questions\n{{#each extraData.questions}}\n  **{{question}}**:\
-                    \ {{answer}}\n{{/each}}\n\nEDIT"
+                  detailTemplate: |-
+                    Registration occurred at {{#formatDate timestamp}}{{/formatDate}}
+
+                    #### Questions
+                    {{#each extraData.questions}}
+                      **{{question}}**: {{answer}}
+                    {{/each}}
+
+                    EDIT
                   tokens:
                   - name: petAge
                     type: number
@@ -875,16 +894,14 @@ paths:
       tags:
       - Templates
     post:
-      description: "Event templates define the general structure for a custom timeline\
-        \ event. This includes formatted copy for its heading and details, as well\
-        \ as any custom property definitions. The event could be something like viewing\
-        \ a video, registering for a webinar, or filling out a survey. A single app\
-        \ can define multiple event templates.\n\nEvent templates will be created\
-        \ for contacts by default, but they can be created for companies, tickets,\
-        \ and deals as well.\n\nEach event template contains its own set of tokens\
-        \ and `Markdown` templates. These tokens can be associated with any CRM object\
-        \ properties via the `objectPropertyName` field to fully build out CRM objects.\n\
-        \nYou must create an event template before you can create events."
+      description: |-
+        Event templates define the general structure for a custom timeline event. This includes formatted copy for its heading and details, as well as any custom property definitions. The event could be something like viewing a video, registering for a webinar, or filling out a survey. A single app can define multiple event templates.
+
+        Event templates will be created for contacts by default, but they can be created for companies, tickets, and deals as well.
+
+        Each event template contains its own set of tokens and `Markdown` templates. These tokens can be associated with any CRM object properties via the `objectPropertyName` field to fully build out CRM objects.
+
+        You must create an event template before you can create events.
       operationId: "post-/crm/v3/timeline/{appId}/event-templates_create"
       parameters:
       - description: The ID of the target app.
@@ -914,9 +931,13 @@ paths:
                 updatedAt: 2020-02-12T20:58:26Z
                 name: PetSpot Registration
                 headerTemplate: "Registered for [{{petName}}](https://my.petspot.com/pets/{{petName}})"
-                detailTemplate: "Registration occurred at {{#formatDate timestamp}}{{/formatDate}}\n\
-                  \n#### Questions\n{{#each extraData.questions}}\n  **{{question}}**:\
-                  \ {{answer}}\n{{/each}}"
+                detailTemplate: |-
+                  Registration occurred at {{#formatDate timestamp}}{{/formatDate}}
+
+                  #### Questions
+                  {{#each extraData.questions}}
+                    **{{question}}**: {{answer}}
+                  {{/each}}
                 tokens:
                 - name: petName
                   type: string
@@ -1172,6 +1193,35 @@ components:
       - tokens
       type: object
     StandardError:
+      example:
+        subCategory: "{}"
+        context:
+          key:
+          - context
+          - context
+        links:
+          key: links
+        id: id
+        category: category
+        message: message
+        errors:
+        - subCategory: subCategory
+          code: code
+          in: in
+          context:
+            missingScopes:
+            - scope1
+            - scope2
+          message: message
+        - subCategory: subCategory
+          code: code
+          in: in
+          context:
+            missingScopes:
+            - scope1
+            - scope2
+          message: message
+        status: status
       properties:
         subCategory:
           properties: {}
@@ -1270,9 +1320,15 @@ components:
         id: "1001298"
         name: PetSpot Registration
         headerTemplate: "Registered for [{{petName}}](https://my.petspot.com/pets/{{petName}})"
-        detailTemplate: "Registration occurred at {{#formatDate timestamp}}{{/formatDate}}\n\
-          \n#### Questions\n{{#each extraData.questions}}\n  **{{question}}**: {{answer}}\n\
-          {{/each}}\n\nEDIT"
+        detailTemplate: |-
+          Registration occurred at {{#formatDate timestamp}}{{/formatDate}}
+
+          #### Questions
+          {{#each extraData.questions}}
+            **{{question}}**: {{answer}}
+          {{/each}}
+
+          EDIT
         tokens:
         - name: petName
           label: Pet Name
@@ -1299,9 +1355,15 @@ components:
         detailTemplate:
           description: This uses Markdown syntax with Handlebars and event-specific
             data to render HTML on a timeline when you expand the details.
-          example: "Registration occurred at {{#formatDate timestamp}}{{/formatDate}}\n\
-            \n#### Questions\n{{#each extraData.questions}}\n  **{{question}}**: {{answer}}\n\
-            {{/each}}\n\nEDIT"
+          example: |-
+            Registration occurred at {{#formatDate timestamp}}{{/formatDate}}
+
+            #### Questions
+            {{#each extraData.questions}}
+              **{{question}}**: {{answer}}
+            {{/each}}
+
+            EDIT
           type: string
         name:
           description: The template name.
@@ -1355,9 +1417,13 @@ components:
         name: PetSpot Registration
         objectType: contacts
         headerTemplate: "Registered for [{{petName}}](https://my.petspot.com/pets/{{petName}})"
-        detailTemplate: "Registration occurred at {{#formatDate timestamp}}{{/formatDate}}\n\
-          \n#### Questions\n{{#each extraData.questions}}\n  **{{question}}**: {{answer}}\n\
-          {{/each}}"
+        detailTemplate: |-
+          Registration occurred at {{#formatDate timestamp}}{{/formatDate}}
+
+          #### Questions
+          {{#each extraData.questions}}
+            **{{question}}**: {{answer}}
+          {{/each}}
         tokens:
         - name: petName
           label: Pet Name
@@ -1381,9 +1447,13 @@ components:
         detailTemplate:
           description: This uses Markdown syntax with Handlebars and event-specific
             data to render HTML on a timeline when you expand the details.
-          example: "Registration occurred at {{#formatDate timestamp}}{{/formatDate}}\n\
-            \n#### Questions\n{{#each extraData.questions}}\n  **{{question}}**: {{answer}}\n\
-            {{/each}}"
+          example: |-
+            Registration occurred at {{#formatDate timestamp}}{{/formatDate}}
+
+            #### Questions
+            {{#each extraData.questions}}
+              **{{question}}**: {{answer}}
+            {{/each}}
           type: string
         name:
           description: The template name.
@@ -1517,6 +1587,15 @@ components:
       - results
       type: object
     ErrorDetail:
+      example:
+        subCategory: subCategory
+        code: code
+        in: in
+        context:
+          missingScopes:
+          - scope1
+          - scope2
+        message: message
       properties:
         subCategory:
           description: A specific category that contains more specific detail about
@@ -2058,6 +2137,116 @@ components:
       - tokens
       type: object
     BatchResponseTimelineEventResponseWithErrors:
+      example:
+        completedAt: 2000-01-23T04:56:07.000+00:00
+        numErrors: 0
+        requestedAt: 2000-01-23T04:56:07.000+00:00
+        startedAt: 2000-01-23T04:56:07.000+00:00
+        links:
+          key: links
+        results:
+        - objectType: contacts
+          id: petspot:1001298:art3mis-pup@petspot.com-004-invalid
+          eventTemplateId: "1001298"
+          email: art3mis-pup@petspot.com
+          objectId: "28001"
+          timestamp: 2020-01-30T18:37:15.569Z
+          tokens:
+            petName: Art3mis
+            petColor: black
+            petAge: "3"
+          extraData:
+            questions:
+            - question: Who's a good girl?
+              answer: Bark!
+            - question: Do you wanna go on a walk?
+              answer: Woof!
+          timelineIFrame:
+            linkLabel: View Art3mis
+            headerLabel: Art3mis dog
+            url: https://my.petspot.com/pets/Art3mis
+            width: 600
+            height: 400
+        - objectType: contacts
+          id: petspot:1001298:art3mis-pup@petspot.com-004-invalid
+          eventTemplateId: "1001298"
+          email: art3mis-pup@petspot.com
+          objectId: "28001"
+          timestamp: 2020-01-30T18:37:15.569Z
+          tokens:
+            petName: Art3mis
+            petColor: black
+            petAge: "3"
+          extraData:
+            questions:
+            - question: Who's a good girl?
+              answer: Bark!
+            - question: Do you wanna go on a walk?
+              answer: Woof!
+          timelineIFrame:
+            linkLabel: View Art3mis
+            headerLabel: Art3mis dog
+            url: https://my.petspot.com/pets/Art3mis
+            width: 600
+            height: 400
+        errors:
+        - subCategory: "{}"
+          context:
+            key:
+            - context
+            - context
+          links:
+            key: links
+          id: id
+          category: category
+          message: message
+          errors:
+          - subCategory: subCategory
+            code: code
+            in: in
+            context:
+              missingScopes:
+              - scope1
+              - scope2
+            message: message
+          - subCategory: subCategory
+            code: code
+            in: in
+            context:
+              missingScopes:
+              - scope1
+              - scope2
+            message: message
+          status: status
+        - subCategory: "{}"
+          context:
+            key:
+            - context
+            - context
+          links:
+            key: links
+          id: id
+          category: category
+          message: message
+          errors:
+          - subCategory: subCategory
+            code: code
+            in: in
+            context:
+              missingScopes:
+              - scope1
+              - scope2
+            message: message
+          - subCategory: subCategory
+            code: code
+            in: in
+            context:
+              missingScopes:
+              - scope1
+              - scope2
+            message: message
+          status: status
+        status: PENDING
       properties:
         completedAt:
           format: date-time
@@ -2115,16 +2304,16 @@ components:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
-            crm.objects.contacts.write: ' '
             crm.schemas.contacts.write: ' '
-            crm.objects.companies.write: ' '
+            crm.objects.contacts.write: ' '
             crm.schemas.companies.write: ' '
-            crm.schemas.deals.write: ' '
+            crm.objects.companies.write: ' '
             crm.objects.deals.write: ' '
-            crm.schemas.contacts.read: ' '
+            crm.schemas.deals.write: ' '
             crm.objects.contacts.read: ' '
-            crm.objects.companies.read: ' '
+            crm.schemas.contacts.read: ' '
             crm.schemas.companies.read: ' '
+            crm.objects.companies.read: ' '
             crm.objects.deals.read: ' '
             crm.schemas.deals.read: ' '
           tokenUrl: https://api.hubapi.com/oauth/v1/token

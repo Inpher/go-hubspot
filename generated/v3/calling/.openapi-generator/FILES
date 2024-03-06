@@ -8,11 +8,11 @@ client.go
 configuration.go
 docs/Error.md
 docs/ErrorDetail.md
-docs/RecordingSettingsApi.md
+docs/RecordingSettingsAPI.md
 docs/RecordingSettingsPatchRequest.md
 docs/RecordingSettingsRequest.md
 docs/RecordingSettingsResponse.md
-docs/SettingsApi.md
+docs/SettingsAPI.md
 docs/SettingsPatchRequest.md
 docs/SettingsRequest.md
 docs/SettingsResponse.md

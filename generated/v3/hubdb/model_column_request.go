@@ -11,8 +11,13 @@ API version: v3
 package hubdb
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ColumnRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ColumnRequest{}
 
 // ColumnRequest struct for ColumnRequest
 type ColumnRequest struct {
@@ -31,6 +36,8 @@ type ColumnRequest struct {
 	// The id of the column from another table to which the column refers/points to.
 	ForeignColumnId *int32 `json:"foreignColumnId,omitempty"`
 }
+
+type _ColumnRequest ColumnRequest
 
 // NewColumnRequest instantiates a new ColumnRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -56,7 +63,7 @@ func NewColumnRequestWithDefaults() *ColumnRequest {
 
 // GetForeignTableId returns the ForeignTableId field value if set, zero value otherwise.
 func (o *ColumnRequest) GetForeignTableId() int64 {
-	if o == nil || o.ForeignTableId == nil {
+	if o == nil || IsNil(o.ForeignTableId) {
 		var ret int64
 		return ret
 	}
@@ -66,7 +73,7 @@ func (o *ColumnRequest) GetForeignTableId() int64 {
 // GetForeignTableIdOk returns a tuple with the ForeignTableId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ColumnRequest) GetForeignTableIdOk() (*int64, bool) {
-	if o == nil || o.ForeignTableId == nil {
+	if o == nil || IsNil(o.ForeignTableId) {
 		return nil, false
 	}
 	return o.ForeignTableId, true
@@ -74,7 +81,7 @@ func (o *ColumnRequest) GetForeignTableIdOk() (*int64, bool) {
 
 // HasForeignTableId returns a boolean if a field has been set.
 func (o *ColumnRequest) HasForeignTableId() bool {
-	if o != nil && o.ForeignTableId != nil {
+	if o != nil && !IsNil(o.ForeignTableId) {
 		return true
 	}
 
@@ -208,7 +215,7 @@ func (o *ColumnRequest) SetType(v string) {
 
 // GetForeignColumnId returns the ForeignColumnId field value if set, zero value otherwise.
 func (o *ColumnRequest) GetForeignColumnId() int32 {
-	if o == nil || o.ForeignColumnId == nil {
+	if o == nil || IsNil(o.ForeignColumnId) {
 		var ret int32
 		return ret
 	}
@@ -218,7 +225,7 @@ func (o *ColumnRequest) GetForeignColumnId() int32 {
 // GetForeignColumnIdOk returns a tuple with the ForeignColumnId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ColumnRequest) GetForeignColumnIdOk() (*int32, bool) {
-	if o == nil || o.ForeignColumnId == nil {
+	if o == nil || IsNil(o.ForeignColumnId) {
 		return nil, false
 	}
 	return o.ForeignColumnId, true
@@ -226,7 +233,7 @@ func (o *ColumnRequest) GetForeignColumnIdOk() (*int32, bool) {
 
 // HasForeignColumnId returns a boolean if a field has been set.
 func (o *ColumnRequest) HasForeignColumnId() bool {
-	if o != nil && o.ForeignColumnId != nil {
+	if o != nil && !IsNil(o.ForeignColumnId) {
 		return true
 	}
 
@@ -239,29 +246,68 @@ func (o *ColumnRequest) SetForeignColumnId(v int32) {
 }
 
 func (o ColumnRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.ForeignTableId != nil {
-		toSerialize["foreignTableId"] = o.ForeignTableId
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["options"] = o.Options
-	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["label"] = o.Label
-	}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if o.ForeignColumnId != nil {
-		toSerialize["foreignColumnId"] = o.ForeignColumnId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ColumnRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ForeignTableId) {
+		toSerialize["foreignTableId"] = o.ForeignTableId
+	}
+	toSerialize["name"] = o.Name
+	toSerialize["options"] = o.Options
+	toSerialize["id"] = o.Id
+	toSerialize["label"] = o.Label
+	toSerialize["type"] = o.Type
+	if !IsNil(o.ForeignColumnId) {
+		toSerialize["foreignColumnId"] = o.ForeignColumnId
+	}
+	return toSerialize, nil
+}
+
+func (o *ColumnRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"options",
+		"id",
+		"label",
+		"type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varColumnRequest := _ColumnRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varColumnRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ColumnRequest(varColumnRequest)
+
+	return err
 }
 
 type NullableColumnRequest struct {

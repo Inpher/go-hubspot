@@ -1,11 +1,11 @@
-# \OwnersApi
+# \OwnersAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetByID**](OwnersApi.md#GetByID) | **Get** /crm/v3/owners/{ownerId} | Read an owner by given &#x60;id&#x60; or &#x60;userId&#x60;
-[**GetPage**](OwnersApi.md#GetPage) | **Get** /crm/v3/owners/ | Get a page of owners
+[**GetByID**](OwnersAPI.md#GetByID) | **Get** /crm/v3/owners/{ownerId} | Read an owner by given &#x60;id&#x60; or &#x60;userId&#x60;
+[**GetPage**](OwnersAPI.md#GetPage) | **Get** /crm/v3/owners/ | Get a page of owners
 
 
 
@@ -21,26 +21,26 @@ Read an owner by given `id` or `userId`
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    ownerId := int32(56) // int32 | 
-    idProperty := "idProperty_example" // string |  (optional) (default to "id")
-    archived := true // bool | Whether to return only results that have been archived. (optional) (default to false)
+	ownerId := int32(56) // int32 | 
+	idProperty := "idProperty_example" // string |  (optional) (default to "id")
+	archived := true // bool | Whether to return only results that have been archived. (optional) (default to false)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OwnersApi.GetByID(context.Background(), ownerId).IdProperty(idProperty).Archived(archived).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OwnersApi.GetByID``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetByID`: PublicOwner
-    fmt.Fprintf(os.Stdout, "Response from `OwnersApi.GetByID`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OwnersAPI.GetByID(context.Background(), ownerId).IdProperty(idProperty).Archived(archived).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OwnersAPI.GetByID``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetByID`: PublicOwner
+	fmt.Fprintf(os.Stdout, "Response from `OwnersAPI.GetByID`: %v\n", resp)
 }
 ```
 
@@ -69,7 +69,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
+[private_apps_legacy](../README.md#private_apps_legacy), [oauth2](../README.md#oauth2), [private_apps](../README.md#private_apps)
 
 ### HTTP request headers
 
@@ -93,27 +93,27 @@ Get a page of owners
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    email := "email_example" // string | Filter by email address (optional) (optional)
-    after := "after_example" // string | The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results. (optional)
-    limit := int32(56) // int32 | The maximum number of results to display per page. (optional) (default to 100)
-    archived := true // bool | Whether to return only results that have been archived. (optional) (default to false)
+	email := "email_example" // string | Filter by email address (optional) (optional)
+	after := "after_example" // string | The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results. (optional)
+	limit := int32(56) // int32 | The maximum number of results to display per page. (optional) (default to 100)
+	archived := true // bool | Whether to return only results that have been archived. (optional) (default to false)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OwnersApi.GetPage(context.Background()).Email(email).After(after).Limit(limit).Archived(archived).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OwnersApi.GetPage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetPage`: CollectionResponsePublicOwnerForwardPaging
-    fmt.Fprintf(os.Stdout, "Response from `OwnersApi.GetPage`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OwnersAPI.GetPage(context.Background()).Email(email).After(after).Limit(limit).Archived(archived).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OwnersAPI.GetPage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetPage`: CollectionResponsePublicOwnerForwardPaging
+	fmt.Fprintf(os.Stdout, "Response from `OwnersAPI.GetPage`: %v\n", resp)
 }
 ```
 
@@ -139,7 +139,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
+[private_apps_legacy](../README.md#private_apps_legacy), [oauth2](../README.md#oauth2), [private_apps](../README.md#private_apps)
 
 ### HTTP request headers
 

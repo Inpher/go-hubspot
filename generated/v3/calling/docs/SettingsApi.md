@@ -1,13 +1,13 @@
-# \SettingsApi
+# \SettingsAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Archive**](SettingsApi.md#Archive) | **Delete** /crm/v3/extensions/calling/{appId}/settings | Delete calling settings
-[**Create**](SettingsApi.md#Create) | **Post** /crm/v3/extensions/calling/{appId}/settings | Configure a calling extension
-[**GetByID**](SettingsApi.md#GetByID) | **Get** /crm/v3/extensions/calling/{appId}/settings | Get calling settings
-[**Update**](SettingsApi.md#Update) | **Patch** /crm/v3/extensions/calling/{appId}/settings | Update settings
+[**Archive**](SettingsAPI.md#Archive) | **Delete** /crm/v3/extensions/calling/{appId}/settings | Delete calling settings
+[**Create**](SettingsAPI.md#Create) | **Post** /crm/v3/extensions/calling/{appId}/settings | Configure a calling extension
+[**GetByID**](SettingsAPI.md#GetByID) | **Get** /crm/v3/extensions/calling/{appId}/settings | Get calling settings
+[**Update**](SettingsAPI.md#Update) | **Patch** /crm/v3/extensions/calling/{appId}/settings | Update settings
 
 
 
@@ -25,22 +25,22 @@ Delete calling settings
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    appId := int32(56) // int32 | The ID of the target app.
+	appId := int32(56) // int32 | The ID of the target app.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SettingsApi.Archive(context.Background(), appId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SettingsApi.Archive``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.SettingsAPI.Archive(context.Background(), appId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SettingsAPI.Archive``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -93,25 +93,25 @@ Configure a calling extension
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    appId := int32(56) // int32 | The ID of the target app.
-    settingsRequest := *openapiclient.NewSettingsRequest("HubPhone", "https://www.example.com/hubspot/iframe") // SettingsRequest | Settings state to create with.
+	appId := int32(56) // int32 | The ID of the target app.
+	settingsRequest := *openapiclient.NewSettingsRequest("HubPhone", "https://www.example.com/hubspot/iframe") // SettingsRequest | Settings state to create with.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SettingsApi.Create(context.Background(), appId).SettingsRequest(settingsRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SettingsApi.Create``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `Create`: SettingsResponse
-    fmt.Fprintf(os.Stdout, "Response from `SettingsApi.Create`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SettingsAPI.Create(context.Background(), appId).SettingsRequest(settingsRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SettingsAPI.Create``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `Create`: SettingsResponse
+	fmt.Fprintf(os.Stdout, "Response from `SettingsAPI.Create`: %v\n", resp)
 }
 ```
 
@@ -165,24 +165,24 @@ Get calling settings
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    appId := int32(56) // int32 | The ID of the target app.
+	appId := int32(56) // int32 | The ID of the target app.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SettingsApi.GetByID(context.Background(), appId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SettingsApi.GetByID``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetByID`: SettingsResponse
-    fmt.Fprintf(os.Stdout, "Response from `SettingsApi.GetByID`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SettingsAPI.GetByID(context.Background(), appId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SettingsAPI.GetByID``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetByID`: SettingsResponse
+	fmt.Fprintf(os.Stdout, "Response from `SettingsAPI.GetByID`: %v\n", resp)
 }
 ```
 
@@ -235,25 +235,25 @@ Update settings
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    appId := int32(56) // int32 | The ID of the target app.
-    settingsPatchRequest := *openapiclient.NewSettingsPatchRequest() // SettingsPatchRequest | Updated details for the settings.
+	appId := int32(56) // int32 | The ID of the target app.
+	settingsPatchRequest := *openapiclient.NewSettingsPatchRequest() // SettingsPatchRequest | Updated details for the settings.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SettingsApi.Update(context.Background(), appId).SettingsPatchRequest(settingsPatchRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SettingsApi.Update``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `Update`: SettingsResponse
-    fmt.Fprintf(os.Stdout, "Response from `SettingsApi.Update`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SettingsAPI.Update(context.Background(), appId).SettingsPatchRequest(settingsPatchRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SettingsAPI.Update``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `Update`: SettingsResponse
+	fmt.Fprintf(os.Stdout, "Response from `SettingsAPI.Update`: %v\n", resp)
 }
 ```
 

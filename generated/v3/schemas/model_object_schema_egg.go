@@ -11,8 +11,13 @@ API version: v3
 package schemas
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ObjectSchemaEgg type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ObjectSchemaEgg{}
 
 // ObjectSchemaEgg Defines a new object type, its properties, and associations.
 type ObjectSchemaEgg struct {
@@ -33,6 +38,8 @@ type ObjectSchemaEgg struct {
 	Properties []ObjectTypePropertyCreate `json:"properties"`
 	Labels     ObjectTypeDefinitionLabels `json:"labels"`
 }
+
+type _ObjectSchemaEgg ObjectSchemaEgg
 
 // NewObjectSchemaEgg instantiates a new ObjectSchemaEgg object
 // This constructor will assign default values to properties that have it defined,
@@ -58,7 +65,7 @@ func NewObjectSchemaEggWithDefaults() *ObjectSchemaEgg {
 
 // GetSecondaryDisplayProperties returns the SecondaryDisplayProperties field value if set, zero value otherwise.
 func (o *ObjectSchemaEgg) GetSecondaryDisplayProperties() []string {
-	if o == nil || o.SecondaryDisplayProperties == nil {
+	if o == nil || IsNil(o.SecondaryDisplayProperties) {
 		var ret []string
 		return ret
 	}
@@ -68,7 +75,7 @@ func (o *ObjectSchemaEgg) GetSecondaryDisplayProperties() []string {
 // GetSecondaryDisplayPropertiesOk returns a tuple with the SecondaryDisplayProperties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ObjectSchemaEgg) GetSecondaryDisplayPropertiesOk() ([]string, bool) {
-	if o == nil || o.SecondaryDisplayProperties == nil {
+	if o == nil || IsNil(o.SecondaryDisplayProperties) {
 		return nil, false
 	}
 	return o.SecondaryDisplayProperties, true
@@ -76,7 +83,7 @@ func (o *ObjectSchemaEgg) GetSecondaryDisplayPropertiesOk() ([]string, bool) {
 
 // HasSecondaryDisplayProperties returns a boolean if a field has been set.
 func (o *ObjectSchemaEgg) HasSecondaryDisplayProperties() bool {
-	if o != nil && o.SecondaryDisplayProperties != nil {
+	if o != nil && !IsNil(o.SecondaryDisplayProperties) {
 		return true
 	}
 
@@ -114,7 +121,7 @@ func (o *ObjectSchemaEgg) SetRequiredProperties(v []string) {
 
 // GetSearchableProperties returns the SearchableProperties field value if set, zero value otherwise.
 func (o *ObjectSchemaEgg) GetSearchableProperties() []string {
-	if o == nil || o.SearchableProperties == nil {
+	if o == nil || IsNil(o.SearchableProperties) {
 		var ret []string
 		return ret
 	}
@@ -124,7 +131,7 @@ func (o *ObjectSchemaEgg) GetSearchableProperties() []string {
 // GetSearchablePropertiesOk returns a tuple with the SearchableProperties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ObjectSchemaEgg) GetSearchablePropertiesOk() ([]string, bool) {
-	if o == nil || o.SearchableProperties == nil {
+	if o == nil || IsNil(o.SearchableProperties) {
 		return nil, false
 	}
 	return o.SearchableProperties, true
@@ -132,7 +139,7 @@ func (o *ObjectSchemaEgg) GetSearchablePropertiesOk() ([]string, bool) {
 
 // HasSearchableProperties returns a boolean if a field has been set.
 func (o *ObjectSchemaEgg) HasSearchableProperties() bool {
-	if o != nil && o.SearchableProperties != nil {
+	if o != nil && !IsNil(o.SearchableProperties) {
 		return true
 	}
 
@@ -146,7 +153,7 @@ func (o *ObjectSchemaEgg) SetSearchableProperties(v []string) {
 
 // GetPrimaryDisplayProperty returns the PrimaryDisplayProperty field value if set, zero value otherwise.
 func (o *ObjectSchemaEgg) GetPrimaryDisplayProperty() string {
-	if o == nil || o.PrimaryDisplayProperty == nil {
+	if o == nil || IsNil(o.PrimaryDisplayProperty) {
 		var ret string
 		return ret
 	}
@@ -156,7 +163,7 @@ func (o *ObjectSchemaEgg) GetPrimaryDisplayProperty() string {
 // GetPrimaryDisplayPropertyOk returns a tuple with the PrimaryDisplayProperty field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ObjectSchemaEgg) GetPrimaryDisplayPropertyOk() (*string, bool) {
-	if o == nil || o.PrimaryDisplayProperty == nil {
+	if o == nil || IsNil(o.PrimaryDisplayProperty) {
 		return nil, false
 	}
 	return o.PrimaryDisplayProperty, true
@@ -164,7 +171,7 @@ func (o *ObjectSchemaEgg) GetPrimaryDisplayPropertyOk() (*string, bool) {
 
 // HasPrimaryDisplayProperty returns a boolean if a field has been set.
 func (o *ObjectSchemaEgg) HasPrimaryDisplayProperty() bool {
-	if o != nil && o.PrimaryDisplayProperty != nil {
+	if o != nil && !IsNil(o.PrimaryDisplayProperty) {
 		return true
 	}
 
@@ -202,7 +209,7 @@ func (o *ObjectSchemaEgg) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *ObjectSchemaEgg) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -212,7 +219,7 @@ func (o *ObjectSchemaEgg) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ObjectSchemaEgg) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -220,7 +227,7 @@ func (o *ObjectSchemaEgg) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *ObjectSchemaEgg) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -305,35 +312,74 @@ func (o *ObjectSchemaEgg) SetLabels(v ObjectTypeDefinitionLabels) {
 }
 
 func (o ObjectSchemaEgg) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.SecondaryDisplayProperties != nil {
-		toSerialize["secondaryDisplayProperties"] = o.SecondaryDisplayProperties
-	}
-	if true {
-		toSerialize["requiredProperties"] = o.RequiredProperties
-	}
-	if o.SearchableProperties != nil {
-		toSerialize["searchableProperties"] = o.SearchableProperties
-	}
-	if o.PrimaryDisplayProperty != nil {
-		toSerialize["primaryDisplayProperty"] = o.PrimaryDisplayProperty
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if true {
-		toSerialize["associatedObjects"] = o.AssociatedObjects
-	}
-	if true {
-		toSerialize["properties"] = o.Properties
-	}
-	if true {
-		toSerialize["labels"] = o.Labels
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ObjectSchemaEgg) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.SecondaryDisplayProperties) {
+		toSerialize["secondaryDisplayProperties"] = o.SecondaryDisplayProperties
+	}
+	toSerialize["requiredProperties"] = o.RequiredProperties
+	if !IsNil(o.SearchableProperties) {
+		toSerialize["searchableProperties"] = o.SearchableProperties
+	}
+	if !IsNil(o.PrimaryDisplayProperty) {
+		toSerialize["primaryDisplayProperty"] = o.PrimaryDisplayProperty
+	}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	toSerialize["associatedObjects"] = o.AssociatedObjects
+	toSerialize["properties"] = o.Properties
+	toSerialize["labels"] = o.Labels
+	return toSerialize, nil
+}
+
+func (o *ObjectSchemaEgg) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"requiredProperties",
+		"name",
+		"associatedObjects",
+		"properties",
+		"labels",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varObjectSchemaEgg := _ObjectSchemaEgg{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varObjectSchemaEgg)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ObjectSchemaEgg(varObjectSchemaEgg)
+
+	return err
 }
 
 type NullableObjectSchemaEgg struct {

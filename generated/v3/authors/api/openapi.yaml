@@ -716,6 +716,35 @@ components:
       type: object
     StandardError:
       description: Model definition for a standard error.
+      example:
+        subCategory: "{}"
+        context:
+          key:
+          - context
+          - context
+        links:
+          key: links
+        id: id
+        category: category
+        message: message
+        errors:
+        - subCategory: subCategory
+          code: code
+          in: in
+          context:
+            missingScopes:
+            - scope1
+            - scope2
+          message: message
+        - subCategory: subCategory
+          code: code
+          in: in
+          context:
+            missingScopes:
+            - scope1
+            - scope2
+          message: message
+        status: status
       properties:
         subCategory:
           description: Error subcategory.
@@ -1787,6 +1816,15 @@ components:
       - primaryId
       type: object
     ErrorDetail:
+      example:
+        subCategory: subCategory
+        code: code
+        in: in
+        context:
+          missingScopes:
+          - scope1
+          - scope2
+        message: message
       properties:
         subCategory:
           description: A specific category that contains more specific detail about
@@ -1909,6 +1947,106 @@ components:
       type: object
     BatchResponseBlogAuthorWithErrors:
       description: Response object for batch operations on blog authors with errors.
+      example:
+        completedAt: 2000-01-23T04:56:07.000+00:00
+        numErrors: 0
+        requestedAt: 2000-01-23T04:56:07.000+00:00
+        startedAt: 2000-01-23T04:56:07.000+00:00
+        links:
+          key: links
+        results:
+        - website: website
+          displayName: displayName
+          created: 2000-01-23T04:56:07.000+00:00
+          facebook: facebook
+          fullName: fullName
+          bio: bio
+          language: af
+          linkedin: linkedin
+          avatar: avatar
+          translatedFromId: 0
+          twitter: twitter
+          deletedAt: 2000-01-23T04:56:07.000+00:00
+          name: name
+          id: id
+          updated: 2000-01-23T04:56:07.000+00:00
+          email: email
+          slug: slug
+        - website: website
+          displayName: displayName
+          created: 2000-01-23T04:56:07.000+00:00
+          facebook: facebook
+          fullName: fullName
+          bio: bio
+          language: af
+          linkedin: linkedin
+          avatar: avatar
+          translatedFromId: 0
+          twitter: twitter
+          deletedAt: 2000-01-23T04:56:07.000+00:00
+          name: name
+          id: id
+          updated: 2000-01-23T04:56:07.000+00:00
+          email: email
+          slug: slug
+        errors:
+        - subCategory: "{}"
+          context:
+            key:
+            - context
+            - context
+          links:
+            key: links
+          id: id
+          category: category
+          message: message
+          errors:
+          - subCategory: subCategory
+            code: code
+            in: in
+            context:
+              missingScopes:
+              - scope1
+              - scope2
+            message: message
+          - subCategory: subCategory
+            code: code
+            in: in
+            context:
+              missingScopes:
+              - scope1
+              - scope2
+            message: message
+          status: status
+        - subCategory: "{}"
+          context:
+            key:
+            - context
+            - context
+          links:
+            key: links
+          id: id
+          category: category
+          message: message
+          errors:
+          - subCategory: subCategory
+            code: code
+            in: in
+            context:
+              missingScopes:
+              - scope1
+              - scope2
+            message: message
+          - subCategory: subCategory
+            code: code
+            in: in
+            context:
+              missingScopes:
+              - scope1
+              - scope2
+            message: message
+          status: status
+        status: PENDING
       properties:
         completedAt:
           description: Time of batch operation completion.

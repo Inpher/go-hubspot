@@ -5,7 +5,7 @@ api/openapi.yaml
 api_audit_logs.go
 client.go
 configuration.go
-docs/AuditLogsApi.md
+docs/AuditLogsAPI.md
 docs/CollectionResponsePublicAuditLog.md
 docs/Error.md
 docs/ErrorDetail.md

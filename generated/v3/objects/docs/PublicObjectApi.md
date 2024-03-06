@@ -1,10 +1,10 @@
-# \PublicObjectApi
+# \PublicObjectAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Merge**](PublicObjectApi.md#Merge) | **Post** /crm/v3/objects/{objectType}/merge | Merge two objects with same type
+[**Merge**](PublicObjectAPI.md#Merge) | **Post** /crm/v3/objects/{objectType}/merge | Merge two objects with same type
 
 
 
@@ -20,25 +20,25 @@ Merge two objects with same type
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    objectType := "objectType_example" // string | 
-    publicMergeInput := *openapiclient.NewPublicMergeInput("ObjectIdToMerge_example", "PrimaryObjectId_example") // PublicMergeInput | 
+	objectType := "objectType_example" // string | 
+	publicMergeInput := *openapiclient.NewPublicMergeInput("ObjectIdToMerge_example", "PrimaryObjectId_example") // PublicMergeInput | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PublicObjectApi.Merge(context.Background(), objectType).PublicMergeInput(publicMergeInput).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PublicObjectApi.Merge``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `Merge`: SimplePublicObject
-    fmt.Fprintf(os.Stdout, "Response from `PublicObjectApi.Merge`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PublicObjectAPI.Merge(context.Background(), objectType).PublicMergeInput(publicMergeInput).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PublicObjectAPI.Merge``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `Merge`: SimplePublicObject
+	fmt.Fprintf(os.Stdout, "Response from `PublicObjectAPI.Merge`: %v\n", resp)
 }
 ```
 
@@ -66,7 +66,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [oauth2](../README.md#oauth2), [private_apps_legacy](../README.md#private_apps_legacy), [private_apps](../README.md#private_apps)
 
 ### HTTP request headers
 

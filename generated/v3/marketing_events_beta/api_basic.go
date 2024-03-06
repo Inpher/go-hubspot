@@ -13,20 +13,20 @@ package marketing_events_beta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 
-	"github.com/clarkmcc/go-hubspot"
+	"github.com/inpher/go-hubspot"
 	"net/url"
 	"strings"
 )
 
-// BasicApiService BasicApi service
-type BasicApiService service
+// BasicAPIService BasicAPI service
+type BasicAPIService service
 
 type ApiCreateRequest struct {
 	ctx                               context.Context
-	ApiService                        *BasicApiService
+	ApiService                        *BasicAPIService
 	marketingEventCreateRequestParams *MarketingEventCreateRequestParams
 }
 
@@ -45,10 +45,10 @@ Create Create a marketing event
 
 Creates a new marketing event in HubSpot
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateRequest
 */
-func (a *BasicApiService) Create(ctx context.Context) ApiCreateRequest {
+func (a *BasicAPIService) Create(ctx context.Context) ApiCreateRequest {
 	return ApiCreateRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -56,8 +56,9 @@ func (a *BasicApiService) Create(ctx context.Context) ApiCreateRequest {
 }
 
 // Execute executes the request
-//  @return MarketingEventDefaultResponse
-func (a *BasicApiService) CreateExecute(r ApiCreateRequest) (*MarketingEventDefaultResponse, *http.Response, error) {
+//
+//	@return MarketingEventDefaultResponse
+func (a *BasicAPIService) CreateExecute(r ApiCreateRequest) (*MarketingEventDefaultResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -65,7 +66,7 @@ func (a *BasicApiService) CreateExecute(r ApiCreateRequest) (*MarketingEventDefa
 		localVarReturnValue *MarketingEventDefaultResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.Create")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicAPIService.Create")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -118,9 +119,9 @@ func (a *BasicApiService) CreateExecute(r ApiCreateRequest) (*MarketingEventDefa
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -136,6 +137,7 @@ func (a *BasicApiService) CreateExecute(r ApiCreateRequest) (*MarketingEventDefa
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -154,7 +156,7 @@ func (a *BasicApiService) CreateExecute(r ApiCreateRequest) (*MarketingEventDefa
 
 type ApiExternalArchiveRequest struct {
 	ctx               context.Context
-	ApiService        *BasicApiService
+	ApiService        *BasicAPIService
 	externalEventId   string
 	externalAccountId *string
 }
@@ -174,11 +176,11 @@ ExternalArchive Delete a marketing event
 
 Deletes an existing Marketing Event with the specified id, if one exists.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param externalEventId The id of the marketing event to delete
- @return ApiExternalArchiveRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param externalEventId The id of the marketing event to delete
+	@return ApiExternalArchiveRequest
 */
-func (a *BasicApiService) ExternalArchive(ctx context.Context, externalEventId string) ApiExternalArchiveRequest {
+func (a *BasicAPIService) ExternalArchive(ctx context.Context, externalEventId string) ApiExternalArchiveRequest {
 	return ApiExternalArchiveRequest{
 		ApiService:      a,
 		ctx:             ctx,
@@ -187,20 +189,20 @@ func (a *BasicApiService) ExternalArchive(ctx context.Context, externalEventId s
 }
 
 // Execute executes the request
-func (a *BasicApiService) ExternalArchiveExecute(r ApiExternalArchiveRequest) (*http.Response, error) {
+func (a *BasicAPIService) ExternalArchiveExecute(r ApiExternalArchiveRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.ExternalArchive")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicAPIService.ExternalArchive")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/marketing/v3/marketing-events/events/{externalEventId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"externalEventId"+"}", url.PathEscape(parameterToString(r.externalEventId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"externalEventId"+"}", url.PathEscape(parameterValueToString(r.externalEventId, "externalEventId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -209,7 +211,7 @@ func (a *BasicApiService) ExternalArchiveExecute(r ApiExternalArchiveRequest) (*
 		return nil, reportError("externalAccountId is required and must be specified")
 	}
 
-	localVarQueryParams.Add("externalAccountId", parameterToString(*r.externalAccountId, ""))
+	parameterAddToHeaderOrQuery(localVarQueryParams, "externalAccountId", r.externalAccountId, "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -247,9 +249,9 @@ func (a *BasicApiService) ExternalArchiveExecute(r ApiExternalArchiveRequest) (*
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -265,6 +267,7 @@ func (a *BasicApiService) ExternalArchiveExecute(r ApiExternalArchiveRequest) (*
 			newErr.error = err.Error()
 			return localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
@@ -274,7 +277,7 @@ func (a *BasicApiService) ExternalArchiveExecute(r ApiExternalArchiveRequest) (*
 
 type ApiExternalCancelRequest struct {
 	ctx               context.Context
-	ApiService        *BasicApiService
+	ApiService        *BasicAPIService
 	externalEventId   string
 	externalAccountId *string
 }
@@ -294,11 +297,11 @@ ExternalCancel Mark a marketing event as cancelled
 
 Mark a marketing event as cancelled.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param externalEventId The id of the marketing event to mark as cancelled
- @return ApiExternalCancelRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param externalEventId The id of the marketing event to mark as cancelled
+	@return ApiExternalCancelRequest
 */
-func (a *BasicApiService) ExternalCancel(ctx context.Context, externalEventId string) ApiExternalCancelRequest {
+func (a *BasicAPIService) ExternalCancel(ctx context.Context, externalEventId string) ApiExternalCancelRequest {
 	return ApiExternalCancelRequest{
 		ApiService:      a,
 		ctx:             ctx,
@@ -307,8 +310,9 @@ func (a *BasicApiService) ExternalCancel(ctx context.Context, externalEventId st
 }
 
 // Execute executes the request
-//  @return MarketingEventDefaultResponse
-func (a *BasicApiService) ExternalCancelExecute(r ApiExternalCancelRequest) (*MarketingEventDefaultResponse, *http.Response, error) {
+//
+//	@return MarketingEventDefaultResponse
+func (a *BasicAPIService) ExternalCancelExecute(r ApiExternalCancelRequest) (*MarketingEventDefaultResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -316,13 +320,13 @@ func (a *BasicApiService) ExternalCancelExecute(r ApiExternalCancelRequest) (*Ma
 		localVarReturnValue *MarketingEventDefaultResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.ExternalCancel")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicAPIService.ExternalCancel")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/marketing/v3/marketing-events/events/{externalEventId}/cancel"
-	localVarPath = strings.Replace(localVarPath, "{"+"externalEventId"+"}", url.PathEscape(parameterToString(r.externalEventId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"externalEventId"+"}", url.PathEscape(parameterValueToString(r.externalEventId, "externalEventId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -331,7 +335,7 @@ func (a *BasicApiService) ExternalCancelExecute(r ApiExternalCancelRequest) (*Ma
 		return localVarReturnValue, nil, reportError("externalAccountId is required and must be specified")
 	}
 
-	localVarQueryParams.Add("externalAccountId", parameterToString(*r.externalAccountId, ""))
+	parameterAddToHeaderOrQuery(localVarQueryParams, "externalAccountId", r.externalAccountId, "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -369,9 +373,9 @@ func (a *BasicApiService) ExternalCancelExecute(r ApiExternalCancelRequest) (*Ma
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -387,6 +391,7 @@ func (a *BasicApiService) ExternalCancelExecute(r ApiExternalCancelRequest) (*Ma
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -405,7 +410,7 @@ func (a *BasicApiService) ExternalCancelExecute(r ApiExternalCancelRequest) (*Ma
 
 type ApiExternalGetByIDRequest struct {
 	ctx               context.Context
-	ApiService        *BasicApiService
+	ApiService        *BasicAPIService
 	externalEventId   string
 	externalAccountId *string
 }
@@ -425,11 +430,11 @@ ExternalGetByID Get a marketing event
 
 Returns the details of the Marketing Event with the specified id, if one exists.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param externalEventId The id of the marketing event to return
- @return ApiExternalGetByIDRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param externalEventId The id of the marketing event to return
+	@return ApiExternalGetByIDRequest
 */
-func (a *BasicApiService) ExternalGetByID(ctx context.Context, externalEventId string) ApiExternalGetByIDRequest {
+func (a *BasicAPIService) ExternalGetByID(ctx context.Context, externalEventId string) ApiExternalGetByIDRequest {
 	return ApiExternalGetByIDRequest{
 		ApiService:      a,
 		ctx:             ctx,
@@ -438,8 +443,9 @@ func (a *BasicApiService) ExternalGetByID(ctx context.Context, externalEventId s
 }
 
 // Execute executes the request
-//  @return MarketingEventPublicReadResponse
-func (a *BasicApiService) ExternalGetByIDExecute(r ApiExternalGetByIDRequest) (*MarketingEventPublicReadResponse, *http.Response, error) {
+//
+//	@return MarketingEventPublicReadResponse
+func (a *BasicAPIService) ExternalGetByIDExecute(r ApiExternalGetByIDRequest) (*MarketingEventPublicReadResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -447,13 +453,13 @@ func (a *BasicApiService) ExternalGetByIDExecute(r ApiExternalGetByIDRequest) (*
 		localVarReturnValue *MarketingEventPublicReadResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.ExternalGetByID")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicAPIService.ExternalGetByID")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/marketing/v3/marketing-events/events/{externalEventId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"externalEventId"+"}", url.PathEscape(parameterToString(r.externalEventId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"externalEventId"+"}", url.PathEscape(parameterValueToString(r.externalEventId, "externalEventId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -462,7 +468,7 @@ func (a *BasicApiService) ExternalGetByIDExecute(r ApiExternalGetByIDRequest) (*
 		return localVarReturnValue, nil, reportError("externalAccountId is required and must be specified")
 	}
 
-	localVarQueryParams.Add("externalAccountId", parameterToString(*r.externalAccountId, ""))
+	parameterAddToHeaderOrQuery(localVarQueryParams, "externalAccountId", r.externalAccountId, "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -500,9 +506,9 @@ func (a *BasicApiService) ExternalGetByIDExecute(r ApiExternalGetByIDRequest) (*
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -518,6 +524,7 @@ func (a *BasicApiService) ExternalGetByIDExecute(r ApiExternalGetByIDRequest) (*
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -536,7 +543,7 @@ func (a *BasicApiService) ExternalGetByIDExecute(r ApiExternalGetByIDRequest) (*
 
 type ApiExternalReplaceRequest struct {
 	ctx                               context.Context
-	ApiService                        *BasicApiService
+	ApiService                        *BasicAPIService
 	externalEventId                   string
 	marketingEventCreateRequestParams *MarketingEventCreateRequestParams
 }
@@ -556,11 +563,11 @@ ExternalReplace Create or update a marketing event
 
 Upsets a Marketing Event. If there is an existing Marketing event with the specified id, it will be updated; otherwise a new event will be created.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param externalEventId The id of the marketing event to upsert
- @return ApiExternalReplaceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param externalEventId The id of the marketing event to upsert
+	@return ApiExternalReplaceRequest
 */
-func (a *BasicApiService) ExternalReplace(ctx context.Context, externalEventId string) ApiExternalReplaceRequest {
+func (a *BasicAPIService) ExternalReplace(ctx context.Context, externalEventId string) ApiExternalReplaceRequest {
 	return ApiExternalReplaceRequest{
 		ApiService:      a,
 		ctx:             ctx,
@@ -569,8 +576,9 @@ func (a *BasicApiService) ExternalReplace(ctx context.Context, externalEventId s
 }
 
 // Execute executes the request
-//  @return MarketingEventPublicDefaultResponse
-func (a *BasicApiService) ExternalReplaceExecute(r ApiExternalReplaceRequest) (*MarketingEventPublicDefaultResponse, *http.Response, error) {
+//
+//	@return MarketingEventPublicDefaultResponse
+func (a *BasicAPIService) ExternalReplaceExecute(r ApiExternalReplaceRequest) (*MarketingEventPublicDefaultResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
@@ -578,13 +586,13 @@ func (a *BasicApiService) ExternalReplaceExecute(r ApiExternalReplaceRequest) (*
 		localVarReturnValue *MarketingEventPublicDefaultResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.ExternalReplace")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicAPIService.ExternalReplace")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/marketing/v3/marketing-events/events/{externalEventId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"externalEventId"+"}", url.PathEscape(parameterToString(r.externalEventId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"externalEventId"+"}", url.PathEscape(parameterValueToString(r.externalEventId, "externalEventId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -632,9 +640,9 @@ func (a *BasicApiService) ExternalReplaceExecute(r ApiExternalReplaceRequest) (*
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -650,6 +658,7 @@ func (a *BasicApiService) ExternalReplaceExecute(r ApiExternalReplaceRequest) (*
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -668,7 +677,7 @@ func (a *BasicApiService) ExternalReplaceExecute(r ApiExternalReplaceRequest) (*
 
 type ApiExternalUpdateRequest struct {
 	ctx                               context.Context
-	ApiService                        *BasicApiService
+	ApiService                        *BasicAPIService
 	externalEventId                   string
 	externalAccountId                 *string
 	marketingEventUpdateRequestParams *MarketingEventUpdateRequestParams
@@ -695,11 +704,11 @@ ExternalUpdate Update a marketing event
 
 Updates an existing Marketing Event with the specified id, if one exists.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param externalEventId The id of the marketing event to update
- @return ApiExternalUpdateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param externalEventId The id of the marketing event to update
+	@return ApiExternalUpdateRequest
 */
-func (a *BasicApiService) ExternalUpdate(ctx context.Context, externalEventId string) ApiExternalUpdateRequest {
+func (a *BasicAPIService) ExternalUpdate(ctx context.Context, externalEventId string) ApiExternalUpdateRequest {
 	return ApiExternalUpdateRequest{
 		ApiService:      a,
 		ctx:             ctx,
@@ -708,8 +717,9 @@ func (a *BasicApiService) ExternalUpdate(ctx context.Context, externalEventId st
 }
 
 // Execute executes the request
-//  @return MarketingEventPublicDefaultResponse
-func (a *BasicApiService) ExternalUpdateExecute(r ApiExternalUpdateRequest) (*MarketingEventPublicDefaultResponse, *http.Response, error) {
+//
+//	@return MarketingEventPublicDefaultResponse
+func (a *BasicAPIService) ExternalUpdateExecute(r ApiExternalUpdateRequest) (*MarketingEventPublicDefaultResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
 		localVarPostBody    interface{}
@@ -717,13 +727,13 @@ func (a *BasicApiService) ExternalUpdateExecute(r ApiExternalUpdateRequest) (*Ma
 		localVarReturnValue *MarketingEventPublicDefaultResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.ExternalUpdate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicAPIService.ExternalUpdate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/marketing/v3/marketing-events/events/{externalEventId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"externalEventId"+"}", url.PathEscape(parameterToString(r.externalEventId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"externalEventId"+"}", url.PathEscape(parameterValueToString(r.externalEventId, "externalEventId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -735,7 +745,7 @@ func (a *BasicApiService) ExternalUpdateExecute(r ApiExternalUpdateRequest) (*Ma
 		return localVarReturnValue, nil, reportError("marketingEventUpdateRequestParams is required and must be specified")
 	}
 
-	localVarQueryParams.Add("externalAccountId", parameterToString(*r.externalAccountId, ""))
+	parameterAddToHeaderOrQuery(localVarQueryParams, "externalAccountId", r.externalAccountId, "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -775,9 +785,9 @@ func (a *BasicApiService) ExternalUpdateExecute(r ApiExternalUpdateRequest) (*Ma
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -793,6 +803,7 @@ func (a *BasicApiService) ExternalUpdateExecute(r ApiExternalUpdateRequest) (*Ma
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

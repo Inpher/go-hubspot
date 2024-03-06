@@ -13,19 +13,19 @@ package feedback_submissions
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 
-	"github.com/clarkmcc/go-hubspot"
+	"github.com/inpher/go-hubspot"
 	"net/url"
 )
 
-// BatchApiService BatchApi service
-type BatchApiService service
+// BatchAPIService BatchAPI service
+type BatchAPIService service
 
 type ApiPostCrmV3ObjectsFeedbackSubmissionsBatchArchiveArchiveRequest struct {
 	ctx                            context.Context
-	ApiService                     *BatchApiService
+	ApiService                     *BatchAPIService
 	batchInputSimplePublicObjectId *BatchInputSimplePublicObjectId
 }
 
@@ -41,10 +41,10 @@ func (r ApiPostCrmV3ObjectsFeedbackSubmissionsBatchArchiveArchiveRequest) Execut
 /*
 PostCrmV3ObjectsFeedbackSubmissionsBatchArchiveArchive Archive a batch of feedback submissions by ID
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostCrmV3ObjectsFeedbackSubmissionsBatchArchiveArchiveRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiPostCrmV3ObjectsFeedbackSubmissionsBatchArchiveArchiveRequest
 */
-func (a *BatchApiService) PostCrmV3ObjectsFeedbackSubmissionsBatchArchiveArchive(ctx context.Context) ApiPostCrmV3ObjectsFeedbackSubmissionsBatchArchiveArchiveRequest {
+func (a *BatchAPIService) PostCrmV3ObjectsFeedbackSubmissionsBatchArchiveArchive(ctx context.Context) ApiPostCrmV3ObjectsFeedbackSubmissionsBatchArchiveArchiveRequest {
 	return ApiPostCrmV3ObjectsFeedbackSubmissionsBatchArchiveArchiveRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -52,14 +52,14 @@ func (a *BatchApiService) PostCrmV3ObjectsFeedbackSubmissionsBatchArchiveArchive
 }
 
 // Execute executes the request
-func (a *BatchApiService) PostCrmV3ObjectsFeedbackSubmissionsBatchArchiveArchiveExecute(r ApiPostCrmV3ObjectsFeedbackSubmissionsBatchArchiveArchiveRequest) (*http.Response, error) {
+func (a *BatchAPIService) PostCrmV3ObjectsFeedbackSubmissionsBatchArchiveArchiveExecute(r ApiPostCrmV3ObjectsFeedbackSubmissionsBatchArchiveArchiveRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchApiService.PostCrmV3ObjectsFeedbackSubmissionsBatchArchiveArchive")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.PostCrmV3ObjectsFeedbackSubmissionsBatchArchiveArchive")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -112,9 +112,9 @@ func (a *BatchApiService) PostCrmV3ObjectsFeedbackSubmissionsBatchArchiveArchive
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -130,6 +130,7 @@ func (a *BatchApiService) PostCrmV3ObjectsFeedbackSubmissionsBatchArchiveArchive
 			newErr.error = err.Error()
 			return localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
@@ -139,7 +140,7 @@ func (a *BatchApiService) PostCrmV3ObjectsFeedbackSubmissionsBatchArchiveArchive
 
 type ApiPostCrmV3ObjectsFeedbackSubmissionsBatchCreateCreateRequest struct {
 	ctx                                        context.Context
-	ApiService                                 *BatchApiService
+	ApiService                                 *BatchAPIService
 	batchInputSimplePublicObjectInputForCreate *BatchInputSimplePublicObjectInputForCreate
 }
 
@@ -155,10 +156,10 @@ func (r ApiPostCrmV3ObjectsFeedbackSubmissionsBatchCreateCreateRequest) Execute(
 /*
 PostCrmV3ObjectsFeedbackSubmissionsBatchCreateCreate Create a batch of feedback submissions
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostCrmV3ObjectsFeedbackSubmissionsBatchCreateCreateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiPostCrmV3ObjectsFeedbackSubmissionsBatchCreateCreateRequest
 */
-func (a *BatchApiService) PostCrmV3ObjectsFeedbackSubmissionsBatchCreateCreate(ctx context.Context) ApiPostCrmV3ObjectsFeedbackSubmissionsBatchCreateCreateRequest {
+func (a *BatchAPIService) PostCrmV3ObjectsFeedbackSubmissionsBatchCreateCreate(ctx context.Context) ApiPostCrmV3ObjectsFeedbackSubmissionsBatchCreateCreateRequest {
 	return ApiPostCrmV3ObjectsFeedbackSubmissionsBatchCreateCreateRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -166,8 +167,9 @@ func (a *BatchApiService) PostCrmV3ObjectsFeedbackSubmissionsBatchCreateCreate(c
 }
 
 // Execute executes the request
-//  @return BatchResponseSimplePublicObject
-func (a *BatchApiService) PostCrmV3ObjectsFeedbackSubmissionsBatchCreateCreateExecute(r ApiPostCrmV3ObjectsFeedbackSubmissionsBatchCreateCreateRequest) (*BatchResponseSimplePublicObject, *http.Response, error) {
+//
+//	@return BatchResponseSimplePublicObject
+func (a *BatchAPIService) PostCrmV3ObjectsFeedbackSubmissionsBatchCreateCreateExecute(r ApiPostCrmV3ObjectsFeedbackSubmissionsBatchCreateCreateRequest) (*BatchResponseSimplePublicObject, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -175,7 +177,7 @@ func (a *BatchApiService) PostCrmV3ObjectsFeedbackSubmissionsBatchCreateCreateEx
 		localVarReturnValue *BatchResponseSimplePublicObject
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchApiService.PostCrmV3ObjectsFeedbackSubmissionsBatchCreateCreate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.PostCrmV3ObjectsFeedbackSubmissionsBatchCreateCreate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -228,9 +230,9 @@ func (a *BatchApiService) PostCrmV3ObjectsFeedbackSubmissionsBatchCreateCreateEx
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -246,6 +248,7 @@ func (a *BatchApiService) PostCrmV3ObjectsFeedbackSubmissionsBatchCreateCreateEx
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -264,7 +267,7 @@ func (a *BatchApiService) PostCrmV3ObjectsFeedbackSubmissionsBatchCreateCreateEx
 
 type ApiPostCrmV3ObjectsFeedbackSubmissionsBatchReadReadRequest struct {
 	ctx                                context.Context
-	ApiService                         *BatchApiService
+	ApiService                         *BatchAPIService
 	batchReadInputSimplePublicObjectId *BatchReadInputSimplePublicObjectId
 	archived                           *bool
 }
@@ -287,10 +290,10 @@ func (r ApiPostCrmV3ObjectsFeedbackSubmissionsBatchReadReadRequest) Execute() (*
 /*
 PostCrmV3ObjectsFeedbackSubmissionsBatchReadRead Read a batch of feedback submissions by internal ID, or unique property values
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostCrmV3ObjectsFeedbackSubmissionsBatchReadReadRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiPostCrmV3ObjectsFeedbackSubmissionsBatchReadReadRequest
 */
-func (a *BatchApiService) PostCrmV3ObjectsFeedbackSubmissionsBatchReadRead(ctx context.Context) ApiPostCrmV3ObjectsFeedbackSubmissionsBatchReadReadRequest {
+func (a *BatchAPIService) PostCrmV3ObjectsFeedbackSubmissionsBatchReadRead(ctx context.Context) ApiPostCrmV3ObjectsFeedbackSubmissionsBatchReadReadRequest {
 	return ApiPostCrmV3ObjectsFeedbackSubmissionsBatchReadReadRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -298,8 +301,9 @@ func (a *BatchApiService) PostCrmV3ObjectsFeedbackSubmissionsBatchReadRead(ctx c
 }
 
 // Execute executes the request
-//  @return BatchResponseSimplePublicObject
-func (a *BatchApiService) PostCrmV3ObjectsFeedbackSubmissionsBatchReadReadExecute(r ApiPostCrmV3ObjectsFeedbackSubmissionsBatchReadReadRequest) (*BatchResponseSimplePublicObject, *http.Response, error) {
+//
+//	@return BatchResponseSimplePublicObject
+func (a *BatchAPIService) PostCrmV3ObjectsFeedbackSubmissionsBatchReadReadExecute(r ApiPostCrmV3ObjectsFeedbackSubmissionsBatchReadReadRequest) (*BatchResponseSimplePublicObject, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -307,7 +311,7 @@ func (a *BatchApiService) PostCrmV3ObjectsFeedbackSubmissionsBatchReadReadExecut
 		localVarReturnValue *BatchResponseSimplePublicObject
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchApiService.PostCrmV3ObjectsFeedbackSubmissionsBatchReadRead")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.PostCrmV3ObjectsFeedbackSubmissionsBatchReadRead")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -322,7 +326,10 @@ func (a *BatchApiService) PostCrmV3ObjectsFeedbackSubmissionsBatchReadReadExecut
 	}
 
 	if r.archived != nil {
-		localVarQueryParams.Add("archived", parameterToString(*r.archived, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "archived", r.archived, "")
+	} else {
+		var defaultValue bool = false
+		r.archived = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -363,9 +370,9 @@ func (a *BatchApiService) PostCrmV3ObjectsFeedbackSubmissionsBatchReadReadExecut
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -381,6 +388,7 @@ func (a *BatchApiService) PostCrmV3ObjectsFeedbackSubmissionsBatchReadReadExecut
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -399,7 +407,7 @@ func (a *BatchApiService) PostCrmV3ObjectsFeedbackSubmissionsBatchReadReadExecut
 
 type ApiPostCrmV3ObjectsFeedbackSubmissionsBatchUpdateUpdateRequest struct {
 	ctx                                    context.Context
-	ApiService                             *BatchApiService
+	ApiService                             *BatchAPIService
 	batchInputSimplePublicObjectBatchInput *BatchInputSimplePublicObjectBatchInput
 }
 
@@ -415,10 +423,10 @@ func (r ApiPostCrmV3ObjectsFeedbackSubmissionsBatchUpdateUpdateRequest) Execute(
 /*
 PostCrmV3ObjectsFeedbackSubmissionsBatchUpdateUpdate Update a batch of feedback submissions
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostCrmV3ObjectsFeedbackSubmissionsBatchUpdateUpdateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiPostCrmV3ObjectsFeedbackSubmissionsBatchUpdateUpdateRequest
 */
-func (a *BatchApiService) PostCrmV3ObjectsFeedbackSubmissionsBatchUpdateUpdate(ctx context.Context) ApiPostCrmV3ObjectsFeedbackSubmissionsBatchUpdateUpdateRequest {
+func (a *BatchAPIService) PostCrmV3ObjectsFeedbackSubmissionsBatchUpdateUpdate(ctx context.Context) ApiPostCrmV3ObjectsFeedbackSubmissionsBatchUpdateUpdateRequest {
 	return ApiPostCrmV3ObjectsFeedbackSubmissionsBatchUpdateUpdateRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -426,8 +434,9 @@ func (a *BatchApiService) PostCrmV3ObjectsFeedbackSubmissionsBatchUpdateUpdate(c
 }
 
 // Execute executes the request
-//  @return BatchResponseSimplePublicObject
-func (a *BatchApiService) PostCrmV3ObjectsFeedbackSubmissionsBatchUpdateUpdateExecute(r ApiPostCrmV3ObjectsFeedbackSubmissionsBatchUpdateUpdateRequest) (*BatchResponseSimplePublicObject, *http.Response, error) {
+//
+//	@return BatchResponseSimplePublicObject
+func (a *BatchAPIService) PostCrmV3ObjectsFeedbackSubmissionsBatchUpdateUpdateExecute(r ApiPostCrmV3ObjectsFeedbackSubmissionsBatchUpdateUpdateRequest) (*BatchResponseSimplePublicObject, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -435,7 +444,7 @@ func (a *BatchApiService) PostCrmV3ObjectsFeedbackSubmissionsBatchUpdateUpdateEx
 		localVarReturnValue *BatchResponseSimplePublicObject
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchApiService.PostCrmV3ObjectsFeedbackSubmissionsBatchUpdateUpdate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.PostCrmV3ObjectsFeedbackSubmissionsBatchUpdateUpdate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -488,9 +497,9 @@ func (a *BatchApiService) PostCrmV3ObjectsFeedbackSubmissionsBatchUpdateUpdateEx
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -506,6 +515,7 @@ func (a *BatchApiService) PostCrmV3ObjectsFeedbackSubmissionsBatchUpdateUpdateEx
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

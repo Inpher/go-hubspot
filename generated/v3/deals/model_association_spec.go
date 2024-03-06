@@ -11,14 +11,21 @@ API version: v3
 package deals
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the AssociationSpec type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AssociationSpec{}
 
 // AssociationSpec struct for AssociationSpec
 type AssociationSpec struct {
 	AssociationCategory string `json:"associationCategory"`
 	AssociationTypeId   int32  `json:"associationTypeId"`
 }
+
+type _AssociationSpec AssociationSpec
 
 // NewAssociationSpec instantiates a new AssociationSpec object
 // This constructor will assign default values to properties that have it defined,
@@ -88,14 +95,56 @@ func (o *AssociationSpec) SetAssociationTypeId(v int32) {
 }
 
 func (o AssociationSpec) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["associationCategory"] = o.AssociationCategory
-	}
-	if true {
-		toSerialize["associationTypeId"] = o.AssociationTypeId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AssociationSpec) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["associationCategory"] = o.AssociationCategory
+	toSerialize["associationTypeId"] = o.AssociationTypeId
+	return toSerialize, nil
+}
+
+func (o *AssociationSpec) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"associationCategory",
+		"associationTypeId",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAssociationSpec := _AssociationSpec{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varAssociationSpec)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AssociationSpec(varAssociationSpec)
+
+	return err
 }
 
 type NullableAssociationSpec struct {

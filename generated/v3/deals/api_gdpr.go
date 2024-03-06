@@ -13,19 +13,19 @@ package deals
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 
-	"github.com/clarkmcc/go-hubspot"
+	"github.com/inpher/go-hubspot"
 	"net/url"
 )
 
-// GDPRApiService GDPRApi service
-type GDPRApiService service
+// GDPRAPIService GDPRAPI service
+type GDPRAPIService service
 
 type ApiPostCrmV3ObjectsDealsGdprDeletePurgeRequest struct {
 	ctx                   context.Context
-	ApiService            *GDPRApiService
+	ApiService            *GDPRAPIService
 	publicGdprDeleteInput *PublicGdprDeleteInput
 }
 
@@ -43,10 +43,10 @@ PostCrmV3ObjectsDealsGdprDeletePurge GDPR DELETE
 
 Permanently delete a contact and all associated content to follow GDPR. Use optional property 'idProperty' set to 'email' to identify contact by email address. If email address is not found, the email address will be added to a blocklist and prevent it from being used in the future.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostCrmV3ObjectsDealsGdprDeletePurgeRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiPostCrmV3ObjectsDealsGdprDeletePurgeRequest
 */
-func (a *GDPRApiService) PostCrmV3ObjectsDealsGdprDeletePurge(ctx context.Context) ApiPostCrmV3ObjectsDealsGdprDeletePurgeRequest {
+func (a *GDPRAPIService) PostCrmV3ObjectsDealsGdprDeletePurge(ctx context.Context) ApiPostCrmV3ObjectsDealsGdprDeletePurgeRequest {
 	return ApiPostCrmV3ObjectsDealsGdprDeletePurgeRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -54,14 +54,14 @@ func (a *GDPRApiService) PostCrmV3ObjectsDealsGdprDeletePurge(ctx context.Contex
 }
 
 // Execute executes the request
-func (a *GDPRApiService) PostCrmV3ObjectsDealsGdprDeletePurgeExecute(r ApiPostCrmV3ObjectsDealsGdprDeletePurgeRequest) (*http.Response, error) {
+func (a *GDPRAPIService) PostCrmV3ObjectsDealsGdprDeletePurgeExecute(r ApiPostCrmV3ObjectsDealsGdprDeletePurgeRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GDPRApiService.PostCrmV3ObjectsDealsGdprDeletePurge")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GDPRAPIService.PostCrmV3ObjectsDealsGdprDeletePurge")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -114,9 +114,9 @@ func (a *GDPRApiService) PostCrmV3ObjectsDealsGdprDeletePurgeExecute(r ApiPostCr
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -132,6 +132,7 @@ func (a *GDPRApiService) PostCrmV3ObjectsDealsGdprDeletePurgeExecute(r ApiPostCr
 			newErr.error = err.Error()
 			return localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}

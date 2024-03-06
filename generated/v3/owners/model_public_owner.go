@@ -11,9 +11,14 @@ API version: v3
 package owners
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the PublicOwner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PublicOwner{}
 
 // PublicOwner struct for PublicOwner
 type PublicOwner struct {
@@ -27,6 +32,8 @@ type PublicOwner struct {
 	Email     *string      `json:"email,omitempty"`
 	UpdatedAt time.Time    `json:"updatedAt"`
 }
+
+type _PublicOwner PublicOwner
 
 // NewPublicOwner instantiates a new PublicOwner object
 // This constructor will assign default values to properties that have it defined,
@@ -51,7 +58,7 @@ func NewPublicOwnerWithDefaults() *PublicOwner {
 
 // GetFirstName returns the FirstName field value if set, zero value otherwise.
 func (o *PublicOwner) GetFirstName() string {
-	if o == nil || o.FirstName == nil {
+	if o == nil || IsNil(o.FirstName) {
 		var ret string
 		return ret
 	}
@@ -61,7 +68,7 @@ func (o *PublicOwner) GetFirstName() string {
 // GetFirstNameOk returns a tuple with the FirstName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicOwner) GetFirstNameOk() (*string, bool) {
-	if o == nil || o.FirstName == nil {
+	if o == nil || IsNil(o.FirstName) {
 		return nil, false
 	}
 	return o.FirstName, true
@@ -69,7 +76,7 @@ func (o *PublicOwner) GetFirstNameOk() (*string, bool) {
 
 // HasFirstName returns a boolean if a field has been set.
 func (o *PublicOwner) HasFirstName() bool {
-	if o != nil && o.FirstName != nil {
+	if o != nil && !IsNil(o.FirstName) {
 		return true
 	}
 
@@ -83,7 +90,7 @@ func (o *PublicOwner) SetFirstName(v string) {
 
 // GetLastName returns the LastName field value if set, zero value otherwise.
 func (o *PublicOwner) GetLastName() string {
-	if o == nil || o.LastName == nil {
+	if o == nil || IsNil(o.LastName) {
 		var ret string
 		return ret
 	}
@@ -93,7 +100,7 @@ func (o *PublicOwner) GetLastName() string {
 // GetLastNameOk returns a tuple with the LastName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicOwner) GetLastNameOk() (*string, bool) {
-	if o == nil || o.LastName == nil {
+	if o == nil || IsNil(o.LastName) {
 		return nil, false
 	}
 	return o.LastName, true
@@ -101,7 +108,7 @@ func (o *PublicOwner) GetLastNameOk() (*string, bool) {
 
 // HasLastName returns a boolean if a field has been set.
 func (o *PublicOwner) HasLastName() bool {
-	if o != nil && o.LastName != nil {
+	if o != nil && !IsNil(o.LastName) {
 		return true
 	}
 
@@ -163,7 +170,7 @@ func (o *PublicOwner) SetArchived(v bool) {
 
 // GetTeams returns the Teams field value if set, zero value otherwise.
 func (o *PublicOwner) GetTeams() []PublicTeam {
-	if o == nil || o.Teams == nil {
+	if o == nil || IsNil(o.Teams) {
 		var ret []PublicTeam
 		return ret
 	}
@@ -173,7 +180,7 @@ func (o *PublicOwner) GetTeams() []PublicTeam {
 // GetTeamsOk returns a tuple with the Teams field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicOwner) GetTeamsOk() ([]PublicTeam, bool) {
-	if o == nil || o.Teams == nil {
+	if o == nil || IsNil(o.Teams) {
 		return nil, false
 	}
 	return o.Teams, true
@@ -181,7 +188,7 @@ func (o *PublicOwner) GetTeamsOk() ([]PublicTeam, bool) {
 
 // HasTeams returns a boolean if a field has been set.
 func (o *PublicOwner) HasTeams() bool {
-	if o != nil && o.Teams != nil {
+	if o != nil && !IsNil(o.Teams) {
 		return true
 	}
 
@@ -219,7 +226,7 @@ func (o *PublicOwner) SetId(v string) {
 
 // GetUserId returns the UserId field value if set, zero value otherwise.
 func (o *PublicOwner) GetUserId() int32 {
-	if o == nil || o.UserId == nil {
+	if o == nil || IsNil(o.UserId) {
 		var ret int32
 		return ret
 	}
@@ -229,7 +236,7 @@ func (o *PublicOwner) GetUserId() int32 {
 // GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicOwner) GetUserIdOk() (*int32, bool) {
-	if o == nil || o.UserId == nil {
+	if o == nil || IsNil(o.UserId) {
 		return nil, false
 	}
 	return o.UserId, true
@@ -237,7 +244,7 @@ func (o *PublicOwner) GetUserIdOk() (*int32, bool) {
 
 // HasUserId returns a boolean if a field has been set.
 func (o *PublicOwner) HasUserId() bool {
-	if o != nil && o.UserId != nil {
+	if o != nil && !IsNil(o.UserId) {
 		return true
 	}
 
@@ -251,7 +258,7 @@ func (o *PublicOwner) SetUserId(v int32) {
 
 // GetEmail returns the Email field value if set, zero value otherwise.
 func (o *PublicOwner) GetEmail() string {
-	if o == nil || o.Email == nil {
+	if o == nil || IsNil(o.Email) {
 		var ret string
 		return ret
 	}
@@ -261,7 +268,7 @@ func (o *PublicOwner) GetEmail() string {
 // GetEmailOk returns a tuple with the Email field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicOwner) GetEmailOk() (*string, bool) {
-	if o == nil || o.Email == nil {
+	if o == nil || IsNil(o.Email) {
 		return nil, false
 	}
 	return o.Email, true
@@ -269,7 +276,7 @@ func (o *PublicOwner) GetEmailOk() (*string, bool) {
 
 // HasEmail returns a boolean if a field has been set.
 func (o *PublicOwner) HasEmail() bool {
-	if o != nil && o.Email != nil {
+	if o != nil && !IsNil(o.Email) {
 		return true
 	}
 
@@ -306,35 +313,75 @@ func (o *PublicOwner) SetUpdatedAt(v time.Time) {
 }
 
 func (o PublicOwner) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.FirstName != nil {
-		toSerialize["firstName"] = o.FirstName
-	}
-	if o.LastName != nil {
-		toSerialize["lastName"] = o.LastName
-	}
-	if true {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if true {
-		toSerialize["archived"] = o.Archived
-	}
-	if o.Teams != nil {
-		toSerialize["teams"] = o.Teams
-	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if o.UserId != nil {
-		toSerialize["userId"] = o.UserId
-	}
-	if o.Email != nil {
-		toSerialize["email"] = o.Email
-	}
-	if true {
-		toSerialize["updatedAt"] = o.UpdatedAt
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PublicOwner) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.FirstName) {
+		toSerialize["firstName"] = o.FirstName
+	}
+	if !IsNil(o.LastName) {
+		toSerialize["lastName"] = o.LastName
+	}
+	toSerialize["createdAt"] = o.CreatedAt
+	toSerialize["archived"] = o.Archived
+	if !IsNil(o.Teams) {
+		toSerialize["teams"] = o.Teams
+	}
+	toSerialize["id"] = o.Id
+	if !IsNil(o.UserId) {
+		toSerialize["userId"] = o.UserId
+	}
+	if !IsNil(o.Email) {
+		toSerialize["email"] = o.Email
+	}
+	toSerialize["updatedAt"] = o.UpdatedAt
+	return toSerialize, nil
+}
+
+func (o *PublicOwner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"createdAt",
+		"archived",
+		"id",
+		"updatedAt",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPublicOwner := _PublicOwner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPublicOwner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PublicOwner(varPublicOwner)
+
+	return err
 }
 
 type NullablePublicOwner struct {

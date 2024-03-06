@@ -13,18 +13,20 @@ package actions
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
+
+	"github.com/inpher/go-hubspot"
 	"net/url"
 	"strings"
 )
 
-// DefinitionsApiService DefinitionsApi service
-type DefinitionsApiService service
+// DefinitionsAPIService DefinitionsAPI service
+type DefinitionsAPIService service
 
 type ApiArchiveRequest struct {
 	ctx          context.Context
-	ApiService   *DefinitionsApiService
+	ApiService   *DefinitionsAPIService
 	definitionId string
 	appId        int32
 }
@@ -36,12 +38,12 @@ func (r ApiArchiveRequest) Execute() (*http.Response, error) {
 /*
 Archive Archive an extension definition
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param definitionId
- @param appId
- @return ApiArchiveRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param definitionId
+	@param appId
+	@return ApiArchiveRequest
 */
-func (a *DefinitionsApiService) Archive(ctx context.Context, definitionId string, appId int32) ApiArchiveRequest {
+func (a *DefinitionsAPIService) Archive(ctx context.Context, definitionId string, appId int32) ApiArchiveRequest {
 	return ApiArchiveRequest{
 		ApiService:   a,
 		ctx:          ctx,
@@ -51,21 +53,21 @@ func (a *DefinitionsApiService) Archive(ctx context.Context, definitionId string
 }
 
 // Execute executes the request
-func (a *DefinitionsApiService) ArchiveExecute(r ApiArchiveRequest) (*http.Response, error) {
+func (a *DefinitionsAPIService) ArchiveExecute(r ApiArchiveRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefinitionsApiService.Archive")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefinitionsAPIService.Archive")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/automation/v4/actions/{appId}/{definitionId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"definitionId"+"}", url.PathEscape(parameterToString(r.definitionId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"definitionId"+"}", url.PathEscape(parameterValueToString(r.definitionId, "definitionId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterValueToString(r.appId, "appId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -88,6 +90,16 @@ func (a *DefinitionsApiService) ArchiveExecute(r ApiArchiveRequest) (*http.Respo
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -98,9 +110,9 @@ func (a *DefinitionsApiService) ArchiveExecute(r ApiArchiveRequest) (*http.Respo
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -116,6 +128,7 @@ func (a *DefinitionsApiService) ArchiveExecute(r ApiArchiveRequest) (*http.Respo
 			newErr.error = err.Error()
 			return localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
@@ -125,7 +138,7 @@ func (a *DefinitionsApiService) ArchiveExecute(r ApiArchiveRequest) (*http.Respo
 
 type ApiCreateRequest struct {
 	ctx                       context.Context
-	ApiService                *DefinitionsApiService
+	ApiService                *DefinitionsAPIService
 	appId                     int32
 	publicActionDefinitionEgg *PublicActionDefinitionEgg
 }
@@ -142,11 +155,11 @@ func (r ApiCreateRequest) Execute() (*PublicActionDefinition, *http.Response, er
 /*
 Create Create a new extension definition
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId
- @return ApiCreateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId
+	@return ApiCreateRequest
 */
-func (a *DefinitionsApiService) Create(ctx context.Context, appId int32) ApiCreateRequest {
+func (a *DefinitionsAPIService) Create(ctx context.Context, appId int32) ApiCreateRequest {
 	return ApiCreateRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -155,8 +168,9 @@ func (a *DefinitionsApiService) Create(ctx context.Context, appId int32) ApiCrea
 }
 
 // Execute executes the request
-//  @return PublicActionDefinition
-func (a *DefinitionsApiService) CreateExecute(r ApiCreateRequest) (*PublicActionDefinition, *http.Response, error) {
+//
+//	@return PublicActionDefinition
+func (a *DefinitionsAPIService) CreateExecute(r ApiCreateRequest) (*PublicActionDefinition, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -164,13 +178,13 @@ func (a *DefinitionsApiService) CreateExecute(r ApiCreateRequest) (*PublicAction
 		localVarReturnValue *PublicActionDefinition
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefinitionsApiService.Create")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefinitionsAPIService.Create")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/automation/v4/actions/{appId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterValueToString(r.appId, "appId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -198,6 +212,16 @@ func (a *DefinitionsApiService) CreateExecute(r ApiCreateRequest) (*PublicAction
 	}
 	// body params
 	localVarPostBody = r.publicActionDefinitionEgg
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -208,9 +232,9 @@ func (a *DefinitionsApiService) CreateExecute(r ApiCreateRequest) (*PublicAction
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -226,6 +250,7 @@ func (a *DefinitionsApiService) CreateExecute(r ApiCreateRequest) (*PublicAction
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -244,7 +269,7 @@ func (a *DefinitionsApiService) CreateExecute(r ApiCreateRequest) (*PublicAction
 
 type ApiGetByIDRequest struct {
 	ctx          context.Context
-	ApiService   *DefinitionsApiService
+	ApiService   *DefinitionsAPIService
 	definitionId string
 	appId        int32
 	archived     *bool
@@ -263,12 +288,12 @@ func (r ApiGetByIDRequest) Execute() (*PublicActionDefinition, *http.Response, e
 /*
 GetByID Get extension definition by Id
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param definitionId
- @param appId
- @return ApiGetByIDRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param definitionId
+	@param appId
+	@return ApiGetByIDRequest
 */
-func (a *DefinitionsApiService) GetByID(ctx context.Context, definitionId string, appId int32) ApiGetByIDRequest {
+func (a *DefinitionsAPIService) GetByID(ctx context.Context, definitionId string, appId int32) ApiGetByIDRequest {
 	return ApiGetByIDRequest{
 		ApiService:   a,
 		ctx:          ctx,
@@ -278,8 +303,9 @@ func (a *DefinitionsApiService) GetByID(ctx context.Context, definitionId string
 }
 
 // Execute executes the request
-//  @return PublicActionDefinition
-func (a *DefinitionsApiService) GetByIDExecute(r ApiGetByIDRequest) (*PublicActionDefinition, *http.Response, error) {
+//
+//	@return PublicActionDefinition
+func (a *DefinitionsAPIService) GetByIDExecute(r ApiGetByIDRequest) (*PublicActionDefinition, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -287,21 +313,24 @@ func (a *DefinitionsApiService) GetByIDExecute(r ApiGetByIDRequest) (*PublicActi
 		localVarReturnValue *PublicActionDefinition
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefinitionsApiService.GetByID")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefinitionsAPIService.GetByID")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/automation/v4/actions/{appId}/{definitionId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"definitionId"+"}", url.PathEscape(parameterToString(r.definitionId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"definitionId"+"}", url.PathEscape(parameterValueToString(r.definitionId, "definitionId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterValueToString(r.appId, "appId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.archived != nil {
-		localVarQueryParams.Add("archived", parameterToString(*r.archived, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "archived", r.archived, "")
+	} else {
+		var defaultValue bool = false
+		r.archived = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -320,6 +349,16 @@ func (a *DefinitionsApiService) GetByIDExecute(r ApiGetByIDRequest) (*PublicActi
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -330,9 +369,9 @@ func (a *DefinitionsApiService) GetByIDExecute(r ApiGetByIDRequest) (*PublicActi
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -348,6 +387,7 @@ func (a *DefinitionsApiService) GetByIDExecute(r ApiGetByIDRequest) (*PublicActi
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -366,7 +406,7 @@ func (a *DefinitionsApiService) GetByIDExecute(r ApiGetByIDRequest) (*PublicActi
 
 type ApiGetPageRequest struct {
 	ctx        context.Context
-	ApiService *DefinitionsApiService
+	ApiService *DefinitionsAPIService
 	appId      int32
 	limit      *int32
 	after      *string
@@ -398,11 +438,11 @@ func (r ApiGetPageRequest) Execute() (*CollectionResponsePublicActionDefinitionF
 /*
 GetPage Get paged extension definitions
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId
- @return ApiGetPageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId
+	@return ApiGetPageRequest
 */
-func (a *DefinitionsApiService) GetPage(ctx context.Context, appId int32) ApiGetPageRequest {
+func (a *DefinitionsAPIService) GetPage(ctx context.Context, appId int32) ApiGetPageRequest {
 	return ApiGetPageRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -411,8 +451,9 @@ func (a *DefinitionsApiService) GetPage(ctx context.Context, appId int32) ApiGet
 }
 
 // Execute executes the request
-//  @return CollectionResponsePublicActionDefinitionForwardPaging
-func (a *DefinitionsApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionResponsePublicActionDefinitionForwardPaging, *http.Response, error) {
+//
+//	@return CollectionResponsePublicActionDefinitionForwardPaging
+func (a *DefinitionsAPIService) GetPageExecute(r ApiGetPageRequest) (*CollectionResponsePublicActionDefinitionForwardPaging, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -420,26 +461,29 @@ func (a *DefinitionsApiService) GetPageExecute(r ApiGetPageRequest) (*Collection
 		localVarReturnValue *CollectionResponsePublicActionDefinitionForwardPaging
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefinitionsApiService.GetPage")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefinitionsAPIService.GetPage")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/automation/v4/actions/{appId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterValueToString(r.appId, "appId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
 	}
 	if r.after != nil {
-		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "after", r.after, "")
 	}
 	if r.archived != nil {
-		localVarQueryParams.Add("archived", parameterToString(*r.archived, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "archived", r.archived, "")
+	} else {
+		var defaultValue bool = false
+		r.archived = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -458,6 +502,16 @@ func (a *DefinitionsApiService) GetPageExecute(r ApiGetPageRequest) (*Collection
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -468,9 +522,9 @@ func (a *DefinitionsApiService) GetPageExecute(r ApiGetPageRequest) (*Collection
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -486,6 +540,7 @@ func (a *DefinitionsApiService) GetPageExecute(r ApiGetPageRequest) (*Collection
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -504,7 +559,7 @@ func (a *DefinitionsApiService) GetPageExecute(r ApiGetPageRequest) (*Collection
 
 type ApiUpdateRequest struct {
 	ctx                         context.Context
-	ApiService                  *DefinitionsApiService
+	ApiService                  *DefinitionsAPIService
 	definitionId                string
 	appId                       int32
 	publicActionDefinitionPatch *PublicActionDefinitionPatch
@@ -522,12 +577,12 @@ func (r ApiUpdateRequest) Execute() (*PublicActionDefinition, *http.Response, er
 /*
 Update Patch an existing extension definition
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param definitionId
- @param appId
- @return ApiUpdateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param definitionId
+	@param appId
+	@return ApiUpdateRequest
 */
-func (a *DefinitionsApiService) Update(ctx context.Context, definitionId string, appId int32) ApiUpdateRequest {
+func (a *DefinitionsAPIService) Update(ctx context.Context, definitionId string, appId int32) ApiUpdateRequest {
 	return ApiUpdateRequest{
 		ApiService:   a,
 		ctx:          ctx,
@@ -537,8 +592,9 @@ func (a *DefinitionsApiService) Update(ctx context.Context, definitionId string,
 }
 
 // Execute executes the request
-//  @return PublicActionDefinition
-func (a *DefinitionsApiService) UpdateExecute(r ApiUpdateRequest) (*PublicActionDefinition, *http.Response, error) {
+//
+//	@return PublicActionDefinition
+func (a *DefinitionsAPIService) UpdateExecute(r ApiUpdateRequest) (*PublicActionDefinition, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
 		localVarPostBody    interface{}
@@ -546,14 +602,14 @@ func (a *DefinitionsApiService) UpdateExecute(r ApiUpdateRequest) (*PublicAction
 		localVarReturnValue *PublicActionDefinition
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefinitionsApiService.Update")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefinitionsAPIService.Update")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/automation/v4/actions/{appId}/{definitionId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"definitionId"+"}", url.PathEscape(parameterToString(r.definitionId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"definitionId"+"}", url.PathEscape(parameterValueToString(r.definitionId, "definitionId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterValueToString(r.appId, "appId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -581,6 +637,16 @@ func (a *DefinitionsApiService) UpdateExecute(r ApiUpdateRequest) (*PublicAction
 	}
 	// body params
 	localVarPostBody = r.publicActionDefinitionPatch
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -591,9 +657,9 @@ func (a *DefinitionsApiService) UpdateExecute(r ApiUpdateRequest) (*PublicAction
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -609,6 +675,7 @@ func (a *DefinitionsApiService) UpdateExecute(r ApiUpdateRequest) (*PublicAction
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

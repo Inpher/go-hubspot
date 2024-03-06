@@ -1,16 +1,16 @@
-# \FunctionsApi
+# \FunctionsAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FunctionsArchive**](FunctionsApi.md#FunctionsArchive) | **Delete** /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId} | Archive a function for a definition
-[**FunctionsArchiveByType**](FunctionsApi.md#FunctionsArchiveByType) | **Delete** /automation/v4/actions/{appId}/{definitionId}/functions/{functionType} | Delete a function for a definition
-[**FunctionsCreateOrReplace**](FunctionsApi.md#FunctionsCreateOrReplace) | **Put** /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId} | Insert a function for a definition
-[**FunctionsCreateOrReplaceByType**](FunctionsApi.md#FunctionsCreateOrReplaceByType) | **Put** /automation/v4/actions/{appId}/{definitionId}/functions/{functionType} | Insert a function for a definition
-[**FunctionsGetByID**](FunctionsApi.md#FunctionsGetByID) | **Get** /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId} | Get a function for a given definition
-[**FunctionsGetByType**](FunctionsApi.md#FunctionsGetByType) | **Get** /automation/v4/actions/{appId}/{definitionId}/functions/{functionType} | Get all functions by a type for a given definition
-[**FunctionsGetPage**](FunctionsApi.md#FunctionsGetPage) | **Get** /automation/v4/actions/{appId}/{definitionId}/functions | Get all functions for a given definition
+[**FunctionsArchive**](FunctionsAPI.md#FunctionsArchive) | **Delete** /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId} | Archive a function for a definition
+[**FunctionsArchiveByType**](FunctionsAPI.md#FunctionsArchiveByType) | **Delete** /automation/v4/actions/{appId}/{definitionId}/functions/{functionType} | Delete a function for a definition
+[**FunctionsCreateOrReplace**](FunctionsAPI.md#FunctionsCreateOrReplace) | **Put** /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId} | Insert a function for a definition
+[**FunctionsCreateOrReplaceByType**](FunctionsAPI.md#FunctionsCreateOrReplaceByType) | **Put** /automation/v4/actions/{appId}/{definitionId}/functions/{functionType} | Insert a function for a definition
+[**FunctionsGetByID**](FunctionsAPI.md#FunctionsGetByID) | **Get** /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId} | Get a function for a given definition
+[**FunctionsGetByType**](FunctionsAPI.md#FunctionsGetByType) | **Get** /automation/v4/actions/{appId}/{definitionId}/functions/{functionType} | Get all functions by a type for a given definition
+[**FunctionsGetPage**](FunctionsAPI.md#FunctionsGetPage) | **Get** /automation/v4/actions/{appId}/{definitionId}/functions | Get all functions for a given definition
 
 
 
@@ -26,25 +26,25 @@ Archive a function for a definition
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    definitionId := "definitionId_example" // string | 
-    functionType := "functionType_example" // string | 
-    functionId := "functionId_example" // string | 
-    appId := int32(56) // int32 | 
+	definitionId := "definitionId_example" // string | 
+	functionType := "functionType_example" // string | 
+	functionId := "functionId_example" // string | 
+	appId := int32(56) // int32 | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FunctionsApi.FunctionsArchive(context.Background(), definitionId, functionType, functionId, appId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FunctionsApi.FunctionsArchive``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.FunctionsAPI.FunctionsArchive(context.Background(), definitionId, functionType, functionId, appId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.FunctionsArchive``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -77,7 +77,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[developer_hapikey](../README.md#developer_hapikey)
 
 ### HTTP request headers
 
@@ -101,24 +101,24 @@ Delete a function for a definition
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    definitionId := "definitionId_example" // string | 
-    functionType := "functionType_example" // string | 
-    appId := int32(56) // int32 | 
+	definitionId := "definitionId_example" // string | 
+	functionType := "functionType_example" // string | 
+	appId := int32(56) // int32 | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FunctionsApi.FunctionsArchiveByType(context.Background(), definitionId, functionType, appId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FunctionsApi.FunctionsArchiveByType``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.FunctionsAPI.FunctionsArchiveByType(context.Background(), definitionId, functionType, appId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.FunctionsArchiveByType``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -149,7 +149,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[developer_hapikey](../README.md#developer_hapikey)
 
 ### HTTP request headers
 
@@ -173,28 +173,28 @@ Insert a function for a definition
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    definitionId := "definitionId_example" // string | 
-    functionType := "functionType_example" // string | 
-    functionId := "functionId_example" // string | 
-    appId := int32(56) // int32 | 
-    body := "body_example" // string | 
+	definitionId := "definitionId_example" // string | 
+	functionType := "functionType_example" // string | 
+	functionId := "functionId_example" // string | 
+	appId := int32(56) // int32 | 
+	body := "body_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FunctionsApi.FunctionsCreateOrReplace(context.Background(), definitionId, functionType, functionId, appId).Body(body).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FunctionsApi.FunctionsCreateOrReplace``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `FunctionsCreateOrReplace`: PublicActionFunctionIdentifier
-    fmt.Fprintf(os.Stdout, "Response from `FunctionsApi.FunctionsCreateOrReplace`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FunctionsAPI.FunctionsCreateOrReplace(context.Background(), definitionId, functionType, functionId, appId).Body(body).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.FunctionsCreateOrReplace``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `FunctionsCreateOrReplace`: PublicActionFunctionIdentifier
+	fmt.Fprintf(os.Stdout, "Response from `FunctionsAPI.FunctionsCreateOrReplace`: %v\n", resp)
 }
 ```
 
@@ -228,7 +228,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[developer_hapikey](../README.md#developer_hapikey)
 
 ### HTTP request headers
 
@@ -252,27 +252,27 @@ Insert a function for a definition
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    definitionId := "definitionId_example" // string | 
-    functionType := "functionType_example" // string | 
-    appId := int32(56) // int32 | 
-    body := "body_example" // string | 
+	definitionId := "definitionId_example" // string | 
+	functionType := "functionType_example" // string | 
+	appId := int32(56) // int32 | 
+	body := "body_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FunctionsApi.FunctionsCreateOrReplaceByType(context.Background(), definitionId, functionType, appId).Body(body).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FunctionsApi.FunctionsCreateOrReplaceByType``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `FunctionsCreateOrReplaceByType`: PublicActionFunctionIdentifier
-    fmt.Fprintf(os.Stdout, "Response from `FunctionsApi.FunctionsCreateOrReplaceByType`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FunctionsAPI.FunctionsCreateOrReplaceByType(context.Background(), definitionId, functionType, appId).Body(body).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.FunctionsCreateOrReplaceByType``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `FunctionsCreateOrReplaceByType`: PublicActionFunctionIdentifier
+	fmt.Fprintf(os.Stdout, "Response from `FunctionsAPI.FunctionsCreateOrReplaceByType`: %v\n", resp)
 }
 ```
 
@@ -304,7 +304,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[developer_hapikey](../README.md#developer_hapikey)
 
 ### HTTP request headers
 
@@ -328,27 +328,27 @@ Get a function for a given definition
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    definitionId := "definitionId_example" // string | 
-    functionType := "functionType_example" // string | 
-    functionId := "functionId_example" // string | 
-    appId := int32(56) // int32 | 
+	definitionId := "definitionId_example" // string | 
+	functionType := "functionType_example" // string | 
+	functionId := "functionId_example" // string | 
+	appId := int32(56) // int32 | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FunctionsApi.FunctionsGetByID(context.Background(), definitionId, functionType, functionId, appId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FunctionsApi.FunctionsGetByID``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `FunctionsGetByID`: PublicActionFunction
-    fmt.Fprintf(os.Stdout, "Response from `FunctionsApi.FunctionsGetByID`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FunctionsAPI.FunctionsGetByID(context.Background(), definitionId, functionType, functionId, appId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.FunctionsGetByID``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `FunctionsGetByID`: PublicActionFunction
+	fmt.Fprintf(os.Stdout, "Response from `FunctionsAPI.FunctionsGetByID`: %v\n", resp)
 }
 ```
 
@@ -381,7 +381,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[developer_hapikey](../README.md#developer_hapikey)
 
 ### HTTP request headers
 
@@ -405,26 +405,26 @@ Get all functions by a type for a given definition
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    definitionId := "definitionId_example" // string | 
-    functionType := "functionType_example" // string | 
-    appId := int32(56) // int32 | 
+	definitionId := "definitionId_example" // string | 
+	functionType := "functionType_example" // string | 
+	appId := int32(56) // int32 | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FunctionsApi.FunctionsGetByType(context.Background(), definitionId, functionType, appId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FunctionsApi.FunctionsGetByType``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `FunctionsGetByType`: PublicActionFunction
-    fmt.Fprintf(os.Stdout, "Response from `FunctionsApi.FunctionsGetByType`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FunctionsAPI.FunctionsGetByType(context.Background(), definitionId, functionType, appId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.FunctionsGetByType``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `FunctionsGetByType`: PublicActionFunction
+	fmt.Fprintf(os.Stdout, "Response from `FunctionsAPI.FunctionsGetByType`: %v\n", resp)
 }
 ```
 
@@ -455,7 +455,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[developer_hapikey](../README.md#developer_hapikey)
 
 ### HTTP request headers
 
@@ -479,25 +479,25 @@ Get all functions for a given definition
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    definitionId := "definitionId_example" // string | 
-    appId := int32(56) // int32 | 
+	definitionId := "definitionId_example" // string | 
+	appId := int32(56) // int32 | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FunctionsApi.FunctionsGetPage(context.Background(), definitionId, appId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FunctionsApi.FunctionsGetPage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `FunctionsGetPage`: CollectionResponsePublicActionFunctionIdentifierNoPaging
-    fmt.Fprintf(os.Stdout, "Response from `FunctionsApi.FunctionsGetPage`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FunctionsAPI.FunctionsGetPage(context.Background(), definitionId, appId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.FunctionsGetPage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `FunctionsGetPage`: CollectionResponsePublicActionFunctionIdentifierNoPaging
+	fmt.Fprintf(os.Stdout, "Response from `FunctionsAPI.FunctionsGetPage`: %v\n", resp)
 }
 ```
 
@@ -526,7 +526,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[developer_hapikey](../README.md#developer_hapikey)
 
 ### HTTP request headers
 

@@ -11,8 +11,13 @@ API version: v3
 package imports
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ImportRowCore type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ImportRowCore{}
 
 // ImportRowCore struct for ImportRowCore
 type ImportRowCore struct {
@@ -21,6 +26,8 @@ type ImportRowCore struct {
 	PageName   *string  `json:"pageName,omitempty"`
 	FileId     int32    `json:"fileId"`
 }
+
+type _ImportRowCore ImportRowCore
 
 // NewImportRowCore instantiates a new ImportRowCore object
 // This constructor will assign default values to properties that have it defined,
@@ -92,7 +99,7 @@ func (o *ImportRowCore) SetLineNumber(v int32) {
 
 // GetPageName returns the PageName field value if set, zero value otherwise.
 func (o *ImportRowCore) GetPageName() string {
-	if o == nil || o.PageName == nil {
+	if o == nil || IsNil(o.PageName) {
 		var ret string
 		return ret
 	}
@@ -102,7 +109,7 @@ func (o *ImportRowCore) GetPageName() string {
 // GetPageNameOk returns a tuple with the PageName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImportRowCore) GetPageNameOk() (*string, bool) {
-	if o == nil || o.PageName == nil {
+	if o == nil || IsNil(o.PageName) {
 		return nil, false
 	}
 	return o.PageName, true
@@ -110,7 +117,7 @@ func (o *ImportRowCore) GetPageNameOk() (*string, bool) {
 
 // HasPageName returns a boolean if a field has been set.
 func (o *ImportRowCore) HasPageName() bool {
-	if o != nil && o.PageName != nil {
+	if o != nil && !IsNil(o.PageName) {
 		return true
 	}
 
@@ -147,20 +154,61 @@ func (o *ImportRowCore) SetFileId(v int32) {
 }
 
 func (o ImportRowCore) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["rowData"] = o.RowData
-	}
-	if true {
-		toSerialize["lineNumber"] = o.LineNumber
-	}
-	if o.PageName != nil {
-		toSerialize["pageName"] = o.PageName
-	}
-	if true {
-		toSerialize["fileId"] = o.FileId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ImportRowCore) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["rowData"] = o.RowData
+	toSerialize["lineNumber"] = o.LineNumber
+	if !IsNil(o.PageName) {
+		toSerialize["pageName"] = o.PageName
+	}
+	toSerialize["fileId"] = o.FileId
+	return toSerialize, nil
+}
+
+func (o *ImportRowCore) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"rowData",
+		"lineNumber",
+		"fileId",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varImportRowCore := _ImportRowCore{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varImportRowCore)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ImportRowCore(varImportRowCore)
+
+	return err
 }
 
 type NullableImportRowCore struct {

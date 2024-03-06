@@ -11,9 +11,14 @@ API version: v3
 package pipelines
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the Pipeline type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Pipeline{}
 
 // Pipeline A pipeline definition.
 type Pipeline struct {
@@ -34,6 +39,8 @@ type Pipeline struct {
 	// The date the pipeline was last updated.
 	UpdatedAt time.Time `json:"updatedAt"`
 }
+
+type _Pipeline Pipeline
 
 // NewPipeline instantiates a new Pipeline object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +92,7 @@ func (o *Pipeline) SetCreatedAt(v time.Time) {
 
 // GetArchivedAt returns the ArchivedAt field value if set, zero value otherwise.
 func (o *Pipeline) GetArchivedAt() time.Time {
-	if o == nil || o.ArchivedAt == nil {
+	if o == nil || IsNil(o.ArchivedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -95,7 +102,7 @@ func (o *Pipeline) GetArchivedAt() time.Time {
 // GetArchivedAtOk returns a tuple with the ArchivedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Pipeline) GetArchivedAtOk() (*time.Time, bool) {
-	if o == nil || o.ArchivedAt == nil {
+	if o == nil || IsNil(o.ArchivedAt) {
 		return nil, false
 	}
 	return o.ArchivedAt, true
@@ -103,7 +110,7 @@ func (o *Pipeline) GetArchivedAtOk() (*time.Time, bool) {
 
 // HasArchivedAt returns a boolean if a field has been set.
 func (o *Pipeline) HasArchivedAt() bool {
-	if o != nil && o.ArchivedAt != nil {
+	if o != nil && !IsNil(o.ArchivedAt) {
 		return true
 	}
 
@@ -260,32 +267,69 @@ func (o *Pipeline) SetUpdatedAt(v time.Time) {
 }
 
 func (o Pipeline) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if o.ArchivedAt != nil {
-		toSerialize["archivedAt"] = o.ArchivedAt
-	}
-	if true {
-		toSerialize["archived"] = o.Archived
-	}
-	if true {
-		toSerialize["displayOrder"] = o.DisplayOrder
-	}
-	if true {
-		toSerialize["stages"] = o.Stages
-	}
-	if true {
-		toSerialize["label"] = o.Label
-	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["updatedAt"] = o.UpdatedAt
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Pipeline) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["createdAt"] = o.CreatedAt
+	if !IsNil(o.ArchivedAt) {
+		toSerialize["archivedAt"] = o.ArchivedAt
+	}
+	toSerialize["archived"] = o.Archived
+	toSerialize["displayOrder"] = o.DisplayOrder
+	toSerialize["stages"] = o.Stages
+	toSerialize["label"] = o.Label
+	toSerialize["id"] = o.Id
+	toSerialize["updatedAt"] = o.UpdatedAt
+	return toSerialize, nil
+}
+
+func (o *Pipeline) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"createdAt",
+		"archived",
+		"displayOrder",
+		"stages",
+		"label",
+		"id",
+		"updatedAt",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPipeline := _Pipeline{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPipeline)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Pipeline(varPipeline)
+
+	return err
 }
 
 type NullablePipeline struct {

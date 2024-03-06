@@ -1,10 +1,10 @@
-# \PublicObjectSchemasApi
+# \PublicObjectSchemasAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteCrmV3SchemasObjectTypePurgePurge**](PublicObjectSchemasApi.md#DeleteCrmV3SchemasObjectTypePurgePurge) | **Delete** /crm/v3/schemas/{objectType}/purge | 
+[**DeleteCrmV3SchemasObjectTypePurgePurge**](PublicObjectSchemasAPI.md#DeleteCrmV3SchemasObjectTypePurgePurge) | **Delete** /crm/v3/schemas/{objectType}/purge | 
 
 
 
@@ -20,22 +20,22 @@ Method | HTTP request | Description
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    objectType := "objectType_example" // string | 
+	objectType := "objectType_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PublicObjectSchemasApi.DeleteCrmV3SchemasObjectTypePurgePurge(context.Background(), objectType).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PublicObjectSchemasApi.DeleteCrmV3SchemasObjectTypePurgePurge``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.PublicObjectSchemasAPI.DeleteCrmV3SchemasObjectTypePurgePurge(context.Background(), objectType).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PublicObjectSchemasAPI.DeleteCrmV3SchemasObjectTypePurgePurge``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 

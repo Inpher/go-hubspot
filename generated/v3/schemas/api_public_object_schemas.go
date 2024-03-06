@@ -13,20 +13,20 @@ package schemas
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 
-	"github.com/clarkmcc/go-hubspot"
+	"github.com/inpher/go-hubspot"
 	"net/url"
 	"strings"
 )
 
-// PublicObjectSchemasApiService PublicObjectSchemasApi service
-type PublicObjectSchemasApiService service
+// PublicObjectSchemasAPIService PublicObjectSchemasAPI service
+type PublicObjectSchemasAPIService service
 
 type ApiDeleteCrmV3SchemasObjectTypePurgePurgeRequest struct {
 	ctx        context.Context
-	ApiService *PublicObjectSchemasApiService
+	ApiService *PublicObjectSchemasAPIService
 	objectType string
 }
 
@@ -37,13 +37,13 @@ func (r ApiDeleteCrmV3SchemasObjectTypePurgePurgeRequest) Execute() (*http.Respo
 /*
 DeleteCrmV3SchemasObjectTypePurgePurge Method for DeleteCrmV3SchemasObjectTypePurgePurge
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param objectType
- @return ApiDeleteCrmV3SchemasObjectTypePurgePurgeRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param objectType
+	@return ApiDeleteCrmV3SchemasObjectTypePurgePurgeRequest
 
 Deprecated
 */
-func (a *PublicObjectSchemasApiService) DeleteCrmV3SchemasObjectTypePurgePurge(ctx context.Context, objectType string) ApiDeleteCrmV3SchemasObjectTypePurgePurgeRequest {
+func (a *PublicObjectSchemasAPIService) DeleteCrmV3SchemasObjectTypePurgePurge(ctx context.Context, objectType string) ApiDeleteCrmV3SchemasObjectTypePurgePurgeRequest {
 	return ApiDeleteCrmV3SchemasObjectTypePurgePurgeRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -53,20 +53,20 @@ func (a *PublicObjectSchemasApiService) DeleteCrmV3SchemasObjectTypePurgePurge(c
 
 // Execute executes the request
 // Deprecated
-func (a *PublicObjectSchemasApiService) DeleteCrmV3SchemasObjectTypePurgePurgeExecute(r ApiDeleteCrmV3SchemasObjectTypePurgePurgeRequest) (*http.Response, error) {
+func (a *PublicObjectSchemasAPIService) DeleteCrmV3SchemasObjectTypePurgePurgeExecute(r ApiDeleteCrmV3SchemasObjectTypePurgePurgeRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicObjectSchemasApiService.DeleteCrmV3SchemasObjectTypePurgePurge")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicObjectSchemasAPIService.DeleteCrmV3SchemasObjectTypePurgePurge")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/schemas/{objectType}/purge"
-	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterToString(r.objectType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"objectType"+"}", url.PathEscape(parameterValueToString(r.objectType, "objectType")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -109,9 +109,9 @@ func (a *PublicObjectSchemasApiService) DeleteCrmV3SchemasObjectTypePurgePurgeEx
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -127,6 +127,7 @@ func (a *PublicObjectSchemasApiService) DeleteCrmV3SchemasObjectTypePurgePurgeEx
 			newErr.error = err.Error()
 			return localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}

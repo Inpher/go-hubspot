@@ -11,8 +11,13 @@ API version: v3
 package transactional
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the PublicSingleSendRequestEgg type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PublicSingleSendRequestEgg{}
 
 // PublicSingleSendRequestEgg A request to send a single transactional email asynchronously.
 type PublicSingleSendRequestEgg struct {
@@ -24,6 +29,8 @@ type PublicSingleSendRequestEgg struct {
 	// The contactProperties field is a map of contact property values. Each contact property value contains a name and value property. Each property will get set on the contact record and will be visible in the template under {{ contact.NAME }}. Use these properties when you want to set a contact property while you’re sending the email. For example, when sending a reciept you may want to set a last_paid_date property, as the sending of the receipt will have information about the last payment.
 	ContactProperties *map[string]string `json:"contactProperties,omitempty"`
 }
+
+type _PublicSingleSendRequestEgg PublicSingleSendRequestEgg
 
 // NewPublicSingleSendRequestEgg instantiates a new PublicSingleSendRequestEgg object
 // This constructor will assign default values to properties that have it defined,
@@ -46,7 +53,7 @@ func NewPublicSingleSendRequestEggWithDefaults() *PublicSingleSendRequestEgg {
 
 // GetCustomProperties returns the CustomProperties field value if set, zero value otherwise.
 func (o *PublicSingleSendRequestEgg) GetCustomProperties() map[string]map[string]interface{} {
-	if o == nil || o.CustomProperties == nil {
+	if o == nil || IsNil(o.CustomProperties) {
 		var ret map[string]map[string]interface{}
 		return ret
 	}
@@ -56,15 +63,15 @@ func (o *PublicSingleSendRequestEgg) GetCustomProperties() map[string]map[string
 // GetCustomPropertiesOk returns a tuple with the CustomProperties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicSingleSendRequestEgg) GetCustomPropertiesOk() (map[string]map[string]interface{}, bool) {
-	if o == nil || o.CustomProperties == nil {
-		return nil, false
+	if o == nil || IsNil(o.CustomProperties) {
+		return map[string]map[string]interface{}{}, false
 	}
 	return o.CustomProperties, true
 }
 
 // HasCustomProperties returns a boolean if a field has been set.
 func (o *PublicSingleSendRequestEgg) HasCustomProperties() bool {
-	if o != nil && o.CustomProperties != nil {
+	if o != nil && !IsNil(o.CustomProperties) {
 		return true
 	}
 
@@ -126,7 +133,7 @@ func (o *PublicSingleSendRequestEgg) SetMessage(v PublicSingleSendEmail) {
 
 // GetContactProperties returns the ContactProperties field value if set, zero value otherwise.
 func (o *PublicSingleSendRequestEgg) GetContactProperties() map[string]string {
-	if o == nil || o.ContactProperties == nil {
+	if o == nil || IsNil(o.ContactProperties) {
 		var ret map[string]string
 		return ret
 	}
@@ -136,7 +143,7 @@ func (o *PublicSingleSendRequestEgg) GetContactProperties() map[string]string {
 // GetContactPropertiesOk returns a tuple with the ContactProperties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicSingleSendRequestEgg) GetContactPropertiesOk() (*map[string]string, bool) {
-	if o == nil || o.ContactProperties == nil {
+	if o == nil || IsNil(o.ContactProperties) {
 		return nil, false
 	}
 	return o.ContactProperties, true
@@ -144,7 +151,7 @@ func (o *PublicSingleSendRequestEgg) GetContactPropertiesOk() (*map[string]strin
 
 // HasContactProperties returns a boolean if a field has been set.
 func (o *PublicSingleSendRequestEgg) HasContactProperties() bool {
-	if o != nil && o.ContactProperties != nil {
+	if o != nil && !IsNil(o.ContactProperties) {
 		return true
 	}
 
@@ -157,20 +164,62 @@ func (o *PublicSingleSendRequestEgg) SetContactProperties(v map[string]string) {
 }
 
 func (o PublicSingleSendRequestEgg) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.CustomProperties != nil {
-		toSerialize["customProperties"] = o.CustomProperties
-	}
-	if true {
-		toSerialize["emailId"] = o.EmailId
-	}
-	if true {
-		toSerialize["message"] = o.Message
-	}
-	if o.ContactProperties != nil {
-		toSerialize["contactProperties"] = o.ContactProperties
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PublicSingleSendRequestEgg) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.CustomProperties) {
+		toSerialize["customProperties"] = o.CustomProperties
+	}
+	toSerialize["emailId"] = o.EmailId
+	toSerialize["message"] = o.Message
+	if !IsNil(o.ContactProperties) {
+		toSerialize["contactProperties"] = o.ContactProperties
+	}
+	return toSerialize, nil
+}
+
+func (o *PublicSingleSendRequestEgg) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"emailId",
+		"message",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPublicSingleSendRequestEgg := _PublicSingleSendRequestEgg{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPublicSingleSendRequestEgg)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PublicSingleSendRequestEgg(varPublicSingleSendRequestEgg)
+
+	return err
 }
 
 type NullablePublicSingleSendRequestEgg struct {

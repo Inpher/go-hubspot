@@ -11,8 +11,13 @@ API version: v3
 package schemas
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the AssociationDefinitionEgg type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AssociationDefinitionEgg{}
 
 // AssociationDefinitionEgg Defines an association between two object types.
 type AssociationDefinitionEgg struct {
@@ -23,6 +28,8 @@ type AssociationDefinitionEgg struct {
 	// ID of the target object type ID to link to.
 	ToObjectTypeId string `json:"toObjectTypeId"`
 }
+
+type _AssociationDefinitionEgg AssociationDefinitionEgg
 
 // NewAssociationDefinitionEgg instantiates a new AssociationDefinitionEgg object
 // This constructor will assign default values to properties that have it defined,
@@ -69,7 +76,7 @@ func (o *AssociationDefinitionEgg) SetFromObjectTypeId(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *AssociationDefinitionEgg) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -79,7 +86,7 @@ func (o *AssociationDefinitionEgg) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AssociationDefinitionEgg) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -87,7 +94,7 @@ func (o *AssociationDefinitionEgg) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *AssociationDefinitionEgg) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -124,17 +131,59 @@ func (o *AssociationDefinitionEgg) SetToObjectTypeId(v string) {
 }
 
 func (o AssociationDefinitionEgg) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["fromObjectTypeId"] = o.FromObjectTypeId
-	}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["toObjectTypeId"] = o.ToObjectTypeId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AssociationDefinitionEgg) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["fromObjectTypeId"] = o.FromObjectTypeId
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	toSerialize["toObjectTypeId"] = o.ToObjectTypeId
+	return toSerialize, nil
+}
+
+func (o *AssociationDefinitionEgg) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"fromObjectTypeId",
+		"toObjectTypeId",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAssociationDefinitionEgg := _AssociationDefinitionEgg{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varAssociationDefinitionEgg)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AssociationDefinitionEgg(varAssociationDefinitionEgg)
+
+	return err
 }
 
 type NullableAssociationDefinitionEgg struct {

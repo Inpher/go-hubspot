@@ -13,21 +13,21 @@ package site_search
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 
-	"github.com/clarkmcc/go-hubspot"
+	"github.com/inpher/go-hubspot"
 	"net/url"
 	"reflect"
 	"strings"
 )
 
-// PublicApiService PublicApi service
-type PublicApiService service
+// PublicAPIService PublicAPI service
+type PublicAPIService service
 
 type ApiGetByIDRequest struct {
 	ctx        context.Context
-	ApiService *PublicApiService
+	ApiService *PublicAPIService
 	contentId  string
 	type_      *string
 }
@@ -47,11 +47,11 @@ GetByID Get indexed properties.
 
 For a given account and document ID (page ID, blog post ID, HubDB row ID, etc.), return all indexed data for that document. This is useful when debugging why a particular document is not returned from a custom search.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param contentId ID of the target document when searching for indexed properties.
- @return ApiGetByIDRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param contentId ID of the target document when searching for indexed properties.
+	@return ApiGetByIDRequest
 */
-func (a *PublicApiService) GetByID(ctx context.Context, contentId string) ApiGetByIDRequest {
+func (a *PublicAPIService) GetByID(ctx context.Context, contentId string) ApiGetByIDRequest {
 	return ApiGetByIDRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -60,8 +60,9 @@ func (a *PublicApiService) GetByID(ctx context.Context, contentId string) ApiGet
 }
 
 // Execute executes the request
-//  @return IndexedData
-func (a *PublicApiService) GetByIDExecute(r ApiGetByIDRequest) (*IndexedData, *http.Response, error) {
+//
+//	@return IndexedData
+func (a *PublicAPIService) GetByIDExecute(r ApiGetByIDRequest) (*IndexedData, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -69,20 +70,20 @@ func (a *PublicApiService) GetByIDExecute(r ApiGetByIDRequest) (*IndexedData, *h
 		localVarReturnValue *IndexedData
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicApiService.GetByID")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicAPIService.GetByID")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/cms/v3/site-search/indexed-data/{contentId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"contentId"+"}", url.PathEscape(parameterToString(r.contentId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"contentId"+"}", url.PathEscape(parameterValueToString(r.contentId, "contentId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.type_ != nil {
-		localVarQueryParams.Add("type", parameterToString(*r.type_, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "type", r.type_, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -121,9 +122,9 @@ func (a *PublicApiService) GetByIDExecute(r ApiGetByIDRequest) (*IndexedData, *h
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -139,6 +140,7 @@ func (a *PublicApiService) GetByIDExecute(r ApiGetByIDRequest) (*IndexedData, *h
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -157,7 +159,7 @@ func (a *PublicApiService) GetByIDExecute(r ApiGetByIDRequest) (*IndexedData, *h
 
 type ApiSearchRequest struct {
 	ctx             context.Context
-	ApiService      *PublicApiService
+	ApiService      *PublicAPIService
 	q               *string
 	limit           *int32
 	offset          *int32
@@ -288,10 +290,10 @@ Search Search your site.
 
 Returns any website content matching the given search criteria for a given HubSpot account. Searches can be filtered by content type, domain, or URL path.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiSearchRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiSearchRequest
 */
-func (a *PublicApiService) Search(ctx context.Context) ApiSearchRequest {
+func (a *PublicAPIService) Search(ctx context.Context) ApiSearchRequest {
 	return ApiSearchRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -299,8 +301,9 @@ func (a *PublicApiService) Search(ctx context.Context) ApiSearchRequest {
 }
 
 // Execute executes the request
-//  @return PublicSearchResults
-func (a *PublicApiService) SearchExecute(r ApiSearchRequest) (*PublicSearchResults, *http.Response, error) {
+//
+//	@return PublicSearchResults
+func (a *PublicAPIService) SearchExecute(r ApiSearchRequest) (*PublicSearchResults, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -308,7 +311,7 @@ func (a *PublicApiService) SearchExecute(r ApiSearchRequest) (*PublicSearchResul
 		localVarReturnValue *PublicSearchResults
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicApiService.Search")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicAPIService.Search")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -320,47 +323,47 @@ func (a *PublicApiService) SearchExecute(r ApiSearchRequest) (*PublicSearchResul
 	localVarFormParams := url.Values{}
 
 	if r.q != nil {
-		localVarQueryParams.Add("q", parameterToString(*r.q, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "")
 	}
 	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
 	}
 	if r.offset != nil {
-		localVarQueryParams.Add("offset", parameterToString(*r.offset, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "")
 	}
 	if r.language != nil {
-		localVarQueryParams.Add("language", parameterToString(*r.language, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "language", r.language, "")
 	}
 	if r.matchPrefix != nil {
-		localVarQueryParams.Add("matchPrefix", parameterToString(*r.matchPrefix, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "matchPrefix", r.matchPrefix, "")
 	}
 	if r.autocomplete != nil {
-		localVarQueryParams.Add("autocomplete", parameterToString(*r.autocomplete, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "autocomplete", r.autocomplete, "")
 	}
 	if r.popularityBoost != nil {
-		localVarQueryParams.Add("popularityBoost", parameterToString(*r.popularityBoost, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "popularityBoost", r.popularityBoost, "")
 	}
 	if r.boostLimit != nil {
-		localVarQueryParams.Add("boostLimit", parameterToString(*r.boostLimit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "boostLimit", r.boostLimit, "")
 	}
 	if r.boostRecent != nil {
-		localVarQueryParams.Add("boostRecent", parameterToString(*r.boostRecent, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "boostRecent", r.boostRecent, "")
 	}
 	if r.tableId != nil {
-		localVarQueryParams.Add("tableId", parameterToString(*r.tableId, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "tableId", r.tableId, "")
 	}
 	if r.hubdbQuery != nil {
-		localVarQueryParams.Add("hubdbQuery", parameterToString(*r.hubdbQuery, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "hubdbQuery", r.hubdbQuery, "")
 	}
 	if r.domain != nil {
 		t := *r.domain
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("domain", parameterToString(s.Index(i), "multi"))
+				parameterAddToHeaderOrQuery(localVarQueryParams, "domain", s.Index(i).Interface(), "multi")
 			}
 		} else {
-			localVarQueryParams.Add("domain", parameterToString(t, "multi"))
+			parameterAddToHeaderOrQuery(localVarQueryParams, "domain", t, "multi")
 		}
 	}
 	if r.type_ != nil {
@@ -368,10 +371,10 @@ func (a *PublicApiService) SearchExecute(r ApiSearchRequest) (*PublicSearchResul
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("type", parameterToString(s.Index(i), "multi"))
+				parameterAddToHeaderOrQuery(localVarQueryParams, "type", s.Index(i).Interface(), "multi")
 			}
 		} else {
-			localVarQueryParams.Add("type", parameterToString(t, "multi"))
+			parameterAddToHeaderOrQuery(localVarQueryParams, "type", t, "multi")
 		}
 	}
 	if r.pathPrefix != nil {
@@ -379,10 +382,10 @@ func (a *PublicApiService) SearchExecute(r ApiSearchRequest) (*PublicSearchResul
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("pathPrefix", parameterToString(s.Index(i), "multi"))
+				parameterAddToHeaderOrQuery(localVarQueryParams, "pathPrefix", s.Index(i).Interface(), "multi")
 			}
 		} else {
-			localVarQueryParams.Add("pathPrefix", parameterToString(t, "multi"))
+			parameterAddToHeaderOrQuery(localVarQueryParams, "pathPrefix", t, "multi")
 		}
 	}
 	if r.property != nil {
@@ -390,24 +393,24 @@ func (a *PublicApiService) SearchExecute(r ApiSearchRequest) (*PublicSearchResul
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("property", parameterToString(s.Index(i), "multi"))
+				parameterAddToHeaderOrQuery(localVarQueryParams, "property", s.Index(i).Interface(), "multi")
 			}
 		} else {
-			localVarQueryParams.Add("property", parameterToString(t, "multi"))
+			parameterAddToHeaderOrQuery(localVarQueryParams, "property", t, "multi")
 		}
 	}
 	if r.length != nil {
-		localVarQueryParams.Add("length", parameterToString(*r.length, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "length", r.length, "")
 	}
 	if r.groupId != nil {
 		t := *r.groupId
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("groupId", parameterToString(s.Index(i), "multi"))
+				parameterAddToHeaderOrQuery(localVarQueryParams, "groupId", s.Index(i).Interface(), "multi")
 			}
 		} else {
-			localVarQueryParams.Add("groupId", parameterToString(t, "multi"))
+			parameterAddToHeaderOrQuery(localVarQueryParams, "groupId", t, "multi")
 		}
 	}
 	// to determine the Content-Type header
@@ -447,9 +450,9 @@ func (a *PublicApiService) SearchExecute(r ApiSearchRequest) (*PublicSearchResul
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -465,6 +468,7 @@ func (a *PublicApiService) SearchExecute(r ApiSearchRequest) (*PublicSearchResul
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

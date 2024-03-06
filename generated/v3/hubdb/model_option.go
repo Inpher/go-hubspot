@@ -11,8 +11,13 @@ API version: v3
 package hubdb
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the Option type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Option{}
 
 // Option struct for Option
 type Option struct {
@@ -26,6 +31,8 @@ type Option struct {
 	//
 	Order int32 `json:"order"`
 }
+
+type _Option Option
 
 // NewOption instantiates a new Option object
 // This constructor will assign default values to properties that have it defined,
@@ -98,7 +105,7 @@ func (o *Option) SetId(v string) {
 
 // GetLabel returns the Label field value if set, zero value otherwise.
 func (o *Option) GetLabel() string {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		var ret string
 		return ret
 	}
@@ -108,7 +115,7 @@ func (o *Option) GetLabel() string {
 // GetLabelOk returns a tuple with the Label field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Option) GetLabelOk() (*string, bool) {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		return nil, false
 	}
 	return o.Label, true
@@ -116,7 +123,7 @@ func (o *Option) GetLabelOk() (*string, bool) {
 
 // HasLabel returns a boolean if a field has been set.
 func (o *Option) HasLabel() bool {
-	if o != nil && o.Label != nil {
+	if o != nil && !IsNil(o.Label) {
 		return true
 	}
 
@@ -177,23 +184,63 @@ func (o *Option) SetOrder(v int32) {
 }
 
 func (o Option) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if o.Label != nil {
-		toSerialize["label"] = o.Label
-	}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["order"] = o.Order
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Option) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	toSerialize["id"] = o.Id
+	if !IsNil(o.Label) {
+		toSerialize["label"] = o.Label
+	}
+	toSerialize["type"] = o.Type
+	toSerialize["order"] = o.Order
+	return toSerialize, nil
+}
+
+func (o *Option) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"id",
+		"type",
+		"order",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varOption := _Option{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varOption)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Option(varOption)
+
+	return err
 }
 
 type NullableOption struct {

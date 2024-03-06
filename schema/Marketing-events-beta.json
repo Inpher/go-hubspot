@@ -449,7 +449,7 @@
         "tags" : [ "Batch" ],
         "summary" : "Delete multiple marketing events",
         "description" : "Bulk delete a number of marketing events in HubSpot",
-        "operationId" : "ArchiveBatch",
+        "operationId" : "Archive",
         "parameters" : [ ],
         "requestBody" : {
           "description" : "The details of the marketing events to delete",

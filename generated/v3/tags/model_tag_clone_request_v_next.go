@@ -11,8 +11,13 @@ API version: v3
 package tags
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the TagCloneRequestVNext type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TagCloneRequestVNext{}
 
 // TagCloneRequestVNext Request body object for cloning blog tags.
 type TagCloneRequestVNext struct {
@@ -25,6 +30,8 @@ type TagCloneRequestVNext struct {
 	// Language of primary blog tag to clone.
 	PrimaryLanguage *string `json:"primaryLanguage,omitempty"`
 }
+
+type _TagCloneRequestVNext TagCloneRequestVNext
 
 // NewTagCloneRequestVNext instantiates a new TagCloneRequestVNext object
 // This constructor will assign default values to properties that have it defined,
@@ -71,7 +78,7 @@ func (o *TagCloneRequestVNext) SetName(v string) {
 
 // GetLanguage returns the Language field value if set, zero value otherwise.
 func (o *TagCloneRequestVNext) GetLanguage() string {
-	if o == nil || o.Language == nil {
+	if o == nil || IsNil(o.Language) {
 		var ret string
 		return ret
 	}
@@ -81,7 +88,7 @@ func (o *TagCloneRequestVNext) GetLanguage() string {
 // GetLanguageOk returns a tuple with the Language field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TagCloneRequestVNext) GetLanguageOk() (*string, bool) {
-	if o == nil || o.Language == nil {
+	if o == nil || IsNil(o.Language) {
 		return nil, false
 	}
 	return o.Language, true
@@ -89,7 +96,7 @@ func (o *TagCloneRequestVNext) GetLanguageOk() (*string, bool) {
 
 // HasLanguage returns a boolean if a field has been set.
 func (o *TagCloneRequestVNext) HasLanguage() bool {
-	if o != nil && o.Language != nil {
+	if o != nil && !IsNil(o.Language) {
 		return true
 	}
 
@@ -127,7 +134,7 @@ func (o *TagCloneRequestVNext) SetId(v string) {
 
 // GetPrimaryLanguage returns the PrimaryLanguage field value if set, zero value otherwise.
 func (o *TagCloneRequestVNext) GetPrimaryLanguage() string {
-	if o == nil || o.PrimaryLanguage == nil {
+	if o == nil || IsNil(o.PrimaryLanguage) {
 		var ret string
 		return ret
 	}
@@ -137,7 +144,7 @@ func (o *TagCloneRequestVNext) GetPrimaryLanguage() string {
 // GetPrimaryLanguageOk returns a tuple with the PrimaryLanguage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TagCloneRequestVNext) GetPrimaryLanguageOk() (*string, bool) {
-	if o == nil || o.PrimaryLanguage == nil {
+	if o == nil || IsNil(o.PrimaryLanguage) {
 		return nil, false
 	}
 	return o.PrimaryLanguage, true
@@ -145,7 +152,7 @@ func (o *TagCloneRequestVNext) GetPrimaryLanguageOk() (*string, bool) {
 
 // HasPrimaryLanguage returns a boolean if a field has been set.
 func (o *TagCloneRequestVNext) HasPrimaryLanguage() bool {
-	if o != nil && o.PrimaryLanguage != nil {
+	if o != nil && !IsNil(o.PrimaryLanguage) {
 		return true
 	}
 
@@ -158,20 +165,62 @@ func (o *TagCloneRequestVNext) SetPrimaryLanguage(v string) {
 }
 
 func (o TagCloneRequestVNext) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Language != nil {
-		toSerialize["language"] = o.Language
-	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if o.PrimaryLanguage != nil {
-		toSerialize["primaryLanguage"] = o.PrimaryLanguage
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o TagCloneRequestVNext) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Language) {
+		toSerialize["language"] = o.Language
+	}
+	toSerialize["id"] = o.Id
+	if !IsNil(o.PrimaryLanguage) {
+		toSerialize["primaryLanguage"] = o.PrimaryLanguage
+	}
+	return toSerialize, nil
+}
+
+func (o *TagCloneRequestVNext) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varTagCloneRequestVNext := _TagCloneRequestVNext{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varTagCloneRequestVNext)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TagCloneRequestVNext(varTagCloneRequestVNext)
+
+	return err
 }
 
 type NullableTagCloneRequestVNext struct {

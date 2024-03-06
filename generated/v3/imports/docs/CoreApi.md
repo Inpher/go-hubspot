@@ -1,13 +1,13 @@
-# \CoreApi
+# \CoreAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Cancel**](CoreApi.md#Cancel) | **Post** /crm/v3/imports/{importId}/cancel | Cancel an active import
-[**Create**](CoreApi.md#Create) | **Post** /crm/v3/imports/ | Start a new import
-[**GetByID**](CoreApi.md#GetByID) | **Get** /crm/v3/imports/{importId} | Get the information on any import
-[**GetPage**](CoreApi.md#GetPage) | **Get** /crm/v3/imports/ | Get active imports
+[**Cancel**](CoreAPI.md#Cancel) | **Post** /crm/v3/imports/{importId}/cancel | Cancel an active import
+[**Create**](CoreAPI.md#Create) | **Post** /crm/v3/imports/ | Start a new import
+[**GetByID**](CoreAPI.md#GetByID) | **Get** /crm/v3/imports/{importId} | Get the information on any import
+[**GetPage**](CoreAPI.md#GetPage) | **Get** /crm/v3/imports/ | Get active imports
 
 
 
@@ -25,24 +25,24 @@ Cancel an active import
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    importId := int64(789) // int64 | 
+	importId := int64(789) // int64 | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CoreApi.Cancel(context.Background(), importId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CoreApi.Cancel``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `Cancel`: ActionResponse
-    fmt.Fprintf(os.Stdout, "Response from `CoreApi.Cancel`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CoreAPI.Cancel(context.Background(), importId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CoreAPI.Cancel``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `Cancel`: ActionResponse
+	fmt.Fprintf(os.Stdout, "Response from `CoreAPI.Cancel`: %v\n", resp)
 }
 ```
 
@@ -95,25 +95,25 @@ Start a new import
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    files := os.NewFile(1234, "some_file") // *os.File | A list of files containing the data to import (optional)
-    importRequest := "importRequest_example" // string | JSON formatted metadata about the import. This includes a name for the import and the column mappings for each file. See the overview tab for more on the required format. (optional)
+	files := os.NewFile(1234, "some_file") // *os.File | A list of files containing the data to import (optional)
+	importRequest := "importRequest_example" // string | JSON formatted metadata about the import. This includes a name for the import and the column mappings for each file. See the overview tab for more on the required format. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CoreApi.Create(context.Background()).Files(files).ImportRequest(importRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CoreApi.Create``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `Create`: PublicImportResponse
-    fmt.Fprintf(os.Stdout, "Response from `CoreApi.Create`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CoreAPI.Create(context.Background()).Files(files).ImportRequest(importRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CoreAPI.Create``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `Create`: PublicImportResponse
+	fmt.Fprintf(os.Stdout, "Response from `CoreAPI.Create`: %v\n", resp)
 }
 ```
 
@@ -163,24 +163,24 @@ Get the information on any import
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    importId := int64(789) // int64 | 
+	importId := int64(789) // int64 | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CoreApi.GetByID(context.Background(), importId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CoreApi.GetByID``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetByID`: PublicImportResponse
-    fmt.Fprintf(os.Stdout, "Response from `CoreApi.GetByID`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CoreAPI.GetByID(context.Background(), importId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CoreAPI.GetByID``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetByID`: PublicImportResponse
+	fmt.Fprintf(os.Stdout, "Response from `CoreAPI.GetByID`: %v\n", resp)
 }
 ```
 
@@ -233,26 +233,26 @@ Get active imports
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    after := "after_example" // string | The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results. (optional)
-    before := "before_example" // string |  (optional)
-    limit := int32(56) // int32 | The maximum number of results to display per page. (optional)
+	after := "after_example" // string | The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results. (optional)
+	before := "before_example" // string |  (optional)
+	limit := int32(56) // int32 | The maximum number of results to display per page. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CoreApi.GetPage(context.Background()).After(after).Before(before).Limit(limit).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CoreApi.GetPage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetPage`: CollectionResponsePublicImportResponse
-    fmt.Fprintf(os.Stdout, "Response from `CoreApi.GetPage`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CoreAPI.GetPage(context.Background()).After(after).Before(before).Limit(limit).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CoreAPI.GetPage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetPage`: CollectionResponsePublicImportResponse
+	fmt.Fprintf(os.Stdout, "Response from `CoreAPI.GetPage`: %v\n", resp)
 }
 ```
 

@@ -11,8 +11,13 @@ API version: v3
 package authors
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the AttachToLangPrimaryRequestVNext type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AttachToLangPrimaryRequestVNext{}
 
 // AttachToLangPrimaryRequestVNext Request body object for attaching objects to multi-language groups.
 type AttachToLangPrimaryRequestVNext struct {
@@ -25,6 +30,8 @@ type AttachToLangPrimaryRequestVNext struct {
 	// Primary language of the multi-language group.
 	PrimaryLanguage *string `json:"primaryLanguage,omitempty"`
 }
+
+type _AttachToLangPrimaryRequestVNext AttachToLangPrimaryRequestVNext
 
 // NewAttachToLangPrimaryRequestVNext instantiates a new AttachToLangPrimaryRequestVNext object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +127,7 @@ func (o *AttachToLangPrimaryRequestVNext) SetPrimaryId(v string) {
 
 // GetPrimaryLanguage returns the PrimaryLanguage field value if set, zero value otherwise.
 func (o *AttachToLangPrimaryRequestVNext) GetPrimaryLanguage() string {
-	if o == nil || o.PrimaryLanguage == nil {
+	if o == nil || IsNil(o.PrimaryLanguage) {
 		var ret string
 		return ret
 	}
@@ -130,7 +137,7 @@ func (o *AttachToLangPrimaryRequestVNext) GetPrimaryLanguage() string {
 // GetPrimaryLanguageOk returns a tuple with the PrimaryLanguage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AttachToLangPrimaryRequestVNext) GetPrimaryLanguageOk() (*string, bool) {
-	if o == nil || o.PrimaryLanguage == nil {
+	if o == nil || IsNil(o.PrimaryLanguage) {
 		return nil, false
 	}
 	return o.PrimaryLanguage, true
@@ -138,7 +145,7 @@ func (o *AttachToLangPrimaryRequestVNext) GetPrimaryLanguageOk() (*string, bool)
 
 // HasPrimaryLanguage returns a boolean if a field has been set.
 func (o *AttachToLangPrimaryRequestVNext) HasPrimaryLanguage() bool {
-	if o != nil && o.PrimaryLanguage != nil {
+	if o != nil && !IsNil(o.PrimaryLanguage) {
 		return true
 	}
 
@@ -151,20 +158,61 @@ func (o *AttachToLangPrimaryRequestVNext) SetPrimaryLanguage(v string) {
 }
 
 func (o AttachToLangPrimaryRequestVNext) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["language"] = o.Language
-	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["primaryId"] = o.PrimaryId
-	}
-	if o.PrimaryLanguage != nil {
-		toSerialize["primaryLanguage"] = o.PrimaryLanguage
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AttachToLangPrimaryRequestVNext) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["language"] = o.Language
+	toSerialize["id"] = o.Id
+	toSerialize["primaryId"] = o.PrimaryId
+	if !IsNil(o.PrimaryLanguage) {
+		toSerialize["primaryLanguage"] = o.PrimaryLanguage
+	}
+	return toSerialize, nil
+}
+
+func (o *AttachToLangPrimaryRequestVNext) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"language",
+		"id",
+		"primaryId",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAttachToLangPrimaryRequestVNext := _AttachToLangPrimaryRequestVNext{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varAttachToLangPrimaryRequestVNext)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AttachToLangPrimaryRequestVNext(varAttachToLangPrimaryRequestVNext)
+
+	return err
 }
 
 type NullableAttachToLangPrimaryRequestVNext struct {

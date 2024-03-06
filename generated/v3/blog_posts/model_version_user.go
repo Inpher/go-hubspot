@@ -11,8 +11,13 @@ API version: v3
 package blog_posts
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the VersionUser type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &VersionUser{}
 
 // VersionUser Model definition for a version user. Contains addition information about the user who created a version.
 type VersionUser struct {
@@ -23,6 +28,8 @@ type VersionUser struct {
 	// The email address of the user.
 	Email string `json:"email"`
 }
+
+type _VersionUser VersionUser
 
 // NewVersionUser instantiates a new VersionUser object
 // This constructor will assign default values to properties that have it defined,
@@ -117,17 +124,58 @@ func (o *VersionUser) SetEmail(v string) {
 }
 
 func (o VersionUser) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["fullName"] = o.FullName
-	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["email"] = o.Email
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o VersionUser) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["fullName"] = o.FullName
+	toSerialize["id"] = o.Id
+	toSerialize["email"] = o.Email
+	return toSerialize, nil
+}
+
+func (o *VersionUser) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"fullName",
+		"id",
+		"email",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varVersionUser := _VersionUser{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varVersionUser)
+
+	if err != nil {
+		return err
+	}
+
+	*o = VersionUser(varVersionUser)
+
+	return err
 }
 
 type NullableVersionUser struct {

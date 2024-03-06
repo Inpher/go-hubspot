@@ -1,10 +1,10 @@
-# \ExtractApi
+# \ExtractAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ExtractByPath**](ExtractApi.md#ExtractByPath) | **Post** /cms/v3/source-code/extract/{path} | Extracts a zip file
+[**ExtractByPath**](ExtractAPI.md#ExtractByPath) | **Post** /cms/v3/source-code/extract/{path} | Extracts a zip file
 
 
 
@@ -22,22 +22,22 @@ Extracts a zip file
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    path := "path_example" // string | The file system location of the zip file.
+	path := "path_example" // string | The file system location of the zip file.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ExtractApi.ExtractByPath(context.Background(), path).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ExtractApi.ExtractByPath``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ExtractAPI.ExtractByPath(context.Background(), path).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ExtractAPI.ExtractByPath``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 

@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PublicActionDefinitionPatch type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PublicActionDefinitionPatch{}
+
 // PublicActionDefinitionPatch struct for PublicActionDefinitionPatch
 type PublicActionDefinitionPatch struct {
 	InputFields            []InputFieldDefinition                              `json:"inputFields,omitempty"`
@@ -46,7 +49,7 @@ func NewPublicActionDefinitionPatchWithDefaults() *PublicActionDefinitionPatch {
 
 // GetInputFields returns the InputFields field value if set, zero value otherwise.
 func (o *PublicActionDefinitionPatch) GetInputFields() []InputFieldDefinition {
-	if o == nil || o.InputFields == nil {
+	if o == nil || IsNil(o.InputFields) {
 		var ret []InputFieldDefinition
 		return ret
 	}
@@ -56,7 +59,7 @@ func (o *PublicActionDefinitionPatch) GetInputFields() []InputFieldDefinition {
 // GetInputFieldsOk returns a tuple with the InputFields field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicActionDefinitionPatch) GetInputFieldsOk() ([]InputFieldDefinition, bool) {
-	if o == nil || o.InputFields == nil {
+	if o == nil || IsNil(o.InputFields) {
 		return nil, false
 	}
 	return o.InputFields, true
@@ -64,7 +67,7 @@ func (o *PublicActionDefinitionPatch) GetInputFieldsOk() ([]InputFieldDefinition
 
 // HasInputFields returns a boolean if a field has been set.
 func (o *PublicActionDefinitionPatch) HasInputFields() bool {
-	if o != nil && o.InputFields != nil {
+	if o != nil && !IsNil(o.InputFields) {
 		return true
 	}
 
@@ -78,7 +81,7 @@ func (o *PublicActionDefinitionPatch) SetInputFields(v []InputFieldDefinition) {
 
 // GetOutputFields returns the OutputFields field value if set, zero value otherwise.
 func (o *PublicActionDefinitionPatch) GetOutputFields() []OutputFieldDefinition {
-	if o == nil || o.OutputFields == nil {
+	if o == nil || IsNil(o.OutputFields) {
 		var ret []OutputFieldDefinition
 		return ret
 	}
@@ -88,7 +91,7 @@ func (o *PublicActionDefinitionPatch) GetOutputFields() []OutputFieldDefinition 
 // GetOutputFieldsOk returns a tuple with the OutputFields field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicActionDefinitionPatch) GetOutputFieldsOk() ([]OutputFieldDefinition, bool) {
-	if o == nil || o.OutputFields == nil {
+	if o == nil || IsNil(o.OutputFields) {
 		return nil, false
 	}
 	return o.OutputFields, true
@@ -96,7 +99,7 @@ func (o *PublicActionDefinitionPatch) GetOutputFieldsOk() ([]OutputFieldDefiniti
 
 // HasOutputFields returns a boolean if a field has been set.
 func (o *PublicActionDefinitionPatch) HasOutputFields() bool {
-	if o != nil && o.OutputFields != nil {
+	if o != nil && !IsNil(o.OutputFields) {
 		return true
 	}
 
@@ -110,7 +113,7 @@ func (o *PublicActionDefinitionPatch) SetOutputFields(v []OutputFieldDefinition)
 
 // GetActionUrl returns the ActionUrl field value if set, zero value otherwise.
 func (o *PublicActionDefinitionPatch) GetActionUrl() string {
-	if o == nil || o.ActionUrl == nil {
+	if o == nil || IsNil(o.ActionUrl) {
 		var ret string
 		return ret
 	}
@@ -120,7 +123,7 @@ func (o *PublicActionDefinitionPatch) GetActionUrl() string {
 // GetActionUrlOk returns a tuple with the ActionUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicActionDefinitionPatch) GetActionUrlOk() (*string, bool) {
-	if o == nil || o.ActionUrl == nil {
+	if o == nil || IsNil(o.ActionUrl) {
 		return nil, false
 	}
 	return o.ActionUrl, true
@@ -128,7 +131,7 @@ func (o *PublicActionDefinitionPatch) GetActionUrlOk() (*string, bool) {
 
 // HasActionUrl returns a boolean if a field has been set.
 func (o *PublicActionDefinitionPatch) HasActionUrl() bool {
-	if o != nil && o.ActionUrl != nil {
+	if o != nil && !IsNil(o.ActionUrl) {
 		return true
 	}
 
@@ -142,7 +145,7 @@ func (o *PublicActionDefinitionPatch) SetActionUrl(v string) {
 
 // GetInputFieldDependencies returns the InputFieldDependencies field value if set, zero value otherwise.
 func (o *PublicActionDefinitionPatch) GetInputFieldDependencies() []PublicActionDefinitionInputFieldDependenciesInner {
-	if o == nil || o.InputFieldDependencies == nil {
+	if o == nil || IsNil(o.InputFieldDependencies) {
 		var ret []PublicActionDefinitionInputFieldDependenciesInner
 		return ret
 	}
@@ -152,7 +155,7 @@ func (o *PublicActionDefinitionPatch) GetInputFieldDependencies() []PublicAction
 // GetInputFieldDependenciesOk returns a tuple with the InputFieldDependencies field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicActionDefinitionPatch) GetInputFieldDependenciesOk() ([]PublicActionDefinitionInputFieldDependenciesInner, bool) {
-	if o == nil || o.InputFieldDependencies == nil {
+	if o == nil || IsNil(o.InputFieldDependencies) {
 		return nil, false
 	}
 	return o.InputFieldDependencies, true
@@ -160,7 +163,7 @@ func (o *PublicActionDefinitionPatch) GetInputFieldDependenciesOk() ([]PublicAct
 
 // HasInputFieldDependencies returns a boolean if a field has been set.
 func (o *PublicActionDefinitionPatch) HasInputFieldDependencies() bool {
-	if o != nil && o.InputFieldDependencies != nil {
+	if o != nil && !IsNil(o.InputFieldDependencies) {
 		return true
 	}
 
@@ -174,7 +177,7 @@ func (o *PublicActionDefinitionPatch) SetInputFieldDependencies(v []PublicAction
 
 // GetPublished returns the Published field value if set, zero value otherwise.
 func (o *PublicActionDefinitionPatch) GetPublished() bool {
-	if o == nil || o.Published == nil {
+	if o == nil || IsNil(o.Published) {
 		var ret bool
 		return ret
 	}
@@ -184,7 +187,7 @@ func (o *PublicActionDefinitionPatch) GetPublished() bool {
 // GetPublishedOk returns a tuple with the Published field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicActionDefinitionPatch) GetPublishedOk() (*bool, bool) {
-	if o == nil || o.Published == nil {
+	if o == nil || IsNil(o.Published) {
 		return nil, false
 	}
 	return o.Published, true
@@ -192,7 +195,7 @@ func (o *PublicActionDefinitionPatch) GetPublishedOk() (*bool, bool) {
 
 // HasPublished returns a boolean if a field has been set.
 func (o *PublicActionDefinitionPatch) HasPublished() bool {
-	if o != nil && o.Published != nil {
+	if o != nil && !IsNil(o.Published) {
 		return true
 	}
 
@@ -206,7 +209,7 @@ func (o *PublicActionDefinitionPatch) SetPublished(v bool) {
 
 // GetExecutionRules returns the ExecutionRules field value if set, zero value otherwise.
 func (o *PublicActionDefinitionPatch) GetExecutionRules() []PublicExecutionTranslationRule {
-	if o == nil || o.ExecutionRules == nil {
+	if o == nil || IsNil(o.ExecutionRules) {
 		var ret []PublicExecutionTranslationRule
 		return ret
 	}
@@ -216,7 +219,7 @@ func (o *PublicActionDefinitionPatch) GetExecutionRules() []PublicExecutionTrans
 // GetExecutionRulesOk returns a tuple with the ExecutionRules field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicActionDefinitionPatch) GetExecutionRulesOk() ([]PublicExecutionTranslationRule, bool) {
-	if o == nil || o.ExecutionRules == nil {
+	if o == nil || IsNil(o.ExecutionRules) {
 		return nil, false
 	}
 	return o.ExecutionRules, true
@@ -224,7 +227,7 @@ func (o *PublicActionDefinitionPatch) GetExecutionRulesOk() ([]PublicExecutionTr
 
 // HasExecutionRules returns a boolean if a field has been set.
 func (o *PublicActionDefinitionPatch) HasExecutionRules() bool {
-	if o != nil && o.ExecutionRules != nil {
+	if o != nil && !IsNil(o.ExecutionRules) {
 		return true
 	}
 
@@ -238,7 +241,7 @@ func (o *PublicActionDefinitionPatch) SetExecutionRules(v []PublicExecutionTrans
 
 // GetObjectTypes returns the ObjectTypes field value if set, zero value otherwise.
 func (o *PublicActionDefinitionPatch) GetObjectTypes() []string {
-	if o == nil || o.ObjectTypes == nil {
+	if o == nil || IsNil(o.ObjectTypes) {
 		var ret []string
 		return ret
 	}
@@ -248,7 +251,7 @@ func (o *PublicActionDefinitionPatch) GetObjectTypes() []string {
 // GetObjectTypesOk returns a tuple with the ObjectTypes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicActionDefinitionPatch) GetObjectTypesOk() ([]string, bool) {
-	if o == nil || o.ObjectTypes == nil {
+	if o == nil || IsNil(o.ObjectTypes) {
 		return nil, false
 	}
 	return o.ObjectTypes, true
@@ -256,7 +259,7 @@ func (o *PublicActionDefinitionPatch) GetObjectTypesOk() ([]string, bool) {
 
 // HasObjectTypes returns a boolean if a field has been set.
 func (o *PublicActionDefinitionPatch) HasObjectTypes() bool {
-	if o != nil && o.ObjectTypes != nil {
+	if o != nil && !IsNil(o.ObjectTypes) {
 		return true
 	}
 
@@ -270,7 +273,7 @@ func (o *PublicActionDefinitionPatch) SetObjectTypes(v []string) {
 
 // GetObjectRequestOptions returns the ObjectRequestOptions field value if set, zero value otherwise.
 func (o *PublicActionDefinitionPatch) GetObjectRequestOptions() PublicObjectRequestOptions {
-	if o == nil || o.ObjectRequestOptions == nil {
+	if o == nil || IsNil(o.ObjectRequestOptions) {
 		var ret PublicObjectRequestOptions
 		return ret
 	}
@@ -280,7 +283,7 @@ func (o *PublicActionDefinitionPatch) GetObjectRequestOptions() PublicObjectRequ
 // GetObjectRequestOptionsOk returns a tuple with the ObjectRequestOptions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicActionDefinitionPatch) GetObjectRequestOptionsOk() (*PublicObjectRequestOptions, bool) {
-	if o == nil || o.ObjectRequestOptions == nil {
+	if o == nil || IsNil(o.ObjectRequestOptions) {
 		return nil, false
 	}
 	return o.ObjectRequestOptions, true
@@ -288,7 +291,7 @@ func (o *PublicActionDefinitionPatch) GetObjectRequestOptionsOk() (*PublicObject
 
 // HasObjectRequestOptions returns a boolean if a field has been set.
 func (o *PublicActionDefinitionPatch) HasObjectRequestOptions() bool {
-	if o != nil && o.ObjectRequestOptions != nil {
+	if o != nil && !IsNil(o.ObjectRequestOptions) {
 		return true
 	}
 
@@ -302,7 +305,7 @@ func (o *PublicActionDefinitionPatch) SetObjectRequestOptions(v PublicObjectRequ
 
 // GetLabels returns the Labels field value if set, zero value otherwise.
 func (o *PublicActionDefinitionPatch) GetLabels() map[string]PublicActionLabels {
-	if o == nil || o.Labels == nil {
+	if o == nil || IsNil(o.Labels) {
 		var ret map[string]PublicActionLabels
 		return ret
 	}
@@ -312,7 +315,7 @@ func (o *PublicActionDefinitionPatch) GetLabels() map[string]PublicActionLabels 
 // GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicActionDefinitionPatch) GetLabelsOk() (*map[string]PublicActionLabels, bool) {
-	if o == nil || o.Labels == nil {
+	if o == nil || IsNil(o.Labels) {
 		return nil, false
 	}
 	return o.Labels, true
@@ -320,7 +323,7 @@ func (o *PublicActionDefinitionPatch) GetLabelsOk() (*map[string]PublicActionLab
 
 // HasLabels returns a boolean if a field has been set.
 func (o *PublicActionDefinitionPatch) HasLabels() bool {
-	if o != nil && o.Labels != nil {
+	if o != nil && !IsNil(o.Labels) {
 		return true
 	}
 
@@ -333,35 +336,43 @@ func (o *PublicActionDefinitionPatch) SetLabels(v map[string]PublicActionLabels)
 }
 
 func (o PublicActionDefinitionPatch) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.InputFields != nil {
-		toSerialize["inputFields"] = o.InputFields
-	}
-	if o.OutputFields != nil {
-		toSerialize["outputFields"] = o.OutputFields
-	}
-	if o.ActionUrl != nil {
-		toSerialize["actionUrl"] = o.ActionUrl
-	}
-	if o.InputFieldDependencies != nil {
-		toSerialize["inputFieldDependencies"] = o.InputFieldDependencies
-	}
-	if o.Published != nil {
-		toSerialize["published"] = o.Published
-	}
-	if o.ExecutionRules != nil {
-		toSerialize["executionRules"] = o.ExecutionRules
-	}
-	if o.ObjectTypes != nil {
-		toSerialize["objectTypes"] = o.ObjectTypes
-	}
-	if o.ObjectRequestOptions != nil {
-		toSerialize["objectRequestOptions"] = o.ObjectRequestOptions
-	}
-	if o.Labels != nil {
-		toSerialize["labels"] = o.Labels
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PublicActionDefinitionPatch) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.InputFields) {
+		toSerialize["inputFields"] = o.InputFields
+	}
+	if !IsNil(o.OutputFields) {
+		toSerialize["outputFields"] = o.OutputFields
+	}
+	if !IsNil(o.ActionUrl) {
+		toSerialize["actionUrl"] = o.ActionUrl
+	}
+	if !IsNil(o.InputFieldDependencies) {
+		toSerialize["inputFieldDependencies"] = o.InputFieldDependencies
+	}
+	if !IsNil(o.Published) {
+		toSerialize["published"] = o.Published
+	}
+	if !IsNil(o.ExecutionRules) {
+		toSerialize["executionRules"] = o.ExecutionRules
+	}
+	if !IsNil(o.ObjectTypes) {
+		toSerialize["objectTypes"] = o.ObjectTypes
+	}
+	if !IsNil(o.ObjectRequestOptions) {
+		toSerialize["objectRequestOptions"] = o.ObjectRequestOptions
+	}
+	if !IsNil(o.Labels) {
+		toSerialize["labels"] = o.Labels
+	}
+	return toSerialize, nil
 }
 
 type NullablePublicActionDefinitionPatch struct {

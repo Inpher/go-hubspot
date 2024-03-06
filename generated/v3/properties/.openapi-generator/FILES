@@ -7,7 +7,7 @@ api_core.go
 api_groups.go
 client.go
 configuration.go
-docs/BatchApi.md
+docs/BatchAPI.md
 docs/BatchInputPropertyCreate.md
 docs/BatchInputPropertyName.md
 docs/BatchReadInputPropertyName.md
@@ -15,10 +15,10 @@ docs/BatchResponseProperty.md
 docs/BatchResponsePropertyWithErrors.md
 docs/CollectionResponsePropertyGroupNoPaging.md
 docs/CollectionResponsePropertyNoPaging.md
-docs/CoreApi.md
+docs/CoreAPI.md
 docs/Error.md
 docs/ErrorDetail.md
-docs/GroupsApi.md
+docs/GroupsAPI.md
 docs/Option.md
 docs/OptionInput.md
 docs/Property.md
@@ -54,4 +54,7 @@ model_property_name.go
 model_property_update.go
 model_standard_error.go
 response.go
+test/api_batch_test.go
+test/api_core_test.go
+test/api_groups_test.go
 utils.go

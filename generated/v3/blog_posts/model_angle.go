@@ -11,14 +11,21 @@ API version: v3
 package blog_posts
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the Angle type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Angle{}
 
 // Angle struct for Angle
 type Angle struct {
 	Units string  `json:"units"`
 	Value float32 `json:"value"`
 }
+
+type _Angle Angle
 
 // NewAngle instantiates a new Angle object
 // This constructor will assign default values to properties that have it defined,
@@ -88,14 +95,56 @@ func (o *Angle) SetValue(v float32) {
 }
 
 func (o Angle) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["units"] = o.Units
-	}
-	if true {
-		toSerialize["value"] = o.Value
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Angle) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["units"] = o.Units
+	toSerialize["value"] = o.Value
+	return toSerialize, nil
+}
+
+func (o *Angle) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"units",
+		"value",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAngle := _Angle{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varAngle)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Angle(varAngle)
+
+	return err
 }
 
 type NullableAngle struct {

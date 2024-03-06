@@ -82,39 +82,39 @@
         "security" : [ {
           "oauth2_legacy" : [ "media_bridge.read" ]
         }, {
-          "oauth2" : [ "crm.objects.contacts.read" ]
-        }, {
           "private_apps" : [ "crm.objects.deals.read" ]
         }, {
           "private_apps_legacy" : [ "timeline" ]
+        }, {
+          "private_apps_legacy" : [ "crm.objects.marketing_events.read" ]
+        }, {
+          "oauth2_legacy" : [ "crm.objects.marketing_events.write" ]
         }, {
           "oauth2" : [ "crm.objects.deals.read" ]
         }, {
           "private_apps_legacy" : [ "contacts" ]
         }, {
-          "private_apps" : [ "crm.objects.contacts.read" ]
+          "private_apps" : [ "crm.objects.owners.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.owners.read" ]
         }, {
           "oauth2_legacy" : [ "crm.schemas.custom.read" ]
         }, {
           "private_apps" : [ "crm.objects.companies.read" ]
         }, {
-          "private_apps" : [ "crm.objects.deals.write" ]
-        }, {
           "oauth2" : [ "crm.schemas.quotes.read" ]
         }, {
           "private_apps" : [ "crm.schemas.quotes.read" ]
         }, {
-          "oauth2" : [ "crm.objects.deals.write" ]
-        }, {
           "oauth2" : [ "crm.objects.companies.read" ]
+        }, {
+          "oauth2_legacy" : [ "crm.objects.marketing_events.read" ]
+        }, {
+          "private_apps_legacy" : [ "crm.objects.marketing_events.write" ]
         }, {
           "private_apps_legacy" : [ "crm.schemas.custom.read" ]
         }, {
           "private_apps_legacy" : [ "crm.objects.goals.read" ]
-        }, {
-          "private_apps" : [ "crm.schemas.deals.read" ]
-        }, {
-          "oauth2" : [ "crm.schemas.deals.read" ]
         }, {
           "oauth2_legacy" : [ "timeline" ]
         }, {
@@ -124,17 +124,13 @@
         }, {
           "oauth2" : [ "crm.objects.companies.write" ]
         }, {
-          "oauth2" : [ "crm.schemas.contacts.read" ]
-        }, {
-          "private_apps" : [ "crm.schemas.contacts.read" ]
-        }, {
           "oauth2_legacy" : [ "tickets" ]
         }, {
+          "private_apps_legacy" : [ "crm.objects.custom.write" ]
+        }, {
+          "oauth2_legacy" : [ "crm.objects.feedback_submissions.read" ]
+        }, {
           "private_apps_legacy" : [ "e-commerce" ]
-        }, {
-          "oauth2" : [ "crm.objects.contacts.write" ]
-        }, {
-          "private_apps" : [ "crm.objects.contacts.write" ]
         }, {
           "private_apps" : [ "crm.schemas.companies.read" ]
         }, {
@@ -144,11 +140,55 @@
         }, {
           "private_apps_legacy" : [ "tickets" ]
         }, {
+          "private_apps_legacy" : [ "crm.objects.feedback_submissions.read" ]
+        }, {
           "oauth2_legacy" : [ "crm.objects.goals.read" ]
         }, {
           "private_apps" : [ "crm.schemas.line_items.read" ]
         }, {
+          "oauth2_legacy" : [ "crm.objects.custom.write" ]
+        }, {
           "oauth2" : [ "crm.schemas.line_items.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.contacts.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.contacts.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.deals.write" ]
+        }, {
+          "oauth2" : [ "crm.objects.deals.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.deals.read" ]
+        }, {
+          "oauth2" : [ "crm.schemas.deals.read" ]
+        }, {
+          "oauth2" : [ "crm.schemas.contacts.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.quotes.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.contacts.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.quotes.write" ]
+        }, {
+          "private_apps" : [ "crm.objects.line_items.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.contacts.write" ]
+        }, {
+          "private_apps" : [ "crm.objects.contacts.write" ]
+        }, {
+          "oauth2" : [ "crm.objects.line_items.read" ]
+        }, {
+          "oauth2_legacy" : [ "crm.objects.custom.read" ]
+        }, {
+          "private_apps_legacy" : [ "crm.objects.custom.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.line_items.write" ]
+        }, {
+          "private_apps" : [ "crm.objects.line_items.write" ]
+        }, {
+          "oauth2" : [ "crm.objects.quotes.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.quotes.read" ]
         } ]
       }
     },
@@ -195,39 +235,39 @@
         "security" : [ {
           "oauth2_legacy" : [ "media_bridge.read" ]
         }, {
-          "oauth2" : [ "crm.objects.contacts.read" ]
-        }, {
           "private_apps" : [ "crm.objects.deals.read" ]
         }, {
           "private_apps_legacy" : [ "timeline" ]
+        }, {
+          "private_apps_legacy" : [ "crm.objects.marketing_events.read" ]
+        }, {
+          "oauth2_legacy" : [ "crm.objects.marketing_events.write" ]
         }, {
           "oauth2" : [ "crm.objects.deals.read" ]
         }, {
           "private_apps_legacy" : [ "contacts" ]
         }, {
-          "private_apps" : [ "crm.objects.contacts.read" ]
+          "private_apps" : [ "crm.objects.owners.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.owners.read" ]
         }, {
           "oauth2_legacy" : [ "crm.schemas.custom.read" ]
         }, {
           "private_apps" : [ "crm.objects.companies.read" ]
         }, {
-          "private_apps" : [ "crm.objects.deals.write" ]
-        }, {
           "oauth2" : [ "crm.schemas.quotes.read" ]
         }, {
           "private_apps" : [ "crm.schemas.quotes.read" ]
         }, {
-          "oauth2" : [ "crm.objects.deals.write" ]
-        }, {
           "oauth2" : [ "crm.objects.companies.read" ]
+        }, {
+          "oauth2_legacy" : [ "crm.objects.marketing_events.read" ]
+        }, {
+          "private_apps_legacy" : [ "crm.objects.marketing_events.write" ]
         }, {
           "private_apps_legacy" : [ "crm.schemas.custom.read" ]
         }, {
           "private_apps_legacy" : [ "crm.objects.goals.read" ]
-        }, {
-          "private_apps" : [ "crm.schemas.deals.read" ]
-        }, {
-          "oauth2" : [ "crm.schemas.deals.read" ]
         }, {
           "oauth2_legacy" : [ "timeline" ]
         }, {
@@ -237,17 +277,13 @@
         }, {
           "oauth2" : [ "crm.objects.companies.write" ]
         }, {
-          "oauth2" : [ "crm.schemas.contacts.read" ]
-        }, {
-          "private_apps" : [ "crm.schemas.contacts.read" ]
-        }, {
           "oauth2_legacy" : [ "tickets" ]
         }, {
+          "private_apps_legacy" : [ "crm.objects.custom.write" ]
+        }, {
+          "oauth2_legacy" : [ "crm.objects.feedback_submissions.read" ]
+        }, {
           "private_apps_legacy" : [ "e-commerce" ]
-        }, {
-          "oauth2" : [ "crm.objects.contacts.write" ]
-        }, {
-          "private_apps" : [ "crm.objects.contacts.write" ]
         }, {
           "private_apps" : [ "crm.schemas.companies.read" ]
         }, {
@@ -257,11 +293,55 @@
         }, {
           "private_apps_legacy" : [ "tickets" ]
         }, {
+          "private_apps_legacy" : [ "crm.objects.feedback_submissions.read" ]
+        }, {
           "oauth2_legacy" : [ "crm.objects.goals.read" ]
         }, {
           "private_apps" : [ "crm.schemas.line_items.read" ]
         }, {
+          "oauth2_legacy" : [ "crm.objects.custom.write" ]
+        }, {
           "oauth2" : [ "crm.schemas.line_items.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.contacts.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.contacts.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.deals.write" ]
+        }, {
+          "oauth2" : [ "crm.objects.deals.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.deals.read" ]
+        }, {
+          "oauth2" : [ "crm.schemas.deals.read" ]
+        }, {
+          "oauth2" : [ "crm.schemas.contacts.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.quotes.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.contacts.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.quotes.write" ]
+        }, {
+          "private_apps" : [ "crm.objects.line_items.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.contacts.write" ]
+        }, {
+          "private_apps" : [ "crm.objects.contacts.write" ]
+        }, {
+          "oauth2" : [ "crm.objects.line_items.read" ]
+        }, {
+          "oauth2_legacy" : [ "crm.objects.custom.read" ]
+        }, {
+          "private_apps_legacy" : [ "crm.objects.custom.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.line_items.write" ]
+        }, {
+          "private_apps" : [ "crm.objects.line_items.write" ]
+        }, {
+          "oauth2" : [ "crm.objects.quotes.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.quotes.read" ]
         } ]
       },
       "put" : {
@@ -577,39 +657,39 @@
         "security" : [ {
           "oauth2_legacy" : [ "media_bridge.read" ]
         }, {
-          "oauth2" : [ "crm.objects.contacts.read" ]
-        }, {
           "private_apps" : [ "crm.objects.deals.read" ]
         }, {
           "private_apps_legacy" : [ "timeline" ]
+        }, {
+          "private_apps_legacy" : [ "crm.objects.marketing_events.read" ]
+        }, {
+          "oauth2_legacy" : [ "crm.objects.marketing_events.write" ]
         }, {
           "oauth2" : [ "crm.objects.deals.read" ]
         }, {
           "private_apps_legacy" : [ "contacts" ]
         }, {
-          "private_apps" : [ "crm.objects.contacts.read" ]
+          "private_apps" : [ "crm.objects.owners.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.owners.read" ]
         }, {
           "oauth2_legacy" : [ "crm.schemas.custom.read" ]
         }, {
           "private_apps" : [ "crm.objects.companies.read" ]
         }, {
-          "private_apps" : [ "crm.objects.deals.write" ]
-        }, {
           "oauth2" : [ "crm.schemas.quotes.read" ]
         }, {
           "private_apps" : [ "crm.schemas.quotes.read" ]
         }, {
-          "oauth2" : [ "crm.objects.deals.write" ]
-        }, {
           "oauth2" : [ "crm.objects.companies.read" ]
+        }, {
+          "oauth2_legacy" : [ "crm.objects.marketing_events.read" ]
+        }, {
+          "private_apps_legacy" : [ "crm.objects.marketing_events.write" ]
         }, {
           "private_apps_legacy" : [ "crm.schemas.custom.read" ]
         }, {
           "private_apps_legacy" : [ "crm.objects.goals.read" ]
-        }, {
-          "private_apps" : [ "crm.schemas.deals.read" ]
-        }, {
-          "oauth2" : [ "crm.schemas.deals.read" ]
         }, {
           "oauth2_legacy" : [ "timeline" ]
         }, {
@@ -619,17 +699,13 @@
         }, {
           "oauth2" : [ "crm.objects.companies.write" ]
         }, {
-          "oauth2" : [ "crm.schemas.contacts.read" ]
-        }, {
-          "private_apps" : [ "crm.schemas.contacts.read" ]
-        }, {
           "oauth2_legacy" : [ "tickets" ]
         }, {
+          "private_apps_legacy" : [ "crm.objects.custom.write" ]
+        }, {
+          "oauth2_legacy" : [ "crm.objects.feedback_submissions.read" ]
+        }, {
           "private_apps_legacy" : [ "e-commerce" ]
-        }, {
-          "oauth2" : [ "crm.objects.contacts.write" ]
-        }, {
-          "private_apps" : [ "crm.objects.contacts.write" ]
         }, {
           "private_apps" : [ "crm.schemas.companies.read" ]
         }, {
@@ -639,11 +715,55 @@
         }, {
           "private_apps_legacy" : [ "tickets" ]
         }, {
+          "private_apps_legacy" : [ "crm.objects.feedback_submissions.read" ]
+        }, {
           "oauth2_legacy" : [ "crm.objects.goals.read" ]
         }, {
           "private_apps" : [ "crm.schemas.line_items.read" ]
         }, {
+          "oauth2_legacy" : [ "crm.objects.custom.write" ]
+        }, {
           "oauth2" : [ "crm.schemas.line_items.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.contacts.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.contacts.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.deals.write" ]
+        }, {
+          "oauth2" : [ "crm.objects.deals.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.deals.read" ]
+        }, {
+          "oauth2" : [ "crm.schemas.deals.read" ]
+        }, {
+          "oauth2" : [ "crm.schemas.contacts.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.quotes.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.contacts.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.quotes.write" ]
+        }, {
+          "private_apps" : [ "crm.objects.line_items.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.contacts.write" ]
+        }, {
+          "private_apps" : [ "crm.objects.contacts.write" ]
+        }, {
+          "oauth2" : [ "crm.objects.line_items.read" ]
+        }, {
+          "oauth2_legacy" : [ "crm.objects.custom.read" ]
+        }, {
+          "private_apps_legacy" : [ "crm.objects.custom.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.line_items.write" ]
+        }, {
+          "private_apps" : [ "crm.objects.line_items.write" ]
+        }, {
+          "oauth2" : [ "crm.objects.quotes.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.quotes.read" ]
         } ]
       }
     },
@@ -690,39 +810,39 @@
         "security" : [ {
           "oauth2_legacy" : [ "media_bridge.read" ]
         }, {
-          "oauth2" : [ "crm.objects.contacts.read" ]
-        }, {
           "private_apps" : [ "crm.objects.deals.read" ]
         }, {
           "private_apps_legacy" : [ "timeline" ]
+        }, {
+          "private_apps_legacy" : [ "crm.objects.marketing_events.read" ]
+        }, {
+          "oauth2_legacy" : [ "crm.objects.marketing_events.write" ]
         }, {
           "oauth2" : [ "crm.objects.deals.read" ]
         }, {
           "private_apps_legacy" : [ "contacts" ]
         }, {
-          "private_apps" : [ "crm.objects.contacts.read" ]
+          "private_apps" : [ "crm.objects.owners.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.owners.read" ]
         }, {
           "oauth2_legacy" : [ "crm.schemas.custom.read" ]
         }, {
           "private_apps" : [ "crm.objects.companies.read" ]
         }, {
-          "private_apps" : [ "crm.objects.deals.write" ]
-        }, {
           "oauth2" : [ "crm.schemas.quotes.read" ]
         }, {
           "private_apps" : [ "crm.schemas.quotes.read" ]
         }, {
-          "oauth2" : [ "crm.objects.deals.write" ]
-        }, {
           "oauth2" : [ "crm.objects.companies.read" ]
+        }, {
+          "oauth2_legacy" : [ "crm.objects.marketing_events.read" ]
+        }, {
+          "private_apps_legacy" : [ "crm.objects.marketing_events.write" ]
         }, {
           "private_apps_legacy" : [ "crm.schemas.custom.read" ]
         }, {
           "private_apps_legacy" : [ "crm.objects.goals.read" ]
-        }, {
-          "private_apps" : [ "crm.schemas.deals.read" ]
-        }, {
-          "oauth2" : [ "crm.schemas.deals.read" ]
         }, {
           "oauth2_legacy" : [ "timeline" ]
         }, {
@@ -732,17 +852,13 @@
         }, {
           "oauth2" : [ "crm.objects.companies.write" ]
         }, {
-          "oauth2" : [ "crm.schemas.contacts.read" ]
-        }, {
-          "private_apps" : [ "crm.schemas.contacts.read" ]
-        }, {
           "oauth2_legacy" : [ "tickets" ]
         }, {
+          "private_apps_legacy" : [ "crm.objects.custom.write" ]
+        }, {
+          "oauth2_legacy" : [ "crm.objects.feedback_submissions.read" ]
+        }, {
           "private_apps_legacy" : [ "e-commerce" ]
-        }, {
-          "oauth2" : [ "crm.objects.contacts.write" ]
-        }, {
-          "private_apps" : [ "crm.objects.contacts.write" ]
         }, {
           "private_apps" : [ "crm.schemas.companies.read" ]
         }, {
@@ -752,11 +868,55 @@
         }, {
           "private_apps_legacy" : [ "tickets" ]
         }, {
+          "private_apps_legacy" : [ "crm.objects.feedback_submissions.read" ]
+        }, {
           "oauth2_legacy" : [ "crm.objects.goals.read" ]
         }, {
           "private_apps" : [ "crm.schemas.line_items.read" ]
         }, {
+          "oauth2_legacy" : [ "crm.objects.custom.write" ]
+        }, {
           "oauth2" : [ "crm.schemas.line_items.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.contacts.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.contacts.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.deals.write" ]
+        }, {
+          "oauth2" : [ "crm.objects.deals.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.deals.read" ]
+        }, {
+          "oauth2" : [ "crm.schemas.deals.read" ]
+        }, {
+          "oauth2" : [ "crm.schemas.contacts.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.quotes.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.contacts.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.quotes.write" ]
+        }, {
+          "private_apps" : [ "crm.objects.line_items.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.contacts.write" ]
+        }, {
+          "private_apps" : [ "crm.objects.contacts.write" ]
+        }, {
+          "oauth2" : [ "crm.objects.line_items.read" ]
+        }, {
+          "oauth2_legacy" : [ "crm.objects.custom.read" ]
+        }, {
+          "private_apps_legacy" : [ "crm.objects.custom.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.line_items.write" ]
+        }, {
+          "private_apps" : [ "crm.objects.line_items.write" ]
+        }, {
+          "oauth2" : [ "crm.objects.quotes.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.quotes.read" ]
         } ]
       },
       "post" : {
@@ -869,39 +1029,39 @@
         "security" : [ {
           "oauth2_legacy" : [ "media_bridge.read" ]
         }, {
-          "oauth2" : [ "crm.objects.contacts.read" ]
-        }, {
           "private_apps" : [ "crm.objects.deals.read" ]
         }, {
           "private_apps_legacy" : [ "timeline" ]
+        }, {
+          "private_apps_legacy" : [ "crm.objects.marketing_events.read" ]
+        }, {
+          "oauth2_legacy" : [ "crm.objects.marketing_events.write" ]
         }, {
           "oauth2" : [ "crm.objects.deals.read" ]
         }, {
           "private_apps_legacy" : [ "contacts" ]
         }, {
-          "private_apps" : [ "crm.objects.contacts.read" ]
+          "private_apps" : [ "crm.objects.owners.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.owners.read" ]
         }, {
           "oauth2_legacy" : [ "crm.schemas.custom.read" ]
         }, {
           "private_apps" : [ "crm.objects.companies.read" ]
         }, {
-          "private_apps" : [ "crm.objects.deals.write" ]
-        }, {
           "oauth2" : [ "crm.schemas.quotes.read" ]
         }, {
           "private_apps" : [ "crm.schemas.quotes.read" ]
         }, {
-          "oauth2" : [ "crm.objects.deals.write" ]
-        }, {
           "oauth2" : [ "crm.objects.companies.read" ]
+        }, {
+          "oauth2_legacy" : [ "crm.objects.marketing_events.read" ]
+        }, {
+          "private_apps_legacy" : [ "crm.objects.marketing_events.write" ]
         }, {
           "private_apps_legacy" : [ "crm.schemas.custom.read" ]
         }, {
           "private_apps_legacy" : [ "crm.objects.goals.read" ]
-        }, {
-          "private_apps" : [ "crm.schemas.deals.read" ]
-        }, {
-          "oauth2" : [ "crm.schemas.deals.read" ]
         }, {
           "oauth2_legacy" : [ "timeline" ]
         }, {
@@ -911,17 +1071,13 @@
         }, {
           "oauth2" : [ "crm.objects.companies.write" ]
         }, {
-          "oauth2" : [ "crm.schemas.contacts.read" ]
-        }, {
-          "private_apps" : [ "crm.schemas.contacts.read" ]
-        }, {
           "oauth2_legacy" : [ "tickets" ]
         }, {
+          "private_apps_legacy" : [ "crm.objects.custom.write" ]
+        }, {
+          "oauth2_legacy" : [ "crm.objects.feedback_submissions.read" ]
+        }, {
           "private_apps_legacy" : [ "e-commerce" ]
-        }, {
-          "oauth2" : [ "crm.objects.contacts.write" ]
-        }, {
-          "private_apps" : [ "crm.objects.contacts.write" ]
         }, {
           "private_apps" : [ "crm.schemas.companies.read" ]
         }, {
@@ -931,11 +1087,55 @@
         }, {
           "private_apps_legacy" : [ "tickets" ]
         }, {
+          "private_apps_legacy" : [ "crm.objects.feedback_submissions.read" ]
+        }, {
           "oauth2_legacy" : [ "crm.objects.goals.read" ]
         }, {
           "private_apps" : [ "crm.schemas.line_items.read" ]
         }, {
+          "oauth2_legacy" : [ "crm.objects.custom.write" ]
+        }, {
           "oauth2" : [ "crm.schemas.line_items.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.contacts.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.contacts.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.deals.write" ]
+        }, {
+          "oauth2" : [ "crm.objects.deals.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.deals.read" ]
+        }, {
+          "oauth2" : [ "crm.schemas.deals.read" ]
+        }, {
+          "oauth2" : [ "crm.schemas.contacts.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.quotes.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.contacts.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.quotes.write" ]
+        }, {
+          "private_apps" : [ "crm.objects.line_items.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.contacts.write" ]
+        }, {
+          "private_apps" : [ "crm.objects.contacts.write" ]
+        }, {
+          "oauth2" : [ "crm.objects.line_items.read" ]
+        }, {
+          "oauth2_legacy" : [ "crm.objects.custom.read" ]
+        }, {
+          "private_apps_legacy" : [ "crm.objects.custom.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.line_items.write" ]
+        }, {
+          "private_apps" : [ "crm.objects.line_items.write" ]
+        }, {
+          "oauth2" : [ "crm.objects.quotes.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.quotes.read" ]
         } ]
       },
       "post" : {
@@ -1057,39 +1257,39 @@
         "security" : [ {
           "oauth2_legacy" : [ "media_bridge.read" ]
         }, {
-          "oauth2" : [ "crm.objects.contacts.read" ]
-        }, {
           "private_apps" : [ "crm.objects.deals.read" ]
         }, {
           "private_apps_legacy" : [ "timeline" ]
+        }, {
+          "private_apps_legacy" : [ "crm.objects.marketing_events.read" ]
+        }, {
+          "oauth2_legacy" : [ "crm.objects.marketing_events.write" ]
         }, {
           "oauth2" : [ "crm.objects.deals.read" ]
         }, {
           "private_apps_legacy" : [ "contacts" ]
         }, {
-          "private_apps" : [ "crm.objects.contacts.read" ]
+          "private_apps" : [ "crm.objects.owners.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.owners.read" ]
         }, {
           "oauth2_legacy" : [ "crm.schemas.custom.read" ]
         }, {
           "private_apps" : [ "crm.objects.companies.read" ]
         }, {
-          "private_apps" : [ "crm.objects.deals.write" ]
-        }, {
           "oauth2" : [ "crm.schemas.quotes.read" ]
         }, {
           "private_apps" : [ "crm.schemas.quotes.read" ]
         }, {
-          "oauth2" : [ "crm.objects.deals.write" ]
-        }, {
           "oauth2" : [ "crm.objects.companies.read" ]
+        }, {
+          "oauth2_legacy" : [ "crm.objects.marketing_events.read" ]
+        }, {
+          "private_apps_legacy" : [ "crm.objects.marketing_events.write" ]
         }, {
           "private_apps_legacy" : [ "crm.schemas.custom.read" ]
         }, {
           "private_apps_legacy" : [ "crm.objects.goals.read" ]
-        }, {
-          "private_apps" : [ "crm.schemas.deals.read" ]
-        }, {
-          "oauth2" : [ "crm.schemas.deals.read" ]
         }, {
           "oauth2_legacy" : [ "timeline" ]
         }, {
@@ -1099,17 +1299,13 @@
         }, {
           "oauth2" : [ "crm.objects.companies.write" ]
         }, {
-          "oauth2" : [ "crm.schemas.contacts.read" ]
-        }, {
-          "private_apps" : [ "crm.schemas.contacts.read" ]
-        }, {
           "oauth2_legacy" : [ "tickets" ]
         }, {
+          "private_apps_legacy" : [ "crm.objects.custom.write" ]
+        }, {
+          "oauth2_legacy" : [ "crm.objects.feedback_submissions.read" ]
+        }, {
           "private_apps_legacy" : [ "e-commerce" ]
-        }, {
-          "oauth2" : [ "crm.objects.contacts.write" ]
-        }, {
-          "private_apps" : [ "crm.objects.contacts.write" ]
         }, {
           "private_apps" : [ "crm.schemas.companies.read" ]
         }, {
@@ -1119,11 +1315,55 @@
         }, {
           "private_apps_legacy" : [ "tickets" ]
         }, {
+          "private_apps_legacy" : [ "crm.objects.feedback_submissions.read" ]
+        }, {
           "oauth2_legacy" : [ "crm.objects.goals.read" ]
         }, {
           "private_apps" : [ "crm.schemas.line_items.read" ]
         }, {
+          "oauth2_legacy" : [ "crm.objects.custom.write" ]
+        }, {
           "oauth2" : [ "crm.schemas.line_items.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.contacts.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.contacts.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.deals.write" ]
+        }, {
+          "oauth2" : [ "crm.objects.deals.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.deals.read" ]
+        }, {
+          "oauth2" : [ "crm.schemas.deals.read" ]
+        }, {
+          "oauth2" : [ "crm.schemas.contacts.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.quotes.write" ]
+        }, {
+          "private_apps" : [ "crm.schemas.contacts.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.quotes.write" ]
+        }, {
+          "private_apps" : [ "crm.objects.line_items.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.contacts.write" ]
+        }, {
+          "private_apps" : [ "crm.objects.contacts.write" ]
+        }, {
+          "oauth2" : [ "crm.objects.line_items.read" ]
+        }, {
+          "oauth2_legacy" : [ "crm.objects.custom.read" ]
+        }, {
+          "private_apps_legacy" : [ "crm.objects.custom.read" ]
+        }, {
+          "oauth2" : [ "crm.objects.line_items.write" ]
+        }, {
+          "private_apps" : [ "crm.objects.line_items.write" ]
+        }, {
+          "oauth2" : [ "crm.objects.quotes.read" ]
+        }, {
+          "private_apps" : [ "crm.objects.quotes.read" ]
         } ]
       },
       "put" : {
@@ -1437,8 +1677,7 @@
           "createdAt" : {
             "type" : "string",
             "description" : "The date the pipeline stage was created. The stages on default pipelines will have createdAt = 0.",
-            "format" : "date-time",
-            "example" : "2019-10-30T03:30:17.883+00:00"
+            "format" : "date-time"
           },
           "archivedAt" : {
             "type" : "string",
@@ -1483,8 +1722,7 @@
           "updatedAt" : {
             "type" : "string",
             "description" : "The date the pipeline stage was last updated.",
-            "format" : "date-time",
-            "example" : "2019-12-07T16:50:06.678+00:00"
+            "format" : "date-time"
           }
         },
         "description" : "A pipeline stage definition.",
@@ -1627,8 +1865,7 @@
           "createdAt" : {
             "type" : "string",
             "description" : "The date the pipeline was created. The default pipelines will have createdAt = 0.",
-            "format" : "date-time",
-            "example" : "2019-10-30T03:30:17.883+00:00"
+            "format" : "date-time"
           },
           "archivedAt" : {
             "type" : "string",
@@ -1687,8 +1924,7 @@
           "updatedAt" : {
             "type" : "string",
             "description" : "The date the pipeline was last updated.",
-            "format" : "date-time",
-            "example" : "2019-12-07T16:50:06.678+00:00"
+            "format" : "date-time"
           }
         },
         "description" : "A pipeline definition.",
@@ -1880,12 +2116,17 @@
             "authorizationUrl" : "https://app.hubspot.com/oauth/authorize",
             "tokenUrl" : "https://api.hubapi.com/oauth/v1/token",
             "scopes" : {
+              "crm.objects.marketing_events.write" : "Write marketing events",
+              "crm.objects.custom.write" : "Change custom object records",
+              "crm.objects.feedback_submissions.read" : "View feedback survey submissions",
+              "crm.objects.marketing_events.read" : "Read marketing events",
               "crm.objects.goals.read" : "Read goals",
-              "media_bridge.read" : "Read media and media events",
-              "e-commerce" : "e-commerce",
-              "timeline" : "Create timeline events",
               "crm.schemas.custom.read" : "View custom object definitions",
-              "tickets" : "Read and write tickets"
+              "crm.objects.custom.read" : "View custom object records",
+              "tickets" : "Read and write tickets",
+              "e-commerce" : "e-commerce",
+              "media_bridge.read" : "Read media and media events",
+              "timeline" : "Create timeline events"
             }
           }
         }
@@ -1897,20 +2138,25 @@
             "authorizationUrl" : "https://app.hubspot.com/oauth/authorize",
             "tokenUrl" : "https://api.hubapi.com/oauth/v1/token",
             "scopes" : {
-              "crm.objects.deals.write" : " ",
-              "crm.schemas.deals.read" : " ",
-              "crm.objects.contacts.read" : " ",
-              "crm.schemas.quotes.read" : "Quotes schemas",
-              "crm.objects.contacts.write" : " ",
-              "crm.schemas.contacts.read" : " ",
-              "crm.objects.companies.write" : " ",
-              "crm.objects.companies.read" : " ",
               "crm.schemas.companies.read" : " ",
-              "crm.objects.deals.read" : " ",
+              "crm.objects.owners.read" : " ",
+              "crm.schemas.quotes.read" : "Quotes schemas",
+              "crm.objects.companies.write" : " ",
               "crm.schemas.line_items.read" : "Line Items schemas",
+              "crm.objects.quotes.read" : "Quotes",
+              "crm.objects.line_items.read" : "Line Items",
+              "crm.schemas.contacts.read" : " ",
+              "crm.objects.deals.read" : " ",
+              "crm.objects.contacts.read" : " ",
+              "crm.schemas.deals.read" : " ",
+              "crm.objects.contacts.write" : " ",
+              "crm.objects.deals.write" : " ",
+              "crm.objects.line_items.write" : "Line Items",
+              "crm.objects.quotes.write" : "Quotes",
+              "crm.objects.companies.read" : " ",
               "crm.schemas.deals.write" : " ",
-              "crm.schemas.contacts.write" : " ",
-              "crm.schemas.companies.write" : " "
+              "crm.schemas.companies.write" : " ",
+              "crm.schemas.contacts.write" : " "
             }
           }
         }

@@ -13,19 +13,19 @@ package line_items
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 
-	"github.com/clarkmcc/go-hubspot"
+	"github.com/inpher/go-hubspot"
 	"net/url"
 )
 
-// PublicObjectApiService PublicObjectApi service
-type PublicObjectApiService service
+// PublicObjectAPIService PublicObjectAPI service
+type PublicObjectAPIService service
 
 type ApiPostCrmV3ObjectsLineItemsMergeMergeRequest struct {
 	ctx              context.Context
-	ApiService       *PublicObjectApiService
+	ApiService       *PublicObjectAPIService
 	publicMergeInput *PublicMergeInput
 }
 
@@ -41,10 +41,10 @@ func (r ApiPostCrmV3ObjectsLineItemsMergeMergeRequest) Execute() (*SimplePublicO
 /*
 PostCrmV3ObjectsLineItemsMergeMerge Merge two line items with same type
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostCrmV3ObjectsLineItemsMergeMergeRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiPostCrmV3ObjectsLineItemsMergeMergeRequest
 */
-func (a *PublicObjectApiService) PostCrmV3ObjectsLineItemsMergeMerge(ctx context.Context) ApiPostCrmV3ObjectsLineItemsMergeMergeRequest {
+func (a *PublicObjectAPIService) PostCrmV3ObjectsLineItemsMergeMerge(ctx context.Context) ApiPostCrmV3ObjectsLineItemsMergeMergeRequest {
 	return ApiPostCrmV3ObjectsLineItemsMergeMergeRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -52,8 +52,9 @@ func (a *PublicObjectApiService) PostCrmV3ObjectsLineItemsMergeMerge(ctx context
 }
 
 // Execute executes the request
-//  @return SimplePublicObject
-func (a *PublicObjectApiService) PostCrmV3ObjectsLineItemsMergeMergeExecute(r ApiPostCrmV3ObjectsLineItemsMergeMergeRequest) (*SimplePublicObject, *http.Response, error) {
+//
+//	@return SimplePublicObject
+func (a *PublicObjectAPIService) PostCrmV3ObjectsLineItemsMergeMergeExecute(r ApiPostCrmV3ObjectsLineItemsMergeMergeRequest) (*SimplePublicObject, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -61,7 +62,7 @@ func (a *PublicObjectApiService) PostCrmV3ObjectsLineItemsMergeMergeExecute(r Ap
 		localVarReturnValue *SimplePublicObject
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicObjectApiService.PostCrmV3ObjectsLineItemsMergeMerge")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicObjectAPIService.PostCrmV3ObjectsLineItemsMergeMerge")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -114,9 +115,9 @@ func (a *PublicObjectApiService) PostCrmV3ObjectsLineItemsMergeMergeExecute(r Ap
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -132,6 +133,7 @@ func (a *PublicObjectApiService) PostCrmV3ObjectsLineItemsMergeMergeExecute(r Ap
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

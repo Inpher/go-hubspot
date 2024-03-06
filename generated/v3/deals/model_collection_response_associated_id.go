@@ -11,14 +11,21 @@ API version: v3
 package deals
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the CollectionResponseAssociatedId type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CollectionResponseAssociatedId{}
 
 // CollectionResponseAssociatedId struct for CollectionResponseAssociatedId
 type CollectionResponseAssociatedId struct {
 	Paging  *Paging        `json:"paging,omitempty"`
 	Results []AssociatedId `json:"results"`
 }
+
+type _CollectionResponseAssociatedId CollectionResponseAssociatedId
 
 // NewCollectionResponseAssociatedId instantiates a new CollectionResponseAssociatedId object
 // This constructor will assign default values to properties that have it defined,
@@ -40,7 +47,7 @@ func NewCollectionResponseAssociatedIdWithDefaults() *CollectionResponseAssociat
 
 // GetPaging returns the Paging field value if set, zero value otherwise.
 func (o *CollectionResponseAssociatedId) GetPaging() Paging {
-	if o == nil || o.Paging == nil {
+	if o == nil || IsNil(o.Paging) {
 		var ret Paging
 		return ret
 	}
@@ -50,7 +57,7 @@ func (o *CollectionResponseAssociatedId) GetPaging() Paging {
 // GetPagingOk returns a tuple with the Paging field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionResponseAssociatedId) GetPagingOk() (*Paging, bool) {
-	if o == nil || o.Paging == nil {
+	if o == nil || IsNil(o.Paging) {
 		return nil, false
 	}
 	return o.Paging, true
@@ -58,7 +65,7 @@ func (o *CollectionResponseAssociatedId) GetPagingOk() (*Paging, bool) {
 
 // HasPaging returns a boolean if a field has been set.
 func (o *CollectionResponseAssociatedId) HasPaging() bool {
-	if o != nil && o.Paging != nil {
+	if o != nil && !IsNil(o.Paging) {
 		return true
 	}
 
@@ -95,14 +102,57 @@ func (o *CollectionResponseAssociatedId) SetResults(v []AssociatedId) {
 }
 
 func (o CollectionResponseAssociatedId) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Paging != nil {
-		toSerialize["paging"] = o.Paging
-	}
-	if true {
-		toSerialize["results"] = o.Results
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CollectionResponseAssociatedId) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Paging) {
+		toSerialize["paging"] = o.Paging
+	}
+	toSerialize["results"] = o.Results
+	return toSerialize, nil
+}
+
+func (o *CollectionResponseAssociatedId) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"results",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCollectionResponseAssociatedId := _CollectionResponseAssociatedId{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varCollectionResponseAssociatedId)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CollectionResponseAssociatedId(varCollectionResponseAssociatedId)
+
+	return err
 }
 
 type NullableCollectionResponseAssociatedId struct {

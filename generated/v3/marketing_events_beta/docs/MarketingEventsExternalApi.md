@@ -1,10 +1,10 @@
-# \MarketingEventsExternalApi
+# \MarketingEventsExternalAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ExternalCompleteComplete**](MarketingEventsExternalApi.md#ExternalCompleteComplete) | **Post** /marketing/v3/marketing-events/events/{externalEventId}/complete | 
+[**ExternalCompleteComplete**](MarketingEventsExternalAPI.md#ExternalCompleteComplete) | **Post** /marketing/v3/marketing-events/events/{externalEventId}/complete | 
 
 
 
@@ -20,27 +20,27 @@ Method | HTTP request | Description
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    openapiclient "./openapi"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    externalEventId := "externalEventId_example" // string | 
-    externalAccountId := "externalAccountId_example" // string | 
-    marketingEventCompleteRequestParams := *openapiclient.NewMarketingEventCompleteRequestParams(time.Now(), time.Now()) // MarketingEventCompleteRequestParams | 
+	externalEventId := "externalEventId_example" // string | 
+	externalAccountId := "externalAccountId_example" // string | 
+	marketingEventCompleteRequestParams := *openapiclient.NewMarketingEventCompleteRequestParams(time.Now(), time.Now()) // MarketingEventCompleteRequestParams | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.MarketingEventsExternalApi.ExternalCompleteComplete(context.Background(), externalEventId).ExternalAccountId(externalAccountId).MarketingEventCompleteRequestParams(marketingEventCompleteRequestParams).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `MarketingEventsExternalApi.ExternalCompleteComplete``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ExternalCompleteComplete`: MarketingEventDefaultResponse
-    fmt.Fprintf(os.Stdout, "Response from `MarketingEventsExternalApi.ExternalCompleteComplete`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketingEventsExternalAPI.ExternalCompleteComplete(context.Background(), externalEventId).ExternalAccountId(externalAccountId).MarketingEventCompleteRequestParams(marketingEventCompleteRequestParams).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketingEventsExternalAPI.ExternalCompleteComplete``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ExternalCompleteComplete`: MarketingEventDefaultResponse
+	fmt.Fprintf(os.Stdout, "Response from `MarketingEventsExternalAPI.ExternalCompleteComplete`: %v\n", resp)
 }
 ```
 

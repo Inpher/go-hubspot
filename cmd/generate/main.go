@@ -20,7 +20,7 @@ var (
 	replacer     = strings.NewReplacer(" ", "_", "-", "_")
 )
 
-//preProcessMap contains a grouped list of operations to rename before generating typings.
+// preProcessMap contains a grouped list of operations to rename before generating typings.
 var preProcessMap = map[string][]preProcessEntry{
 	"Accounting": {
 		{old: "post-/crm/.*/extensions/accounting/callback/customer-create/{requestId}_createCustomer", new: "CallbackCreateCustomer"},
@@ -588,6 +588,7 @@ func main() {
 	//outer:
 	for _, group := range r.Results {
 		for name, feature := range group.Features {
+			fmt.Printf("Working on group/feature %s/%s\n", strings.ToLower(group.Name), name)
 			schema, err := retrieveSchema(feature.OpenAPI)
 
 			if err != nil {
@@ -603,7 +604,9 @@ func main() {
 			version, err := versionFromSchema(schema)
 
 			if err != nil {
-				panic(err)
+				fmt.Printf("Unable to retrieve version from schema: %s\n", err)
+				continue
+				//panic(err)
 			}
 
 			//if i > 0 {
@@ -667,7 +670,7 @@ func main() {
 				// Add imports for authorization package
 				idx := bytes.Index(b, []byte("\"net/url\""))
 				if idx >= 0 {
-					b = bytes.Join([][]byte{b[:idx], []byte("\t\"github.com/clarkmcc/go-hubspot\""), b[idx:]}, []byte("\n"))
+					b = bytes.Join([][]byte{b[:idx], []byte("\t\"github.com/inpher/go-hubspot\""), b[idx:]}, []byte("\n"))
 				}
 
 				err = os.WriteFile(path, b, 0666)

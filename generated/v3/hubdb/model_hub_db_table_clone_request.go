@@ -11,8 +11,13 @@ API version: v3
 package hubdb
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the HubDbTableCloneRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &HubDbTableCloneRequest{}
 
 // HubDbTableCloneRequest struct for HubDbTableCloneRequest
 type HubDbTableCloneRequest struct {
@@ -23,6 +28,8 @@ type HubDbTableCloneRequest struct {
 	// Specifies whether to copy the rows during clone
 	CopyRows bool `json:"copyRows"`
 }
+
+type _HubDbTableCloneRequest HubDbTableCloneRequest
 
 // NewHubDbTableCloneRequest instantiates a new HubDbTableCloneRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -44,7 +51,7 @@ func NewHubDbTableCloneRequestWithDefaults() *HubDbTableCloneRequest {
 
 // GetNewName returns the NewName field value if set, zero value otherwise.
 func (o *HubDbTableCloneRequest) GetNewName() string {
-	if o == nil || o.NewName == nil {
+	if o == nil || IsNil(o.NewName) {
 		var ret string
 		return ret
 	}
@@ -54,7 +61,7 @@ func (o *HubDbTableCloneRequest) GetNewName() string {
 // GetNewNameOk returns a tuple with the NewName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *HubDbTableCloneRequest) GetNewNameOk() (*string, bool) {
-	if o == nil || o.NewName == nil {
+	if o == nil || IsNil(o.NewName) {
 		return nil, false
 	}
 	return o.NewName, true
@@ -62,7 +69,7 @@ func (o *HubDbTableCloneRequest) GetNewNameOk() (*string, bool) {
 
 // HasNewName returns a boolean if a field has been set.
 func (o *HubDbTableCloneRequest) HasNewName() bool {
-	if o != nil && o.NewName != nil {
+	if o != nil && !IsNil(o.NewName) {
 		return true
 	}
 
@@ -76,7 +83,7 @@ func (o *HubDbTableCloneRequest) SetNewName(v string) {
 
 // GetNewLabel returns the NewLabel field value if set, zero value otherwise.
 func (o *HubDbTableCloneRequest) GetNewLabel() string {
-	if o == nil || o.NewLabel == nil {
+	if o == nil || IsNil(o.NewLabel) {
 		var ret string
 		return ret
 	}
@@ -86,7 +93,7 @@ func (o *HubDbTableCloneRequest) GetNewLabel() string {
 // GetNewLabelOk returns a tuple with the NewLabel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *HubDbTableCloneRequest) GetNewLabelOk() (*string, bool) {
-	if o == nil || o.NewLabel == nil {
+	if o == nil || IsNil(o.NewLabel) {
 		return nil, false
 	}
 	return o.NewLabel, true
@@ -94,7 +101,7 @@ func (o *HubDbTableCloneRequest) GetNewLabelOk() (*string, bool) {
 
 // HasNewLabel returns a boolean if a field has been set.
 func (o *HubDbTableCloneRequest) HasNewLabel() bool {
-	if o != nil && o.NewLabel != nil {
+	if o != nil && !IsNil(o.NewLabel) {
 		return true
 	}
 
@@ -131,17 +138,60 @@ func (o *HubDbTableCloneRequest) SetCopyRows(v bool) {
 }
 
 func (o HubDbTableCloneRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.NewName != nil {
-		toSerialize["newName"] = o.NewName
-	}
-	if o.NewLabel != nil {
-		toSerialize["newLabel"] = o.NewLabel
-	}
-	if true {
-		toSerialize["copyRows"] = o.CopyRows
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o HubDbTableCloneRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.NewName) {
+		toSerialize["newName"] = o.NewName
+	}
+	if !IsNil(o.NewLabel) {
+		toSerialize["newLabel"] = o.NewLabel
+	}
+	toSerialize["copyRows"] = o.CopyRows
+	return toSerialize, nil
+}
+
+func (o *HubDbTableCloneRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"copyRows",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varHubDbTableCloneRequest := _HubDbTableCloneRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varHubDbTableCloneRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = HubDbTableCloneRequest(varHubDbTableCloneRequest)
+
+	return err
 }
 
 type NullableHubDbTableCloneRequest struct {

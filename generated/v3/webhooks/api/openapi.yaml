@@ -352,8 +352,8 @@ components:
           - ROLLING_MINUTE
           type: string
         maxConcurrentRequests:
-          description: The maximum number of HTTP requests HubSpot will attempt to
-            make to your app in a given time frame determined by `period`.
+          description: The maximum number of concurrent HTTP requests HubSpot will
+            attempt to make to your app.
           format: int32
           type: integer
       required:
@@ -361,6 +361,35 @@ components:
       - period
       type: object
     StandardError:
+      example:
+        subCategory: "{}"
+        context:
+          key:
+          - context
+          - context
+        links:
+          key: links
+        id: id
+        category: category
+        message: message
+        errors:
+        - subCategory: subCategory
+          code: code
+          in: in
+          context:
+            missingScopes:
+            - scope1
+            - scope2
+          message: message
+        - subCategory: subCategory
+          code: code
+          in: in
+          context:
+            missingScopes:
+            - scope1
+            - scope2
+          message: message
+        status: status
       properties:
         subCategory:
           properties: {}
@@ -472,6 +501,25 @@ components:
       required:
       - results
       type: object
+    SettingsChangeRequest:
+      description: New or updated webhook settings for an app.
+      example:
+        targetUrl: https://www.example.com/hubspot/target
+        throttling:
+          maxConcurrentRequests: 10
+          period: SECONDLY
+      properties:
+        throttling:
+          $ref: '#/components/schemas/ThrottlingSettings'
+        targetUrl:
+          description: A publicly available URL for HubSpot to call where event payloads
+            will be delivered.
+          example: https://www.example.com/hubspot/target
+          type: string
+      required:
+      - targetUrl
+      - throttling
+      type: object
     Error:
       example:
         message: Invalid input (details will vary based on the error)
@@ -530,26 +578,6 @@ components:
       - correlationId
       - message
       type: object
-    SettingsChangeRequest:
-      description: New or updated webhook settings for an app.
-      example:
-        targetUrl: https://www.example.com/hubspot/target
-        throttling:
-          maxConcurrentRequests: 10
-          period: SECONDLY
-      properties:
-        throttling:
-          $ref: '#/components/schemas/ThrottlingSettings'
-        targetUrl:
-          description: "A publicly available URL for Hubspot to call where event payloads\
-            \ will be delivered. See [link-so-some-doc](#) for details about the format\
-            \ of these event payloads."
-          example: https://www.example.com/hubspot/target
-          type: string
-      required:
-      - targetUrl
-      - throttling
-      type: object
     SubscriptionPatchRequest:
       description: Updated details for the subscription.
       example:
@@ -561,6 +589,84 @@ components:
           type: boolean
       type: object
     BatchResponseSubscriptionResponseWithErrors:
+      example:
+        completedAt: 2000-01-23T04:56:07.000+00:00
+        numErrors: 0
+        requestedAt: 2000-01-23T04:56:07.000+00:00
+        startedAt: 2000-01-23T04:56:07.000+00:00
+        links:
+          key: links
+        results:
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          propertyName: propertyName
+          active: true
+          eventType: contact.propertyChange
+          id: id
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          propertyName: propertyName
+          active: true
+          eventType: contact.propertyChange
+          id: id
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        errors:
+        - subCategory: "{}"
+          context:
+            key:
+            - context
+            - context
+          links:
+            key: links
+          id: id
+          category: category
+          message: message
+          errors:
+          - subCategory: subCategory
+            code: code
+            in: in
+            context:
+              missingScopes:
+              - scope1
+              - scope2
+            message: message
+          - subCategory: subCategory
+            code: code
+            in: in
+            context:
+              missingScopes:
+              - scope1
+              - scope2
+            message: message
+          status: status
+        - subCategory: "{}"
+          context:
+            key:
+            - context
+            - context
+          links:
+            key: links
+          id: id
+          category: category
+          message: message
+          errors:
+          - subCategory: subCategory
+            code: code
+            in: in
+            context:
+              missingScopes:
+              - scope1
+              - scope2
+            message: message
+          - subCategory: subCategory
+            code: code
+            in: in
+            context:
+              missingScopes:
+              - scope1
+              - scope2
+            message: message
+          status: status
+        status: PENDING
       properties:
         completedAt:
           format: date-time
@@ -600,6 +706,15 @@ components:
       - status
       type: object
     ErrorDetail:
+      example:
+        subCategory: subCategory
+        code: code
+        in: in
+        context:
+          missingScopes:
+          - scope1
+          - scope2
+        message: message
       properties:
         subCategory:
           description: A specific category that contains more specific detail about
@@ -647,7 +762,7 @@ components:
         throttling:
           $ref: '#/components/schemas/ThrottlingSettings'
         targetUrl:
-          description: "A publicly available URL for Hubspot to call where event payloads\
+          description: "A publicly available URL for HubSpot to call where event payloads\
             \ will be delivered. See [link-so-some-doc](#) for details about the format\
             \ of these event payloads."
           example: https://www.example.com/hubspot/target
@@ -676,20 +791,6 @@ components:
           type: array
       required:
       - inputs
-      type: object
-    SubscriptionBatchUpdateRequest:
-      example:
-        active: true
-        id: 0
-      properties:
-        active:
-          type: boolean
-        id:
-          format: int32
-          type: integer
-      required:
-      - active
-      - id
       type: object
     SubscriptionResponse:
       description: Complete details for an event subscription.
@@ -771,6 +872,20 @@ components:
       - active
       - createdAt
       - eventType
+      - id
+      type: object
+    SubscriptionBatchUpdateRequest:
+      example:
+        active: true
+        id: 0
+      properties:
+        active:
+          type: boolean
+        id:
+          format: int32
+          type: integer
+      required:
+      - active
       - id
       type: object
     SubscriptionCreateRequest:

@@ -13,21 +13,21 @@ package business_units
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 
-	"github.com/clarkmcc/go-hubspot"
+	"github.com/inpher/go-hubspot"
 	"net/url"
 	"reflect"
 	"strings"
 )
 
-// BusinessUnitApiService BusinessUnitApi service
-type BusinessUnitApiService service
+// BusinessUnitAPIService BusinessUnitAPI service
+type BusinessUnitAPIService service
 
 type ApiGetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserIDRequest struct {
 	ctx        context.Context
-	ApiService *BusinessUnitApiService
+	ApiService *BusinessUnitAPIService
 	userId     string
 	properties *[]string
 	name       *[]string
@@ -54,11 +54,11 @@ GetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserID Get Business Units for a us
 
 Get Business Units identified by `userId`. The `userId` refers to the user’s ID.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId Identifier of user to retrieve.
- @return ApiGetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserIDRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId Identifier of user to retrieve.
+	@return ApiGetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserIDRequest
 */
-func (a *BusinessUnitApiService) GetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserID(ctx context.Context, userId string) ApiGetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserIDRequest {
+func (a *BusinessUnitAPIService) GetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserID(ctx context.Context, userId string) ApiGetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserIDRequest {
 	return ApiGetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserIDRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -67,8 +67,9 @@ func (a *BusinessUnitApiService) GetBusinessUnitsV3BusinessUnitsUserUserIdGetByU
 }
 
 // Execute executes the request
-//  @return CollectionResponsePublicBusinessUnitNoPaging
-func (a *BusinessUnitApiService) GetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserIDExecute(r ApiGetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserIDRequest) (*CollectionResponsePublicBusinessUnitNoPaging, *http.Response, error) {
+//
+//	@return CollectionResponsePublicBusinessUnitNoPaging
+func (a *BusinessUnitAPIService) GetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserIDExecute(r ApiGetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserIDRequest) (*CollectionResponsePublicBusinessUnitNoPaging, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -76,13 +77,13 @@ func (a *BusinessUnitApiService) GetBusinessUnitsV3BusinessUnitsUserUserIdGetByU
 		localVarReturnValue *CollectionResponsePublicBusinessUnitNoPaging
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BusinessUnitApiService.GetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserID")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BusinessUnitAPIService.GetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserID")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/business-units/v3/business-units/user/{userId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterToString(r.userId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterValueToString(r.userId, "userId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -93,10 +94,10 @@ func (a *BusinessUnitApiService) GetBusinessUnitsV3BusinessUnitsUserUserIdGetByU
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("properties", parameterToString(s.Index(i), "multi"))
+				parameterAddToHeaderOrQuery(localVarQueryParams, "properties", s.Index(i).Interface(), "multi")
 			}
 		} else {
-			localVarQueryParams.Add("properties", parameterToString(t, "multi"))
+			parameterAddToHeaderOrQuery(localVarQueryParams, "properties", t, "multi")
 		}
 	}
 	if r.name != nil {
@@ -104,10 +105,10 @@ func (a *BusinessUnitApiService) GetBusinessUnitsV3BusinessUnitsUserUserIdGetByU
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("name", parameterToString(s.Index(i), "multi"))
+				parameterAddToHeaderOrQuery(localVarQueryParams, "name", s.Index(i).Interface(), "multi")
 			}
 		} else {
-			localVarQueryParams.Add("name", parameterToString(t, "multi"))
+			parameterAddToHeaderOrQuery(localVarQueryParams, "name", t, "multi")
 		}
 	}
 	// to determine the Content-Type header
@@ -147,9 +148,9 @@ func (a *BusinessUnitApiService) GetBusinessUnitsV3BusinessUnitsUserUserIdGetByU
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -165,6 +166,7 @@ func (a *BusinessUnitApiService) GetBusinessUnitsV3BusinessUnitsUserUserIdGetByU
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

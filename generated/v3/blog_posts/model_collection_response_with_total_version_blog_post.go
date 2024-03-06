@@ -11,8 +11,13 @@ API version: v3
 package blog_posts
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the CollectionResponseWithTotalVersionBlogPost type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CollectionResponseWithTotalVersionBlogPost{}
 
 // CollectionResponseWithTotalVersionBlogPost Response object for collections of blog post versions with pagination information.
 type CollectionResponseWithTotalVersionBlogPost struct {
@@ -22,6 +27,8 @@ type CollectionResponseWithTotalVersionBlogPost struct {
 	// Collection of blog post versions.
 	Results []VersionBlogPost `json:"results"`
 }
+
+type _CollectionResponseWithTotalVersionBlogPost CollectionResponseWithTotalVersionBlogPost
 
 // NewCollectionResponseWithTotalVersionBlogPost instantiates a new CollectionResponseWithTotalVersionBlogPost object
 // This constructor will assign default values to properties that have it defined,
@@ -68,7 +75,7 @@ func (o *CollectionResponseWithTotalVersionBlogPost) SetTotal(v int32) {
 
 // GetPaging returns the Paging field value if set, zero value otherwise.
 func (o *CollectionResponseWithTotalVersionBlogPost) GetPaging() Paging {
-	if o == nil || o.Paging == nil {
+	if o == nil || IsNil(o.Paging) {
 		var ret Paging
 		return ret
 	}
@@ -78,7 +85,7 @@ func (o *CollectionResponseWithTotalVersionBlogPost) GetPaging() Paging {
 // GetPagingOk returns a tuple with the Paging field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionResponseWithTotalVersionBlogPost) GetPagingOk() (*Paging, bool) {
-	if o == nil || o.Paging == nil {
+	if o == nil || IsNil(o.Paging) {
 		return nil, false
 	}
 	return o.Paging, true
@@ -86,7 +93,7 @@ func (o *CollectionResponseWithTotalVersionBlogPost) GetPagingOk() (*Paging, boo
 
 // HasPaging returns a boolean if a field has been set.
 func (o *CollectionResponseWithTotalVersionBlogPost) HasPaging() bool {
-	if o != nil && o.Paging != nil {
+	if o != nil && !IsNil(o.Paging) {
 		return true
 	}
 
@@ -123,17 +130,59 @@ func (o *CollectionResponseWithTotalVersionBlogPost) SetResults(v []VersionBlogP
 }
 
 func (o CollectionResponseWithTotalVersionBlogPost) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["total"] = o.Total
-	}
-	if o.Paging != nil {
-		toSerialize["paging"] = o.Paging
-	}
-	if true {
-		toSerialize["results"] = o.Results
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CollectionResponseWithTotalVersionBlogPost) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["total"] = o.Total
+	if !IsNil(o.Paging) {
+		toSerialize["paging"] = o.Paging
+	}
+	toSerialize["results"] = o.Results
+	return toSerialize, nil
+}
+
+func (o *CollectionResponseWithTotalVersionBlogPost) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"total",
+		"results",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCollectionResponseWithTotalVersionBlogPost := _CollectionResponseWithTotalVersionBlogPost{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varCollectionResponseWithTotalVersionBlogPost)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CollectionResponseWithTotalVersionBlogPost(varCollectionResponseWithTotalVersionBlogPost)
+
+	return err
 }
 
 type NullableCollectionResponseWithTotalVersionBlogPost struct {

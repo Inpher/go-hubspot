@@ -1,12 +1,12 @@
-# \StatusApi
+# \StatusAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetEmailStatus**](StatusApi.md#GetEmailStatus) | **Get** /communication-preferences/v3/status/email/{emailAddress} | Get subscription statuses for a contact
-[**Subscribe**](StatusApi.md#Subscribe) | **Post** /communication-preferences/v3/subscribe | Subscribe a contact
-[**Unsubscribe**](StatusApi.md#Unsubscribe) | **Post** /communication-preferences/v3/unsubscribe | Unsubscribe a contact
+[**GetEmailStatus**](StatusAPI.md#GetEmailStatus) | **Get** /communication-preferences/v3/status/email/{emailAddress} | Get subscription statuses for a contact
+[**Subscribe**](StatusAPI.md#Subscribe) | **Post** /communication-preferences/v3/subscribe | Subscribe a contact
+[**Unsubscribe**](StatusAPI.md#Unsubscribe) | **Post** /communication-preferences/v3/unsubscribe | Unsubscribe a contact
 
 
 
@@ -24,24 +24,24 @@ Get subscription statuses for a contact
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    emailAddress := "emailAddress_example" // string | 
+	emailAddress := "emailAddress_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.StatusApi.GetEmailStatus(context.Background(), emailAddress).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `StatusApi.GetEmailStatus``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetEmailStatus`: PublicSubscriptionStatusesResponse
-    fmt.Fprintf(os.Stdout, "Response from `StatusApi.GetEmailStatus`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.StatusAPI.GetEmailStatus(context.Background(), emailAddress).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `StatusAPI.GetEmailStatus``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetEmailStatus`: PublicSubscriptionStatusesResponse
+	fmt.Fprintf(os.Stdout, "Response from `StatusAPI.GetEmailStatus`: %v\n", resp)
 }
 ```
 
@@ -94,24 +94,24 @@ Subscribe a contact
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    publicUpdateSubscriptionStatusRequest := *openapiclient.NewPublicUpdateSubscriptionStatusRequest("EmailAddress_example", "SubscriptionId_example") // PublicUpdateSubscriptionStatusRequest | 
+	publicUpdateSubscriptionStatusRequest := *openapiclient.NewPublicUpdateSubscriptionStatusRequest("EmailAddress_example", "SubscriptionId_example") // PublicUpdateSubscriptionStatusRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.StatusApi.Subscribe(context.Background()).PublicUpdateSubscriptionStatusRequest(publicUpdateSubscriptionStatusRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `StatusApi.Subscribe``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `Subscribe`: PublicSubscriptionStatus
-    fmt.Fprintf(os.Stdout, "Response from `StatusApi.Subscribe`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.StatusAPI.Subscribe(context.Background()).PublicUpdateSubscriptionStatusRequest(publicUpdateSubscriptionStatusRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `StatusAPI.Subscribe``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `Subscribe`: PublicSubscriptionStatus
+	fmt.Fprintf(os.Stdout, "Response from `StatusAPI.Subscribe`: %v\n", resp)
 }
 ```
 
@@ -160,24 +160,24 @@ Unsubscribe a contact
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    publicUpdateSubscriptionStatusRequest := *openapiclient.NewPublicUpdateSubscriptionStatusRequest("EmailAddress_example", "SubscriptionId_example") // PublicUpdateSubscriptionStatusRequest | 
+	publicUpdateSubscriptionStatusRequest := *openapiclient.NewPublicUpdateSubscriptionStatusRequest("EmailAddress_example", "SubscriptionId_example") // PublicUpdateSubscriptionStatusRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.StatusApi.Unsubscribe(context.Background()).PublicUpdateSubscriptionStatusRequest(publicUpdateSubscriptionStatusRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `StatusApi.Unsubscribe``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `Unsubscribe`: PublicSubscriptionStatus
-    fmt.Fprintf(os.Stdout, "Response from `StatusApi.Unsubscribe`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.StatusAPI.Unsubscribe(context.Background()).PublicUpdateSubscriptionStatusRequest(publicUpdateSubscriptionStatusRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `StatusAPI.Unsubscribe``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `Unsubscribe`: PublicSubscriptionStatus
+	fmt.Fprintf(os.Stdout, "Response from `StatusAPI.Unsubscribe`: %v\n", resp)
 }
 ```
 

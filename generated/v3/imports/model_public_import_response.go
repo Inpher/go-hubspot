@@ -11,9 +11,14 @@ API version: v3
 package imports
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the PublicImportResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PublicImportResponse{}
 
 // PublicImportResponse A current summary of the import, whether complete or not.
 type PublicImportResponse struct {
@@ -30,6 +35,8 @@ type PublicImportResponse struct {
 	OptOutImport bool      `json:"optOutImport"`
 	UpdatedAt    time.Time `json:"updatedAt"`
 }
+
+type _PublicImportResponse PublicImportResponse
 
 // NewPublicImportResponse instantiates a new PublicImportResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -56,7 +63,7 @@ func NewPublicImportResponseWithDefaults() *PublicImportResponse {
 
 // GetImportTemplate returns the ImportTemplate field value if set, zero value otherwise.
 func (o *PublicImportResponse) GetImportTemplate() ImportTemplate {
-	if o == nil || o.ImportTemplate == nil {
+	if o == nil || IsNil(o.ImportTemplate) {
 		var ret ImportTemplate
 		return ret
 	}
@@ -66,7 +73,7 @@ func (o *PublicImportResponse) GetImportTemplate() ImportTemplate {
 // GetImportTemplateOk returns a tuple with the ImportTemplate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicImportResponse) GetImportTemplateOk() (*ImportTemplate, bool) {
-	if o == nil || o.ImportTemplate == nil {
+	if o == nil || IsNil(o.ImportTemplate) {
 		return nil, false
 	}
 	return o.ImportTemplate, true
@@ -74,7 +81,7 @@ func (o *PublicImportResponse) GetImportTemplateOk() (*ImportTemplate, bool) {
 
 // HasImportTemplate returns a boolean if a field has been set.
 func (o *PublicImportResponse) HasImportTemplate() bool {
-	if o != nil && o.ImportTemplate != nil {
+	if o != nil && !IsNil(o.ImportTemplate) {
 		return true
 	}
 
@@ -136,7 +143,7 @@ func (o *PublicImportResponse) SetMetadata(v PublicImportMetadata) {
 
 // GetImportRequestJson returns the ImportRequestJson field value if set, zero value otherwise.
 func (o *PublicImportResponse) GetImportRequestJson() map[string]interface{} {
-	if o == nil || o.ImportRequestJson == nil {
+	if o == nil || IsNil(o.ImportRequestJson) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -146,15 +153,15 @@ func (o *PublicImportResponse) GetImportRequestJson() map[string]interface{} {
 // GetImportRequestJsonOk returns a tuple with the ImportRequestJson field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicImportResponse) GetImportRequestJsonOk() (map[string]interface{}, bool) {
-	if o == nil || o.ImportRequestJson == nil {
-		return nil, false
+	if o == nil || IsNil(o.ImportRequestJson) {
+		return map[string]interface{}{}, false
 	}
 	return o.ImportRequestJson, true
 }
 
 // HasImportRequestJson returns a boolean if a field has been set.
 func (o *PublicImportResponse) HasImportRequestJson() bool {
-	if o != nil && o.ImportRequestJson != nil {
+	if o != nil && !IsNil(o.ImportRequestJson) {
 		return true
 	}
 
@@ -168,7 +175,7 @@ func (o *PublicImportResponse) SetImportRequestJson(v map[string]interface{}) {
 
 // GetImportSource returns the ImportSource field value if set, zero value otherwise.
 func (o *PublicImportResponse) GetImportSource() string {
-	if o == nil || o.ImportSource == nil {
+	if o == nil || IsNil(o.ImportSource) {
 		var ret string
 		return ret
 	}
@@ -178,7 +185,7 @@ func (o *PublicImportResponse) GetImportSource() string {
 // GetImportSourceOk returns a tuple with the ImportSource field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicImportResponse) GetImportSourceOk() (*string, bool) {
-	if o == nil || o.ImportSource == nil {
+	if o == nil || IsNil(o.ImportSource) {
 		return nil, false
 	}
 	return o.ImportSource, true
@@ -186,7 +193,7 @@ func (o *PublicImportResponse) GetImportSourceOk() (*string, bool) {
 
 // HasImportSource returns a boolean if a field has been set.
 func (o *PublicImportResponse) HasImportSource() bool {
-	if o != nil && o.ImportSource != nil {
+	if o != nil && !IsNil(o.ImportSource) {
 		return true
 	}
 
@@ -200,7 +207,7 @@ func (o *PublicImportResponse) SetImportSource(v string) {
 
 // GetImportName returns the ImportName field value if set, zero value otherwise.
 func (o *PublicImportResponse) GetImportName() string {
-	if o == nil || o.ImportName == nil {
+	if o == nil || IsNil(o.ImportName) {
 		var ret string
 		return ret
 	}
@@ -210,7 +217,7 @@ func (o *PublicImportResponse) GetImportName() string {
 // GetImportNameOk returns a tuple with the ImportName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicImportResponse) GetImportNameOk() (*string, bool) {
-	if o == nil || o.ImportName == nil {
+	if o == nil || IsNil(o.ImportName) {
 		return nil, false
 	}
 	return o.ImportName, true
@@ -218,7 +225,7 @@ func (o *PublicImportResponse) GetImportNameOk() (*string, bool) {
 
 // HasImportName returns a boolean if a field has been set.
 func (o *PublicImportResponse) HasImportName() bool {
-	if o != nil && o.ImportName != nil {
+	if o != nil && !IsNil(o.ImportName) {
 		return true
 	}
 
@@ -327,38 +334,76 @@ func (o *PublicImportResponse) SetUpdatedAt(v time.Time) {
 }
 
 func (o PublicImportResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.ImportTemplate != nil {
-		toSerialize["importTemplate"] = o.ImportTemplate
-	}
-	if true {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if true {
-		toSerialize["metadata"] = o.Metadata
-	}
-	if o.ImportRequestJson != nil {
-		toSerialize["importRequestJson"] = o.ImportRequestJson
-	}
-	if o.ImportSource != nil {
-		toSerialize["importSource"] = o.ImportSource
-	}
-	if o.ImportName != nil {
-		toSerialize["importName"] = o.ImportName
-	}
-	if true {
-		toSerialize["state"] = o.State
-	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["optOutImport"] = o.OptOutImport
-	}
-	if true {
-		toSerialize["updatedAt"] = o.UpdatedAt
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PublicImportResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ImportTemplate) {
+		toSerialize["importTemplate"] = o.ImportTemplate
+	}
+	toSerialize["createdAt"] = o.CreatedAt
+	toSerialize["metadata"] = o.Metadata
+	if !IsNil(o.ImportRequestJson) {
+		toSerialize["importRequestJson"] = o.ImportRequestJson
+	}
+	if !IsNil(o.ImportSource) {
+		toSerialize["importSource"] = o.ImportSource
+	}
+	if !IsNil(o.ImportName) {
+		toSerialize["importName"] = o.ImportName
+	}
+	toSerialize["state"] = o.State
+	toSerialize["id"] = o.Id
+	toSerialize["optOutImport"] = o.OptOutImport
+	toSerialize["updatedAt"] = o.UpdatedAt
+	return toSerialize, nil
+}
+
+func (o *PublicImportResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"createdAt",
+		"metadata",
+		"state",
+		"id",
+		"optOutImport",
+		"updatedAt",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPublicImportResponse := _PublicImportResponse{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPublicImportResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PublicImportResponse(varPublicImportResponse)
+
+	return err
 }
 
 type NullablePublicImportResponse struct {

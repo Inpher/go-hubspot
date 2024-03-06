@@ -11,15 +11,22 @@ API version: v3
 package webhooks
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the SettingsChangeRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SettingsChangeRequest{}
 
 // SettingsChangeRequest New or updated webhook settings for an app.
 type SettingsChangeRequest struct {
 	Throttling ThrottlingSettings `json:"throttling"`
-	// A publicly available URL for Hubspot to call where event payloads will be delivered. See [link-so-some-doc](#) for details about the format of these event payloads.
+	// A publicly available URL for HubSpot to call where event payloads will be delivered.
 	TargetUrl string `json:"targetUrl"`
 }
+
+type _SettingsChangeRequest SettingsChangeRequest
 
 // NewSettingsChangeRequest instantiates a new SettingsChangeRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -89,14 +96,56 @@ func (o *SettingsChangeRequest) SetTargetUrl(v string) {
 }
 
 func (o SettingsChangeRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["throttling"] = o.Throttling
-	}
-	if true {
-		toSerialize["targetUrl"] = o.TargetUrl
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SettingsChangeRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["throttling"] = o.Throttling
+	toSerialize["targetUrl"] = o.TargetUrl
+	return toSerialize, nil
+}
+
+func (o *SettingsChangeRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"throttling",
+		"targetUrl",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSettingsChangeRequest := _SettingsChangeRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varSettingsChangeRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SettingsChangeRequest(varSettingsChangeRequest)
+
+	return err
 }
 
 type NullableSettingsChangeRequest struct {

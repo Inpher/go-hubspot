@@ -22,7 +22,6 @@ tags:
 - name: Batch
 - name: Basic
 - name: Public_Object
-- name: Associations
 - name: GDPR
 - name: Search
 paths:
@@ -555,6 +554,35 @@ components:
       description: An error occurred.
   schemas:
     StandardError:
+      example:
+        subCategory: "{}"
+        context:
+          key:
+          - context
+          - context
+        links:
+          key: links
+        id: id
+        category: category
+        message: message
+        errors:
+        - subCategory: subCategory
+          code: code
+          in: in
+          context:
+            missingScopes:
+            - scope1
+            - scope2
+          message: message
+        - subCategory: subCategory
+          code: code
+          in: in
+          context:
+            missingScopes:
+            - scope1
+            - scope2
+          message: message
+        status: status
       properties:
         subCategory:
           properties: {}
@@ -714,6 +742,15 @@ components:
       - filters
       type: object
     ErrorDetail:
+      example:
+        subCategory: subCategory
+        code: code
+        in: in
+        context:
+          missingScopes:
+          - scope1
+          - scope2
+        message: message
       properties:
         subCategory:
           description: A specific category that contains more specific detail about
@@ -1078,6 +1115,100 @@ components:
       - message
       type: object
     BatchResponseSimplePublicObjectWithErrors:
+      example:
+        completedAt: 2000-01-23T04:56:07.000+00:00
+        numErrors: 0
+        requestedAt: 2000-01-23T04:56:07.000+00:00
+        startedAt: 2000-01-23T04:56:07.000+00:00
+        links:
+          key: links
+        results:
+        - id: "512"
+          properties:
+            hs_content: What a great product!
+            hs_ingestion_id: fd61286d-102b-4fcc-b486-3486b4ceafc2
+            hs_response_group: PROMOTER
+            hs_submission_name: Customer Satisfaction Survey - bcooper@biglytics.net
+            hs_survey_channel: EMAIL
+            hs_survey_id: "5"
+            hs_survey_name: Customer Satisfaction Survey
+            hs_survey_type: CSAT
+            hs_value: "2"
+          createdAt: 2019-10-30T03:30:17.883Z
+          updatedAt: 2019-12-07T16:50:06.678Z
+          archived: false
+        - id: "512"
+          properties:
+            hs_content: What a great product!
+            hs_ingestion_id: fd61286d-102b-4fcc-b486-3486b4ceafc2
+            hs_response_group: PROMOTER
+            hs_submission_name: Customer Satisfaction Survey - bcooper@biglytics.net
+            hs_survey_channel: EMAIL
+            hs_survey_id: "5"
+            hs_survey_name: Customer Satisfaction Survey
+            hs_survey_type: CSAT
+            hs_value: "2"
+          createdAt: 2019-10-30T03:30:17.883Z
+          updatedAt: 2019-12-07T16:50:06.678Z
+          archived: false
+        errors:
+        - subCategory: "{}"
+          context:
+            key:
+            - context
+            - context
+          links:
+            key: links
+          id: id
+          category: category
+          message: message
+          errors:
+          - subCategory: subCategory
+            code: code
+            in: in
+            context:
+              missingScopes:
+              - scope1
+              - scope2
+            message: message
+          - subCategory: subCategory
+            code: code
+            in: in
+            context:
+              missingScopes:
+              - scope1
+              - scope2
+            message: message
+          status: status
+        - subCategory: "{}"
+          context:
+            key:
+            - context
+            - context
+          links:
+            key: links
+          id: id
+          category: category
+          message: message
+          errors:
+          - subCategory: subCategory
+            code: code
+            in: in
+            context:
+              missingScopes:
+              - scope1
+              - scope2
+            message: message
+          - subCategory: subCategory
+            code: code
+            in: in
+            context:
+              missingScopes:
+              - scope1
+              - scope2
+            message: message
+          status: status
+        status: PENDING
       properties:
         completedAt:
           format: date-time
@@ -1465,12 +1596,12 @@ components:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
+            crm.objects.custom.write: Change custom object records
             media_bridge.read: Read media and media events
             crm.objects.goals.read: Read goals
             tickets: Read and write tickets
             crm.objects.custom.read: View custom object records
             e-commerce: e-commerce
-            crm.objects.custom.write: Change custom object records
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
     oauth2:
@@ -1478,6 +1609,8 @@ components:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
+            crm.objects.contacts.read: ' '
+            crm.objects.quotes.write: Quotes
             crm.objects.deals.read: ' '
             crm.objects.line_items.read: Line Items
             crm.objects.deals.write: ' '
@@ -1486,8 +1619,6 @@ components:
             crm.objects.companies.read: ' '
             crm.objects.companies.write: ' '
             crm.objects.contacts.write: ' '
-            crm.objects.contacts.read: ' '
-            crm.objects.quotes.write: Quotes
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
     private_apps_legacy:

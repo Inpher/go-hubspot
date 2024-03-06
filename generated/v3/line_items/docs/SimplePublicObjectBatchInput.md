@@ -6,13 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **IdProperty** | Pointer to **string** |  | [optional] 
 **Id** | **string** |  | 
-**Properties** | **map[string]string** |  | 
+**Properties** | Pointer to **map[string]string** |  | [optional] 
 
 ## Methods
 
 ### NewSimplePublicObjectBatchInput
 
-`func NewSimplePublicObjectBatchInput(id string, properties map[string]string, ) *SimplePublicObjectBatchInput`
+`func NewSimplePublicObjectBatchInput(id string, ) *SimplePublicObjectBatchInput`
 
 NewSimplePublicObjectBatchInput instantiates a new SimplePublicObjectBatchInput object
 This constructor will assign default values to properties that have it defined,
@@ -91,6 +91,11 @@ and a boolean to check if the value has been set.
 
 SetProperties sets Properties field to given value.
 
+### HasProperties
+
+`func (o *SimplePublicObjectBatchInput) HasProperties() bool`
+
+HasProperties returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -1,10 +1,10 @@
-# \GenerateApi
+# \GenerateAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PostConversationsV3VisitorIdentificationTokensCreateGenerateToken**](GenerateApi.md#PostConversationsV3VisitorIdentificationTokensCreateGenerateToken) | **Post** /conversations/v3/visitor-identification/tokens/create | Generate a token
+[**PostConversationsV3VisitorIdentificationTokensCreateGenerateToken**](GenerateAPI.md#PostConversationsV3VisitorIdentificationTokensCreateGenerateToken) | **Post** /conversations/v3/visitor-identification/tokens/create | Generate a token
 
 
 
@@ -22,24 +22,24 @@ Generate a token
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    identificationTokenGenerationRequest := *openapiclient.NewIdentificationTokenGenerationRequest("visitor-email@example.com") // IdentificationTokenGenerationRequest | 
+	identificationTokenGenerationRequest := *openapiclient.NewIdentificationTokenGenerationRequest("visitor-email@example.com") // IdentificationTokenGenerationRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.GenerateApi.PostConversationsV3VisitorIdentificationTokensCreateGenerateToken(context.Background()).IdentificationTokenGenerationRequest(identificationTokenGenerationRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `GenerateApi.PostConversationsV3VisitorIdentificationTokensCreateGenerateToken``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostConversationsV3VisitorIdentificationTokensCreateGenerateToken`: IdentificationTokenResponse
-    fmt.Fprintf(os.Stdout, "Response from `GenerateApi.PostConversationsV3VisitorIdentificationTokensCreateGenerateToken`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.GenerateAPI.PostConversationsV3VisitorIdentificationTokensCreateGenerateToken(context.Background()).IdentificationTokenGenerationRequest(identificationTokenGenerationRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GenerateAPI.PostConversationsV3VisitorIdentificationTokensCreateGenerateToken``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostConversationsV3VisitorIdentificationTokensCreateGenerateToken`: IdentificationTokenResponse
+	fmt.Fprintf(os.Stdout, "Response from `GenerateAPI.PostConversationsV3VisitorIdentificationTokensCreateGenerateToken`: %v\n", resp)
 }
 ```
 

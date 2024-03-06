@@ -10,7 +10,7 @@ docs/Error.md
 docs/ErrorDetail.md
 docs/IndexedData.md
 docs/IndexedField.md
-docs/PublicApi.md
+docs/PublicAPI.md
 docs/PublicSearchResults.md
 git_push.sh
 go.mod

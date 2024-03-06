@@ -11,8 +11,13 @@ API version: v3
 package hubdb
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the HubDbTableRowV3BatchUpdateRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &HubDbTableRowV3BatchUpdateRequest{}
 
 // HubDbTableRowV3BatchUpdateRequest struct for HubDbTableRowV3BatchUpdateRequest
 type HubDbTableRowV3BatchUpdateRequest struct {
@@ -28,6 +33,8 @@ type HubDbTableRowV3BatchUpdateRequest struct {
 	Id           string `json:"id"`
 	DisplayIndex *int32 `json:"displayIndex,omitempty"`
 }
+
+type _HubDbTableRowV3BatchUpdateRequest HubDbTableRowV3BatchUpdateRequest
 
 // NewHubDbTableRowV3BatchUpdateRequest instantiates a new HubDbTableRowV3BatchUpdateRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -50,7 +57,7 @@ func NewHubDbTableRowV3BatchUpdateRequestWithDefaults() *HubDbTableRowV3BatchUpd
 
 // GetPath returns the Path field value if set, zero value otherwise.
 func (o *HubDbTableRowV3BatchUpdateRequest) GetPath() string {
-	if o == nil || o.Path == nil {
+	if o == nil || IsNil(o.Path) {
 		var ret string
 		return ret
 	}
@@ -60,7 +67,7 @@ func (o *HubDbTableRowV3BatchUpdateRequest) GetPath() string {
 // GetPathOk returns a tuple with the Path field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *HubDbTableRowV3BatchUpdateRequest) GetPathOk() (*string, bool) {
-	if o == nil || o.Path == nil {
+	if o == nil || IsNil(o.Path) {
 		return nil, false
 	}
 	return o.Path, true
@@ -68,7 +75,7 @@ func (o *HubDbTableRowV3BatchUpdateRequest) GetPathOk() (*string, bool) {
 
 // HasPath returns a boolean if a field has been set.
 func (o *HubDbTableRowV3BatchUpdateRequest) HasPath() bool {
-	if o != nil && o.Path != nil {
+	if o != nil && !IsNil(o.Path) {
 		return true
 	}
 
@@ -82,7 +89,7 @@ func (o *HubDbTableRowV3BatchUpdateRequest) SetPath(v string) {
 
 // GetChildTableId returns the ChildTableId field value if set, zero value otherwise.
 func (o *HubDbTableRowV3BatchUpdateRequest) GetChildTableId() int32 {
-	if o == nil || o.ChildTableId == nil {
+	if o == nil || IsNil(o.ChildTableId) {
 		var ret int32
 		return ret
 	}
@@ -92,7 +99,7 @@ func (o *HubDbTableRowV3BatchUpdateRequest) GetChildTableId() int32 {
 // GetChildTableIdOk returns a tuple with the ChildTableId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *HubDbTableRowV3BatchUpdateRequest) GetChildTableIdOk() (*int32, bool) {
-	if o == nil || o.ChildTableId == nil {
+	if o == nil || IsNil(o.ChildTableId) {
 		return nil, false
 	}
 	return o.ChildTableId, true
@@ -100,7 +107,7 @@ func (o *HubDbTableRowV3BatchUpdateRequest) GetChildTableIdOk() (*int32, bool) {
 
 // HasChildTableId returns a boolean if a field has been set.
 func (o *HubDbTableRowV3BatchUpdateRequest) HasChildTableId() bool {
-	if o != nil && o.ChildTableId != nil {
+	if o != nil && !IsNil(o.ChildTableId) {
 		return true
 	}
 
@@ -138,7 +145,7 @@ func (o *HubDbTableRowV3BatchUpdateRequest) SetValues(v map[string]map[string]in
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *HubDbTableRowV3BatchUpdateRequest) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -148,7 +155,7 @@ func (o *HubDbTableRowV3BatchUpdateRequest) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *HubDbTableRowV3BatchUpdateRequest) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -156,7 +163,7 @@ func (o *HubDbTableRowV3BatchUpdateRequest) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *HubDbTableRowV3BatchUpdateRequest) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -194,7 +201,7 @@ func (o *HubDbTableRowV3BatchUpdateRequest) SetId(v string) {
 
 // GetDisplayIndex returns the DisplayIndex field value if set, zero value otherwise.
 func (o *HubDbTableRowV3BatchUpdateRequest) GetDisplayIndex() int32 {
-	if o == nil || o.DisplayIndex == nil {
+	if o == nil || IsNil(o.DisplayIndex) {
 		var ret int32
 		return ret
 	}
@@ -204,7 +211,7 @@ func (o *HubDbTableRowV3BatchUpdateRequest) GetDisplayIndex() int32 {
 // GetDisplayIndexOk returns a tuple with the DisplayIndex field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *HubDbTableRowV3BatchUpdateRequest) GetDisplayIndexOk() (*int32, bool) {
-	if o == nil || o.DisplayIndex == nil {
+	if o == nil || IsNil(o.DisplayIndex) {
 		return nil, false
 	}
 	return o.DisplayIndex, true
@@ -212,7 +219,7 @@ func (o *HubDbTableRowV3BatchUpdateRequest) GetDisplayIndexOk() (*int32, bool) {
 
 // HasDisplayIndex returns a boolean if a field has been set.
 func (o *HubDbTableRowV3BatchUpdateRequest) HasDisplayIndex() bool {
-	if o != nil && o.DisplayIndex != nil {
+	if o != nil && !IsNil(o.DisplayIndex) {
 		return true
 	}
 
@@ -225,26 +232,68 @@ func (o *HubDbTableRowV3BatchUpdateRequest) SetDisplayIndex(v int32) {
 }
 
 func (o HubDbTableRowV3BatchUpdateRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Path != nil {
-		toSerialize["path"] = o.Path
-	}
-	if o.ChildTableId != nil {
-		toSerialize["childTableId"] = o.ChildTableId
-	}
-	if true {
-		toSerialize["values"] = o.Values
-	}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if o.DisplayIndex != nil {
-		toSerialize["displayIndex"] = o.DisplayIndex
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o HubDbTableRowV3BatchUpdateRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Path) {
+		toSerialize["path"] = o.Path
+	}
+	if !IsNil(o.ChildTableId) {
+		toSerialize["childTableId"] = o.ChildTableId
+	}
+	toSerialize["values"] = o.Values
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	toSerialize["id"] = o.Id
+	if !IsNil(o.DisplayIndex) {
+		toSerialize["displayIndex"] = o.DisplayIndex
+	}
+	return toSerialize, nil
+}
+
+func (o *HubDbTableRowV3BatchUpdateRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"values",
+		"id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varHubDbTableRowV3BatchUpdateRequest := _HubDbTableRowV3BatchUpdateRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varHubDbTableRowV3BatchUpdateRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = HubDbTableRowV3BatchUpdateRequest(varHubDbTableRowV3BatchUpdateRequest)
+
+	return err
 }
 
 type NullableHubDbTableRowV3BatchUpdateRequest struct {

@@ -1,5 +1,5 @@
 /*
-CMS Cms Content Audit
+Cms Content Audit
 
 Use this endpoint to query audit logs of CMS changes that occurred on your HubSpot account.
 
@@ -11,9 +11,14 @@ API version: v3
 package audit_logs
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the PublicAuditLog type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PublicAuditLog{}
 
 // PublicAuditLog struct for PublicAuditLog
 type PublicAuditLog struct {
@@ -33,6 +38,8 @@ type PublicAuditLog struct {
 	// The timestamp at which the event occurred.
 	Timestamp time.Time `json:"timestamp"`
 }
+
+type _PublicAuditLog PublicAuditLog
 
 // NewPublicAuditLog instantiates a new PublicAuditLog object
 // This constructor will assign default values to properties that have it defined,
@@ -60,7 +67,7 @@ func NewPublicAuditLogWithDefaults() *PublicAuditLog {
 
 // GetMeta returns the Meta field value if set, zero value otherwise.
 func (o *PublicAuditLog) GetMeta() map[string]interface{} {
-	if o == nil || o.Meta == nil {
+	if o == nil || IsNil(o.Meta) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -70,15 +77,15 @@ func (o *PublicAuditLog) GetMeta() map[string]interface{} {
 // GetMetaOk returns a tuple with the Meta field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicAuditLog) GetMetaOk() (map[string]interface{}, bool) {
-	if o == nil || o.Meta == nil {
-		return nil, false
+	if o == nil || IsNil(o.Meta) {
+		return map[string]interface{}{}, false
 	}
 	return o.Meta, true
 }
 
 // HasMeta returns a boolean if a field has been set.
 func (o *PublicAuditLog) HasMeta() bool {
-	if o != nil && o.Meta != nil {
+	if o != nil && !IsNil(o.Meta) {
 		return true
 	}
 
@@ -259,32 +266,69 @@ func (o *PublicAuditLog) SetTimestamp(v time.Time) {
 }
 
 func (o PublicAuditLog) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Meta != nil {
-		toSerialize["meta"] = o.Meta
-	}
-	if true {
-		toSerialize["objectName"] = o.ObjectName
-	}
-	if true {
-		toSerialize["fullName"] = o.FullName
-	}
-	if true {
-		toSerialize["event"] = o.Event
-	}
-	if true {
-		toSerialize["userId"] = o.UserId
-	}
-	if true {
-		toSerialize["objectId"] = o.ObjectId
-	}
-	if true {
-		toSerialize["objectType"] = o.ObjectType
-	}
-	if true {
-		toSerialize["timestamp"] = o.Timestamp
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PublicAuditLog) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Meta) {
+		toSerialize["meta"] = o.Meta
+	}
+	toSerialize["objectName"] = o.ObjectName
+	toSerialize["fullName"] = o.FullName
+	toSerialize["event"] = o.Event
+	toSerialize["userId"] = o.UserId
+	toSerialize["objectId"] = o.ObjectId
+	toSerialize["objectType"] = o.ObjectType
+	toSerialize["timestamp"] = o.Timestamp
+	return toSerialize, nil
+}
+
+func (o *PublicAuditLog) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"objectName",
+		"fullName",
+		"event",
+		"userId",
+		"objectId",
+		"objectType",
+		"timestamp",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPublicAuditLog := _PublicAuditLog{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPublicAuditLog)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PublicAuditLog(varPublicAuditLog)
+
+	return err
 }
 
 type NullablePublicAuditLog struct {

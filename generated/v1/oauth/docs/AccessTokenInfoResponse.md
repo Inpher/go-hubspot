@@ -4,24 +4,21 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Token** | **string** |  | 
+**HubId** | **int32** |  | 
+**UserId** | **int32** |  | 
+**Scopes** | **[]string** |  | 
+**TokenType** | **string** |  | 
 **User** | Pointer to **string** |  | [optional] 
 **HubDomain** | Pointer to **string** |  | [optional] 
-**Scopes** | **[]string** |  | 
-**ScopeToScopeGroupPks** | **[]int32** |  | 
-**TrialScopes** | **[]string** |  | 
-**TrialScopeToScopeGroupPks** | **[]int32** |  | 
-**HubId** | **int32** |  | 
 **AppId** | **int32** |  | 
 **ExpiresIn** | **int32** |  | 
-**UserId** | **int32** |  | 
-**TokenType** | **string** |  | 
+**Token** | **string** |  | 
 
 ## Methods
 
 ### NewAccessTokenInfoResponse
 
-`func NewAccessTokenInfoResponse(token string, scopes []string, scopeToScopeGroupPks []int32, trialScopes []string, trialScopeToScopeGroupPks []int32, hubId int32, appId int32, expiresIn int32, userId int32, tokenType string, ) *AccessTokenInfoResponse`
+`func NewAccessTokenInfoResponse(hubId int32, userId int32, scopes []string, tokenType string, appId int32, expiresIn int32, token string, ) *AccessTokenInfoResponse`
 
 NewAccessTokenInfoResponse instantiates a new AccessTokenInfoResponse object
 This constructor will assign default values to properties that have it defined,
@@ -36,24 +33,84 @@ NewAccessTokenInfoResponseWithDefaults instantiates a new AccessTokenInfoRespons
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetToken
+### GetHubId
 
-`func (o *AccessTokenInfoResponse) GetToken() string`
+`func (o *AccessTokenInfoResponse) GetHubId() int32`
 
-GetToken returns the Token field if non-nil, zero value otherwise.
+GetHubId returns the HubId field if non-nil, zero value otherwise.
 
-### GetTokenOk
+### GetHubIdOk
 
-`func (o *AccessTokenInfoResponse) GetTokenOk() (*string, bool)`
+`func (o *AccessTokenInfoResponse) GetHubIdOk() (*int32, bool)`
 
-GetTokenOk returns a tuple with the Token field if it's non-nil, zero value otherwise
+GetHubIdOk returns a tuple with the HubId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetToken
+### SetHubId
 
-`func (o *AccessTokenInfoResponse) SetToken(v string)`
+`func (o *AccessTokenInfoResponse) SetHubId(v int32)`
 
-SetToken sets Token field to given value.
+SetHubId sets HubId field to given value.
+
+
+### GetUserId
+
+`func (o *AccessTokenInfoResponse) GetUserId() int32`
+
+GetUserId returns the UserId field if non-nil, zero value otherwise.
+
+### GetUserIdOk
+
+`func (o *AccessTokenInfoResponse) GetUserIdOk() (*int32, bool)`
+
+GetUserIdOk returns a tuple with the UserId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUserId
+
+`func (o *AccessTokenInfoResponse) SetUserId(v int32)`
+
+SetUserId sets UserId field to given value.
+
+
+### GetScopes
+
+`func (o *AccessTokenInfoResponse) GetScopes() []string`
+
+GetScopes returns the Scopes field if non-nil, zero value otherwise.
+
+### GetScopesOk
+
+`func (o *AccessTokenInfoResponse) GetScopesOk() (*[]string, bool)`
+
+GetScopesOk returns a tuple with the Scopes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetScopes
+
+`func (o *AccessTokenInfoResponse) SetScopes(v []string)`
+
+SetScopes sets Scopes field to given value.
+
+
+### GetTokenType
+
+`func (o *AccessTokenInfoResponse) GetTokenType() string`
+
+GetTokenType returns the TokenType field if non-nil, zero value otherwise.
+
+### GetTokenTypeOk
+
+`func (o *AccessTokenInfoResponse) GetTokenTypeOk() (*string, bool)`
+
+GetTokenTypeOk returns a tuple with the TokenType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTokenType
+
+`func (o *AccessTokenInfoResponse) SetTokenType(v string)`
+
+SetTokenType sets TokenType field to given value.
 
 
 ### GetUser
@@ -106,106 +163,6 @@ SetHubDomain sets HubDomain field to given value.
 
 HasHubDomain returns a boolean if a field has been set.
 
-### GetScopes
-
-`func (o *AccessTokenInfoResponse) GetScopes() []string`
-
-GetScopes returns the Scopes field if non-nil, zero value otherwise.
-
-### GetScopesOk
-
-`func (o *AccessTokenInfoResponse) GetScopesOk() (*[]string, bool)`
-
-GetScopesOk returns a tuple with the Scopes field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetScopes
-
-`func (o *AccessTokenInfoResponse) SetScopes(v []string)`
-
-SetScopes sets Scopes field to given value.
-
-
-### GetScopeToScopeGroupPks
-
-`func (o *AccessTokenInfoResponse) GetScopeToScopeGroupPks() []int32`
-
-GetScopeToScopeGroupPks returns the ScopeToScopeGroupPks field if non-nil, zero value otherwise.
-
-### GetScopeToScopeGroupPksOk
-
-`func (o *AccessTokenInfoResponse) GetScopeToScopeGroupPksOk() (*[]int32, bool)`
-
-GetScopeToScopeGroupPksOk returns a tuple with the ScopeToScopeGroupPks field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetScopeToScopeGroupPks
-
-`func (o *AccessTokenInfoResponse) SetScopeToScopeGroupPks(v []int32)`
-
-SetScopeToScopeGroupPks sets ScopeToScopeGroupPks field to given value.
-
-
-### GetTrialScopes
-
-`func (o *AccessTokenInfoResponse) GetTrialScopes() []string`
-
-GetTrialScopes returns the TrialScopes field if non-nil, zero value otherwise.
-
-### GetTrialScopesOk
-
-`func (o *AccessTokenInfoResponse) GetTrialScopesOk() (*[]string, bool)`
-
-GetTrialScopesOk returns a tuple with the TrialScopes field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTrialScopes
-
-`func (o *AccessTokenInfoResponse) SetTrialScopes(v []string)`
-
-SetTrialScopes sets TrialScopes field to given value.
-
-
-### GetTrialScopeToScopeGroupPks
-
-`func (o *AccessTokenInfoResponse) GetTrialScopeToScopeGroupPks() []int32`
-
-GetTrialScopeToScopeGroupPks returns the TrialScopeToScopeGroupPks field if non-nil, zero value otherwise.
-
-### GetTrialScopeToScopeGroupPksOk
-
-`func (o *AccessTokenInfoResponse) GetTrialScopeToScopeGroupPksOk() (*[]int32, bool)`
-
-GetTrialScopeToScopeGroupPksOk returns a tuple with the TrialScopeToScopeGroupPks field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTrialScopeToScopeGroupPks
-
-`func (o *AccessTokenInfoResponse) SetTrialScopeToScopeGroupPks(v []int32)`
-
-SetTrialScopeToScopeGroupPks sets TrialScopeToScopeGroupPks field to given value.
-
-
-### GetHubId
-
-`func (o *AccessTokenInfoResponse) GetHubId() int32`
-
-GetHubId returns the HubId field if non-nil, zero value otherwise.
-
-### GetHubIdOk
-
-`func (o *AccessTokenInfoResponse) GetHubIdOk() (*int32, bool)`
-
-GetHubIdOk returns a tuple with the HubId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetHubId
-
-`func (o *AccessTokenInfoResponse) SetHubId(v int32)`
-
-SetHubId sets HubId field to given value.
-
-
 ### GetAppId
 
 `func (o *AccessTokenInfoResponse) GetAppId() int32`
@@ -246,44 +203,24 @@ and a boolean to check if the value has been set.
 SetExpiresIn sets ExpiresIn field to given value.
 
 
-### GetUserId
+### GetToken
 
-`func (o *AccessTokenInfoResponse) GetUserId() int32`
+`func (o *AccessTokenInfoResponse) GetToken() string`
 
-GetUserId returns the UserId field if non-nil, zero value otherwise.
+GetToken returns the Token field if non-nil, zero value otherwise.
 
-### GetUserIdOk
+### GetTokenOk
 
-`func (o *AccessTokenInfoResponse) GetUserIdOk() (*int32, bool)`
+`func (o *AccessTokenInfoResponse) GetTokenOk() (*string, bool)`
 
-GetUserIdOk returns a tuple with the UserId field if it's non-nil, zero value otherwise
+GetTokenOk returns a tuple with the Token field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetUserId
+### SetToken
 
-`func (o *AccessTokenInfoResponse) SetUserId(v int32)`
+`func (o *AccessTokenInfoResponse) SetToken(v string)`
 
-SetUserId sets UserId field to given value.
-
-
-### GetTokenType
-
-`func (o *AccessTokenInfoResponse) GetTokenType() string`
-
-GetTokenType returns the TokenType field if non-nil, zero value otherwise.
-
-### GetTokenTypeOk
-
-`func (o *AccessTokenInfoResponse) GetTokenTypeOk() (*string, bool)`
-
-GetTokenTypeOk returns a tuple with the TokenType field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTokenType
-
-`func (o *AccessTokenInfoResponse) SetTokenType(v string)`
-
-SetTokenType sets TokenType field to given value.
+SetToken sets Token field to given value.
 
 
 

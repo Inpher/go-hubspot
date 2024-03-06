@@ -70,11 +70,11 @@ func (dst *PublicActionDefinitionInputFieldDependenciesInner) UnmarshalJSON(data
 		dst.PublicConditionalSingleFieldDependency = nil
 		dst.PublicSingleFieldDependency = nil
 
-		return fmt.Errorf("Data matches more than one schema in oneOf(PublicActionDefinitionInputFieldDependenciesInner)")
+		return fmt.Errorf("data matches more than one schema in oneOf(PublicActionDefinitionInputFieldDependenciesInner)")
 	} else if match == 1 {
 		return nil // exactly one match
 	} else { // no match
-		return fmt.Errorf("Data failed to match schemas in oneOf(PublicActionDefinitionInputFieldDependenciesInner)")
+		return fmt.Errorf("data failed to match schemas in oneOf(PublicActionDefinitionInputFieldDependenciesInner)")
 	}
 }
 

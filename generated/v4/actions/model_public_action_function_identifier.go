@@ -11,14 +11,21 @@ API version: v4
 package actions
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the PublicActionFunctionIdentifier type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PublicActionFunctionIdentifier{}
 
 // PublicActionFunctionIdentifier struct for PublicActionFunctionIdentifier
 type PublicActionFunctionIdentifier struct {
 	FunctionType string  `json:"functionType"`
 	Id           *string `json:"id,omitempty"`
 }
+
+type _PublicActionFunctionIdentifier PublicActionFunctionIdentifier
 
 // NewPublicActionFunctionIdentifier instantiates a new PublicActionFunctionIdentifier object
 // This constructor will assign default values to properties that have it defined,
@@ -64,7 +71,7 @@ func (o *PublicActionFunctionIdentifier) SetFunctionType(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *PublicActionFunctionIdentifier) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -74,7 +81,7 @@ func (o *PublicActionFunctionIdentifier) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicActionFunctionIdentifier) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -82,7 +89,7 @@ func (o *PublicActionFunctionIdentifier) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *PublicActionFunctionIdentifier) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -95,14 +102,57 @@ func (o *PublicActionFunctionIdentifier) SetId(v string) {
 }
 
 func (o PublicActionFunctionIdentifier) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["functionType"] = o.FunctionType
-	}
-	if o.Id != nil {
-		toSerialize["id"] = o.Id
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PublicActionFunctionIdentifier) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["functionType"] = o.FunctionType
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	return toSerialize, nil
+}
+
+func (o *PublicActionFunctionIdentifier) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"functionType",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPublicActionFunctionIdentifier := _PublicActionFunctionIdentifier{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPublicActionFunctionIdentifier)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PublicActionFunctionIdentifier(varPublicActionFunctionIdentifier)
+
+	return err
 }
 
 type NullablePublicActionFunctionIdentifier struct {

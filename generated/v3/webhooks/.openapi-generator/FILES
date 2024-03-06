@@ -11,7 +11,7 @@ docs/BatchResponseSubscriptionResponse.md
 docs/BatchResponseSubscriptionResponseWithErrors.md
 docs/Error.md
 docs/ErrorDetail.md
-docs/SettingsApi.md
+docs/SettingsAPI.md
 docs/SettingsChangeRequest.md
 docs/SettingsResponse.md
 docs/StandardError.md
@@ -20,7 +20,7 @@ docs/SubscriptionCreateRequest.md
 docs/SubscriptionListResponse.md
 docs/SubscriptionPatchRequest.md
 docs/SubscriptionResponse.md
-docs/SubscriptionsApi.md
+docs/SubscriptionsAPI.md
 docs/ThrottlingSettings.md
 git_push.sh
 go.mod

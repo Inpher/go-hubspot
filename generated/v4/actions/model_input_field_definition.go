@@ -11,8 +11,13 @@ API version: v4
 package actions
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the InputFieldDefinition type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &InputFieldDefinition{}
 
 // InputFieldDefinition struct for InputFieldDefinition
 type InputFieldDefinition struct {
@@ -21,6 +26,8 @@ type InputFieldDefinition struct {
 	TypeDefinition      FieldTypeDefinition `json:"typeDefinition"`
 	SupportedValueTypes []string            `json:"supportedValueTypes,omitempty"`
 }
+
+type _InputFieldDefinition InputFieldDefinition
 
 // NewInputFieldDefinition instantiates a new InputFieldDefinition object
 // This constructor will assign default values to properties that have it defined,
@@ -67,7 +74,7 @@ func (o *InputFieldDefinition) SetIsRequired(v bool) {
 
 // GetAutomationFieldType returns the AutomationFieldType field value if set, zero value otherwise.
 func (o *InputFieldDefinition) GetAutomationFieldType() string {
-	if o == nil || o.AutomationFieldType == nil {
+	if o == nil || IsNil(o.AutomationFieldType) {
 		var ret string
 		return ret
 	}
@@ -77,7 +84,7 @@ func (o *InputFieldDefinition) GetAutomationFieldType() string {
 // GetAutomationFieldTypeOk returns a tuple with the AutomationFieldType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InputFieldDefinition) GetAutomationFieldTypeOk() (*string, bool) {
-	if o == nil || o.AutomationFieldType == nil {
+	if o == nil || IsNil(o.AutomationFieldType) {
 		return nil, false
 	}
 	return o.AutomationFieldType, true
@@ -85,7 +92,7 @@ func (o *InputFieldDefinition) GetAutomationFieldTypeOk() (*string, bool) {
 
 // HasAutomationFieldType returns a boolean if a field has been set.
 func (o *InputFieldDefinition) HasAutomationFieldType() bool {
-	if o != nil && o.AutomationFieldType != nil {
+	if o != nil && !IsNil(o.AutomationFieldType) {
 		return true
 	}
 
@@ -123,7 +130,7 @@ func (o *InputFieldDefinition) SetTypeDefinition(v FieldTypeDefinition) {
 
 // GetSupportedValueTypes returns the SupportedValueTypes field value if set, zero value otherwise.
 func (o *InputFieldDefinition) GetSupportedValueTypes() []string {
-	if o == nil || o.SupportedValueTypes == nil {
+	if o == nil || IsNil(o.SupportedValueTypes) {
 		var ret []string
 		return ret
 	}
@@ -133,7 +140,7 @@ func (o *InputFieldDefinition) GetSupportedValueTypes() []string {
 // GetSupportedValueTypesOk returns a tuple with the SupportedValueTypes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InputFieldDefinition) GetSupportedValueTypesOk() ([]string, bool) {
-	if o == nil || o.SupportedValueTypes == nil {
+	if o == nil || IsNil(o.SupportedValueTypes) {
 		return nil, false
 	}
 	return o.SupportedValueTypes, true
@@ -141,7 +148,7 @@ func (o *InputFieldDefinition) GetSupportedValueTypesOk() ([]string, bool) {
 
 // HasSupportedValueTypes returns a boolean if a field has been set.
 func (o *InputFieldDefinition) HasSupportedValueTypes() bool {
-	if o != nil && o.SupportedValueTypes != nil {
+	if o != nil && !IsNil(o.SupportedValueTypes) {
 		return true
 	}
 
@@ -154,20 +161,62 @@ func (o *InputFieldDefinition) SetSupportedValueTypes(v []string) {
 }
 
 func (o InputFieldDefinition) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["isRequired"] = o.IsRequired
-	}
-	if o.AutomationFieldType != nil {
-		toSerialize["automationFieldType"] = o.AutomationFieldType
-	}
-	if true {
-		toSerialize["typeDefinition"] = o.TypeDefinition
-	}
-	if o.SupportedValueTypes != nil {
-		toSerialize["supportedValueTypes"] = o.SupportedValueTypes
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o InputFieldDefinition) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["isRequired"] = o.IsRequired
+	if !IsNil(o.AutomationFieldType) {
+		toSerialize["automationFieldType"] = o.AutomationFieldType
+	}
+	toSerialize["typeDefinition"] = o.TypeDefinition
+	if !IsNil(o.SupportedValueTypes) {
+		toSerialize["supportedValueTypes"] = o.SupportedValueTypes
+	}
+	return toSerialize, nil
+}
+
+func (o *InputFieldDefinition) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"isRequired",
+		"typeDefinition",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varInputFieldDefinition := _InputFieldDefinition{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varInputFieldDefinition)
+
+	if err != nil {
+		return err
+	}
+
+	*o = InputFieldDefinition(varInputFieldDefinition)
+
+	return err
 }
 
 type NullableInputFieldDefinition struct {

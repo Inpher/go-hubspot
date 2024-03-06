@@ -13,50 +13,51 @@ package marketing_events_beta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 
-	"github.com/clarkmcc/go-hubspot"
+	"github.com/inpher/go-hubspot"
 	"net/url"
 )
 
-// BatchApiService BatchApi service
-type BatchApiService service
+// BatchAPIService BatchAPI service
+type BatchAPIService service
 
-type ApiArchiveBatchRequest struct {
+type ApiArchiveRequest struct {
 	ctx                                              context.Context
-	ApiService                                       *BatchApiService
+	ApiService                                       *BatchAPIService
 	batchInputMarketingEventExternalUniqueIdentifier *BatchInputMarketingEventExternalUniqueIdentifier
 }
 
 // The details of the marketing events to delete
-func (r ApiArchiveBatchRequest) BatchInputMarketingEventExternalUniqueIdentifier(batchInputMarketingEventExternalUniqueIdentifier BatchInputMarketingEventExternalUniqueIdentifier) ApiArchiveBatchRequest {
+func (r ApiArchiveRequest) BatchInputMarketingEventExternalUniqueIdentifier(batchInputMarketingEventExternalUniqueIdentifier BatchInputMarketingEventExternalUniqueIdentifier) ApiArchiveRequest {
 	r.batchInputMarketingEventExternalUniqueIdentifier = &batchInputMarketingEventExternalUniqueIdentifier
 	return r
 }
 
-func (r ApiArchiveBatchRequest) Execute() (*Error, *http.Response, error) {
-	return r.ApiService.ArchiveBatchExecute(r)
+func (r ApiArchiveRequest) Execute() (*Error, *http.Response, error) {
+	return r.ApiService.ArchiveExecute(r)
 }
 
 /*
-ArchiveBatch Delete multiple marketing events
+Archive Delete multiple marketing events
 
 Bulk delete a number of marketing events in HubSpot
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiArchiveBatchRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiArchiveRequest
 */
-func (a *BatchApiService) ArchiveBatch(ctx context.Context) ApiArchiveBatchRequest {
-	return ApiArchiveBatchRequest{
+func (a *BatchAPIService) Archive(ctx context.Context) ApiArchiveRequest {
+	return ApiArchiveRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return Error
-func (a *BatchApiService) ArchiveBatchExecute(r ApiArchiveBatchRequest) (*Error, *http.Response, error) {
+//
+//	@return Error
+func (a *BatchAPIService) ArchiveExecute(r ApiArchiveRequest) (*Error, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -64,7 +65,7 @@ func (a *BatchApiService) ArchiveBatchExecute(r ApiArchiveBatchRequest) (*Error,
 		localVarReturnValue *Error
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchApiService.ArchiveBatch")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.Archive")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -117,9 +118,9 @@ func (a *BatchApiService) ArchiveBatchExecute(r ApiArchiveBatchRequest) (*Error,
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -135,6 +136,7 @@ func (a *BatchApiService) ArchiveBatchExecute(r ApiArchiveBatchRequest) (*Error,
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -153,7 +155,7 @@ func (a *BatchApiService) ArchiveBatchExecute(r ApiArchiveBatchRequest) (*Error,
 
 type ApiUpsertRequest struct {
 	ctx                                         context.Context
-	ApiService                                  *BatchApiService
+	ApiService                                  *BatchAPIService
 	batchInputMarketingEventCreateRequestParams *BatchInputMarketingEventCreateRequestParams
 }
 
@@ -172,10 +174,10 @@ Upsert Create or update multiple marketing events
 
 Upset multiple Marketing Event. If there is an existing Marketing event with the specified id, it will be updated; otherwise a new event will be created.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiUpsertRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiUpsertRequest
 */
-func (a *BatchApiService) Upsert(ctx context.Context) ApiUpsertRequest {
+func (a *BatchAPIService) Upsert(ctx context.Context) ApiUpsertRequest {
 	return ApiUpsertRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -183,8 +185,9 @@ func (a *BatchApiService) Upsert(ctx context.Context) ApiUpsertRequest {
 }
 
 // Execute executes the request
-//  @return BatchResponseMarketingEventPublicDefaultResponse
-func (a *BatchApiService) UpsertExecute(r ApiUpsertRequest) (*BatchResponseMarketingEventPublicDefaultResponse, *http.Response, error) {
+//
+//	@return BatchResponseMarketingEventPublicDefaultResponse
+func (a *BatchAPIService) UpsertExecute(r ApiUpsertRequest) (*BatchResponseMarketingEventPublicDefaultResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -192,7 +195,7 @@ func (a *BatchApiService) UpsertExecute(r ApiUpsertRequest) (*BatchResponseMarke
 		localVarReturnValue *BatchResponseMarketingEventPublicDefaultResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchApiService.Upsert")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BatchAPIService.Upsert")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -245,9 +248,9 @@ func (a *BatchApiService) UpsertExecute(r ApiUpsertRequest) (*BatchResponseMarke
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -263,6 +266,7 @@ func (a *BatchApiService) UpsertExecute(r ApiUpsertRequest) (*BatchResponseMarke
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

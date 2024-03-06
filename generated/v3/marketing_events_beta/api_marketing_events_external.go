@@ -13,20 +13,20 @@ package marketing_events_beta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 
-	"github.com/clarkmcc/go-hubspot"
+	"github.com/inpher/go-hubspot"
 	"net/url"
 	"strings"
 )
 
-// MarketingEventsExternalApiService MarketingEventsExternalApi service
-type MarketingEventsExternalApiService service
+// MarketingEventsExternalAPIService MarketingEventsExternalAPI service
+type MarketingEventsExternalAPIService service
 
 type ApiExternalCompleteCompleteRequest struct {
 	ctx                                 context.Context
-	ApiService                          *MarketingEventsExternalApiService
+	ApiService                          *MarketingEventsExternalAPIService
 	externalEventId                     string
 	externalAccountId                   *string
 	marketingEventCompleteRequestParams *MarketingEventCompleteRequestParams
@@ -49,11 +49,11 @@ func (r ApiExternalCompleteCompleteRequest) Execute() (*MarketingEventDefaultRes
 /*
 ExternalCompleteComplete Method for ExternalCompleteComplete
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param externalEventId
- @return ApiExternalCompleteCompleteRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param externalEventId
+	@return ApiExternalCompleteCompleteRequest
 */
-func (a *MarketingEventsExternalApiService) ExternalCompleteComplete(ctx context.Context, externalEventId string) ApiExternalCompleteCompleteRequest {
+func (a *MarketingEventsExternalAPIService) ExternalCompleteComplete(ctx context.Context, externalEventId string) ApiExternalCompleteCompleteRequest {
 	return ApiExternalCompleteCompleteRequest{
 		ApiService:      a,
 		ctx:             ctx,
@@ -62,8 +62,9 @@ func (a *MarketingEventsExternalApiService) ExternalCompleteComplete(ctx context
 }
 
 // Execute executes the request
-//  @return MarketingEventDefaultResponse
-func (a *MarketingEventsExternalApiService) ExternalCompleteCompleteExecute(r ApiExternalCompleteCompleteRequest) (*MarketingEventDefaultResponse, *http.Response, error) {
+//
+//	@return MarketingEventDefaultResponse
+func (a *MarketingEventsExternalAPIService) ExternalCompleteCompleteExecute(r ApiExternalCompleteCompleteRequest) (*MarketingEventDefaultResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -71,13 +72,13 @@ func (a *MarketingEventsExternalApiService) ExternalCompleteCompleteExecute(r Ap
 		localVarReturnValue *MarketingEventDefaultResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingEventsExternalApiService.ExternalCompleteComplete")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketingEventsExternalAPIService.ExternalCompleteComplete")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/marketing/v3/marketing-events/events/{externalEventId}/complete"
-	localVarPath = strings.Replace(localVarPath, "{"+"externalEventId"+"}", url.PathEscape(parameterToString(r.externalEventId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"externalEventId"+"}", url.PathEscape(parameterValueToString(r.externalEventId, "externalEventId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -89,7 +90,7 @@ func (a *MarketingEventsExternalApiService) ExternalCompleteCompleteExecute(r Ap
 		return localVarReturnValue, nil, reportError("marketingEventCompleteRequestParams is required and must be specified")
 	}
 
-	localVarQueryParams.Add("externalAccountId", parameterToString(*r.externalAccountId, ""))
+	parameterAddToHeaderOrQuery(localVarQueryParams, "externalAccountId", r.externalAccountId, "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -129,9 +130,9 @@ func (a *MarketingEventsExternalApiService) ExternalCompleteCompleteExecute(r Ap
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -147,6 +148,7 @@ func (a *MarketingEventsExternalApiService) ExternalCompleteCompleteExecute(r Ap
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

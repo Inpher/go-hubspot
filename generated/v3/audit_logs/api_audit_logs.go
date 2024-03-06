@@ -1,5 +1,5 @@
 /*
-CMS Cms Content Audit
+Cms Content Audit
 
 Use this endpoint to query audit logs of CMS changes that occurred on your HubSpot account.
 
@@ -13,20 +13,20 @@ package audit_logs
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 
-	"github.com/clarkmcc/go-hubspot"
+	"github.com/inpher/go-hubspot"
 	"net/url"
 	"reflect"
 )
 
-// AuditLogsApiService AuditLogsApi service
-type AuditLogsApiService service
+// AuditLogsAPIService AuditLogsAPI service
+type AuditLogsAPIService service
 
 type ApiGetPageRequest struct {
 	ctx        context.Context
-	ApiService *AuditLogsApiService
+	ApiService *AuditLogsAPIService
 	userId     *[]string
 	eventType  *[]string
 	objectType *[]string
@@ -94,10 +94,10 @@ GetPage Query audit logs
 
 Returns audit logs based on filters.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetPageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetPageRequest
 */
-func (a *AuditLogsApiService) GetPage(ctx context.Context) ApiGetPageRequest {
+func (a *AuditLogsAPIService) GetPage(ctx context.Context) ApiGetPageRequest {
 	return ApiGetPageRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -105,8 +105,9 @@ func (a *AuditLogsApiService) GetPage(ctx context.Context) ApiGetPageRequest {
 }
 
 // Execute executes the request
-//  @return CollectionResponsePublicAuditLog
-func (a *AuditLogsApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionResponsePublicAuditLog, *http.Response, error) {
+//
+//	@return CollectionResponsePublicAuditLog
+func (a *AuditLogsAPIService) GetPageExecute(r ApiGetPageRequest) (*CollectionResponsePublicAuditLog, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -114,7 +115,7 @@ func (a *AuditLogsApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionRe
 		localVarReturnValue *CollectionResponsePublicAuditLog
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuditLogsApiService.GetPage")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuditLogsAPIService.GetPage")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -130,10 +131,10 @@ func (a *AuditLogsApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionRe
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("userId", parameterToString(s.Index(i), "multi"))
+				parameterAddToHeaderOrQuery(localVarQueryParams, "userId", s.Index(i).Interface(), "multi")
 			}
 		} else {
-			localVarQueryParams.Add("userId", parameterToString(t, "multi"))
+			parameterAddToHeaderOrQuery(localVarQueryParams, "userId", t, "multi")
 		}
 	}
 	if r.eventType != nil {
@@ -141,10 +142,10 @@ func (a *AuditLogsApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionRe
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("eventType", parameterToString(s.Index(i), "multi"))
+				parameterAddToHeaderOrQuery(localVarQueryParams, "eventType", s.Index(i).Interface(), "multi")
 			}
 		} else {
-			localVarQueryParams.Add("eventType", parameterToString(t, "multi"))
+			parameterAddToHeaderOrQuery(localVarQueryParams, "eventType", t, "multi")
 		}
 	}
 	if r.objectType != nil {
@@ -152,10 +153,10 @@ func (a *AuditLogsApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionRe
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("objectType", parameterToString(s.Index(i), "multi"))
+				parameterAddToHeaderOrQuery(localVarQueryParams, "objectType", s.Index(i).Interface(), "multi")
 			}
 		} else {
-			localVarQueryParams.Add("objectType", parameterToString(t, "multi"))
+			parameterAddToHeaderOrQuery(localVarQueryParams, "objectType", t, "multi")
 		}
 	}
 	if r.objectId != nil {
@@ -163,30 +164,30 @@ func (a *AuditLogsApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionRe
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("objectId", parameterToString(s.Index(i), "multi"))
+				parameterAddToHeaderOrQuery(localVarQueryParams, "objectId", s.Index(i).Interface(), "multi")
 			}
 		} else {
-			localVarQueryParams.Add("objectId", parameterToString(t, "multi"))
+			parameterAddToHeaderOrQuery(localVarQueryParams, "objectId", t, "multi")
 		}
 	}
 	if r.after != nil {
-		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "after", r.after, "")
 	}
 	if r.before != nil {
-		localVarQueryParams.Add("before", parameterToString(*r.before, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "before", r.before, "")
 	}
 	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
 	}
 	if r.sort != nil {
 		t := *r.sort
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("sort", parameterToString(s.Index(i), "multi"))
+				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "multi")
 			}
 		} else {
-			localVarQueryParams.Add("sort", parameterToString(t, "multi"))
+			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "multi")
 		}
 	}
 	// to determine the Content-Type header
@@ -226,9 +227,9 @@ func (a *AuditLogsApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionRe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -244,6 +245,7 @@ func (a *AuditLogsApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionRe
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

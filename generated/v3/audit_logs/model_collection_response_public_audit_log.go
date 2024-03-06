@@ -1,5 +1,5 @@
 /*
-CMS Cms Content Audit
+Cms Content Audit
 
 Use this endpoint to query audit logs of CMS changes that occurred on your HubSpot account.
 
@@ -11,8 +11,13 @@ API version: v3
 package audit_logs
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the CollectionResponsePublicAuditLog type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CollectionResponsePublicAuditLog{}
 
 // CollectionResponsePublicAuditLog The collection of audit logs.
 type CollectionResponsePublicAuditLog struct {
@@ -20,6 +25,8 @@ type CollectionResponsePublicAuditLog struct {
 	//
 	Results []PublicAuditLog `json:"results"`
 }
+
+type _CollectionResponsePublicAuditLog CollectionResponsePublicAuditLog
 
 // NewCollectionResponsePublicAuditLog instantiates a new CollectionResponsePublicAuditLog object
 // This constructor will assign default values to properties that have it defined,
@@ -41,7 +48,7 @@ func NewCollectionResponsePublicAuditLogWithDefaults() *CollectionResponsePublic
 
 // GetPaging returns the Paging field value if set, zero value otherwise.
 func (o *CollectionResponsePublicAuditLog) GetPaging() Paging {
-	if o == nil || o.Paging == nil {
+	if o == nil || IsNil(o.Paging) {
 		var ret Paging
 		return ret
 	}
@@ -51,7 +58,7 @@ func (o *CollectionResponsePublicAuditLog) GetPaging() Paging {
 // GetPagingOk returns a tuple with the Paging field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionResponsePublicAuditLog) GetPagingOk() (*Paging, bool) {
-	if o == nil || o.Paging == nil {
+	if o == nil || IsNil(o.Paging) {
 		return nil, false
 	}
 	return o.Paging, true
@@ -59,7 +66,7 @@ func (o *CollectionResponsePublicAuditLog) GetPagingOk() (*Paging, bool) {
 
 // HasPaging returns a boolean if a field has been set.
 func (o *CollectionResponsePublicAuditLog) HasPaging() bool {
-	if o != nil && o.Paging != nil {
+	if o != nil && !IsNil(o.Paging) {
 		return true
 	}
 
@@ -96,14 +103,57 @@ func (o *CollectionResponsePublicAuditLog) SetResults(v []PublicAuditLog) {
 }
 
 func (o CollectionResponsePublicAuditLog) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Paging != nil {
-		toSerialize["paging"] = o.Paging
-	}
-	if true {
-		toSerialize["results"] = o.Results
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CollectionResponsePublicAuditLog) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Paging) {
+		toSerialize["paging"] = o.Paging
+	}
+	toSerialize["results"] = o.Results
+	return toSerialize, nil
+}
+
+func (o *CollectionResponsePublicAuditLog) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"results",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCollectionResponsePublicAuditLog := _CollectionResponsePublicAuditLog{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varCollectionResponsePublicAuditLog)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CollectionResponsePublicAuditLog(varCollectionResponsePublicAuditLog)
+
+	return err
 }
 
 type NullableCollectionResponsePublicAuditLog struct {

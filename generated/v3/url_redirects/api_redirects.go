@@ -13,22 +13,22 @@ package url_redirects
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 
-	"github.com/clarkmcc/go-hubspot"
+	"github.com/inpher/go-hubspot"
 	"net/url"
 	"reflect"
 	"strings"
 	"time"
 )
 
-// RedirectsApiService RedirectsApi service
-type RedirectsApiService service
+// RedirectsAPIService RedirectsAPI service
+type RedirectsAPIService service
 
 type ApiArchiveRequest struct {
 	ctx           context.Context
-	ApiService    *RedirectsApiService
+	ApiService    *RedirectsAPIService
 	urlRedirectId string
 }
 
@@ -41,11 +41,11 @@ Archive Delete a redirect
 
 Delete one existing redirect, so it is no longer mapped.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param urlRedirectId The ID of the target redirect.
- @return ApiArchiveRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param urlRedirectId The ID of the target redirect.
+	@return ApiArchiveRequest
 */
-func (a *RedirectsApiService) Archive(ctx context.Context, urlRedirectId string) ApiArchiveRequest {
+func (a *RedirectsAPIService) Archive(ctx context.Context, urlRedirectId string) ApiArchiveRequest {
 	return ApiArchiveRequest{
 		ApiService:    a,
 		ctx:           ctx,
@@ -54,20 +54,20 @@ func (a *RedirectsApiService) Archive(ctx context.Context, urlRedirectId string)
 }
 
 // Execute executes the request
-func (a *RedirectsApiService) ArchiveExecute(r ApiArchiveRequest) (*http.Response, error) {
+func (a *RedirectsAPIService) ArchiveExecute(r ApiArchiveRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RedirectsApiService.Archive")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RedirectsAPIService.Archive")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/cms/v3/url-redirects/{urlRedirectId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"urlRedirectId"+"}", url.PathEscape(parameterToString(r.urlRedirectId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"urlRedirectId"+"}", url.PathEscape(parameterValueToString(r.urlRedirectId, "urlRedirectId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -110,9 +110,9 @@ func (a *RedirectsApiService) ArchiveExecute(r ApiArchiveRequest) (*http.Respons
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -128,6 +128,7 @@ func (a *RedirectsApiService) ArchiveExecute(r ApiArchiveRequest) (*http.Respons
 			newErr.error = err.Error()
 			return localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
@@ -137,7 +138,7 @@ func (a *RedirectsApiService) ArchiveExecute(r ApiArchiveRequest) (*http.Respons
 
 type ApiCreateRequest struct {
 	ctx                         context.Context
-	ApiService                  *RedirectsApiService
+	ApiService                  *RedirectsAPIService
 	urlMappingCreateRequestBody *UrlMappingCreateRequestBody
 }
 
@@ -155,10 +156,10 @@ Create Create a redirect
 
 Creates and configures a new URL redirect.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateRequest
 */
-func (a *RedirectsApiService) Create(ctx context.Context) ApiCreateRequest {
+func (a *RedirectsAPIService) Create(ctx context.Context) ApiCreateRequest {
 	return ApiCreateRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -166,8 +167,9 @@ func (a *RedirectsApiService) Create(ctx context.Context) ApiCreateRequest {
 }
 
 // Execute executes the request
-//  @return UrlMapping
-func (a *RedirectsApiService) CreateExecute(r ApiCreateRequest) (*UrlMapping, *http.Response, error) {
+//
+//	@return UrlMapping
+func (a *RedirectsAPIService) CreateExecute(r ApiCreateRequest) (*UrlMapping, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -175,7 +177,7 @@ func (a *RedirectsApiService) CreateExecute(r ApiCreateRequest) (*UrlMapping, *h
 		localVarReturnValue *UrlMapping
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RedirectsApiService.Create")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RedirectsAPIService.Create")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -228,9 +230,9 @@ func (a *RedirectsApiService) CreateExecute(r ApiCreateRequest) (*UrlMapping, *h
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -246,6 +248,7 @@ func (a *RedirectsApiService) CreateExecute(r ApiCreateRequest) (*UrlMapping, *h
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -264,7 +267,7 @@ func (a *RedirectsApiService) CreateExecute(r ApiCreateRequest) (*UrlMapping, *h
 
 type ApiGetByIDRequest struct {
 	ctx           context.Context
-	ApiService    *RedirectsApiService
+	ApiService    *RedirectsAPIService
 	urlRedirectId string
 }
 
@@ -277,11 +280,11 @@ GetByID Get details for a redirect
 
 Returns the details for a single existing URL redirect by ID.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param urlRedirectId The ID of the target redirect.
- @return ApiGetByIDRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param urlRedirectId The ID of the target redirect.
+	@return ApiGetByIDRequest
 */
-func (a *RedirectsApiService) GetByID(ctx context.Context, urlRedirectId string) ApiGetByIDRequest {
+func (a *RedirectsAPIService) GetByID(ctx context.Context, urlRedirectId string) ApiGetByIDRequest {
 	return ApiGetByIDRequest{
 		ApiService:    a,
 		ctx:           ctx,
@@ -290,8 +293,9 @@ func (a *RedirectsApiService) GetByID(ctx context.Context, urlRedirectId string)
 }
 
 // Execute executes the request
-//  @return UrlMapping
-func (a *RedirectsApiService) GetByIDExecute(r ApiGetByIDRequest) (*UrlMapping, *http.Response, error) {
+//
+//	@return UrlMapping
+func (a *RedirectsAPIService) GetByIDExecute(r ApiGetByIDRequest) (*UrlMapping, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -299,13 +303,13 @@ func (a *RedirectsApiService) GetByIDExecute(r ApiGetByIDRequest) (*UrlMapping, 
 		localVarReturnValue *UrlMapping
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RedirectsApiService.GetByID")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RedirectsAPIService.GetByID")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/cms/v3/url-redirects/{urlRedirectId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"urlRedirectId"+"}", url.PathEscape(parameterToString(r.urlRedirectId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"urlRedirectId"+"}", url.PathEscape(parameterValueToString(r.urlRedirectId, "urlRedirectId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -348,9 +352,9 @@ func (a *RedirectsApiService) GetByIDExecute(r ApiGetByIDRequest) (*UrlMapping, 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -366,6 +370,7 @@ func (a *RedirectsApiService) GetByIDExecute(r ApiGetByIDRequest) (*UrlMapping, 
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -384,7 +389,7 @@ func (a *RedirectsApiService) GetByIDExecute(r ApiGetByIDRequest) (*UrlMapping, 
 
 type ApiGetPageRequest struct {
 	ctx           context.Context
-	ApiService    *RedirectsApiService
+	ApiService    *RedirectsAPIService
 	createdAt     *time.Time
 	createdAfter  *time.Time
 	createdBefore *time.Time
@@ -465,10 +470,10 @@ GetPage Get current redirects
 
 Returns all existing URL redirects. Results can be limited and filtered by creation or updated date.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetPageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetPageRequest
 */
-func (a *RedirectsApiService) GetPage(ctx context.Context) ApiGetPageRequest {
+func (a *RedirectsAPIService) GetPage(ctx context.Context) ApiGetPageRequest {
 	return ApiGetPageRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -476,8 +481,9 @@ func (a *RedirectsApiService) GetPage(ctx context.Context) ApiGetPageRequest {
 }
 
 // Execute executes the request
-//  @return CollectionResponseWithTotalUrlMappingForwardPaging
-func (a *RedirectsApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionResponseWithTotalUrlMappingForwardPaging, *http.Response, error) {
+//
+//	@return CollectionResponseWithTotalUrlMappingForwardPaging
+func (a *RedirectsAPIService) GetPageExecute(r ApiGetPageRequest) (*CollectionResponseWithTotalUrlMappingForwardPaging, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -485,7 +491,7 @@ func (a *RedirectsApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionRe
 		localVarReturnValue *CollectionResponseWithTotalUrlMappingForwardPaging
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RedirectsApiService.GetPage")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RedirectsAPIService.GetPage")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -497,42 +503,42 @@ func (a *RedirectsApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionRe
 	localVarFormParams := url.Values{}
 
 	if r.createdAt != nil {
-		localVarQueryParams.Add("createdAt", parameterToString(*r.createdAt, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "createdAt", r.createdAt, "")
 	}
 	if r.createdAfter != nil {
-		localVarQueryParams.Add("createdAfter", parameterToString(*r.createdAfter, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "createdAfter", r.createdAfter, "")
 	}
 	if r.createdBefore != nil {
-		localVarQueryParams.Add("createdBefore", parameterToString(*r.createdBefore, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "createdBefore", r.createdBefore, "")
 	}
 	if r.updatedAt != nil {
-		localVarQueryParams.Add("updatedAt", parameterToString(*r.updatedAt, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "updatedAt", r.updatedAt, "")
 	}
 	if r.updatedAfter != nil {
-		localVarQueryParams.Add("updatedAfter", parameterToString(*r.updatedAfter, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "updatedAfter", r.updatedAfter, "")
 	}
 	if r.updatedBefore != nil {
-		localVarQueryParams.Add("updatedBefore", parameterToString(*r.updatedBefore, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "updatedBefore", r.updatedBefore, "")
 	}
 	if r.sort != nil {
 		t := *r.sort
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("sort", parameterToString(s.Index(i), "multi"))
+				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "multi")
 			}
 		} else {
-			localVarQueryParams.Add("sort", parameterToString(t, "multi"))
+			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "multi")
 		}
 	}
 	if r.after != nil {
-		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "after", r.after, "")
 	}
 	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
 	}
 	if r.archived != nil {
-		localVarQueryParams.Add("archived", parameterToString(*r.archived, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "archived", r.archived, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -571,9 +577,9 @@ func (a *RedirectsApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionRe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -589,6 +595,7 @@ func (a *RedirectsApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionRe
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -607,7 +614,7 @@ func (a *RedirectsApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionRe
 
 type ApiUpdateRequest struct {
 	ctx           context.Context
-	ApiService    *RedirectsApiService
+	ApiService    *RedirectsAPIService
 	urlRedirectId string
 	urlMapping    *UrlMapping
 }
@@ -626,11 +633,11 @@ Update Update a redirect
 
 Updates the settings for an existing URL redirect.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param urlRedirectId
- @return ApiUpdateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param urlRedirectId
+	@return ApiUpdateRequest
 */
-func (a *RedirectsApiService) Update(ctx context.Context, urlRedirectId string) ApiUpdateRequest {
+func (a *RedirectsAPIService) Update(ctx context.Context, urlRedirectId string) ApiUpdateRequest {
 	return ApiUpdateRequest{
 		ApiService:    a,
 		ctx:           ctx,
@@ -639,8 +646,9 @@ func (a *RedirectsApiService) Update(ctx context.Context, urlRedirectId string) 
 }
 
 // Execute executes the request
-//  @return UrlMapping
-func (a *RedirectsApiService) UpdateExecute(r ApiUpdateRequest) (*UrlMapping, *http.Response, error) {
+//
+//	@return UrlMapping
+func (a *RedirectsAPIService) UpdateExecute(r ApiUpdateRequest) (*UrlMapping, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
 		localVarPostBody    interface{}
@@ -648,13 +656,13 @@ func (a *RedirectsApiService) UpdateExecute(r ApiUpdateRequest) (*UrlMapping, *h
 		localVarReturnValue *UrlMapping
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RedirectsApiService.Update")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RedirectsAPIService.Update")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/cms/v3/url-redirects/{urlRedirectId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"urlRedirectId"+"}", url.PathEscape(parameterToString(r.urlRedirectId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"urlRedirectId"+"}", url.PathEscape(parameterValueToString(r.urlRedirectId, "urlRedirectId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -702,9 +710,9 @@ func (a *RedirectsApiService) UpdateExecute(r ApiUpdateRequest) (*UrlMapping, *h
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -720,6 +728,7 @@ func (a *RedirectsApiService) UpdateExecute(r ApiUpdateRequest) (*UrlMapping, *h
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

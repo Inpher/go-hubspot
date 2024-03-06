@@ -11,7 +11,7 @@ docs/BatchInputString.md
 docs/BatchInputTag.md
 docs/BatchResponseTag.md
 docs/BatchResponseTagWithErrors.md
-docs/BlogTagsApi.md
+docs/BlogTagsAPI.md
 docs/CollectionResponseWithTotalTagForwardPaging.md
 docs/DetachFromLangGroupRequestVNext.md
 docs/Error.md

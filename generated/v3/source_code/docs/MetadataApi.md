@@ -1,10 +1,10 @@
-# \MetadataApi
+# \MetadataAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**MetadataGet**](MetadataApi.md#MetadataGet) | **Get** /cms/v3/source-code/{environment}/metadata/{path} | Get the metadata for a file
+[**MetadataGet**](MetadataAPI.md#MetadataGet) | **Get** /cms/v3/source-code/{environment}/metadata/{path} | Get the metadata for a file
 
 
 
@@ -22,26 +22,26 @@ Get the metadata for a file
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    environment := "environment_example" // string | The environment of the file (\"draft\" or \"published\").
-    path := "path_example" // string | The file system location of the file.
-    properties := "properties_example" // string |  (optional)
+	environment := "environment_example" // string | The environment of the file (\"draft\" or \"published\").
+	path := "path_example" // string | The file system location of the file.
+	properties := "properties_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.MetadataApi.MetadataGet(context.Background(), environment, path).Properties(properties).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `MetadataApi.MetadataGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `MetadataGet`: AssetFileMetadata
-    fmt.Fprintf(os.Stdout, "Response from `MetadataApi.MetadataGet`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MetadataAPI.MetadataGet(context.Background(), environment, path).Properties(properties).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MetadataAPI.MetadataGet``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `MetadataGet`: AssetFileMetadata
+	fmt.Fprintf(os.Stdout, "Response from `MetadataAPI.MetadataGet`: %v\n", resp)
 }
 ```
 

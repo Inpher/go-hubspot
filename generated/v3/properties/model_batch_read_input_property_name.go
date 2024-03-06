@@ -11,14 +11,21 @@ API version: v3
 package properties
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the BatchReadInputPropertyName type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BatchReadInputPropertyName{}
 
 // BatchReadInputPropertyName struct for BatchReadInputPropertyName
 type BatchReadInputPropertyName struct {
 	Archived bool           `json:"archived"`
 	Inputs   []PropertyName `json:"inputs"`
 }
+
+type _BatchReadInputPropertyName BatchReadInputPropertyName
 
 // NewBatchReadInputPropertyName instantiates a new BatchReadInputPropertyName object
 // This constructor will assign default values to properties that have it defined,
@@ -88,14 +95,56 @@ func (o *BatchReadInputPropertyName) SetInputs(v []PropertyName) {
 }
 
 func (o BatchReadInputPropertyName) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["archived"] = o.Archived
-	}
-	if true {
-		toSerialize["inputs"] = o.Inputs
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o BatchReadInputPropertyName) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["archived"] = o.Archived
+	toSerialize["inputs"] = o.Inputs
+	return toSerialize, nil
+}
+
+func (o *BatchReadInputPropertyName) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"archived",
+		"inputs",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varBatchReadInputPropertyName := _BatchReadInputPropertyName{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varBatchReadInputPropertyName)
+
+	if err != nil {
+		return err
+	}
+
+	*o = BatchReadInputPropertyName(varBatchReadInputPropertyName)
+
+	return err
 }
 
 type NullableBatchReadInputPropertyName struct {

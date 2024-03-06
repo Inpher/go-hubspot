@@ -9,7 +9,7 @@ configuration.go
 docs/ActionResponse.md
 docs/CollectionResponsePublicImportErrorForwardPaging.md
 docs/CollectionResponsePublicImportResponse.md
-docs/CoreApi.md
+docs/CoreAPI.md
 docs/Error.md
 docs/ErrorDetail.md
 docs/ForwardPaging.md
@@ -21,7 +21,7 @@ docs/PreviousPage.md
 docs/PublicImportError.md
 docs/PublicImportMetadata.md
 docs/PublicImportResponse.md
-docs/PublicImportsApi.md
+docs/PublicImportsAPI.md
 docs/PublicObjectListRecord.md
 git_push.sh
 go.mod

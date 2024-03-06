@@ -13,21 +13,21 @@ package events
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 
-	"github.com/clarkmcc/go-hubspot"
+	"github.com/inpher/go-hubspot"
 	"net/url"
 	"reflect"
 	"time"
 )
 
-// EventsApiService EventsApi service
-type EventsApiService service
+// EventsAPIService EventsAPI service
+type EventsAPIService service
 
 type ApiGetEventsV3EventsGetPageRequest struct {
 	ctx                    context.Context
-	ApiService             *EventsApiService
+	ApiService             *EventsAPIService
 	objectType             *string
 	eventType              *string
 	occurredAfter          *time.Time
@@ -123,10 +123,10 @@ func (r ApiGetEventsV3EventsGetPageRequest) Execute() (*CollectionResponseExtern
 /*
 GetEventsV3EventsGetPage Method for GetEventsV3EventsGetPage
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetEventsV3EventsGetPageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetEventsV3EventsGetPageRequest
 */
-func (a *EventsApiService) GetEventsV3EventsGetPage(ctx context.Context) ApiGetEventsV3EventsGetPageRequest {
+func (a *EventsAPIService) GetEventsV3EventsGetPage(ctx context.Context) ApiGetEventsV3EventsGetPageRequest {
 	return ApiGetEventsV3EventsGetPageRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -134,8 +134,9 @@ func (a *EventsApiService) GetEventsV3EventsGetPage(ctx context.Context) ApiGetE
 }
 
 // Execute executes the request
-//  @return CollectionResponseExternalUnifiedEvent
-func (a *EventsApiService) GetEventsV3EventsGetPageExecute(r ApiGetEventsV3EventsGetPageRequest) (*CollectionResponseExternalUnifiedEvent, *http.Response, error) {
+//
+//	@return CollectionResponseExternalUnifiedEvent
+func (a *EventsAPIService) GetEventsV3EventsGetPageExecute(r ApiGetEventsV3EventsGetPageRequest) (*CollectionResponseExternalUnifiedEvent, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -143,7 +144,7 @@ func (a *EventsApiService) GetEventsV3EventsGetPageExecute(r ApiGetEventsV3Event
 		localVarReturnValue *CollectionResponseExternalUnifiedEvent
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsApiService.GetEventsV3EventsGetPage")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsAPIService.GetEventsV3EventsGetPage")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -155,61 +156,61 @@ func (a *EventsApiService) GetEventsV3EventsGetPageExecute(r ApiGetEventsV3Event
 	localVarFormParams := url.Values{}
 
 	if r.objectType != nil {
-		localVarQueryParams.Add("objectType", parameterToString(*r.objectType, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "objectType", r.objectType, "")
 	}
 	if r.eventType != nil {
-		localVarQueryParams.Add("eventType", parameterToString(*r.eventType, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "eventType", r.eventType, "")
 	}
 	if r.occurredAfter != nil {
-		localVarQueryParams.Add("occurredAfter", parameterToString(*r.occurredAfter, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "occurredAfter", r.occurredAfter, "")
 	}
 	if r.occurredBefore != nil {
-		localVarQueryParams.Add("occurredBefore", parameterToString(*r.occurredBefore, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "occurredBefore", r.occurredBefore, "")
 	}
 	if r.objectId != nil {
-		localVarQueryParams.Add("objectId", parameterToString(*r.objectId, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "objectId", r.objectId, "")
 	}
 	if r.indexTableName != nil {
-		localVarQueryParams.Add("indexTableName", parameterToString(*r.indexTableName, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "indexTableName", r.indexTableName, "")
 	}
 	if r.indexSpecificMetadata != nil {
-		localVarQueryParams.Add("indexSpecificMetadata", parameterToString(*r.indexSpecificMetadata, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "indexSpecificMetadata", r.indexSpecificMetadata, "")
 	}
 	if r.after != nil {
-		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "after", r.after, "")
 	}
 	if r.before != nil {
-		localVarQueryParams.Add("before", parameterToString(*r.before, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "before", r.before, "")
 	}
 	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
 	}
 	if r.sort != nil {
 		t := *r.sort
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("sort", parameterToString(s.Index(i), "multi"))
+				parameterAddToHeaderOrQuery(localVarQueryParams, "sort", s.Index(i).Interface(), "multi")
 			}
 		} else {
-			localVarQueryParams.Add("sort", parameterToString(t, "multi"))
+			parameterAddToHeaderOrQuery(localVarQueryParams, "sort", t, "multi")
 		}
 	}
 	if r.objectPropertyPropname != nil {
-		localVarQueryParams.Add("objectProperty.{propname}", parameterToString(*r.objectPropertyPropname, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "objectProperty.{propname}", r.objectPropertyPropname, "")
 	}
 	if r.propertyPropname != nil {
-		localVarQueryParams.Add("property.{propname}", parameterToString(*r.propertyPropname, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "property.{propname}", r.propertyPropname, "")
 	}
 	if r.id != nil {
 		t := *r.id
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("id", parameterToString(s.Index(i), "multi"))
+				parameterAddToHeaderOrQuery(localVarQueryParams, "id", s.Index(i).Interface(), "multi")
 			}
 		} else {
-			localVarQueryParams.Add("id", parameterToString(t, "multi"))
+			parameterAddToHeaderOrQuery(localVarQueryParams, "id", t, "multi")
 		}
 	}
 	// to determine the Content-Type header
@@ -249,9 +250,9 @@ func (a *EventsApiService) GetEventsV3EventsGetPageExecute(r ApiGetEventsV3Event
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -267,6 +268,7 @@ func (a *EventsApiService) GetEventsV3EventsGetPageExecute(r ApiGetEventsV3Event
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

@@ -1,10 +1,10 @@
-# \AuditLogsApi
+# \AuditLogsAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetPage**](AuditLogsApi.md#GetPage) | **Get** /cms/v3/audit-logs/ | Query audit logs
+[**GetPage**](AuditLogsAPI.md#GetPage) | **Get** /cms/v3/audit-logs/ | Query audit logs
 
 
 
@@ -22,31 +22,31 @@ Query audit logs
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    userId := []string{"Inner_example"} // []string | Comma separated list of user ids to filter by. (optional)
-    eventType := []string{"Inner_example"} // []string | Comma separated list of event types to filter by (CREATED, UPDATED, PUBLISHED, DELETED, UNPUBLISHED). (optional)
-    objectType := []string{"Inner_example"} // []string | Comma separated list of object types to filter by (BLOG, LANDING_PAGE, DOMAIN, HUBDB_TABLE etc.) (optional)
-    objectId := []string{"Inner_example"} // []string | Comma separated list of object ids to filter by. (optional)
-    after := "after_example" // string | Timestamp after which audit logs will be returned (optional)
-    before := "before_example" // string | Timestamp before which audit logs will be returned (optional)
-    limit := int32(56) // int32 | The number of logs to return. (optional)
-    sort := []string{"Inner_example"} // []string | The sort direction for the audit logs. (Can only sort by timestamp). (optional)
+	userId := []string{"Inner_example"} // []string | Comma separated list of user ids to filter by. (optional)
+	eventType := []string{"Inner_example"} // []string | Comma separated list of event types to filter by (CREATED, UPDATED, PUBLISHED, DELETED, UNPUBLISHED). (optional)
+	objectType := []string{"Inner_example"} // []string | Comma separated list of object types to filter by (BLOG, LANDING_PAGE, DOMAIN, HUBDB_TABLE etc.) (optional)
+	objectId := []string{"Inner_example"} // []string | Comma separated list of object ids to filter by. (optional)
+	after := "after_example" // string | Timestamp after which audit logs will be returned (optional)
+	before := "before_example" // string | Timestamp before which audit logs will be returned (optional)
+	limit := int32(56) // int32 | The number of logs to return. (optional)
+	sort := []string{"Inner_example"} // []string | The sort direction for the audit logs. (Can only sort by timestamp). (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuditLogsApi.GetPage(context.Background()).UserId(userId).EventType(eventType).ObjectType(objectType).ObjectId(objectId).After(after).Before(before).Limit(limit).Sort(sort).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuditLogsApi.GetPage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetPage`: CollectionResponsePublicAuditLog
-    fmt.Fprintf(os.Stdout, "Response from `AuditLogsApi.GetPage`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuditLogsAPI.GetPage(context.Background()).UserId(userId).EventType(eventType).ObjectType(objectType).ObjectId(objectId).After(after).Before(before).Limit(limit).Sort(sort).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuditLogsAPI.GetPage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetPage`: CollectionResponsePublicAuditLog
+	fmt.Fprintf(os.Stdout, "Response from `AuditLogsAPI.GetPage`: %v\n", resp)
 }
 ```
 

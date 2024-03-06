@@ -11,20 +11,27 @@ API version: v3
 package webhooks
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the SettingsResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SettingsResponse{}
 
 // SettingsResponse Webhook settings for an app.
 type SettingsResponse struct {
 	// When this subscription was created. Formatted as milliseconds from the [Unix epoch](#).
 	CreatedAt  time.Time          `json:"createdAt"`
 	Throttling ThrottlingSettings `json:"throttling"`
-	// A publicly available URL for Hubspot to call where event payloads will be delivered. See [link-so-some-doc](#) for details about the format of these event payloads.
+	// A publicly available URL for HubSpot to call where event payloads will be delivered. See [link-so-some-doc](#) for details about the format of these event payloads.
 	TargetUrl string `json:"targetUrl"`
 	// When this subscription was last updated. Formatted as milliseconds from the [Unix epoch](#).
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 }
+
+type _SettingsResponse SettingsResponse
 
 // NewSettingsResponse instantiates a new SettingsResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +127,7 @@ func (o *SettingsResponse) SetTargetUrl(v string) {
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
 func (o *SettingsResponse) GetUpdatedAt() time.Time {
-	if o == nil || o.UpdatedAt == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -130,7 +137,7 @@ func (o *SettingsResponse) GetUpdatedAt() time.Time {
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SettingsResponse) GetUpdatedAtOk() (*time.Time, bool) {
-	if o == nil || o.UpdatedAt == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
 	return o.UpdatedAt, true
@@ -138,7 +145,7 @@ func (o *SettingsResponse) GetUpdatedAtOk() (*time.Time, bool) {
 
 // HasUpdatedAt returns a boolean if a field has been set.
 func (o *SettingsResponse) HasUpdatedAt() bool {
-	if o != nil && o.UpdatedAt != nil {
+	if o != nil && !IsNil(o.UpdatedAt) {
 		return true
 	}
 
@@ -151,20 +158,61 @@ func (o *SettingsResponse) SetUpdatedAt(v time.Time) {
 }
 
 func (o SettingsResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if true {
-		toSerialize["throttling"] = o.Throttling
-	}
-	if true {
-		toSerialize["targetUrl"] = o.TargetUrl
-	}
-	if o.UpdatedAt != nil {
-		toSerialize["updatedAt"] = o.UpdatedAt
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SettingsResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["createdAt"] = o.CreatedAt
+	toSerialize["throttling"] = o.Throttling
+	toSerialize["targetUrl"] = o.TargetUrl
+	if !IsNil(o.UpdatedAt) {
+		toSerialize["updatedAt"] = o.UpdatedAt
+	}
+	return toSerialize, nil
+}
+
+func (o *SettingsResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"createdAt",
+		"throttling",
+		"targetUrl",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSettingsResponse := _SettingsResponse{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varSettingsResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SettingsResponse(varSettingsResponse)
+
+	return err
 }
 
 type NullableSettingsResponse struct {

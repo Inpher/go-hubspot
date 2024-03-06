@@ -1,5 +1,5 @@
 /*
-Send Event Completions
+Events Send Event Completions
 
 HTTP API for triggering instances of custom behavioral events
 
@@ -11,9 +11,14 @@ API version: v3
 package custom_behavioral_events
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the BehavioralEventHttpCompletionRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BehavioralEventHttpCompletionRequest{}
 
 // BehavioralEventHttpCompletionRequest struct for BehavioralEventHttpCompletionRequest
 type BehavioralEventHttpCompletionRequest struct {
@@ -31,6 +36,8 @@ type BehavioralEventHttpCompletionRequest struct {
 	// The object id that this event occurred on. Could be a contact id or a visitor id.
 	ObjectId *string `json:"objectId,omitempty"`
 }
+
+type _BehavioralEventHttpCompletionRequest BehavioralEventHttpCompletionRequest
 
 // NewBehavioralEventHttpCompletionRequest instantiates a new BehavioralEventHttpCompletionRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -52,7 +59,7 @@ func NewBehavioralEventHttpCompletionRequestWithDefaults() *BehavioralEventHttpC
 
 // GetOccurredAt returns the OccurredAt field value if set, zero value otherwise.
 func (o *BehavioralEventHttpCompletionRequest) GetOccurredAt() time.Time {
-	if o == nil || o.OccurredAt == nil {
+	if o == nil || IsNil(o.OccurredAt) {
 		var ret time.Time
 		return ret
 	}
@@ -62,7 +69,7 @@ func (o *BehavioralEventHttpCompletionRequest) GetOccurredAt() time.Time {
 // GetOccurredAtOk returns a tuple with the OccurredAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BehavioralEventHttpCompletionRequest) GetOccurredAtOk() (*time.Time, bool) {
-	if o == nil || o.OccurredAt == nil {
+	if o == nil || IsNil(o.OccurredAt) {
 		return nil, false
 	}
 	return o.OccurredAt, true
@@ -70,7 +77,7 @@ func (o *BehavioralEventHttpCompletionRequest) GetOccurredAtOk() (*time.Time, bo
 
 // HasOccurredAt returns a boolean if a field has been set.
 func (o *BehavioralEventHttpCompletionRequest) HasOccurredAt() bool {
-	if o != nil && o.OccurredAt != nil {
+	if o != nil && !IsNil(o.OccurredAt) {
 		return true
 	}
 
@@ -108,7 +115,7 @@ func (o *BehavioralEventHttpCompletionRequest) SetEventName(v string) {
 
 // GetUtk returns the Utk field value if set, zero value otherwise.
 func (o *BehavioralEventHttpCompletionRequest) GetUtk() string {
-	if o == nil || o.Utk == nil {
+	if o == nil || IsNil(o.Utk) {
 		var ret string
 		return ret
 	}
@@ -118,7 +125,7 @@ func (o *BehavioralEventHttpCompletionRequest) GetUtk() string {
 // GetUtkOk returns a tuple with the Utk field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BehavioralEventHttpCompletionRequest) GetUtkOk() (*string, bool) {
-	if o == nil || o.Utk == nil {
+	if o == nil || IsNil(o.Utk) {
 		return nil, false
 	}
 	return o.Utk, true
@@ -126,7 +133,7 @@ func (o *BehavioralEventHttpCompletionRequest) GetUtkOk() (*string, bool) {
 
 // HasUtk returns a boolean if a field has been set.
 func (o *BehavioralEventHttpCompletionRequest) HasUtk() bool {
-	if o != nil && o.Utk != nil {
+	if o != nil && !IsNil(o.Utk) {
 		return true
 	}
 
@@ -140,7 +147,7 @@ func (o *BehavioralEventHttpCompletionRequest) SetUtk(v string) {
 
 // GetUuid returns the Uuid field value if set, zero value otherwise.
 func (o *BehavioralEventHttpCompletionRequest) GetUuid() string {
-	if o == nil || o.Uuid == nil {
+	if o == nil || IsNil(o.Uuid) {
 		var ret string
 		return ret
 	}
@@ -150,7 +157,7 @@ func (o *BehavioralEventHttpCompletionRequest) GetUuid() string {
 // GetUuidOk returns a tuple with the Uuid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BehavioralEventHttpCompletionRequest) GetUuidOk() (*string, bool) {
-	if o == nil || o.Uuid == nil {
+	if o == nil || IsNil(o.Uuid) {
 		return nil, false
 	}
 	return o.Uuid, true
@@ -158,7 +165,7 @@ func (o *BehavioralEventHttpCompletionRequest) GetUuidOk() (*string, bool) {
 
 // HasUuid returns a boolean if a field has been set.
 func (o *BehavioralEventHttpCompletionRequest) HasUuid() bool {
-	if o != nil && o.Uuid != nil {
+	if o != nil && !IsNil(o.Uuid) {
 		return true
 	}
 
@@ -172,7 +179,7 @@ func (o *BehavioralEventHttpCompletionRequest) SetUuid(v string) {
 
 // GetEmail returns the Email field value if set, zero value otherwise.
 func (o *BehavioralEventHttpCompletionRequest) GetEmail() string {
-	if o == nil || o.Email == nil {
+	if o == nil || IsNil(o.Email) {
 		var ret string
 		return ret
 	}
@@ -182,7 +189,7 @@ func (o *BehavioralEventHttpCompletionRequest) GetEmail() string {
 // GetEmailOk returns a tuple with the Email field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BehavioralEventHttpCompletionRequest) GetEmailOk() (*string, bool) {
-	if o == nil || o.Email == nil {
+	if o == nil || IsNil(o.Email) {
 		return nil, false
 	}
 	return o.Email, true
@@ -190,7 +197,7 @@ func (o *BehavioralEventHttpCompletionRequest) GetEmailOk() (*string, bool) {
 
 // HasEmail returns a boolean if a field has been set.
 func (o *BehavioralEventHttpCompletionRequest) HasEmail() bool {
-	if o != nil && o.Email != nil {
+	if o != nil && !IsNil(o.Email) {
 		return true
 	}
 
@@ -204,7 +211,7 @@ func (o *BehavioralEventHttpCompletionRequest) SetEmail(v string) {
 
 // GetProperties returns the Properties field value if set, zero value otherwise.
 func (o *BehavioralEventHttpCompletionRequest) GetProperties() map[string]string {
-	if o == nil || o.Properties == nil {
+	if o == nil || IsNil(o.Properties) {
 		var ret map[string]string
 		return ret
 	}
@@ -214,7 +221,7 @@ func (o *BehavioralEventHttpCompletionRequest) GetProperties() map[string]string
 // GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BehavioralEventHttpCompletionRequest) GetPropertiesOk() (*map[string]string, bool) {
-	if o == nil || o.Properties == nil {
+	if o == nil || IsNil(o.Properties) {
 		return nil, false
 	}
 	return o.Properties, true
@@ -222,7 +229,7 @@ func (o *BehavioralEventHttpCompletionRequest) GetPropertiesOk() (*map[string]st
 
 // HasProperties returns a boolean if a field has been set.
 func (o *BehavioralEventHttpCompletionRequest) HasProperties() bool {
-	if o != nil && o.Properties != nil {
+	if o != nil && !IsNil(o.Properties) {
 		return true
 	}
 
@@ -236,7 +243,7 @@ func (o *BehavioralEventHttpCompletionRequest) SetProperties(v map[string]string
 
 // GetObjectId returns the ObjectId field value if set, zero value otherwise.
 func (o *BehavioralEventHttpCompletionRequest) GetObjectId() string {
-	if o == nil || o.ObjectId == nil {
+	if o == nil || IsNil(o.ObjectId) {
 		var ret string
 		return ret
 	}
@@ -246,7 +253,7 @@ func (o *BehavioralEventHttpCompletionRequest) GetObjectId() string {
 // GetObjectIdOk returns a tuple with the ObjectId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BehavioralEventHttpCompletionRequest) GetObjectIdOk() (*string, bool) {
-	if o == nil || o.ObjectId == nil {
+	if o == nil || IsNil(o.ObjectId) {
 		return nil, false
 	}
 	return o.ObjectId, true
@@ -254,7 +261,7 @@ func (o *BehavioralEventHttpCompletionRequest) GetObjectIdOk() (*string, bool) {
 
 // HasObjectId returns a boolean if a field has been set.
 func (o *BehavioralEventHttpCompletionRequest) HasObjectId() bool {
-	if o != nil && o.ObjectId != nil {
+	if o != nil && !IsNil(o.ObjectId) {
 		return true
 	}
 
@@ -267,29 +274,72 @@ func (o *BehavioralEventHttpCompletionRequest) SetObjectId(v string) {
 }
 
 func (o BehavioralEventHttpCompletionRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.OccurredAt != nil {
-		toSerialize["occurredAt"] = o.OccurredAt
-	}
-	if true {
-		toSerialize["eventName"] = o.EventName
-	}
-	if o.Utk != nil {
-		toSerialize["utk"] = o.Utk
-	}
-	if o.Uuid != nil {
-		toSerialize["uuid"] = o.Uuid
-	}
-	if o.Email != nil {
-		toSerialize["email"] = o.Email
-	}
-	if o.Properties != nil {
-		toSerialize["properties"] = o.Properties
-	}
-	if o.ObjectId != nil {
-		toSerialize["objectId"] = o.ObjectId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o BehavioralEventHttpCompletionRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.OccurredAt) {
+		toSerialize["occurredAt"] = o.OccurredAt
+	}
+	toSerialize["eventName"] = o.EventName
+	if !IsNil(o.Utk) {
+		toSerialize["utk"] = o.Utk
+	}
+	if !IsNil(o.Uuid) {
+		toSerialize["uuid"] = o.Uuid
+	}
+	if !IsNil(o.Email) {
+		toSerialize["email"] = o.Email
+	}
+	if !IsNil(o.Properties) {
+		toSerialize["properties"] = o.Properties
+	}
+	if !IsNil(o.ObjectId) {
+		toSerialize["objectId"] = o.ObjectId
+	}
+	return toSerialize, nil
+}
+
+func (o *BehavioralEventHttpCompletionRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"eventName",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varBehavioralEventHttpCompletionRequest := _BehavioralEventHttpCompletionRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varBehavioralEventHttpCompletionRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = BehavioralEventHttpCompletionRequest(varBehavioralEventHttpCompletionRequest)
+
+	return err
 }
 
 type NullableBehavioralEventHttpCompletionRequest struct {

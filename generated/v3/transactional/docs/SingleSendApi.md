@@ -1,10 +1,10 @@
-# \SingleSendApi
+# \SingleSendAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**SendEmail**](SingleSendApi.md#SendEmail) | **Post** /marketing/v3/transactional/single-email/send | Send a single transactional email asynchronously.
+[**SendEmail**](SingleSendAPI.md#SendEmail) | **Post** /marketing/v3/transactional/single-email/send | Send a single transactional email asynchronously.
 
 
 
@@ -22,24 +22,24 @@ Send a single transactional email asynchronously.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    publicSingleSendRequestEgg := *openapiclient.NewPublicSingleSendRequestEgg(int32(123), *openapiclient.NewPublicSingleSendEmail("To_example")) // PublicSingleSendRequestEgg | A request object describing the email to send.
+	publicSingleSendRequestEgg := *openapiclient.NewPublicSingleSendRequestEgg(int32(123), *openapiclient.NewPublicSingleSendEmail("To_example")) // PublicSingleSendRequestEgg | A request object describing the email to send.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SingleSendApi.SendEmail(context.Background()).PublicSingleSendRequestEgg(publicSingleSendRequestEgg).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SingleSendApi.SendEmail``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `SendEmail`: EmailSendStatusView
-    fmt.Fprintf(os.Stdout, "Response from `SingleSendApi.SendEmail`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SingleSendAPI.SendEmail(context.Background()).PublicSingleSendRequestEgg(publicSingleSendRequestEgg).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SingleSendAPI.SendEmail``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `SendEmail`: EmailSendStatusView
+	fmt.Fprintf(os.Stdout, "Response from `SingleSendAPI.SendEmail`: %v\n", resp)
 }
 ```
 

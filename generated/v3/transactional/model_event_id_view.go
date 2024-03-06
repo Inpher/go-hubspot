@@ -11,9 +11,14 @@ API version: v3
 package transactional
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the EventIdView type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EventIdView{}
 
 // EventIdView The ID of a send event.
 type EventIdView struct {
@@ -22,6 +27,8 @@ type EventIdView struct {
 	// Identifier of event.
 	Id string `json:"id"`
 }
+
+type _EventIdView EventIdView
 
 // NewEventIdView instantiates a new EventIdView object
 // This constructor will assign default values to properties that have it defined,
@@ -91,14 +98,56 @@ func (o *EventIdView) SetId(v string) {
 }
 
 func (o EventIdView) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["created"] = o.Created
-	}
-	if true {
-		toSerialize["id"] = o.Id
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o EventIdView) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["created"] = o.Created
+	toSerialize["id"] = o.Id
+	return toSerialize, nil
+}
+
+func (o *EventIdView) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"created",
+		"id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varEventIdView := _EventIdView{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varEventIdView)
+
+	if err != nil {
+		return err
+	}
+
+	*o = EventIdView(varEventIdView)
+
+	return err
 }
 
 type NullableEventIdView struct {

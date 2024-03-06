@@ -1,10 +1,18 @@
 {
   "openapi" : "3.0.1",
   "info" : {
-    "version" : "v1"
+    "title" : "Auth Oauth",
+    "version" : "v1",
+    "x-hubspot-product-tier-requirements" : {
+      "marketing" : "FREE",
+      "sales" : "FREE",
+      "service" : "FREE",
+      "cms" : "FREE"
+    },
+    "x-hubspot-documentation-banner" : "NONE"
   },
   "servers" : [ {
-    "url" : "https://api.hubapi.com/"
+    "url" : "https://api.hubapi.com"
   } ],
   "tags" : [ {
     "name" : "Access_Tokens"
@@ -91,12 +99,12 @@
           }
         } ],
         "responses" : {
-          "default" : {
-            "$ref" : "#/components/responses/Error"
-          },
           "204" : {
             "description" : "No content",
             "content" : { }
+          },
+          "default" : {
+            "$ref" : "#/components/responses/Error"
           }
         },
         "security" : [ ]
@@ -106,10 +114,12 @@
       "post" : {
         "tags" : [ "Tokens" ],
         "operationId" : "post-/oauth/v1/token_create",
+        "parameters" : [ ],
         "requestBody" : {
           "content" : {
             "application/x-www-form-urlencoded" : {
               "schema" : {
+                "type" : "object",
                 "properties" : {
                   "grant_type" : {
                     "type" : "string",
@@ -160,21 +170,17 @@
         "required" : [ "message" ],
         "type" : "object",
         "properties" : {
-          "message" : {
+          "subCategory" : {
             "type" : "string",
-            "description" : "A human readable message describing the error along with remediation steps where appropriate"
-          },
-          "in" : {
-            "type" : "string",
-            "description" : "The name of the field or parameter in which the error was found."
+            "description" : "A specific category that contains more specific detail about the error"
           },
           "code" : {
             "type" : "string",
             "description" : "The status code associated with the error detail"
           },
-          "subCategory" : {
+          "in" : {
             "type" : "string",
-            "description" : "A specific category that contains more specific detail about the error"
+            "description" : "The name of the field or parameter in which the error was found."
           },
           "context" : {
             "type" : "object",
@@ -188,6 +194,10 @@
             "example" : {
               "missingScopes" : [ "scope1", "scope2" ]
             }
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "A human readable message describing the error along with remediation steps where appropriate"
           }
         }
       },
@@ -195,31 +205,9 @@
         "required" : [ "category", "correlationId", "message" ],
         "type" : "object",
         "properties" : {
-          "message" : {
-            "type" : "string",
-            "description" : "A human readable message describing the error along with remediation steps where appropriate",
-            "example" : "An error occurred"
-          },
-          "correlationId" : {
-            "type" : "string",
-            "description" : "A unique identifier for the request. Include this value with any error reports or support tickets",
-            "format" : "uuid",
-            "example" : "aeb5f871-7f07-4993-9211-075dc63e7cbf"
-          },
-          "category" : {
-            "type" : "string",
-            "description" : "The error category"
-          },
           "subCategory" : {
             "type" : "string",
             "description" : "A specific category that contains more specific detail about the error"
-          },
-          "errors" : {
-            "type" : "array",
-            "description" : "further information about the error",
-            "items" : {
-              "$ref" : "#/components/schemas/ErrorDetail"
-            }
           },
           "context" : {
             "type" : "object",
@@ -231,9 +219,15 @@
             },
             "description" : "Context about the error condition",
             "example" : {
-              "invalidPropertyName" : [ "propertyValue" ],
-              "missingScopes" : [ "scope1", "scope2" ]
+              "missingScopes" : [ "scope1", "scope2" ],
+              "invalidPropertyName" : [ "propertyValue" ]
             }
+          },
+          "correlationId" : {
+            "type" : "string",
+            "description" : "A unique identifier for the request. Include this value with any error reports or support tickets",
+            "format" : "uuid",
+            "example" : "aeb5f871-7f07-4993-9211-075dc63e7cbf"
           },
           "links" : {
             "type" : "object",
@@ -241,6 +235,22 @@
               "type" : "string"
             },
             "description" : "A map of link names to associated URIs containing documentation about the error or recommended remediation steps"
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "A human readable message describing the error along with remediation steps where appropriate",
+            "example" : "An error occurred"
+          },
+          "category" : {
+            "type" : "string",
+            "description" : "The error category"
+          },
+          "errors" : {
+            "type" : "array",
+            "description" : "further information about the error",
+            "items" : {
+              "$ref" : "#/components/schemas/ErrorDetail"
+            }
           }
         },
         "example" : {
@@ -253,62 +263,51 @@
         }
       },
       "AccessTokenInfoResponse" : {
-        "required" : [ "app_id", "expires_in", "hub_id", "scope_to_scope_group_pks", "scopes", "token", "token_type", "trial_scope_to_scope_group_pks", "trial_scopes", "user_id" ],
+        "required" : [ "app_id", "expires_in", "hub_id", "scopes", "token", "token_type", "user_id" ],
         "type" : "object",
         "properties" : {
-          "token" : {
-            "type" : "string"
-          },
-          "user" : {
-            "type" : "string"
-          },
-          "hub_domain" : {
-            "type" : "string"
-          },
-          "scopes" : {
-            "type" : "array",
-            "items" : {
-              "type" : "string"
-            }
-          },
-          "scope_to_scope_group_pks" : {
-            "type" : "array",
-            "items" : {
-              "type" : "integer",
-              "format" : "int32"
-            }
-          },
-          "trial_scopes" : {
-            "type" : "array",
-            "items" : {
-              "type" : "string"
-            }
-          },
-          "trial_scope_to_scope_group_pks" : {
-            "type" : "array",
-            "items" : {
-              "type" : "integer",
-              "format" : "int32"
-            }
-          },
           "hub_id" : {
             "type" : "integer",
-            "format" : "int32"
-          },
-          "app_id" : {
-            "type" : "integer",
-            "format" : "int32"
-          },
-          "expires_in" : {
-            "type" : "integer",
+            "description" : "",
             "format" : "int32"
           },
           "user_id" : {
             "type" : "integer",
+            "description" : "",
             "format" : "int32"
           },
+          "scopes" : {
+            "type" : "array",
+            "description" : "",
+            "items" : {
+              "type" : "string"
+            }
+          },
           "token_type" : {
-            "type" : "string"
+            "type" : "string",
+            "description" : ""
+          },
+          "user" : {
+            "type" : "string",
+            "description" : ""
+          },
+          "hub_domain" : {
+            "type" : "string",
+            "description" : ""
+          },
+          "app_id" : {
+            "type" : "integer",
+            "description" : "",
+            "format" : "int32"
+          },
+          "expires_in" : {
+            "type" : "integer",
+            "description" : "",
+            "format" : "int32"
+          },
+          "token" : {
+            "type" : "string",
+            "description" : ""
           }
         }
       },
@@ -317,20 +316,25 @@
         "type" : "object",
         "properties" : {
           "access_token" : {
-            "type" : "string"
+            "type" : "string",
+            "description" : ""
+          },
+          "refresh_token" : {
+            "type" : "string",
+            "description" : ""
+          },
+          "id_token" : {
+            "type" : "string",
+            "description" : ""
+          },
+          "token_type" : {
+            "type" : "string",
+            "description" : ""
           },
           "expires_in" : {
             "type" : "integer",
+            "description" : "",
             "format" : "int32"
-          },
-          "refresh_token" : {
-            "type" : "string"
-          },
-          "token_type" : {
-            "type" : "string"
-          },
-          "id_token" : {
-            "type" : "string"
           }
         }
       },
@@ -338,34 +342,42 @@
         "required" : [ "client_id", "hub_id", "scopes", "token", "token_type", "user_id" ],
         "type" : "object",
         "properties" : {
-          "token" : {
-            "type" : "string"
+          "hub_id" : {
+            "type" : "integer",
+            "description" : "",
+            "format" : "int32"
           },
-          "user" : {
-            "type" : "string"
-          },
-          "hub_domain" : {
-            "type" : "string"
+          "user_id" : {
+            "type" : "integer",
+            "description" : "",
+            "format" : "int32"
           },
           "scopes" : {
             "type" : "array",
+            "description" : "",
             "items" : {
               "type" : "string"
             }
           },
-          "hub_id" : {
-            "type" : "integer",
-            "format" : "int32"
+          "token_type" : {
+            "type" : "string",
+            "description" : ""
+          },
+          "user" : {
+            "type" : "string",
+            "description" : ""
+          },
+          "hub_domain" : {
+            "type" : "string",
+            "description" : ""
           },
           "client_id" : {
-            "type" : "string"
+            "type" : "string",
+            "description" : ""
           },
-          "user_id" : {
-            "type" : "integer",
-            "format" : "int32"
-          },
-          "token_type" : {
-            "type" : "string"
+          "token" : {
+            "type" : "string",
+            "description" : ""
           }
         }
       }
@@ -384,5 +396,12 @@
     },
     "securitySchemes" : { }
   },
-  "x-hubspot-available-client-libraries" : [ "PHP", "Node", "Python", "Ruby" ]
+  "x-hubspot-available-client-libraries" : [ "PHP", "Node", "Ruby", "Python" ],
+  "x-hubspot-product-tier-requirements" : {
+    "marketing" : "FREE",
+    "sales" : "FREE",
+    "service" : "FREE",
+    "cms" : "FREE"
+  },
+  "x-hubspot-documentation-banner" : "NONE"
 }

@@ -11,8 +11,13 @@ API version: v3
 package transactional
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the PublicSingleSendEmail type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PublicSingleSendEmail{}
 
 // PublicSingleSendEmail A JSON object containing anything you want to override.
 type PublicSingleSendEmail struct {
@@ -29,6 +34,8 @@ type PublicSingleSendEmail struct {
 	// The recipient of the email.
 	To string `json:"to"`
 }
+
+type _PublicSingleSendEmail PublicSingleSendEmail
 
 // NewPublicSingleSendEmail instantiates a new PublicSingleSendEmail object
 // This constructor will assign default values to properties that have it defined,
@@ -50,7 +57,7 @@ func NewPublicSingleSendEmailWithDefaults() *PublicSingleSendEmail {
 
 // GetCc returns the Cc field value if set, zero value otherwise.
 func (o *PublicSingleSendEmail) GetCc() []string {
-	if o == nil || o.Cc == nil {
+	if o == nil || IsNil(o.Cc) {
 		var ret []string
 		return ret
 	}
@@ -60,7 +67,7 @@ func (o *PublicSingleSendEmail) GetCc() []string {
 // GetCcOk returns a tuple with the Cc field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicSingleSendEmail) GetCcOk() ([]string, bool) {
-	if o == nil || o.Cc == nil {
+	if o == nil || IsNil(o.Cc) {
 		return nil, false
 	}
 	return o.Cc, true
@@ -68,7 +75,7 @@ func (o *PublicSingleSendEmail) GetCcOk() ([]string, bool) {
 
 // HasCc returns a boolean if a field has been set.
 func (o *PublicSingleSendEmail) HasCc() bool {
-	if o != nil && o.Cc != nil {
+	if o != nil && !IsNil(o.Cc) {
 		return true
 	}
 
@@ -82,7 +89,7 @@ func (o *PublicSingleSendEmail) SetCc(v []string) {
 
 // GetSendId returns the SendId field value if set, zero value otherwise.
 func (o *PublicSingleSendEmail) GetSendId() string {
-	if o == nil || o.SendId == nil {
+	if o == nil || IsNil(o.SendId) {
 		var ret string
 		return ret
 	}
@@ -92,7 +99,7 @@ func (o *PublicSingleSendEmail) GetSendId() string {
 // GetSendIdOk returns a tuple with the SendId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicSingleSendEmail) GetSendIdOk() (*string, bool) {
-	if o == nil || o.SendId == nil {
+	if o == nil || IsNil(o.SendId) {
 		return nil, false
 	}
 	return o.SendId, true
@@ -100,7 +107,7 @@ func (o *PublicSingleSendEmail) GetSendIdOk() (*string, bool) {
 
 // HasSendId returns a boolean if a field has been set.
 func (o *PublicSingleSendEmail) HasSendId() bool {
-	if o != nil && o.SendId != nil {
+	if o != nil && !IsNil(o.SendId) {
 		return true
 	}
 
@@ -114,7 +121,7 @@ func (o *PublicSingleSendEmail) SetSendId(v string) {
 
 // GetBcc returns the Bcc field value if set, zero value otherwise.
 func (o *PublicSingleSendEmail) GetBcc() []string {
-	if o == nil || o.Bcc == nil {
+	if o == nil || IsNil(o.Bcc) {
 		var ret []string
 		return ret
 	}
@@ -124,7 +131,7 @@ func (o *PublicSingleSendEmail) GetBcc() []string {
 // GetBccOk returns a tuple with the Bcc field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicSingleSendEmail) GetBccOk() ([]string, bool) {
-	if o == nil || o.Bcc == nil {
+	if o == nil || IsNil(o.Bcc) {
 		return nil, false
 	}
 	return o.Bcc, true
@@ -132,7 +139,7 @@ func (o *PublicSingleSendEmail) GetBccOk() ([]string, bool) {
 
 // HasBcc returns a boolean if a field has been set.
 func (o *PublicSingleSendEmail) HasBcc() bool {
-	if o != nil && o.Bcc != nil {
+	if o != nil && !IsNil(o.Bcc) {
 		return true
 	}
 
@@ -146,7 +153,7 @@ func (o *PublicSingleSendEmail) SetBcc(v []string) {
 
 // GetReplyTo returns the ReplyTo field value if set, zero value otherwise.
 func (o *PublicSingleSendEmail) GetReplyTo() []string {
-	if o == nil || o.ReplyTo == nil {
+	if o == nil || IsNil(o.ReplyTo) {
 		var ret []string
 		return ret
 	}
@@ -156,7 +163,7 @@ func (o *PublicSingleSendEmail) GetReplyTo() []string {
 // GetReplyToOk returns a tuple with the ReplyTo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicSingleSendEmail) GetReplyToOk() ([]string, bool) {
-	if o == nil || o.ReplyTo == nil {
+	if o == nil || IsNil(o.ReplyTo) {
 		return nil, false
 	}
 	return o.ReplyTo, true
@@ -164,7 +171,7 @@ func (o *PublicSingleSendEmail) GetReplyToOk() ([]string, bool) {
 
 // HasReplyTo returns a boolean if a field has been set.
 func (o *PublicSingleSendEmail) HasReplyTo() bool {
-	if o != nil && o.ReplyTo != nil {
+	if o != nil && !IsNil(o.ReplyTo) {
 		return true
 	}
 
@@ -178,7 +185,7 @@ func (o *PublicSingleSendEmail) SetReplyTo(v []string) {
 
 // GetFrom returns the From field value if set, zero value otherwise.
 func (o *PublicSingleSendEmail) GetFrom() string {
-	if o == nil || o.From == nil {
+	if o == nil || IsNil(o.From) {
 		var ret string
 		return ret
 	}
@@ -188,7 +195,7 @@ func (o *PublicSingleSendEmail) GetFrom() string {
 // GetFromOk returns a tuple with the From field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicSingleSendEmail) GetFromOk() (*string, bool) {
-	if o == nil || o.From == nil {
+	if o == nil || IsNil(o.From) {
 		return nil, false
 	}
 	return o.From, true
@@ -196,7 +203,7 @@ func (o *PublicSingleSendEmail) GetFromOk() (*string, bool) {
 
 // HasFrom returns a boolean if a field has been set.
 func (o *PublicSingleSendEmail) HasFrom() bool {
-	if o != nil && o.From != nil {
+	if o != nil && !IsNil(o.From) {
 		return true
 	}
 
@@ -233,26 +240,69 @@ func (o *PublicSingleSendEmail) SetTo(v string) {
 }
 
 func (o PublicSingleSendEmail) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Cc != nil {
-		toSerialize["cc"] = o.Cc
-	}
-	if o.SendId != nil {
-		toSerialize["sendId"] = o.SendId
-	}
-	if o.Bcc != nil {
-		toSerialize["bcc"] = o.Bcc
-	}
-	if o.ReplyTo != nil {
-		toSerialize["replyTo"] = o.ReplyTo
-	}
-	if o.From != nil {
-		toSerialize["from"] = o.From
-	}
-	if true {
-		toSerialize["to"] = o.To
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PublicSingleSendEmail) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Cc) {
+		toSerialize["cc"] = o.Cc
+	}
+	if !IsNil(o.SendId) {
+		toSerialize["sendId"] = o.SendId
+	}
+	if !IsNil(o.Bcc) {
+		toSerialize["bcc"] = o.Bcc
+	}
+	if !IsNil(o.ReplyTo) {
+		toSerialize["replyTo"] = o.ReplyTo
+	}
+	if !IsNil(o.From) {
+		toSerialize["from"] = o.From
+	}
+	toSerialize["to"] = o.To
+	return toSerialize, nil
+}
+
+func (o *PublicSingleSendEmail) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"to",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPublicSingleSendEmail := _PublicSingleSendEmail{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPublicSingleSendEmail)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PublicSingleSendEmail(varPublicSingleSendEmail)
+
+	return err
 }
 
 type NullablePublicSingleSendEmail struct {

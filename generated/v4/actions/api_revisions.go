@@ -13,18 +13,20 @@ package actions
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
+
+	"github.com/inpher/go-hubspot"
 	"net/url"
 	"strings"
 )
 
-// RevisionsApiService RevisionsApi service
-type RevisionsApiService service
+// RevisionsAPIService RevisionsAPI service
+type RevisionsAPIService service
 
 type ApiRevisionsGetByIDRequest struct {
 	ctx          context.Context
-	ApiService   *RevisionsApiService
+	ApiService   *RevisionsAPIService
 	definitionId string
 	revisionId   string
 	appId        int32
@@ -37,13 +39,13 @@ func (r ApiRevisionsGetByIDRequest) Execute() (*PublicActionRevision, *http.Resp
 /*
 RevisionsGetByID Gets a revision for a given definition by revision id
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param definitionId
- @param revisionId
- @param appId
- @return ApiRevisionsGetByIDRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param definitionId
+	@param revisionId
+	@param appId
+	@return ApiRevisionsGetByIDRequest
 */
-func (a *RevisionsApiService) RevisionsGetByID(ctx context.Context, definitionId string, revisionId string, appId int32) ApiRevisionsGetByIDRequest {
+func (a *RevisionsAPIService) RevisionsGetByID(ctx context.Context, definitionId string, revisionId string, appId int32) ApiRevisionsGetByIDRequest {
 	return ApiRevisionsGetByIDRequest{
 		ApiService:   a,
 		ctx:          ctx,
@@ -54,8 +56,9 @@ func (a *RevisionsApiService) RevisionsGetByID(ctx context.Context, definitionId
 }
 
 // Execute executes the request
-//  @return PublicActionRevision
-func (a *RevisionsApiService) RevisionsGetByIDExecute(r ApiRevisionsGetByIDRequest) (*PublicActionRevision, *http.Response, error) {
+//
+//	@return PublicActionRevision
+func (a *RevisionsAPIService) RevisionsGetByIDExecute(r ApiRevisionsGetByIDRequest) (*PublicActionRevision, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -63,15 +66,15 @@ func (a *RevisionsApiService) RevisionsGetByIDExecute(r ApiRevisionsGetByIDReque
 		localVarReturnValue *PublicActionRevision
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RevisionsApiService.RevisionsGetByID")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RevisionsAPIService.RevisionsGetByID")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/automation/v4/actions/{appId}/{definitionId}/revisions/{revisionId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"definitionId"+"}", url.PathEscape(parameterToString(r.definitionId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"revisionId"+"}", url.PathEscape(parameterToString(r.revisionId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"definitionId"+"}", url.PathEscape(parameterValueToString(r.definitionId, "definitionId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"revisionId"+"}", url.PathEscape(parameterValueToString(r.revisionId, "revisionId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterValueToString(r.appId, "appId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -94,6 +97,16 @@ func (a *RevisionsApiService) RevisionsGetByIDExecute(r ApiRevisionsGetByIDReque
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -104,9 +117,9 @@ func (a *RevisionsApiService) RevisionsGetByIDExecute(r ApiRevisionsGetByIDReque
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -122,6 +135,7 @@ func (a *RevisionsApiService) RevisionsGetByIDExecute(r ApiRevisionsGetByIDReque
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -140,7 +154,7 @@ func (a *RevisionsApiService) RevisionsGetByIDExecute(r ApiRevisionsGetByIDReque
 
 type ApiRevisionsGetPageRequest struct {
 	ctx          context.Context
-	ApiService   *RevisionsApiService
+	ApiService   *RevisionsAPIService
 	definitionId string
 	appId        int32
 	limit        *int32
@@ -166,12 +180,12 @@ func (r ApiRevisionsGetPageRequest) Execute() (*CollectionResponsePublicActionRe
 /*
 RevisionsGetPage Get all revisions for a given definition
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param definitionId
- @param appId
- @return ApiRevisionsGetPageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param definitionId
+	@param appId
+	@return ApiRevisionsGetPageRequest
 */
-func (a *RevisionsApiService) RevisionsGetPage(ctx context.Context, definitionId string, appId int32) ApiRevisionsGetPageRequest {
+func (a *RevisionsAPIService) RevisionsGetPage(ctx context.Context, definitionId string, appId int32) ApiRevisionsGetPageRequest {
 	return ApiRevisionsGetPageRequest{
 		ApiService:   a,
 		ctx:          ctx,
@@ -181,8 +195,9 @@ func (a *RevisionsApiService) RevisionsGetPage(ctx context.Context, definitionId
 }
 
 // Execute executes the request
-//  @return CollectionResponsePublicActionRevisionForwardPaging
-func (a *RevisionsApiService) RevisionsGetPageExecute(r ApiRevisionsGetPageRequest) (*CollectionResponsePublicActionRevisionForwardPaging, *http.Response, error) {
+//
+//	@return CollectionResponsePublicActionRevisionForwardPaging
+func (a *RevisionsAPIService) RevisionsGetPageExecute(r ApiRevisionsGetPageRequest) (*CollectionResponsePublicActionRevisionForwardPaging, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -190,24 +205,24 @@ func (a *RevisionsApiService) RevisionsGetPageExecute(r ApiRevisionsGetPageReque
 		localVarReturnValue *CollectionResponsePublicActionRevisionForwardPaging
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RevisionsApiService.RevisionsGetPage")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RevisionsAPIService.RevisionsGetPage")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/automation/v4/actions/{appId}/{definitionId}/revisions"
-	localVarPath = strings.Replace(localVarPath, "{"+"definitionId"+"}", url.PathEscape(parameterToString(r.definitionId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"definitionId"+"}", url.PathEscape(parameterValueToString(r.definitionId, "definitionId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterValueToString(r.appId, "appId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
 	}
 	if r.after != nil {
-		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "after", r.after, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -226,6 +241,16 @@ func (a *RevisionsApiService) RevisionsGetPageExecute(r ApiRevisionsGetPageReque
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -236,9 +261,9 @@ func (a *RevisionsApiService) RevisionsGetPageExecute(r ApiRevisionsGetPageReque
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -254,6 +279,7 @@ func (a *RevisionsApiService) RevisionsGetPageExecute(r ApiRevisionsGetPageReque
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

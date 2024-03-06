@@ -13,19 +13,19 @@ package transactional
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 
-	"github.com/clarkmcc/go-hubspot"
+	"github.com/inpher/go-hubspot"
 	"net/url"
 )
 
-// SingleSendApiService SingleSendApi service
-type SingleSendApiService service
+// SingleSendAPIService SingleSendAPI service
+type SingleSendAPIService service
 
 type ApiSendEmailRequest struct {
 	ctx                        context.Context
-	ApiService                 *SingleSendApiService
+	ApiService                 *SingleSendAPIService
 	publicSingleSendRequestEgg *PublicSingleSendRequestEgg
 }
 
@@ -44,10 +44,10 @@ SendEmail Send a single transactional email asynchronously.
 
 Asynchronously send a transactional email. Returns the status of the email send with a statusId that can be used to continuously query for the status using the Email Send Status API.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiSendEmailRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiSendEmailRequest
 */
-func (a *SingleSendApiService) SendEmail(ctx context.Context) ApiSendEmailRequest {
+func (a *SingleSendAPIService) SendEmail(ctx context.Context) ApiSendEmailRequest {
 	return ApiSendEmailRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -55,8 +55,9 @@ func (a *SingleSendApiService) SendEmail(ctx context.Context) ApiSendEmailReques
 }
 
 // Execute executes the request
-//  @return EmailSendStatusView
-func (a *SingleSendApiService) SendEmailExecute(r ApiSendEmailRequest) (*EmailSendStatusView, *http.Response, error) {
+//
+//	@return EmailSendStatusView
+func (a *SingleSendAPIService) SendEmailExecute(r ApiSendEmailRequest) (*EmailSendStatusView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -64,7 +65,7 @@ func (a *SingleSendApiService) SendEmailExecute(r ApiSendEmailRequest) (*EmailSe
 		localVarReturnValue *EmailSendStatusView
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SingleSendApiService.SendEmail")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SingleSendAPIService.SendEmail")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -117,9 +118,9 @@ func (a *SingleSendApiService) SendEmailExecute(r ApiSendEmailRequest) (*EmailSe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -135,6 +136,7 @@ func (a *SingleSendApiService) SendEmailExecute(r ApiSendEmailRequest) (*EmailSe
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

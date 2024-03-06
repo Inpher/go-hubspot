@@ -1,12 +1,12 @@
-# \RecordingSettingsApi
+# \RecordingSettingsAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetCrmV3ExtensionsCallingAppIdSettingsRecordingGetUrlFormat**](RecordingSettingsApi.md#GetCrmV3ExtensionsCallingAppIdSettingsRecordingGetUrlFormat) | **Get** /crm/v3/extensions/calling/{appId}/settings/recording | 
-[**PatchCrmV3ExtensionsCallingAppIdSettingsRecordingUpdateUrlFormat**](RecordingSettingsApi.md#PatchCrmV3ExtensionsCallingAppIdSettingsRecordingUpdateUrlFormat) | **Patch** /crm/v3/extensions/calling/{appId}/settings/recording | 
-[**PostCrmV3ExtensionsCallingAppIdSettingsRecordingRegisterUrlFormat**](RecordingSettingsApi.md#PostCrmV3ExtensionsCallingAppIdSettingsRecordingRegisterUrlFormat) | **Post** /crm/v3/extensions/calling/{appId}/settings/recording | 
+[**GetCrmV3ExtensionsCallingAppIdSettingsRecordingGetUrlFormat**](RecordingSettingsAPI.md#GetCrmV3ExtensionsCallingAppIdSettingsRecordingGetUrlFormat) | **Get** /crm/v3/extensions/calling/{appId}/settings/recording | 
+[**PatchCrmV3ExtensionsCallingAppIdSettingsRecordingUpdateUrlFormat**](RecordingSettingsAPI.md#PatchCrmV3ExtensionsCallingAppIdSettingsRecordingUpdateUrlFormat) | **Patch** /crm/v3/extensions/calling/{appId}/settings/recording | 
+[**PostCrmV3ExtensionsCallingAppIdSettingsRecordingRegisterUrlFormat**](RecordingSettingsAPI.md#PostCrmV3ExtensionsCallingAppIdSettingsRecordingRegisterUrlFormat) | **Post** /crm/v3/extensions/calling/{appId}/settings/recording | 
 
 
 
@@ -22,24 +22,24 @@ Method | HTTP request | Description
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    appId := int32(56) // int32 | 
+	appId := int32(56) // int32 | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RecordingSettingsApi.GetCrmV3ExtensionsCallingAppIdSettingsRecordingGetUrlFormat(context.Background(), appId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RecordingSettingsApi.GetCrmV3ExtensionsCallingAppIdSettingsRecordingGetUrlFormat``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetCrmV3ExtensionsCallingAppIdSettingsRecordingGetUrlFormat`: RecordingSettingsResponse
-    fmt.Fprintf(os.Stdout, "Response from `RecordingSettingsApi.GetCrmV3ExtensionsCallingAppIdSettingsRecordingGetUrlFormat`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.RecordingSettingsAPI.GetCrmV3ExtensionsCallingAppIdSettingsRecordingGetUrlFormat(context.Background(), appId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `RecordingSettingsAPI.GetCrmV3ExtensionsCallingAppIdSettingsRecordingGetUrlFormat``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetCrmV3ExtensionsCallingAppIdSettingsRecordingGetUrlFormat`: RecordingSettingsResponse
+	fmt.Fprintf(os.Stdout, "Response from `RecordingSettingsAPI.GetCrmV3ExtensionsCallingAppIdSettingsRecordingGetUrlFormat`: %v\n", resp)
 }
 ```
 
@@ -90,25 +90,25 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    appId := int32(56) // int32 | 
-    recordingSettingsPatchRequest := *openapiclient.NewRecordingSettingsPatchRequest() // RecordingSettingsPatchRequest | 
+	appId := int32(56) // int32 | 
+	recordingSettingsPatchRequest := *openapiclient.NewRecordingSettingsPatchRequest() // RecordingSettingsPatchRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RecordingSettingsApi.PatchCrmV3ExtensionsCallingAppIdSettingsRecordingUpdateUrlFormat(context.Background(), appId).RecordingSettingsPatchRequest(recordingSettingsPatchRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RecordingSettingsApi.PatchCrmV3ExtensionsCallingAppIdSettingsRecordingUpdateUrlFormat``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PatchCrmV3ExtensionsCallingAppIdSettingsRecordingUpdateUrlFormat`: RecordingSettingsResponse
-    fmt.Fprintf(os.Stdout, "Response from `RecordingSettingsApi.PatchCrmV3ExtensionsCallingAppIdSettingsRecordingUpdateUrlFormat`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.RecordingSettingsAPI.PatchCrmV3ExtensionsCallingAppIdSettingsRecordingUpdateUrlFormat(context.Background(), appId).RecordingSettingsPatchRequest(recordingSettingsPatchRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `RecordingSettingsAPI.PatchCrmV3ExtensionsCallingAppIdSettingsRecordingUpdateUrlFormat``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchCrmV3ExtensionsCallingAppIdSettingsRecordingUpdateUrlFormat`: RecordingSettingsResponse
+	fmt.Fprintf(os.Stdout, "Response from `RecordingSettingsAPI.PatchCrmV3ExtensionsCallingAppIdSettingsRecordingUpdateUrlFormat`: %v\n", resp)
 }
 ```
 
@@ -160,25 +160,25 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    appId := int32(56) // int32 | 
-    recordingSettingsRequest := *openapiclient.NewRecordingSettingsRequest("UrlToRetrieveAuthedRecording_example") // RecordingSettingsRequest | 
+	appId := int32(56) // int32 | 
+	recordingSettingsRequest := *openapiclient.NewRecordingSettingsRequest("UrlToRetrieveAuthedRecording_example") // RecordingSettingsRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RecordingSettingsApi.PostCrmV3ExtensionsCallingAppIdSettingsRecordingRegisterUrlFormat(context.Background(), appId).RecordingSettingsRequest(recordingSettingsRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RecordingSettingsApi.PostCrmV3ExtensionsCallingAppIdSettingsRecordingRegisterUrlFormat``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostCrmV3ExtensionsCallingAppIdSettingsRecordingRegisterUrlFormat`: RecordingSettingsResponse
-    fmt.Fprintf(os.Stdout, "Response from `RecordingSettingsApi.PostCrmV3ExtensionsCallingAppIdSettingsRecordingRegisterUrlFormat`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.RecordingSettingsAPI.PostCrmV3ExtensionsCallingAppIdSettingsRecordingRegisterUrlFormat(context.Background(), appId).RecordingSettingsRequest(recordingSettingsRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `RecordingSettingsAPI.PostCrmV3ExtensionsCallingAppIdSettingsRecordingRegisterUrlFormat``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostCrmV3ExtensionsCallingAppIdSettingsRecordingRegisterUrlFormat`: RecordingSettingsResponse
+	fmt.Fprintf(os.Stdout, "Response from `RecordingSettingsAPI.PostCrmV3ExtensionsCallingAppIdSettingsRecordingRegisterUrlFormat`: %v\n", resp)
 }
 ```
 

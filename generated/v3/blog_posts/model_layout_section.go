@@ -11,8 +11,13 @@ API version: v3
 package blog_posts
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the LayoutSection type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LayoutSection{}
 
 // LayoutSection struct for LayoutSection
 type LayoutSection struct {
@@ -31,6 +36,8 @@ type LayoutSection struct {
 	Name        string                            `json:"name"`
 	Styles      Styles                            `json:"styles"`
 }
+
+type _LayoutSection LayoutSection
 
 // NewLayoutSection instantiates a new LayoutSection object
 // This constructor will assign default values to properties that have it defined,
@@ -148,7 +155,7 @@ func (o *LayoutSection) GetParams() map[string]map[string]interface{} {
 // and a boolean to check if the value has been set.
 func (o *LayoutSection) GetParamsOk() (map[string]map[string]interface{}, bool) {
 	if o == nil {
-		return nil, false
+		return map[string]map[string]interface{}{}, false
 	}
 	return o.Params, true
 }
@@ -375,47 +382,78 @@ func (o *LayoutSection) SetStyles(v Styles) {
 }
 
 func (o LayoutSection) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["cssStyle"] = o.CssStyle
-	}
-	if true {
-		toSerialize["label"] = o.Label
-	}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["params"] = o.Params
-	}
-	if true {
-		toSerialize["rows"] = o.Rows
-	}
-	if true {
-		toSerialize["rowMetaData"] = o.RowMetaData
-	}
-	if true {
-		toSerialize["cells"] = o.Cells
-	}
-	if true {
-		toSerialize["cssClass"] = o.CssClass
-	}
-	if true {
-		toSerialize["w"] = o.W
-	}
-	if true {
-		toSerialize["cssId"] = o.CssId
-	}
-	if true {
-		toSerialize["x"] = o.X
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["styles"] = o.Styles
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o LayoutSection) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["cssStyle"] = o.CssStyle
+	toSerialize["label"] = o.Label
+	toSerialize["type"] = o.Type
+	toSerialize["params"] = o.Params
+	toSerialize["rows"] = o.Rows
+	toSerialize["rowMetaData"] = o.RowMetaData
+	toSerialize["cells"] = o.Cells
+	toSerialize["cssClass"] = o.CssClass
+	toSerialize["w"] = o.W
+	toSerialize["cssId"] = o.CssId
+	toSerialize["x"] = o.X
+	toSerialize["name"] = o.Name
+	toSerialize["styles"] = o.Styles
+	return toSerialize, nil
+}
+
+func (o *LayoutSection) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"cssStyle",
+		"label",
+		"type",
+		"params",
+		"rows",
+		"rowMetaData",
+		"cells",
+		"cssClass",
+		"w",
+		"cssId",
+		"x",
+		"name",
+		"styles",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varLayoutSection := _LayoutSection{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varLayoutSection)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LayoutSection(varLayoutSection)
+
+	return err
 }
 
 type NullableLayoutSection struct {

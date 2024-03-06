@@ -13,20 +13,20 @@ package transactional
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 
-	"github.com/clarkmcc/go-hubspot"
+	"github.com/inpher/go-hubspot"
 	"net/url"
 	"strings"
 )
 
-// PublicSmtpTokensApiService PublicSmtpTokensApi service
-type PublicSmtpTokensApiService service
+// PublicSmtpTokensAPIService PublicSmtpTokensAPI service
+type PublicSmtpTokensAPIService service
 
 type ApiArchiveTokenRequest struct {
 	ctx        context.Context
-	ApiService *PublicSmtpTokensApiService
+	ApiService *PublicSmtpTokensAPIService
 	tokenId    string
 }
 
@@ -39,11 +39,11 @@ ArchiveToken Delete a single token by ID.
 
 Delete a single token by ID.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param tokenId Identifier generated when a token is created.
- @return ApiArchiveTokenRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param tokenId Identifier generated when a token is created.
+	@return ApiArchiveTokenRequest
 */
-func (a *PublicSmtpTokensApiService) ArchiveToken(ctx context.Context, tokenId string) ApiArchiveTokenRequest {
+func (a *PublicSmtpTokensAPIService) ArchiveToken(ctx context.Context, tokenId string) ApiArchiveTokenRequest {
 	return ApiArchiveTokenRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -52,20 +52,20 @@ func (a *PublicSmtpTokensApiService) ArchiveToken(ctx context.Context, tokenId s
 }
 
 // Execute executes the request
-func (a *PublicSmtpTokensApiService) ArchiveTokenExecute(r ApiArchiveTokenRequest) (*http.Response, error) {
+func (a *PublicSmtpTokensAPIService) ArchiveTokenExecute(r ApiArchiveTokenRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicSmtpTokensApiService.ArchiveToken")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicSmtpTokensAPIService.ArchiveToken")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/marketing/v3/transactional/smtp-tokens/{tokenId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"tokenId"+"}", url.PathEscape(parameterToString(r.tokenId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tokenId"+"}", url.PathEscape(parameterValueToString(r.tokenId, "tokenId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -108,9 +108,9 @@ func (a *PublicSmtpTokensApiService) ArchiveTokenExecute(r ApiArchiveTokenReques
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -126,6 +126,7 @@ func (a *PublicSmtpTokensApiService) ArchiveTokenExecute(r ApiArchiveTokenReques
 			newErr.error = err.Error()
 			return localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
@@ -135,7 +136,7 @@ func (a *PublicSmtpTokensApiService) ArchiveTokenExecute(r ApiArchiveTokenReques
 
 type ApiCreateTokenRequest struct {
 	ctx                    context.Context
-	ApiService             *PublicSmtpTokensApiService
+	ApiService             *PublicSmtpTokensAPIService
 	smtpApiTokenRequestEgg *SmtpApiTokenRequestEgg
 }
 
@@ -154,10 +155,10 @@ CreateToken Create a SMTP API token.
 
 Create a SMTP API token.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateTokenRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateTokenRequest
 */
-func (a *PublicSmtpTokensApiService) CreateToken(ctx context.Context) ApiCreateTokenRequest {
+func (a *PublicSmtpTokensAPIService) CreateToken(ctx context.Context) ApiCreateTokenRequest {
 	return ApiCreateTokenRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -165,8 +166,9 @@ func (a *PublicSmtpTokensApiService) CreateToken(ctx context.Context) ApiCreateT
 }
 
 // Execute executes the request
-//  @return SmtpApiTokenView
-func (a *PublicSmtpTokensApiService) CreateTokenExecute(r ApiCreateTokenRequest) (*SmtpApiTokenView, *http.Response, error) {
+//
+//	@return SmtpApiTokenView
+func (a *PublicSmtpTokensAPIService) CreateTokenExecute(r ApiCreateTokenRequest) (*SmtpApiTokenView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -174,7 +176,7 @@ func (a *PublicSmtpTokensApiService) CreateTokenExecute(r ApiCreateTokenRequest)
 		localVarReturnValue *SmtpApiTokenView
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicSmtpTokensApiService.CreateToken")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicSmtpTokensAPIService.CreateToken")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -227,9 +229,9 @@ func (a *PublicSmtpTokensApiService) CreateTokenExecute(r ApiCreateTokenRequest)
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -245,6 +247,7 @@ func (a *PublicSmtpTokensApiService) CreateTokenExecute(r ApiCreateTokenRequest)
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -263,7 +266,7 @@ func (a *PublicSmtpTokensApiService) CreateTokenExecute(r ApiCreateTokenRequest)
 
 type ApiGetTokenByIDRequest struct {
 	ctx        context.Context
-	ApiService *PublicSmtpTokensApiService
+	ApiService *PublicSmtpTokensAPIService
 	tokenId    string
 }
 
@@ -276,11 +279,11 @@ GetTokenByID Query a single token by ID.
 
 Query a single token by ID.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param tokenId Identifier generated when a token is created.
- @return ApiGetTokenByIDRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param tokenId Identifier generated when a token is created.
+	@return ApiGetTokenByIDRequest
 */
-func (a *PublicSmtpTokensApiService) GetTokenByID(ctx context.Context, tokenId string) ApiGetTokenByIDRequest {
+func (a *PublicSmtpTokensAPIService) GetTokenByID(ctx context.Context, tokenId string) ApiGetTokenByIDRequest {
 	return ApiGetTokenByIDRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -289,8 +292,9 @@ func (a *PublicSmtpTokensApiService) GetTokenByID(ctx context.Context, tokenId s
 }
 
 // Execute executes the request
-//  @return SmtpApiTokenView
-func (a *PublicSmtpTokensApiService) GetTokenByIDExecute(r ApiGetTokenByIDRequest) (*SmtpApiTokenView, *http.Response, error) {
+//
+//	@return SmtpApiTokenView
+func (a *PublicSmtpTokensAPIService) GetTokenByIDExecute(r ApiGetTokenByIDRequest) (*SmtpApiTokenView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -298,13 +302,13 @@ func (a *PublicSmtpTokensApiService) GetTokenByIDExecute(r ApiGetTokenByIDReques
 		localVarReturnValue *SmtpApiTokenView
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicSmtpTokensApiService.GetTokenByID")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicSmtpTokensAPIService.GetTokenByID")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/marketing/v3/transactional/smtp-tokens/{tokenId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"tokenId"+"}", url.PathEscape(parameterToString(r.tokenId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tokenId"+"}", url.PathEscape(parameterValueToString(r.tokenId, "tokenId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -347,9 +351,9 @@ func (a *PublicSmtpTokensApiService) GetTokenByIDExecute(r ApiGetTokenByIDReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -365,6 +369,7 @@ func (a *PublicSmtpTokensApiService) GetTokenByIDExecute(r ApiGetTokenByIDReques
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -383,7 +388,7 @@ func (a *PublicSmtpTokensApiService) GetTokenByIDExecute(r ApiGetTokenByIDReques
 
 type ApiGetTokensPageRequest struct {
 	ctx             context.Context
-	ApiService      *PublicSmtpTokensApiService
+	ApiService      *PublicSmtpTokensAPIService
 	campaignName    *string
 	emailCampaignId *string
 	after           *string
@@ -423,10 +428,10 @@ GetTokensPage Query SMTP API tokens by campaign name or an emailCampaignId.
 
 Query multiple SMTP API tokens by campaign name or a single token by emailCampaignId.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetTokensPageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetTokensPageRequest
 */
-func (a *PublicSmtpTokensApiService) GetTokensPage(ctx context.Context) ApiGetTokensPageRequest {
+func (a *PublicSmtpTokensAPIService) GetTokensPage(ctx context.Context) ApiGetTokensPageRequest {
 	return ApiGetTokensPageRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -434,8 +439,9 @@ func (a *PublicSmtpTokensApiService) GetTokensPage(ctx context.Context) ApiGetTo
 }
 
 // Execute executes the request
-//  @return CollectionResponseSmtpApiTokenViewForwardPaging
-func (a *PublicSmtpTokensApiService) GetTokensPageExecute(r ApiGetTokensPageRequest) (*CollectionResponseSmtpApiTokenViewForwardPaging, *http.Response, error) {
+//
+//	@return CollectionResponseSmtpApiTokenViewForwardPaging
+func (a *PublicSmtpTokensAPIService) GetTokensPageExecute(r ApiGetTokensPageRequest) (*CollectionResponseSmtpApiTokenViewForwardPaging, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -443,7 +449,7 @@ func (a *PublicSmtpTokensApiService) GetTokensPageExecute(r ApiGetTokensPageRequ
 		localVarReturnValue *CollectionResponseSmtpApiTokenViewForwardPaging
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicSmtpTokensApiService.GetTokensPage")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicSmtpTokensAPIService.GetTokensPage")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -455,16 +461,16 @@ func (a *PublicSmtpTokensApiService) GetTokensPageExecute(r ApiGetTokensPageRequ
 	localVarFormParams := url.Values{}
 
 	if r.campaignName != nil {
-		localVarQueryParams.Add("campaignName", parameterToString(*r.campaignName, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "campaignName", r.campaignName, "")
 	}
 	if r.emailCampaignId != nil {
-		localVarQueryParams.Add("emailCampaignId", parameterToString(*r.emailCampaignId, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "emailCampaignId", r.emailCampaignId, "")
 	}
 	if r.after != nil {
-		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "after", r.after, "")
 	}
 	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -503,9 +509,9 @@ func (a *PublicSmtpTokensApiService) GetTokensPageExecute(r ApiGetTokensPageRequ
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -521,6 +527,7 @@ func (a *PublicSmtpTokensApiService) GetTokensPageExecute(r ApiGetTokensPageRequ
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -539,7 +546,7 @@ func (a *PublicSmtpTokensApiService) GetTokensPageExecute(r ApiGetTokensPageRequ
 
 type ApiResetPasswordRequest struct {
 	ctx        context.Context
-	ApiService *PublicSmtpTokensApiService
+	ApiService *PublicSmtpTokensAPIService
 	tokenId    string
 }
 
@@ -552,11 +559,11 @@ ResetPassword Reset the password of an existing token.
 
 Allows the creation of a replacement password for a given token. Once the password is successfully reset, the old password for the token will be invalid.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param tokenId Identifier generated when a token is created.
- @return ApiResetPasswordRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param tokenId Identifier generated when a token is created.
+	@return ApiResetPasswordRequest
 */
-func (a *PublicSmtpTokensApiService) ResetPassword(ctx context.Context, tokenId string) ApiResetPasswordRequest {
+func (a *PublicSmtpTokensAPIService) ResetPassword(ctx context.Context, tokenId string) ApiResetPasswordRequest {
 	return ApiResetPasswordRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -565,8 +572,9 @@ func (a *PublicSmtpTokensApiService) ResetPassword(ctx context.Context, tokenId 
 }
 
 // Execute executes the request
-//  @return SmtpApiTokenView
-func (a *PublicSmtpTokensApiService) ResetPasswordExecute(r ApiResetPasswordRequest) (*SmtpApiTokenView, *http.Response, error) {
+//
+//	@return SmtpApiTokenView
+func (a *PublicSmtpTokensAPIService) ResetPasswordExecute(r ApiResetPasswordRequest) (*SmtpApiTokenView, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -574,13 +582,13 @@ func (a *PublicSmtpTokensApiService) ResetPasswordExecute(r ApiResetPasswordRequ
 		localVarReturnValue *SmtpApiTokenView
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicSmtpTokensApiService.ResetPassword")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicSmtpTokensAPIService.ResetPassword")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/marketing/v3/transactional/smtp-tokens/{tokenId}/password-reset"
-	localVarPath = strings.Replace(localVarPath, "{"+"tokenId"+"}", url.PathEscape(parameterToString(r.tokenId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tokenId"+"}", url.PathEscape(parameterValueToString(r.tokenId, "tokenId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -623,9 +631,9 @@ func (a *PublicSmtpTokensApiService) ResetPasswordExecute(r ApiResetPasswordRequ
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -641,6 +649,7 @@ func (a *PublicSmtpTokensApiService) ResetPasswordExecute(r ApiResetPasswordRequ
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

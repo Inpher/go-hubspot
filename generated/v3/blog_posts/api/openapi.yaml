@@ -714,10 +714,9 @@ paths:
       - Blog Posts
   /cms/v3/blogs/posts/batch/archive:
     post:
-      description: "Delete the Blog Post objects identified in the request body.\n\
-        Note: This is not the same as the in-app `archive` function. To perform a\
-        \ dashboard `archive` send an normal update with the `archivedInDashboard`\
-        \ field set to true."
+      description: |-
+        Delete the Blog Post objects identified in the request body.
+        Note: This is not the same as the in-app `archive` function. To perform a dashboard `archive` send an normal update with the `archivedInDashboard` field set to true.
       operationId: BatchArchive
       parameters: []
       requestBody:
@@ -1059,6 +1058,35 @@ components:
       type: object
     StandardError:
       description: Model definition for a standard error.
+      example:
+        subCategory: "{}"
+        context:
+          key:
+          - context
+          - context
+        links:
+          key: links
+        id: id
+        category: category
+        message: message
+        errors:
+        - subCategory: subCategory
+          code: code
+          in: in
+          context:
+            missingScopes:
+            - scope1
+            - scope2
+          message: message
+        - subCategory: subCategory
+          code: code
+          in: in
+          context:
+            missingScopes:
+            - scope1
+            - scope2
+          message: message
+        status: status
       properties:
         subCategory:
           description: Error subcategory.
@@ -1798,6 +1826,15 @@ components:
       - verticalSide
       type: object
     ErrorDetail:
+      example:
+        subCategory: subCategory
+        code: code
+        in: in
+        context:
+          missingScopes:
+          - scope1
+          - scope2
+        message: message
       properties:
         subCategory:
           description: A specific category that contains more specific detail about
@@ -2823,6 +2860,482 @@ components:
       type: object
     BatchResponseBlogPostWithErrors:
       description: Response object for batch operations on blog posts with errors.
+      example:
+        completedAt: 2000-01-23T04:56:07.000+00:00
+        numErrors: 7
+        requestedAt: 2000-01-23T04:56:07.000+00:00
+        startedAt: 2000-01-23T04:56:07.000+00:00
+        links:
+          key: links
+        results:
+        - publishDate: 2000-01-23T04:56:07.000+00:00
+          language: af
+          enableLayoutStylesheets: true
+          metaDescription: metaDescription
+          attachedStylesheets:
+          - key: "{}"
+          - key: "{}"
+          password: password
+          htmlTitle: htmlTitle
+          publishImmediately: true
+          translations:
+            key:
+              archivedInDashboard: true
+              created: 2000-01-23T04:56:07.000+00:00
+              tagIds:
+              - 0
+              - 0
+              publishDate: 2000-01-23T04:56:07.000+00:00
+              publicAccessRules:
+              - {}
+              - {}
+              password: password
+              authorName: authorName
+              publicAccessRulesEnabled: true
+              name: name
+              campaign: campaign
+              id: 6
+              state: state
+              updated: 2000-01-23T04:56:07.000+00:00
+              slug: slug
+          id: id
+          state: state
+          slug: slug
+          createdById: createdById
+          rssBody: rssBody
+          currentlyPublished: true
+          archivedInDashboard: true
+          created: 2000-01-23T04:56:07.000+00:00
+          contentTypeCategory: "0"
+          mabExperimentId: mabExperimentId
+          updatedById: updatedById
+          translatedFromId: translatedFromId
+          folderId: folderId
+          widgetContainers:
+            key: "{}"
+          pageExpiryRedirectId: 1
+          dynamicPageDataSourceType: 5
+          featuredImage: featuredImage
+          authorName: authorName
+          domain: domain
+          name: name
+          dynamicPageHubDbTableId: dynamicPageHubDbTableId
+          campaign: campaign
+          dynamicPageDataSourceId: dynamicPageDataSourceId
+          enableDomainStylesheets: true
+          includeDefaultCustomCss: true
+          layoutSections:
+            key:
+              cssStyle: cssStyle
+              label: label
+              type: type
+              params:
+                key: "{}"
+              rows:
+              - key: null
+              - key: null
+              rowMetaData:
+              - cssClass: cssClass
+                styles:
+                  backgroundColor:
+                    a: 5.637376656633329
+                    r: 2
+                    b: 7
+                    g: 9
+                  flexboxPositioning: flexboxPositioning
+                  backgroundImage:
+                    imageUrl: imageUrl
+                    backgroundSize: backgroundSize
+                    backgroundPosition: backgroundPosition
+                  forceFullWidthSection: true
+                  verticalAlignment: verticalAlignment
+                  maxWidthSectionCentering: 3
+                  backgroundGradient:
+                    angle:
+                      units: units
+                      value: 2.027123023002322
+                    sideOrCorner:
+                      horizontalSide: horizontalSide
+                      verticalSide: verticalSide
+                    colors:
+                    - color:
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
+                    - color:
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
+              - cssClass: cssClass
+                styles:
+                  backgroundColor:
+                    a: 5.637376656633329
+                    r: 2
+                    b: 7
+                    g: 9
+                  flexboxPositioning: flexboxPositioning
+                  backgroundImage:
+                    imageUrl: imageUrl
+                    backgroundSize: backgroundSize
+                    backgroundPosition: backgroundPosition
+                  forceFullWidthSection: true
+                  verticalAlignment: verticalAlignment
+                  maxWidthSectionCentering: 3
+                  backgroundGradient:
+                    angle:
+                      units: units
+                      value: 2.027123023002322
+                    sideOrCorner:
+                      horizontalSide: horizontalSide
+                      verticalSide: verticalSide
+                    colors:
+                    - color:
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
+                    - color:
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
+              cells:
+              - null
+              - null
+              cssClass: cssClass
+              w: 4
+              cssId: cssId
+              x: 7
+              name: name
+              styles:
+                backgroundColor:
+                  a: 5.637376656633329
+                  r: 2
+                  b: 7
+                  g: 9
+                flexboxPositioning: flexboxPositioning
+                backgroundImage:
+                  imageUrl: imageUrl
+                  backgroundSize: backgroundSize
+                  backgroundPosition: backgroundPosition
+                forceFullWidthSection: true
+                verticalAlignment: verticalAlignment
+                maxWidthSectionCentering: 3
+                backgroundGradient:
+                  angle:
+                    units: units
+                    value: 2.027123023002322
+                  sideOrCorner:
+                    horizontalSide: horizontalSide
+                    verticalSide: verticalSide
+                  colors:
+                  - color:
+                      a: 5.637376656633329
+                      r: 2
+                      b: 7
+                      g: 9
+                  - color:
+                      a: 5.637376656633329
+                      r: 2
+                      b: 7
+                      g: 9
+          updated: 2000-01-23T04:56:07.000+00:00
+          footerHtml: footerHtml
+          tagIds:
+          - 1
+          - 1
+          widgets:
+            key: "{}"
+          postSummary: postSummary
+          headHtml: headHtml
+          pageExpiryRedirectUrl: pageExpiryRedirectUrl
+          abStatus: master
+          useFeaturedImage: true
+          abTestId: abTestId
+          featuredImageAltText: featuredImageAltText
+          blogAuthorId: blogAuthorId
+          contentGroupId: contentGroupId
+          rssSummary: rssSummary
+          pageExpiryEnabled: true
+          url: url
+          publicAccessRules:
+          - {}
+          - {}
+          enableGoogleAmpOutputOverride: true
+          archivedAt: 1
+          postBody: postBody
+          themeSettingsValues:
+            key: "{}"
+          pageExpiryDate: 1
+          publicAccessRulesEnabled: true
+          currentState: AUTOMATED
+          categoryId: 6
+          linkRelCanonicalUrl: linkRelCanonicalUrl
+        - publishDate: 2000-01-23T04:56:07.000+00:00
+          language: af
+          enableLayoutStylesheets: true
+          metaDescription: metaDescription
+          attachedStylesheets:
+          - key: "{}"
+          - key: "{}"
+          password: password
+          htmlTitle: htmlTitle
+          publishImmediately: true
+          translations:
+            key:
+              archivedInDashboard: true
+              created: 2000-01-23T04:56:07.000+00:00
+              tagIds:
+              - 0
+              - 0
+              publishDate: 2000-01-23T04:56:07.000+00:00
+              publicAccessRules:
+              - {}
+              - {}
+              password: password
+              authorName: authorName
+              publicAccessRulesEnabled: true
+              name: name
+              campaign: campaign
+              id: 6
+              state: state
+              updated: 2000-01-23T04:56:07.000+00:00
+              slug: slug
+          id: id
+          state: state
+          slug: slug
+          createdById: createdById
+          rssBody: rssBody
+          currentlyPublished: true
+          archivedInDashboard: true
+          created: 2000-01-23T04:56:07.000+00:00
+          contentTypeCategory: "0"
+          mabExperimentId: mabExperimentId
+          updatedById: updatedById
+          translatedFromId: translatedFromId
+          folderId: folderId
+          widgetContainers:
+            key: "{}"
+          pageExpiryRedirectId: 1
+          dynamicPageDataSourceType: 5
+          featuredImage: featuredImage
+          authorName: authorName
+          domain: domain
+          name: name
+          dynamicPageHubDbTableId: dynamicPageHubDbTableId
+          campaign: campaign
+          dynamicPageDataSourceId: dynamicPageDataSourceId
+          enableDomainStylesheets: true
+          includeDefaultCustomCss: true
+          layoutSections:
+            key:
+              cssStyle: cssStyle
+              label: label
+              type: type
+              params:
+                key: "{}"
+              rows:
+              - key: null
+              - key: null
+              rowMetaData:
+              - cssClass: cssClass
+                styles:
+                  backgroundColor:
+                    a: 5.637376656633329
+                    r: 2
+                    b: 7
+                    g: 9
+                  flexboxPositioning: flexboxPositioning
+                  backgroundImage:
+                    imageUrl: imageUrl
+                    backgroundSize: backgroundSize
+                    backgroundPosition: backgroundPosition
+                  forceFullWidthSection: true
+                  verticalAlignment: verticalAlignment
+                  maxWidthSectionCentering: 3
+                  backgroundGradient:
+                    angle:
+                      units: units
+                      value: 2.027123023002322
+                    sideOrCorner:
+                      horizontalSide: horizontalSide
+                      verticalSide: verticalSide
+                    colors:
+                    - color:
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
+                    - color:
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
+              - cssClass: cssClass
+                styles:
+                  backgroundColor:
+                    a: 5.637376656633329
+                    r: 2
+                    b: 7
+                    g: 9
+                  flexboxPositioning: flexboxPositioning
+                  backgroundImage:
+                    imageUrl: imageUrl
+                    backgroundSize: backgroundSize
+                    backgroundPosition: backgroundPosition
+                  forceFullWidthSection: true
+                  verticalAlignment: verticalAlignment
+                  maxWidthSectionCentering: 3
+                  backgroundGradient:
+                    angle:
+                      units: units
+                      value: 2.027123023002322
+                    sideOrCorner:
+                      horizontalSide: horizontalSide
+                      verticalSide: verticalSide
+                    colors:
+                    - color:
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
+                    - color:
+                        a: 5.637376656633329
+                        r: 2
+                        b: 7
+                        g: 9
+              cells:
+              - null
+              - null
+              cssClass: cssClass
+              w: 4
+              cssId: cssId
+              x: 7
+              name: name
+              styles:
+                backgroundColor:
+                  a: 5.637376656633329
+                  r: 2
+                  b: 7
+                  g: 9
+                flexboxPositioning: flexboxPositioning
+                backgroundImage:
+                  imageUrl: imageUrl
+                  backgroundSize: backgroundSize
+                  backgroundPosition: backgroundPosition
+                forceFullWidthSection: true
+                verticalAlignment: verticalAlignment
+                maxWidthSectionCentering: 3
+                backgroundGradient:
+                  angle:
+                    units: units
+                    value: 2.027123023002322
+                  sideOrCorner:
+                    horizontalSide: horizontalSide
+                    verticalSide: verticalSide
+                  colors:
+                  - color:
+                      a: 5.637376656633329
+                      r: 2
+                      b: 7
+                      g: 9
+                  - color:
+                      a: 5.637376656633329
+                      r: 2
+                      b: 7
+                      g: 9
+          updated: 2000-01-23T04:56:07.000+00:00
+          footerHtml: footerHtml
+          tagIds:
+          - 1
+          - 1
+          widgets:
+            key: "{}"
+          postSummary: postSummary
+          headHtml: headHtml
+          pageExpiryRedirectUrl: pageExpiryRedirectUrl
+          abStatus: master
+          useFeaturedImage: true
+          abTestId: abTestId
+          featuredImageAltText: featuredImageAltText
+          blogAuthorId: blogAuthorId
+          contentGroupId: contentGroupId
+          rssSummary: rssSummary
+          pageExpiryEnabled: true
+          url: url
+          publicAccessRules:
+          - {}
+          - {}
+          enableGoogleAmpOutputOverride: true
+          archivedAt: 1
+          postBody: postBody
+          themeSettingsValues:
+            key: "{}"
+          pageExpiryDate: 1
+          publicAccessRulesEnabled: true
+          currentState: AUTOMATED
+          categoryId: 6
+          linkRelCanonicalUrl: linkRelCanonicalUrl
+        errors:
+        - subCategory: "{}"
+          context:
+            key:
+            - context
+            - context
+          links:
+            key: links
+          id: id
+          category: category
+          message: message
+          errors:
+          - subCategory: subCategory
+            code: code
+            in: in
+            context:
+              missingScopes:
+              - scope1
+              - scope2
+            message: message
+          - subCategory: subCategory
+            code: code
+            in: in
+            context:
+              missingScopes:
+              - scope1
+              - scope2
+            message: message
+          status: status
+        - subCategory: "{}"
+          context:
+            key:
+            - context
+            - context
+          links:
+            key: links
+          id: id
+          category: category
+          message: message
+          errors:
+          - subCategory: subCategory
+            code: code
+            in: in
+            context:
+              missingScopes:
+              - scope1
+              - scope2
+            message: message
+          - subCategory: subCategory
+            code: code
+            in: in
+            context:
+              missingScopes:
+              - scope1
+              - scope2
+            message: message
+          status: status
+        status: PENDING
       properties:
         completedAt:
           description: Time of batch operation completion.

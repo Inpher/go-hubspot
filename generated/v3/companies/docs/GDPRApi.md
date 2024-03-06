@@ -1,10 +1,10 @@
-# \GDPRApi
+# \GDPRAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PostCrmV3ObjectsCompaniesGdprDeletePurge**](GDPRApi.md#PostCrmV3ObjectsCompaniesGdprDeletePurge) | **Post** /crm/v3/objects/companies/gdpr-delete | GDPR DELETE
+[**PostCrmV3ObjectsCompaniesGdprDeletePurge**](GDPRAPI.md#PostCrmV3ObjectsCompaniesGdprDeletePurge) | **Post** /crm/v3/objects/companies/gdpr-delete | GDPR DELETE
 
 
 
@@ -22,22 +22,22 @@ GDPR DELETE
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    publicGdprDeleteInput := *openapiclient.NewPublicGdprDeleteInput("ObjectId_example") // PublicGdprDeleteInput | 
+	publicGdprDeleteInput := *openapiclient.NewPublicGdprDeleteInput("ObjectId_example") // PublicGdprDeleteInput | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.GDPRApi.PostCrmV3ObjectsCompaniesGdprDeletePurge(context.Background()).PublicGdprDeleteInput(publicGdprDeleteInput).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `GDPRApi.PostCrmV3ObjectsCompaniesGdprDeletePurge``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.GDPRAPI.PostCrmV3ObjectsCompaniesGdprDeletePurge(context.Background()).PublicGdprDeleteInput(publicGdprDeleteInput).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GDPRAPI.PostCrmV3ObjectsCompaniesGdprDeletePurge``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 

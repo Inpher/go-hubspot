@@ -1,10 +1,10 @@
-# \SearchApi
+# \SearchAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Search**](SearchApi.md#Search) | **Get** /marketing/v3/marketing-events/events/search | Search for marketing events
+[**Search**](SearchAPI.md#Search) | **Get** /marketing/v3/marketing-events/events/search | Search for marketing events
 
 
 
@@ -22,24 +22,24 @@ Search for marketing events
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    q := "q_example" // string | The id of the marketing event in the external event application
+	q := "q_example" // string | The id of the marketing event in the external event application
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SearchApi.Search(context.Background()).Q(q).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SearchApi.Search``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `Search`: CollectionResponseMarketingEventExternalUniqueIdentifierNoPaging
-    fmt.Fprintf(os.Stdout, "Response from `SearchApi.Search`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SearchAPI.Search(context.Background()).Q(q).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SearchAPI.Search``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `Search`: CollectionResponseMarketingEventExternalUniqueIdentifierNoPaging
+	fmt.Fprintf(os.Stdout, "Response from `SearchAPI.Search`: %v\n", resp)
 }
 ```
 

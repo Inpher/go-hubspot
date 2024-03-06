@@ -11,8 +11,13 @@ API version: v4
 package actions
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the FieldTypeDefinition type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &FieldTypeDefinition{}
 
 // FieldTypeDefinition struct for FieldTypeDefinition
 type FieldTypeDefinition struct {
@@ -28,6 +33,8 @@ type FieldTypeDefinition struct {
 	OptionsUrl                   *string  `json:"optionsUrl,omitempty"`
 	ExternalOptions              bool     `json:"externalOptions"`
 }
+
+type _FieldTypeDefinition FieldTypeDefinition
 
 // NewFieldTypeDefinition instantiates a new FieldTypeDefinition object
 // This constructor will assign default values to properties that have it defined,
@@ -52,7 +59,7 @@ func NewFieldTypeDefinitionWithDefaults() *FieldTypeDefinition {
 
 // GetHelpText returns the HelpText field value if set, zero value otherwise.
 func (o *FieldTypeDefinition) GetHelpText() string {
-	if o == nil || o.HelpText == nil {
+	if o == nil || IsNil(o.HelpText) {
 		var ret string
 		return ret
 	}
@@ -62,7 +69,7 @@ func (o *FieldTypeDefinition) GetHelpText() string {
 // GetHelpTextOk returns a tuple with the HelpText field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FieldTypeDefinition) GetHelpTextOk() (*string, bool) {
-	if o == nil || o.HelpText == nil {
+	if o == nil || IsNil(o.HelpText) {
 		return nil, false
 	}
 	return o.HelpText, true
@@ -70,7 +77,7 @@ func (o *FieldTypeDefinition) GetHelpTextOk() (*string, bool) {
 
 // HasHelpText returns a boolean if a field has been set.
 func (o *FieldTypeDefinition) HasHelpText() bool {
-	if o != nil && o.HelpText != nil {
+	if o != nil && !IsNil(o.HelpText) {
 		return true
 	}
 
@@ -84,7 +91,7 @@ func (o *FieldTypeDefinition) SetHelpText(v string) {
 
 // GetReferencedObjectType returns the ReferencedObjectType field value if set, zero value otherwise.
 func (o *FieldTypeDefinition) GetReferencedObjectType() string {
-	if o == nil || o.ReferencedObjectType == nil {
+	if o == nil || IsNil(o.ReferencedObjectType) {
 		var ret string
 		return ret
 	}
@@ -94,7 +101,7 @@ func (o *FieldTypeDefinition) GetReferencedObjectType() string {
 // GetReferencedObjectTypeOk returns a tuple with the ReferencedObjectType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FieldTypeDefinition) GetReferencedObjectTypeOk() (*string, bool) {
-	if o == nil || o.ReferencedObjectType == nil {
+	if o == nil || IsNil(o.ReferencedObjectType) {
 		return nil, false
 	}
 	return o.ReferencedObjectType, true
@@ -102,7 +109,7 @@ func (o *FieldTypeDefinition) GetReferencedObjectTypeOk() (*string, bool) {
 
 // HasReferencedObjectType returns a boolean if a field has been set.
 func (o *FieldTypeDefinition) HasReferencedObjectType() bool {
-	if o != nil && o.ReferencedObjectType != nil {
+	if o != nil && !IsNil(o.ReferencedObjectType) {
 		return true
 	}
 
@@ -164,7 +171,7 @@ func (o *FieldTypeDefinition) SetOptions(v []Option) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *FieldTypeDefinition) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -174,7 +181,7 @@ func (o *FieldTypeDefinition) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FieldTypeDefinition) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -182,7 +189,7 @@ func (o *FieldTypeDefinition) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *FieldTypeDefinition) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -196,7 +203,7 @@ func (o *FieldTypeDefinition) SetDescription(v string) {
 
 // GetExternalOptionsReferenceType returns the ExternalOptionsReferenceType field value if set, zero value otherwise.
 func (o *FieldTypeDefinition) GetExternalOptionsReferenceType() string {
-	if o == nil || o.ExternalOptionsReferenceType == nil {
+	if o == nil || IsNil(o.ExternalOptionsReferenceType) {
 		var ret string
 		return ret
 	}
@@ -206,7 +213,7 @@ func (o *FieldTypeDefinition) GetExternalOptionsReferenceType() string {
 // GetExternalOptionsReferenceTypeOk returns a tuple with the ExternalOptionsReferenceType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FieldTypeDefinition) GetExternalOptionsReferenceTypeOk() (*string, bool) {
-	if o == nil || o.ExternalOptionsReferenceType == nil {
+	if o == nil || IsNil(o.ExternalOptionsReferenceType) {
 		return nil, false
 	}
 	return o.ExternalOptionsReferenceType, true
@@ -214,7 +221,7 @@ func (o *FieldTypeDefinition) GetExternalOptionsReferenceTypeOk() (*string, bool
 
 // HasExternalOptionsReferenceType returns a boolean if a field has been set.
 func (o *FieldTypeDefinition) HasExternalOptionsReferenceType() bool {
-	if o != nil && o.ExternalOptionsReferenceType != nil {
+	if o != nil && !IsNil(o.ExternalOptionsReferenceType) {
 		return true
 	}
 
@@ -228,7 +235,7 @@ func (o *FieldTypeDefinition) SetExternalOptionsReferenceType(v string) {
 
 // GetLabel returns the Label field value if set, zero value otherwise.
 func (o *FieldTypeDefinition) GetLabel() string {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		var ret string
 		return ret
 	}
@@ -238,7 +245,7 @@ func (o *FieldTypeDefinition) GetLabel() string {
 // GetLabelOk returns a tuple with the Label field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FieldTypeDefinition) GetLabelOk() (*string, bool) {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		return nil, false
 	}
 	return o.Label, true
@@ -246,7 +253,7 @@ func (o *FieldTypeDefinition) GetLabelOk() (*string, bool) {
 
 // HasLabel returns a boolean if a field has been set.
 func (o *FieldTypeDefinition) HasLabel() bool {
-	if o != nil && o.Label != nil {
+	if o != nil && !IsNil(o.Label) {
 		return true
 	}
 
@@ -284,7 +291,7 @@ func (o *FieldTypeDefinition) SetType(v string) {
 
 // GetFieldType returns the FieldType field value if set, zero value otherwise.
 func (o *FieldTypeDefinition) GetFieldType() string {
-	if o == nil || o.FieldType == nil {
+	if o == nil || IsNil(o.FieldType) {
 		var ret string
 		return ret
 	}
@@ -294,7 +301,7 @@ func (o *FieldTypeDefinition) GetFieldType() string {
 // GetFieldTypeOk returns a tuple with the FieldType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FieldTypeDefinition) GetFieldTypeOk() (*string, bool) {
-	if o == nil || o.FieldType == nil {
+	if o == nil || IsNil(o.FieldType) {
 		return nil, false
 	}
 	return o.FieldType, true
@@ -302,7 +309,7 @@ func (o *FieldTypeDefinition) GetFieldTypeOk() (*string, bool) {
 
 // HasFieldType returns a boolean if a field has been set.
 func (o *FieldTypeDefinition) HasFieldType() bool {
-	if o != nil && o.FieldType != nil {
+	if o != nil && !IsNil(o.FieldType) {
 		return true
 	}
 
@@ -316,7 +323,7 @@ func (o *FieldTypeDefinition) SetFieldType(v string) {
 
 // GetOptionsUrl returns the OptionsUrl field value if set, zero value otherwise.
 func (o *FieldTypeDefinition) GetOptionsUrl() string {
-	if o == nil || o.OptionsUrl == nil {
+	if o == nil || IsNil(o.OptionsUrl) {
 		var ret string
 		return ret
 	}
@@ -326,7 +333,7 @@ func (o *FieldTypeDefinition) GetOptionsUrl() string {
 // GetOptionsUrlOk returns a tuple with the OptionsUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FieldTypeDefinition) GetOptionsUrlOk() (*string, bool) {
-	if o == nil || o.OptionsUrl == nil {
+	if o == nil || IsNil(o.OptionsUrl) {
 		return nil, false
 	}
 	return o.OptionsUrl, true
@@ -334,7 +341,7 @@ func (o *FieldTypeDefinition) GetOptionsUrlOk() (*string, bool) {
 
 // HasOptionsUrl returns a boolean if a field has been set.
 func (o *FieldTypeDefinition) HasOptionsUrl() bool {
-	if o != nil && o.OptionsUrl != nil {
+	if o != nil && !IsNil(o.OptionsUrl) {
 		return true
 	}
 
@@ -371,41 +378,81 @@ func (o *FieldTypeDefinition) SetExternalOptions(v bool) {
 }
 
 func (o FieldTypeDefinition) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.HelpText != nil {
-		toSerialize["helpText"] = o.HelpText
-	}
-	if o.ReferencedObjectType != nil {
-		toSerialize["referencedObjectType"] = o.ReferencedObjectType
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["options"] = o.Options
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.ExternalOptionsReferenceType != nil {
-		toSerialize["externalOptionsReferenceType"] = o.ExternalOptionsReferenceType
-	}
-	if o.Label != nil {
-		toSerialize["label"] = o.Label
-	}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if o.FieldType != nil {
-		toSerialize["fieldType"] = o.FieldType
-	}
-	if o.OptionsUrl != nil {
-		toSerialize["optionsUrl"] = o.OptionsUrl
-	}
-	if true {
-		toSerialize["externalOptions"] = o.ExternalOptions
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o FieldTypeDefinition) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.HelpText) {
+		toSerialize["helpText"] = o.HelpText
+	}
+	if !IsNil(o.ReferencedObjectType) {
+		toSerialize["referencedObjectType"] = o.ReferencedObjectType
+	}
+	toSerialize["name"] = o.Name
+	toSerialize["options"] = o.Options
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.ExternalOptionsReferenceType) {
+		toSerialize["externalOptionsReferenceType"] = o.ExternalOptionsReferenceType
+	}
+	if !IsNil(o.Label) {
+		toSerialize["label"] = o.Label
+	}
+	toSerialize["type"] = o.Type
+	if !IsNil(o.FieldType) {
+		toSerialize["fieldType"] = o.FieldType
+	}
+	if !IsNil(o.OptionsUrl) {
+		toSerialize["optionsUrl"] = o.OptionsUrl
+	}
+	toSerialize["externalOptions"] = o.ExternalOptions
+	return toSerialize, nil
+}
+
+func (o *FieldTypeDefinition) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"options",
+		"type",
+		"externalOptions",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFieldTypeDefinition := _FieldTypeDefinition{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFieldTypeDefinition)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FieldTypeDefinition(varFieldTypeDefinition)
+
+	return err
 }
 
 type NullableFieldTypeDefinition struct {

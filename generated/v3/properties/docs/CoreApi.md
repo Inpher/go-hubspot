@@ -1,14 +1,14 @@
-# \CoreApi
+# \CoreAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Archive**](CoreApi.md#Archive) | **Delete** /crm/v3/properties/{objectType}/{propertyName} | Archive a property
-[**Create**](CoreApi.md#Create) | **Post** /crm/v3/properties/{objectType} | Create a property
-[**GetAll**](CoreApi.md#GetAll) | **Get** /crm/v3/properties/{objectType} | Read all properties
-[**GetByName**](CoreApi.md#GetByName) | **Get** /crm/v3/properties/{objectType}/{propertyName} | Read a property
-[**Update**](CoreApi.md#Update) | **Patch** /crm/v3/properties/{objectType}/{propertyName} | Update a property
+[**Archive**](CoreAPI.md#Archive) | **Delete** /crm/v3/properties/{objectType}/{propertyName} | Archive a property
+[**Create**](CoreAPI.md#Create) | **Post** /crm/v3/properties/{objectType} | Create a property
+[**GetAll**](CoreAPI.md#GetAll) | **Get** /crm/v3/properties/{objectType} | Read all properties
+[**GetByName**](CoreAPI.md#GetByName) | **Get** /crm/v3/properties/{objectType}/{propertyName} | Read a property
+[**Update**](CoreAPI.md#Update) | **Patch** /crm/v3/properties/{objectType}/{propertyName} | Update a property
 
 
 
@@ -26,23 +26,23 @@ Archive a property
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    objectType := "objectType_example" // string | 
-    propertyName := "propertyName_example" // string | 
+	objectType := "objectType_example" // string | 
+	propertyName := "propertyName_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CoreApi.Archive(context.Background(), objectType, propertyName).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CoreApi.Archive``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CoreAPI.Archive(context.Background(), objectType, propertyName).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CoreAPI.Archive``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -71,7 +71,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [oauth2](../README.md#oauth2), [private_apps_legacy](../README.md#private_apps_legacy), [private_apps](../README.md#private_apps)
 
 ### HTTP request headers
 
@@ -97,25 +97,25 @@ Create a property
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    objectType := "objectType_example" // string | 
-    propertyCreate := *openapiclient.NewPropertyCreate("My Contact Property", "enumeration", "contactinformation", "Name_example", "select") // PropertyCreate | 
+	objectType := "objectType_example" // string | 
+	propertyCreate := *openapiclient.NewPropertyCreate("My Contact Property", "enumeration", "contactinformation", "Name_example", "select") // PropertyCreate | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CoreApi.Create(context.Background(), objectType).PropertyCreate(propertyCreate).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CoreApi.Create``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `Create`: Property
-    fmt.Fprintf(os.Stdout, "Response from `CoreApi.Create`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CoreAPI.Create(context.Background(), objectType).PropertyCreate(propertyCreate).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CoreAPI.Create``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `Create`: Property
+	fmt.Fprintf(os.Stdout, "Response from `CoreAPI.Create`: %v\n", resp)
 }
 ```
 
@@ -143,7 +143,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [oauth2](../README.md#oauth2), [private_apps_legacy](../README.md#private_apps_legacy), [private_apps](../README.md#private_apps)
 
 ### HTTP request headers
 
@@ -169,26 +169,26 @@ Read all properties
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    objectType := "objectType_example" // string | 
-    archived := true // bool | Whether to return only results that have been archived. (optional) (default to false)
-    properties := "properties_example" // string |  (optional)
+	objectType := "objectType_example" // string | 
+	archived := true // bool | Whether to return only results that have been archived. (optional) (default to false)
+	properties := "properties_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CoreApi.GetAll(context.Background(), objectType).Archived(archived).Properties(properties).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CoreApi.GetAll``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetAll`: CollectionResponsePropertyNoPaging
-    fmt.Fprintf(os.Stdout, "Response from `CoreApi.GetAll`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CoreAPI.GetAll(context.Background(), objectType).Archived(archived).Properties(properties).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CoreAPI.GetAll``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAll`: CollectionResponsePropertyNoPaging
+	fmt.Fprintf(os.Stdout, "Response from `CoreAPI.GetAll`: %v\n", resp)
 }
 ```
 
@@ -217,7 +217,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [private_apps_legacy](../README.md#private_apps_legacy), [oauth2](../README.md#oauth2), [private_apps](../README.md#private_apps)
 
 ### HTTP request headers
 
@@ -243,27 +243,27 @@ Read a property
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    objectType := "objectType_example" // string | 
-    propertyName := "propertyName_example" // string | 
-    archived := true // bool | Whether to return only results that have been archived. (optional) (default to false)
-    properties := "properties_example" // string |  (optional)
+	objectType := "objectType_example" // string | 
+	propertyName := "propertyName_example" // string | 
+	archived := true // bool | Whether to return only results that have been archived. (optional) (default to false)
+	properties := "properties_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CoreApi.GetByName(context.Background(), objectType, propertyName).Archived(archived).Properties(properties).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CoreApi.GetByName``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetByName`: Property
-    fmt.Fprintf(os.Stdout, "Response from `CoreApi.GetByName`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CoreAPI.GetByName(context.Background(), objectType, propertyName).Archived(archived).Properties(properties).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CoreAPI.GetByName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetByName`: Property
+	fmt.Fprintf(os.Stdout, "Response from `CoreAPI.GetByName`: %v\n", resp)
 }
 ```
 
@@ -294,7 +294,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [private_apps_legacy](../README.md#private_apps_legacy), [oauth2](../README.md#oauth2), [private_apps](../README.md#private_apps)
 
 ### HTTP request headers
 
@@ -320,26 +320,26 @@ Update a property
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    objectType := "objectType_example" // string | 
-    propertyName := "propertyName_example" // string | 
-    propertyUpdate := *openapiclient.NewPropertyUpdate() // PropertyUpdate | 
+	objectType := "objectType_example" // string | 
+	propertyName := "propertyName_example" // string | 
+	propertyUpdate := *openapiclient.NewPropertyUpdate() // PropertyUpdate | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CoreApi.Update(context.Background(), objectType, propertyName).PropertyUpdate(propertyUpdate).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CoreApi.Update``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `Update`: Property
-    fmt.Fprintf(os.Stdout, "Response from `CoreApi.Update`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CoreAPI.Update(context.Background(), objectType, propertyName).PropertyUpdate(propertyUpdate).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CoreAPI.Update``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `Update`: Property
+	fmt.Fprintf(os.Stdout, "Response from `CoreAPI.Update`: %v\n", resp)
 }
 ```
 
@@ -369,7 +369,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [oauth2](../README.md#oauth2), [private_apps_legacy](../README.md#private_apps_legacy), [private_apps](../README.md#private_apps)
 
 ### HTTP request headers
 

@@ -11,8 +11,13 @@ API version: v3
 package url_redirects
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the UrlMappingCreateRequestBody type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UrlMappingCreateRequestBody{}
 
 // UrlMappingCreateRequestBody struct for UrlMappingCreateRequestBody
 type UrlMappingCreateRequestBody struct {
@@ -27,6 +32,8 @@ type UrlMappingCreateRequestBody struct {
 	IsPattern               *bool  `json:"isPattern,omitempty"`
 	Precedence              *int32 `json:"precedence,omitempty"`
 }
+
+type _UrlMappingCreateRequestBody UrlMappingCreateRequestBody
 
 // NewUrlMappingCreateRequestBody instantiates a new UrlMappingCreateRequestBody object
 // This constructor will assign default values to properties that have it defined,
@@ -50,7 +57,7 @@ func NewUrlMappingCreateRequestBodyWithDefaults() *UrlMappingCreateRequestBody {
 
 // GetIsTrailingSlashOptional returns the IsTrailingSlashOptional field value if set, zero value otherwise.
 func (o *UrlMappingCreateRequestBody) GetIsTrailingSlashOptional() bool {
-	if o == nil || o.IsTrailingSlashOptional == nil {
+	if o == nil || IsNil(o.IsTrailingSlashOptional) {
 		var ret bool
 		return ret
 	}
@@ -60,7 +67,7 @@ func (o *UrlMappingCreateRequestBody) GetIsTrailingSlashOptional() bool {
 // GetIsTrailingSlashOptionalOk returns a tuple with the IsTrailingSlashOptional field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UrlMappingCreateRequestBody) GetIsTrailingSlashOptionalOk() (*bool, bool) {
-	if o == nil || o.IsTrailingSlashOptional == nil {
+	if o == nil || IsNil(o.IsTrailingSlashOptional) {
 		return nil, false
 	}
 	return o.IsTrailingSlashOptional, true
@@ -68,7 +75,7 @@ func (o *UrlMappingCreateRequestBody) GetIsTrailingSlashOptionalOk() (*bool, boo
 
 // HasIsTrailingSlashOptional returns a boolean if a field has been set.
 func (o *UrlMappingCreateRequestBody) HasIsTrailingSlashOptional() bool {
-	if o != nil && o.IsTrailingSlashOptional != nil {
+	if o != nil && !IsNil(o.IsTrailingSlashOptional) {
 		return true
 	}
 
@@ -82,7 +89,7 @@ func (o *UrlMappingCreateRequestBody) SetIsTrailingSlashOptional(v bool) {
 
 // GetIsMatchQueryString returns the IsMatchQueryString field value if set, zero value otherwise.
 func (o *UrlMappingCreateRequestBody) GetIsMatchQueryString() bool {
-	if o == nil || o.IsMatchQueryString == nil {
+	if o == nil || IsNil(o.IsMatchQueryString) {
 		var ret bool
 		return ret
 	}
@@ -92,7 +99,7 @@ func (o *UrlMappingCreateRequestBody) GetIsMatchQueryString() bool {
 // GetIsMatchQueryStringOk returns a tuple with the IsMatchQueryString field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UrlMappingCreateRequestBody) GetIsMatchQueryStringOk() (*bool, bool) {
-	if o == nil || o.IsMatchQueryString == nil {
+	if o == nil || IsNil(o.IsMatchQueryString) {
 		return nil, false
 	}
 	return o.IsMatchQueryString, true
@@ -100,7 +107,7 @@ func (o *UrlMappingCreateRequestBody) GetIsMatchQueryStringOk() (*bool, bool) {
 
 // HasIsMatchQueryString returns a boolean if a field has been set.
 func (o *UrlMappingCreateRequestBody) HasIsMatchQueryString() bool {
-	if o != nil && o.IsMatchQueryString != nil {
+	if o != nil && !IsNil(o.IsMatchQueryString) {
 		return true
 	}
 
@@ -162,7 +169,7 @@ func (o *UrlMappingCreateRequestBody) SetRoutePrefix(v string) {
 
 // GetIsMatchFullUrl returns the IsMatchFullUrl field value if set, zero value otherwise.
 func (o *UrlMappingCreateRequestBody) GetIsMatchFullUrl() bool {
-	if o == nil || o.IsMatchFullUrl == nil {
+	if o == nil || IsNil(o.IsMatchFullUrl) {
 		var ret bool
 		return ret
 	}
@@ -172,7 +179,7 @@ func (o *UrlMappingCreateRequestBody) GetIsMatchFullUrl() bool {
 // GetIsMatchFullUrlOk returns a tuple with the IsMatchFullUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UrlMappingCreateRequestBody) GetIsMatchFullUrlOk() (*bool, bool) {
-	if o == nil || o.IsMatchFullUrl == nil {
+	if o == nil || IsNil(o.IsMatchFullUrl) {
 		return nil, false
 	}
 	return o.IsMatchFullUrl, true
@@ -180,7 +187,7 @@ func (o *UrlMappingCreateRequestBody) GetIsMatchFullUrlOk() (*bool, bool) {
 
 // HasIsMatchFullUrl returns a boolean if a field has been set.
 func (o *UrlMappingCreateRequestBody) HasIsMatchFullUrl() bool {
-	if o != nil && o.IsMatchFullUrl != nil {
+	if o != nil && !IsNil(o.IsMatchFullUrl) {
 		return true
 	}
 
@@ -194,7 +201,7 @@ func (o *UrlMappingCreateRequestBody) SetIsMatchFullUrl(v bool) {
 
 // GetIsProtocolAgnostic returns the IsProtocolAgnostic field value if set, zero value otherwise.
 func (o *UrlMappingCreateRequestBody) GetIsProtocolAgnostic() bool {
-	if o == nil || o.IsProtocolAgnostic == nil {
+	if o == nil || IsNil(o.IsProtocolAgnostic) {
 		var ret bool
 		return ret
 	}
@@ -204,7 +211,7 @@ func (o *UrlMappingCreateRequestBody) GetIsProtocolAgnostic() bool {
 // GetIsProtocolAgnosticOk returns a tuple with the IsProtocolAgnostic field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UrlMappingCreateRequestBody) GetIsProtocolAgnosticOk() (*bool, bool) {
-	if o == nil || o.IsProtocolAgnostic == nil {
+	if o == nil || IsNil(o.IsProtocolAgnostic) {
 		return nil, false
 	}
 	return o.IsProtocolAgnostic, true
@@ -212,7 +219,7 @@ func (o *UrlMappingCreateRequestBody) GetIsProtocolAgnosticOk() (*bool, bool) {
 
 // HasIsProtocolAgnostic returns a boolean if a field has been set.
 func (o *UrlMappingCreateRequestBody) HasIsProtocolAgnostic() bool {
-	if o != nil && o.IsProtocolAgnostic != nil {
+	if o != nil && !IsNil(o.IsProtocolAgnostic) {
 		return true
 	}
 
@@ -250,7 +257,7 @@ func (o *UrlMappingCreateRequestBody) SetDestination(v string) {
 
 // GetIsOnlyAfterNotFound returns the IsOnlyAfterNotFound field value if set, zero value otherwise.
 func (o *UrlMappingCreateRequestBody) GetIsOnlyAfterNotFound() bool {
-	if o == nil || o.IsOnlyAfterNotFound == nil {
+	if o == nil || IsNil(o.IsOnlyAfterNotFound) {
 		var ret bool
 		return ret
 	}
@@ -260,7 +267,7 @@ func (o *UrlMappingCreateRequestBody) GetIsOnlyAfterNotFound() bool {
 // GetIsOnlyAfterNotFoundOk returns a tuple with the IsOnlyAfterNotFound field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UrlMappingCreateRequestBody) GetIsOnlyAfterNotFoundOk() (*bool, bool) {
-	if o == nil || o.IsOnlyAfterNotFound == nil {
+	if o == nil || IsNil(o.IsOnlyAfterNotFound) {
 		return nil, false
 	}
 	return o.IsOnlyAfterNotFound, true
@@ -268,7 +275,7 @@ func (o *UrlMappingCreateRequestBody) GetIsOnlyAfterNotFoundOk() (*bool, bool) {
 
 // HasIsOnlyAfterNotFound returns a boolean if a field has been set.
 func (o *UrlMappingCreateRequestBody) HasIsOnlyAfterNotFound() bool {
-	if o != nil && o.IsOnlyAfterNotFound != nil {
+	if o != nil && !IsNil(o.IsOnlyAfterNotFound) {
 		return true
 	}
 
@@ -282,7 +289,7 @@ func (o *UrlMappingCreateRequestBody) SetIsOnlyAfterNotFound(v bool) {
 
 // GetIsPattern returns the IsPattern field value if set, zero value otherwise.
 func (o *UrlMappingCreateRequestBody) GetIsPattern() bool {
-	if o == nil || o.IsPattern == nil {
+	if o == nil || IsNil(o.IsPattern) {
 		var ret bool
 		return ret
 	}
@@ -292,7 +299,7 @@ func (o *UrlMappingCreateRequestBody) GetIsPattern() bool {
 // GetIsPatternOk returns a tuple with the IsPattern field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UrlMappingCreateRequestBody) GetIsPatternOk() (*bool, bool) {
-	if o == nil || o.IsPattern == nil {
+	if o == nil || IsNil(o.IsPattern) {
 		return nil, false
 	}
 	return o.IsPattern, true
@@ -300,7 +307,7 @@ func (o *UrlMappingCreateRequestBody) GetIsPatternOk() (*bool, bool) {
 
 // HasIsPattern returns a boolean if a field has been set.
 func (o *UrlMappingCreateRequestBody) HasIsPattern() bool {
-	if o != nil && o.IsPattern != nil {
+	if o != nil && !IsNil(o.IsPattern) {
 		return true
 	}
 
@@ -314,7 +321,7 @@ func (o *UrlMappingCreateRequestBody) SetIsPattern(v bool) {
 
 // GetPrecedence returns the Precedence field value if set, zero value otherwise.
 func (o *UrlMappingCreateRequestBody) GetPrecedence() int32 {
-	if o == nil || o.Precedence == nil {
+	if o == nil || IsNil(o.Precedence) {
 		var ret int32
 		return ret
 	}
@@ -324,7 +331,7 @@ func (o *UrlMappingCreateRequestBody) GetPrecedence() int32 {
 // GetPrecedenceOk returns a tuple with the Precedence field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UrlMappingCreateRequestBody) GetPrecedenceOk() (*int32, bool) {
-	if o == nil || o.Precedence == nil {
+	if o == nil || IsNil(o.Precedence) {
 		return nil, false
 	}
 	return o.Precedence, true
@@ -332,7 +339,7 @@ func (o *UrlMappingCreateRequestBody) GetPrecedenceOk() (*int32, bool) {
 
 // HasPrecedence returns a boolean if a field has been set.
 func (o *UrlMappingCreateRequestBody) HasPrecedence() bool {
-	if o != nil && o.Precedence != nil {
+	if o != nil && !IsNil(o.Precedence) {
 		return true
 	}
 
@@ -345,38 +352,79 @@ func (o *UrlMappingCreateRequestBody) SetPrecedence(v int32) {
 }
 
 func (o UrlMappingCreateRequestBody) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.IsTrailingSlashOptional != nil {
-		toSerialize["isTrailingSlashOptional"] = o.IsTrailingSlashOptional
-	}
-	if o.IsMatchQueryString != nil {
-		toSerialize["isMatchQueryString"] = o.IsMatchQueryString
-	}
-	if true {
-		toSerialize["redirectStyle"] = o.RedirectStyle
-	}
-	if true {
-		toSerialize["routePrefix"] = o.RoutePrefix
-	}
-	if o.IsMatchFullUrl != nil {
-		toSerialize["isMatchFullUrl"] = o.IsMatchFullUrl
-	}
-	if o.IsProtocolAgnostic != nil {
-		toSerialize["isProtocolAgnostic"] = o.IsProtocolAgnostic
-	}
-	if true {
-		toSerialize["destination"] = o.Destination
-	}
-	if o.IsOnlyAfterNotFound != nil {
-		toSerialize["isOnlyAfterNotFound"] = o.IsOnlyAfterNotFound
-	}
-	if o.IsPattern != nil {
-		toSerialize["isPattern"] = o.IsPattern
-	}
-	if o.Precedence != nil {
-		toSerialize["precedence"] = o.Precedence
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UrlMappingCreateRequestBody) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.IsTrailingSlashOptional) {
+		toSerialize["isTrailingSlashOptional"] = o.IsTrailingSlashOptional
+	}
+	if !IsNil(o.IsMatchQueryString) {
+		toSerialize["isMatchQueryString"] = o.IsMatchQueryString
+	}
+	toSerialize["redirectStyle"] = o.RedirectStyle
+	toSerialize["routePrefix"] = o.RoutePrefix
+	if !IsNil(o.IsMatchFullUrl) {
+		toSerialize["isMatchFullUrl"] = o.IsMatchFullUrl
+	}
+	if !IsNil(o.IsProtocolAgnostic) {
+		toSerialize["isProtocolAgnostic"] = o.IsProtocolAgnostic
+	}
+	toSerialize["destination"] = o.Destination
+	if !IsNil(o.IsOnlyAfterNotFound) {
+		toSerialize["isOnlyAfterNotFound"] = o.IsOnlyAfterNotFound
+	}
+	if !IsNil(o.IsPattern) {
+		toSerialize["isPattern"] = o.IsPattern
+	}
+	if !IsNil(o.Precedence) {
+		toSerialize["precedence"] = o.Precedence
+	}
+	return toSerialize, nil
+}
+
+func (o *UrlMappingCreateRequestBody) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"redirectStyle",
+		"routePrefix",
+		"destination",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varUrlMappingCreateRequestBody := _UrlMappingCreateRequestBody{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varUrlMappingCreateRequestBody)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UrlMappingCreateRequestBody(varUrlMappingCreateRequestBody)
+
+	return err
 }
 
 type NullableUrlMappingCreateRequestBody struct {

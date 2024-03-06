@@ -11,9 +11,14 @@ API version: v3
 package marketing_events_beta
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the BatchResponseMarketingEventPublicDefaultResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BatchResponseMarketingEventPublicDefaultResponse{}
 
 // BatchResponseMarketingEventPublicDefaultResponse struct for BatchResponseMarketingEventPublicDefaultResponse
 type BatchResponseMarketingEventPublicDefaultResponse struct {
@@ -34,6 +39,8 @@ type BatchResponseMarketingEventPublicDefaultResponse struct {
 	//
 	Status string `json:"status"`
 }
+
+type _BatchResponseMarketingEventPublicDefaultResponse BatchResponseMarketingEventPublicDefaultResponse
 
 // NewBatchResponseMarketingEventPublicDefaultResponse instantiates a new BatchResponseMarketingEventPublicDefaultResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -82,7 +89,7 @@ func (o *BatchResponseMarketingEventPublicDefaultResponse) SetCompletedAt(v time
 
 // GetNumErrors returns the NumErrors field value if set, zero value otherwise.
 func (o *BatchResponseMarketingEventPublicDefaultResponse) GetNumErrors() int32 {
-	if o == nil || o.NumErrors == nil {
+	if o == nil || IsNil(o.NumErrors) {
 		var ret int32
 		return ret
 	}
@@ -92,7 +99,7 @@ func (o *BatchResponseMarketingEventPublicDefaultResponse) GetNumErrors() int32 
 // GetNumErrorsOk returns a tuple with the NumErrors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BatchResponseMarketingEventPublicDefaultResponse) GetNumErrorsOk() (*int32, bool) {
-	if o == nil || o.NumErrors == nil {
+	if o == nil || IsNil(o.NumErrors) {
 		return nil, false
 	}
 	return o.NumErrors, true
@@ -100,7 +107,7 @@ func (o *BatchResponseMarketingEventPublicDefaultResponse) GetNumErrorsOk() (*in
 
 // HasNumErrors returns a boolean if a field has been set.
 func (o *BatchResponseMarketingEventPublicDefaultResponse) HasNumErrors() bool {
-	if o != nil && o.NumErrors != nil {
+	if o != nil && !IsNil(o.NumErrors) {
 		return true
 	}
 
@@ -114,7 +121,7 @@ func (o *BatchResponseMarketingEventPublicDefaultResponse) SetNumErrors(v int32)
 
 // GetRequestedAt returns the RequestedAt field value if set, zero value otherwise.
 func (o *BatchResponseMarketingEventPublicDefaultResponse) GetRequestedAt() time.Time {
-	if o == nil || o.RequestedAt == nil {
+	if o == nil || IsNil(o.RequestedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -124,7 +131,7 @@ func (o *BatchResponseMarketingEventPublicDefaultResponse) GetRequestedAt() time
 // GetRequestedAtOk returns a tuple with the RequestedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BatchResponseMarketingEventPublicDefaultResponse) GetRequestedAtOk() (*time.Time, bool) {
-	if o == nil || o.RequestedAt == nil {
+	if o == nil || IsNil(o.RequestedAt) {
 		return nil, false
 	}
 	return o.RequestedAt, true
@@ -132,7 +139,7 @@ func (o *BatchResponseMarketingEventPublicDefaultResponse) GetRequestedAtOk() (*
 
 // HasRequestedAt returns a boolean if a field has been set.
 func (o *BatchResponseMarketingEventPublicDefaultResponse) HasRequestedAt() bool {
-	if o != nil && o.RequestedAt != nil {
+	if o != nil && !IsNil(o.RequestedAt) {
 		return true
 	}
 
@@ -170,7 +177,7 @@ func (o *BatchResponseMarketingEventPublicDefaultResponse) SetStartedAt(v time.T
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *BatchResponseMarketingEventPublicDefaultResponse) GetLinks() map[string]string {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret map[string]string
 		return ret
 	}
@@ -180,7 +187,7 @@ func (o *BatchResponseMarketingEventPublicDefaultResponse) GetLinks() map[string
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BatchResponseMarketingEventPublicDefaultResponse) GetLinksOk() (*map[string]string, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -188,7 +195,7 @@ func (o *BatchResponseMarketingEventPublicDefaultResponse) GetLinksOk() (*map[st
 
 // HasLinks returns a boolean if a field has been set.
 func (o *BatchResponseMarketingEventPublicDefaultResponse) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -226,7 +233,7 @@ func (o *BatchResponseMarketingEventPublicDefaultResponse) SetResults(v []Market
 
 // GetErrors returns the Errors field value if set, zero value otherwise.
 func (o *BatchResponseMarketingEventPublicDefaultResponse) GetErrors() []StandardError {
-	if o == nil || o.Errors == nil {
+	if o == nil || IsNil(o.Errors) {
 		var ret []StandardError
 		return ret
 	}
@@ -236,7 +243,7 @@ func (o *BatchResponseMarketingEventPublicDefaultResponse) GetErrors() []Standar
 // GetErrorsOk returns a tuple with the Errors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BatchResponseMarketingEventPublicDefaultResponse) GetErrorsOk() ([]StandardError, bool) {
-	if o == nil || o.Errors == nil {
+	if o == nil || IsNil(o.Errors) {
 		return nil, false
 	}
 	return o.Errors, true
@@ -244,7 +251,7 @@ func (o *BatchResponseMarketingEventPublicDefaultResponse) GetErrorsOk() ([]Stan
 
 // HasErrors returns a boolean if a field has been set.
 func (o *BatchResponseMarketingEventPublicDefaultResponse) HasErrors() bool {
-	if o != nil && o.Errors != nil {
+	if o != nil && !IsNil(o.Errors) {
 		return true
 	}
 
@@ -281,32 +288,72 @@ func (o *BatchResponseMarketingEventPublicDefaultResponse) SetStatus(v string) {
 }
 
 func (o BatchResponseMarketingEventPublicDefaultResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["completedAt"] = o.CompletedAt
-	}
-	if o.NumErrors != nil {
-		toSerialize["numErrors"] = o.NumErrors
-	}
-	if o.RequestedAt != nil {
-		toSerialize["requestedAt"] = o.RequestedAt
-	}
-	if true {
-		toSerialize["startedAt"] = o.StartedAt
-	}
-	if o.Links != nil {
-		toSerialize["links"] = o.Links
-	}
-	if true {
-		toSerialize["results"] = o.Results
-	}
-	if o.Errors != nil {
-		toSerialize["errors"] = o.Errors
-	}
-	if true {
-		toSerialize["status"] = o.Status
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o BatchResponseMarketingEventPublicDefaultResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["completedAt"] = o.CompletedAt
+	if !IsNil(o.NumErrors) {
+		toSerialize["numErrors"] = o.NumErrors
+	}
+	if !IsNil(o.RequestedAt) {
+		toSerialize["requestedAt"] = o.RequestedAt
+	}
+	toSerialize["startedAt"] = o.StartedAt
+	if !IsNil(o.Links) {
+		toSerialize["links"] = o.Links
+	}
+	toSerialize["results"] = o.Results
+	if !IsNil(o.Errors) {
+		toSerialize["errors"] = o.Errors
+	}
+	toSerialize["status"] = o.Status
+	return toSerialize, nil
+}
+
+func (o *BatchResponseMarketingEventPublicDefaultResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"completedAt",
+		"startedAt",
+		"results",
+		"status",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varBatchResponseMarketingEventPublicDefaultResponse := _BatchResponseMarketingEventPublicDefaultResponse{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varBatchResponseMarketingEventPublicDefaultResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = BatchResponseMarketingEventPublicDefaultResponse(varBatchResponseMarketingEventPublicDefaultResponse)
+
+	return err
 }
 
 type NullableBatchResponseMarketingEventPublicDefaultResponse struct {

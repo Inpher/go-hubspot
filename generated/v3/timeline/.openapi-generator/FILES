@@ -14,9 +14,9 @@ docs/CollectionResponseTimelineEventTemplateNoPaging.md
 docs/Error.md
 docs/ErrorDetail.md
 docs/EventDetail.md
-docs/EventsApi.md
+docs/EventsAPI.md
 docs/StandardError.md
-docs/TemplatesApi.md
+docs/TemplatesAPI.md
 docs/TimelineEvent.md
 docs/TimelineEventIFrame.md
 docs/TimelineEventResponse.md
@@ -26,7 +26,7 @@ docs/TimelineEventTemplateToken.md
 docs/TimelineEventTemplateTokenOption.md
 docs/TimelineEventTemplateTokenUpdateRequest.md
 docs/TimelineEventTemplateUpdateRequest.md
-docs/TokensApi.md
+docs/TokensAPI.md
 git_push.sh
 go.mod
 go.sum

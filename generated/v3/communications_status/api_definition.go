@@ -13,19 +13,19 @@ package communications_status
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 
-	"github.com/clarkmcc/go-hubspot"
+	"github.com/inpher/go-hubspot"
 	"net/url"
 )
 
-// DefinitionApiService DefinitionApi service
-type DefinitionApiService service
+// DefinitionAPIService DefinitionAPI service
+type DefinitionAPIService service
 
 type ApiGetPageRequest struct {
 	ctx        context.Context
-	ApiService *DefinitionApiService
+	ApiService *DefinitionAPIService
 }
 
 func (r ApiGetPageRequest) Execute() (*SubscriptionDefinitionsResponse, *http.Response, error) {
@@ -37,10 +37,10 @@ GetPage Get subscription definitions
 
 Get a list of all subscription definitions for the portal
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetPageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetPageRequest
 */
-func (a *DefinitionApiService) GetPage(ctx context.Context) ApiGetPageRequest {
+func (a *DefinitionAPIService) GetPage(ctx context.Context) ApiGetPageRequest {
 	return ApiGetPageRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -48,8 +48,9 @@ func (a *DefinitionApiService) GetPage(ctx context.Context) ApiGetPageRequest {
 }
 
 // Execute executes the request
-//  @return SubscriptionDefinitionsResponse
-func (a *DefinitionApiService) GetPageExecute(r ApiGetPageRequest) (*SubscriptionDefinitionsResponse, *http.Response, error) {
+//
+//	@return SubscriptionDefinitionsResponse
+func (a *DefinitionAPIService) GetPageExecute(r ApiGetPageRequest) (*SubscriptionDefinitionsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -57,7 +58,7 @@ func (a *DefinitionApiService) GetPageExecute(r ApiGetPageRequest) (*Subscriptio
 		localVarReturnValue *SubscriptionDefinitionsResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefinitionApiService.GetPage")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefinitionAPIService.GetPage")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -105,9 +106,9 @@ func (a *DefinitionApiService) GetPageExecute(r ApiGetPageRequest) (*Subscriptio
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -123,6 +124,7 @@ func (a *DefinitionApiService) GetPageExecute(r ApiGetPageRequest) (*Subscriptio
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

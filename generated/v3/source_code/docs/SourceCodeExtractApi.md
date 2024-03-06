@@ -1,11 +1,11 @@
-# \SourceCodeExtractApi
+# \SourceCodeExtractAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ExtractAsync**](SourceCodeExtractApi.md#ExtractAsync) | **Post** /cms/v3/source-code/extract/async | 
-[**ExtractGetAsyncStatus**](SourceCodeExtractApi.md#ExtractGetAsyncStatus) | **Get** /cms/v3/source-code/extract/async/tasks/{taskId}/status | 
+[**ExtractAsync**](SourceCodeExtractAPI.md#ExtractAsync) | **Post** /cms/v3/source-code/extract/async | 
+[**ExtractGetAsyncStatus**](SourceCodeExtractAPI.md#ExtractGetAsyncStatus) | **Get** /cms/v3/source-code/extract/async/tasks/{taskId}/status | 
 
 
 
@@ -21,24 +21,24 @@ Method | HTTP request | Description
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    fileExtractRequest := *openapiclient.NewFileExtractRequest("Path_example") // FileExtractRequest | 
+	fileExtractRequest := *openapiclient.NewFileExtractRequest("Path_example") // FileExtractRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SourceCodeExtractApi.ExtractAsync(context.Background()).FileExtractRequest(fileExtractRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SourceCodeExtractApi.ExtractAsync``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ExtractAsync`: TaskLocator
-    fmt.Fprintf(os.Stdout, "Response from `SourceCodeExtractApi.ExtractAsync`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SourceCodeExtractAPI.ExtractAsync(context.Background()).FileExtractRequest(fileExtractRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SourceCodeExtractAPI.ExtractAsync``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ExtractAsync`: TaskLocator
+	fmt.Fprintf(os.Stdout, "Response from `SourceCodeExtractAPI.ExtractAsync`: %v\n", resp)
 }
 ```
 
@@ -85,24 +85,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    taskId := int32(56) // int32 | 
+	taskId := int32(56) // int32 | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SourceCodeExtractApi.ExtractGetAsyncStatus(context.Background(), taskId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SourceCodeExtractApi.ExtractGetAsyncStatus``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ExtractGetAsyncStatus`: ActionResponse
-    fmt.Fprintf(os.Stdout, "Response from `SourceCodeExtractApi.ExtractGetAsyncStatus`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SourceCodeExtractAPI.ExtractGetAsyncStatus(context.Background(), taskId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SourceCodeExtractAPI.ExtractGetAsyncStatus``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ExtractGetAsyncStatus`: ActionResponse
+	fmt.Fprintf(os.Stdout, "Response from `SourceCodeExtractAPI.ExtractGetAsyncStatus`: %v\n", resp)
 }
 ```
 

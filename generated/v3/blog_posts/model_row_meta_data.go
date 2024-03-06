@@ -11,14 +11,21 @@ API version: v3
 package blog_posts
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the RowMetaData type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RowMetaData{}
 
 // RowMetaData struct for RowMetaData
 type RowMetaData struct {
 	CssClass string `json:"cssClass"`
 	Styles   Styles `json:"styles"`
 }
+
+type _RowMetaData RowMetaData
 
 // NewRowMetaData instantiates a new RowMetaData object
 // This constructor will assign default values to properties that have it defined,
@@ -88,14 +95,56 @@ func (o *RowMetaData) SetStyles(v Styles) {
 }
 
 func (o RowMetaData) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["cssClass"] = o.CssClass
-	}
-	if true {
-		toSerialize["styles"] = o.Styles
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RowMetaData) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["cssClass"] = o.CssClass
+	toSerialize["styles"] = o.Styles
+	return toSerialize, nil
+}
+
+func (o *RowMetaData) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"cssClass",
+		"styles",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRowMetaData := _RowMetaData{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varRowMetaData)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RowMetaData(varRowMetaData)
+
+	return err
 }
 
 type NullableRowMetaData struct {

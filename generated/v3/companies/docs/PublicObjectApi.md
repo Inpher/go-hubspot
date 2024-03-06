@@ -1,10 +1,10 @@
-# \PublicObjectApi
+# \PublicObjectAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Merge**](PublicObjectApi.md#Merge) | **Post** /crm/v3/objects/companies/merge | Merge two companies with same type
+[**Merge**](PublicObjectAPI.md#Merge) | **Post** /crm/v3/objects/companies/merge | Merge two companies with same type
 
 
 
@@ -20,24 +20,24 @@ Merge two companies with same type
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    publicMergeInput := *openapiclient.NewPublicMergeInput("ObjectIdToMerge_example", "PrimaryObjectId_example") // PublicMergeInput | 
+	publicMergeInput := *openapiclient.NewPublicMergeInput("ObjectIdToMerge_example", "PrimaryObjectId_example") // PublicMergeInput | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PublicObjectApi.Merge(context.Background()).PublicMergeInput(publicMergeInput).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PublicObjectApi.Merge``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `Merge`: SimplePublicObject
-    fmt.Fprintf(os.Stdout, "Response from `PublicObjectApi.Merge`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PublicObjectAPI.Merge(context.Background()).PublicMergeInput(publicMergeInput).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PublicObjectAPI.Merge``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `Merge`: SimplePublicObject
+	fmt.Fprintf(os.Stdout, "Response from `PublicObjectAPI.Merge`: %v\n", resp)
 }
 ```
 

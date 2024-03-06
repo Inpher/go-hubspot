@@ -1,11 +1,11 @@
-# \RevisionsApi
+# \RevisionsAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**RevisionsGetByID**](RevisionsApi.md#RevisionsGetByID) | **Get** /automation/v4/actions/{appId}/{definitionId}/revisions/{revisionId} | Gets a revision for a given definition by revision id
-[**RevisionsGetPage**](RevisionsApi.md#RevisionsGetPage) | **Get** /automation/v4/actions/{appId}/{definitionId}/revisions | Get all revisions for a given definition
+[**RevisionsGetByID**](RevisionsAPI.md#RevisionsGetByID) | **Get** /automation/v4/actions/{appId}/{definitionId}/revisions/{revisionId} | Gets a revision for a given definition by revision id
+[**RevisionsGetPage**](RevisionsAPI.md#RevisionsGetPage) | **Get** /automation/v4/actions/{appId}/{definitionId}/revisions | Get all revisions for a given definition
 
 
 
@@ -21,26 +21,26 @@ Gets a revision for a given definition by revision id
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    definitionId := "definitionId_example" // string | 
-    revisionId := "revisionId_example" // string | 
-    appId := int32(56) // int32 | 
+	definitionId := "definitionId_example" // string | 
+	revisionId := "revisionId_example" // string | 
+	appId := int32(56) // int32 | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RevisionsApi.RevisionsGetByID(context.Background(), definitionId, revisionId, appId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RevisionsApi.RevisionsGetByID``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `RevisionsGetByID`: PublicActionRevision
-    fmt.Fprintf(os.Stdout, "Response from `RevisionsApi.RevisionsGetByID`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.RevisionsAPI.RevisionsGetByID(context.Background(), definitionId, revisionId, appId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `RevisionsAPI.RevisionsGetByID``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `RevisionsGetByID`: PublicActionRevision
+	fmt.Fprintf(os.Stdout, "Response from `RevisionsAPI.RevisionsGetByID`: %v\n", resp)
 }
 ```
 
@@ -71,7 +71,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[developer_hapikey](../README.md#developer_hapikey)
 
 ### HTTP request headers
 
@@ -95,27 +95,27 @@ Get all revisions for a given definition
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    definitionId := "definitionId_example" // string | 
-    appId := int32(56) // int32 | 
-    limit := int32(56) // int32 | The maximum number of results to display per page. (optional)
-    after := "after_example" // string | The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results. (optional)
+	definitionId := "definitionId_example" // string | 
+	appId := int32(56) // int32 | 
+	limit := int32(56) // int32 | The maximum number of results to display per page. (optional)
+	after := "after_example" // string | The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RevisionsApi.RevisionsGetPage(context.Background(), definitionId, appId).Limit(limit).After(after).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RevisionsApi.RevisionsGetPage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `RevisionsGetPage`: CollectionResponsePublicActionRevisionForwardPaging
-    fmt.Fprintf(os.Stdout, "Response from `RevisionsApi.RevisionsGetPage`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.RevisionsAPI.RevisionsGetPage(context.Background(), definitionId, appId).Limit(limit).After(after).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `RevisionsAPI.RevisionsGetPage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `RevisionsGetPage`: CollectionResponsePublicActionRevisionForwardPaging
+	fmt.Fprintf(os.Stdout, "Response from `RevisionsAPI.RevisionsGetPage`: %v\n", resp)
 }
 ```
 
@@ -146,7 +146,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[developer_hapikey](../README.md#developer_hapikey)
 
 ### HTTP request headers
 

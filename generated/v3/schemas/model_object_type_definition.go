@@ -11,9 +11,14 @@ API version: v3
 package schemas
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the ObjectTypeDefinition type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ObjectTypeDefinition{}
 
 // ObjectTypeDefinition Defines an object type.
 type ObjectTypeDefinition struct {
@@ -42,6 +47,8 @@ type ObjectTypeDefinition struct {
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 }
 
+type _ObjectTypeDefinition ObjectTypeDefinition
+
 // NewObjectTypeDefinition instantiates a new ObjectTypeDefinition object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
@@ -65,7 +72,7 @@ func NewObjectTypeDefinitionWithDefaults() *ObjectTypeDefinition {
 
 // GetSecondaryDisplayProperties returns the SecondaryDisplayProperties field value if set, zero value otherwise.
 func (o *ObjectTypeDefinition) GetSecondaryDisplayProperties() []string {
-	if o == nil || o.SecondaryDisplayProperties == nil {
+	if o == nil || IsNil(o.SecondaryDisplayProperties) {
 		var ret []string
 		return ret
 	}
@@ -75,7 +82,7 @@ func (o *ObjectTypeDefinition) GetSecondaryDisplayProperties() []string {
 // GetSecondaryDisplayPropertiesOk returns a tuple with the SecondaryDisplayProperties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ObjectTypeDefinition) GetSecondaryDisplayPropertiesOk() ([]string, bool) {
-	if o == nil || o.SecondaryDisplayProperties == nil {
+	if o == nil || IsNil(o.SecondaryDisplayProperties) {
 		return nil, false
 	}
 	return o.SecondaryDisplayProperties, true
@@ -83,7 +90,7 @@ func (o *ObjectTypeDefinition) GetSecondaryDisplayPropertiesOk() ([]string, bool
 
 // HasSecondaryDisplayProperties returns a boolean if a field has been set.
 func (o *ObjectTypeDefinition) HasSecondaryDisplayProperties() bool {
-	if o != nil && o.SecondaryDisplayProperties != nil {
+	if o != nil && !IsNil(o.SecondaryDisplayProperties) {
 		return true
 	}
 
@@ -97,7 +104,7 @@ func (o *ObjectTypeDefinition) SetSecondaryDisplayProperties(v []string) {
 
 // GetObjectTypeId returns the ObjectTypeId field value if set, zero value otherwise.
 func (o *ObjectTypeDefinition) GetObjectTypeId() string {
-	if o == nil || o.ObjectTypeId == nil {
+	if o == nil || IsNil(o.ObjectTypeId) {
 		var ret string
 		return ret
 	}
@@ -107,7 +114,7 @@ func (o *ObjectTypeDefinition) GetObjectTypeId() string {
 // GetObjectTypeIdOk returns a tuple with the ObjectTypeId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ObjectTypeDefinition) GetObjectTypeIdOk() (*string, bool) {
-	if o == nil || o.ObjectTypeId == nil {
+	if o == nil || IsNil(o.ObjectTypeId) {
 		return nil, false
 	}
 	return o.ObjectTypeId, true
@@ -115,7 +122,7 @@ func (o *ObjectTypeDefinition) GetObjectTypeIdOk() (*string, bool) {
 
 // HasObjectTypeId returns a boolean if a field has been set.
 func (o *ObjectTypeDefinition) HasObjectTypeId() bool {
-	if o != nil && o.ObjectTypeId != nil {
+	if o != nil && !IsNil(o.ObjectTypeId) {
 		return true
 	}
 
@@ -129,7 +136,7 @@ func (o *ObjectTypeDefinition) SetObjectTypeId(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *ObjectTypeDefinition) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -139,7 +146,7 @@ func (o *ObjectTypeDefinition) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ObjectTypeDefinition) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -147,7 +154,7 @@ func (o *ObjectTypeDefinition) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *ObjectTypeDefinition) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -161,7 +168,7 @@ func (o *ObjectTypeDefinition) SetDescription(v string) {
 
 // GetFullyQualifiedName returns the FullyQualifiedName field value if set, zero value otherwise.
 func (o *ObjectTypeDefinition) GetFullyQualifiedName() string {
-	if o == nil || o.FullyQualifiedName == nil {
+	if o == nil || IsNil(o.FullyQualifiedName) {
 		var ret string
 		return ret
 	}
@@ -171,7 +178,7 @@ func (o *ObjectTypeDefinition) GetFullyQualifiedName() string {
 // GetFullyQualifiedNameOk returns a tuple with the FullyQualifiedName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ObjectTypeDefinition) GetFullyQualifiedNameOk() (*string, bool) {
-	if o == nil || o.FullyQualifiedName == nil {
+	if o == nil || IsNil(o.FullyQualifiedName) {
 		return nil, false
 	}
 	return o.FullyQualifiedName, true
@@ -179,7 +186,7 @@ func (o *ObjectTypeDefinition) GetFullyQualifiedNameOk() (*string, bool) {
 
 // HasFullyQualifiedName returns a boolean if a field has been set.
 func (o *ObjectTypeDefinition) HasFullyQualifiedName() bool {
-	if o != nil && o.FullyQualifiedName != nil {
+	if o != nil && !IsNil(o.FullyQualifiedName) {
 		return true
 	}
 
@@ -217,7 +224,7 @@ func (o *ObjectTypeDefinition) SetLabels(v ObjectTypeDefinitionLabels) {
 
 // GetArchived returns the Archived field value if set, zero value otherwise.
 func (o *ObjectTypeDefinition) GetArchived() bool {
-	if o == nil || o.Archived == nil {
+	if o == nil || IsNil(o.Archived) {
 		var ret bool
 		return ret
 	}
@@ -227,7 +234,7 @@ func (o *ObjectTypeDefinition) GetArchived() bool {
 // GetArchivedOk returns a tuple with the Archived field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ObjectTypeDefinition) GetArchivedOk() (*bool, bool) {
-	if o == nil || o.Archived == nil {
+	if o == nil || IsNil(o.Archived) {
 		return nil, false
 	}
 	return o.Archived, true
@@ -235,7 +242,7 @@ func (o *ObjectTypeDefinition) GetArchivedOk() (*bool, bool) {
 
 // HasArchived returns a boolean if a field has been set.
 func (o *ObjectTypeDefinition) HasArchived() bool {
-	if o != nil && o.Archived != nil {
+	if o != nil && !IsNil(o.Archived) {
 		return true
 	}
 
@@ -249,7 +256,7 @@ func (o *ObjectTypeDefinition) SetArchived(v bool) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *ObjectTypeDefinition) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -259,7 +266,7 @@ func (o *ObjectTypeDefinition) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ObjectTypeDefinition) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -267,7 +274,7 @@ func (o *ObjectTypeDefinition) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *ObjectTypeDefinition) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -305,7 +312,7 @@ func (o *ObjectTypeDefinition) SetRequiredProperties(v []string) {
 
 // GetSearchableProperties returns the SearchableProperties field value if set, zero value otherwise.
 func (o *ObjectTypeDefinition) GetSearchableProperties() []string {
-	if o == nil || o.SearchableProperties == nil {
+	if o == nil || IsNil(o.SearchableProperties) {
 		var ret []string
 		return ret
 	}
@@ -315,7 +322,7 @@ func (o *ObjectTypeDefinition) GetSearchableProperties() []string {
 // GetSearchablePropertiesOk returns a tuple with the SearchableProperties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ObjectTypeDefinition) GetSearchablePropertiesOk() ([]string, bool) {
-	if o == nil || o.SearchableProperties == nil {
+	if o == nil || IsNil(o.SearchableProperties) {
 		return nil, false
 	}
 	return o.SearchableProperties, true
@@ -323,7 +330,7 @@ func (o *ObjectTypeDefinition) GetSearchablePropertiesOk() ([]string, bool) {
 
 // HasSearchableProperties returns a boolean if a field has been set.
 func (o *ObjectTypeDefinition) HasSearchableProperties() bool {
-	if o != nil && o.SearchableProperties != nil {
+	if o != nil && !IsNil(o.SearchableProperties) {
 		return true
 	}
 
@@ -337,7 +344,7 @@ func (o *ObjectTypeDefinition) SetSearchableProperties(v []string) {
 
 // GetPortalId returns the PortalId field value if set, zero value otherwise.
 func (o *ObjectTypeDefinition) GetPortalId() int32 {
-	if o == nil || o.PortalId == nil {
+	if o == nil || IsNil(o.PortalId) {
 		var ret int32
 		return ret
 	}
@@ -347,7 +354,7 @@ func (o *ObjectTypeDefinition) GetPortalId() int32 {
 // GetPortalIdOk returns a tuple with the PortalId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ObjectTypeDefinition) GetPortalIdOk() (*int32, bool) {
-	if o == nil || o.PortalId == nil {
+	if o == nil || IsNil(o.PortalId) {
 		return nil, false
 	}
 	return o.PortalId, true
@@ -355,7 +362,7 @@ func (o *ObjectTypeDefinition) GetPortalIdOk() (*int32, bool) {
 
 // HasPortalId returns a boolean if a field has been set.
 func (o *ObjectTypeDefinition) HasPortalId() bool {
-	if o != nil && o.PortalId != nil {
+	if o != nil && !IsNil(o.PortalId) {
 		return true
 	}
 
@@ -369,7 +376,7 @@ func (o *ObjectTypeDefinition) SetPortalId(v int32) {
 
 // GetPrimaryDisplayProperty returns the PrimaryDisplayProperty field value if set, zero value otherwise.
 func (o *ObjectTypeDefinition) GetPrimaryDisplayProperty() string {
-	if o == nil || o.PrimaryDisplayProperty == nil {
+	if o == nil || IsNil(o.PrimaryDisplayProperty) {
 		var ret string
 		return ret
 	}
@@ -379,7 +386,7 @@ func (o *ObjectTypeDefinition) GetPrimaryDisplayProperty() string {
 // GetPrimaryDisplayPropertyOk returns a tuple with the PrimaryDisplayProperty field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ObjectTypeDefinition) GetPrimaryDisplayPropertyOk() (*string, bool) {
-	if o == nil || o.PrimaryDisplayProperty == nil {
+	if o == nil || IsNil(o.PrimaryDisplayProperty) {
 		return nil, false
 	}
 	return o.PrimaryDisplayProperty, true
@@ -387,7 +394,7 @@ func (o *ObjectTypeDefinition) GetPrimaryDisplayPropertyOk() (*string, bool) {
 
 // HasPrimaryDisplayProperty returns a boolean if a field has been set.
 func (o *ObjectTypeDefinition) HasPrimaryDisplayProperty() bool {
-	if o != nil && o.PrimaryDisplayProperty != nil {
+	if o != nil && !IsNil(o.PrimaryDisplayProperty) {
 		return true
 	}
 
@@ -449,7 +456,7 @@ func (o *ObjectTypeDefinition) SetId(v string) {
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
 func (o *ObjectTypeDefinition) GetUpdatedAt() time.Time {
-	if o == nil || o.UpdatedAt == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -459,7 +466,7 @@ func (o *ObjectTypeDefinition) GetUpdatedAt() time.Time {
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ObjectTypeDefinition) GetUpdatedAtOk() (*time.Time, bool) {
-	if o == nil || o.UpdatedAt == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
 	return o.UpdatedAt, true
@@ -467,7 +474,7 @@ func (o *ObjectTypeDefinition) GetUpdatedAtOk() (*time.Time, bool) {
 
 // HasUpdatedAt returns a boolean if a field has been set.
 func (o *ObjectTypeDefinition) HasUpdatedAt() bool {
-	if o != nil && o.UpdatedAt != nil {
+	if o != nil && !IsNil(o.UpdatedAt) {
 		return true
 	}
 
@@ -480,50 +487,90 @@ func (o *ObjectTypeDefinition) SetUpdatedAt(v time.Time) {
 }
 
 func (o ObjectTypeDefinition) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.SecondaryDisplayProperties != nil {
-		toSerialize["secondaryDisplayProperties"] = o.SecondaryDisplayProperties
-	}
-	if o.ObjectTypeId != nil {
-		toSerialize["objectTypeId"] = o.ObjectTypeId
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.FullyQualifiedName != nil {
-		toSerialize["fullyQualifiedName"] = o.FullyQualifiedName
-	}
-	if true {
-		toSerialize["labels"] = o.Labels
-	}
-	if o.Archived != nil {
-		toSerialize["archived"] = o.Archived
-	}
-	if o.CreatedAt != nil {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if true {
-		toSerialize["requiredProperties"] = o.RequiredProperties
-	}
-	if o.SearchableProperties != nil {
-		toSerialize["searchableProperties"] = o.SearchableProperties
-	}
-	if o.PortalId != nil {
-		toSerialize["portalId"] = o.PortalId
-	}
-	if o.PrimaryDisplayProperty != nil {
-		toSerialize["primaryDisplayProperty"] = o.PrimaryDisplayProperty
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if o.UpdatedAt != nil {
-		toSerialize["updatedAt"] = o.UpdatedAt
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ObjectTypeDefinition) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.SecondaryDisplayProperties) {
+		toSerialize["secondaryDisplayProperties"] = o.SecondaryDisplayProperties
+	}
+	if !IsNil(o.ObjectTypeId) {
+		toSerialize["objectTypeId"] = o.ObjectTypeId
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.FullyQualifiedName) {
+		toSerialize["fullyQualifiedName"] = o.FullyQualifiedName
+	}
+	toSerialize["labels"] = o.Labels
+	if !IsNil(o.Archived) {
+		toSerialize["archived"] = o.Archived
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["createdAt"] = o.CreatedAt
+	}
+	toSerialize["requiredProperties"] = o.RequiredProperties
+	if !IsNil(o.SearchableProperties) {
+		toSerialize["searchableProperties"] = o.SearchableProperties
+	}
+	if !IsNil(o.PortalId) {
+		toSerialize["portalId"] = o.PortalId
+	}
+	if !IsNil(o.PrimaryDisplayProperty) {
+		toSerialize["primaryDisplayProperty"] = o.PrimaryDisplayProperty
+	}
+	toSerialize["name"] = o.Name
+	toSerialize["id"] = o.Id
+	if !IsNil(o.UpdatedAt) {
+		toSerialize["updatedAt"] = o.UpdatedAt
+	}
+	return toSerialize, nil
+}
+
+func (o *ObjectTypeDefinition) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"labels",
+		"requiredProperties",
+		"name",
+		"id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varObjectTypeDefinition := _ObjectTypeDefinition{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varObjectTypeDefinition)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ObjectTypeDefinition(varObjectTypeDefinition)
+
+	return err
 }
 
 type NullableObjectTypeDefinition struct {

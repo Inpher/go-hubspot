@@ -11,8 +11,13 @@ API version: v3
 package blog_posts
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the RGBAColor type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RGBAColor{}
 
 // RGBAColor A color defined by RGB values.
 type RGBAColor struct {
@@ -25,6 +30,8 @@ type RGBAColor struct {
 	// Green.
 	G int32 `json:"g"`
 }
+
+type _RGBAColor RGBAColor
 
 // NewRGBAColor instantiates a new RGBAColor object
 // This constructor will assign default values to properties that have it defined,
@@ -144,20 +151,60 @@ func (o *RGBAColor) SetG(v int32) {
 }
 
 func (o RGBAColor) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["a"] = o.A
-	}
-	if true {
-		toSerialize["r"] = o.R
-	}
-	if true {
-		toSerialize["b"] = o.B
-	}
-	if true {
-		toSerialize["g"] = o.G
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RGBAColor) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["a"] = o.A
+	toSerialize["r"] = o.R
+	toSerialize["b"] = o.B
+	toSerialize["g"] = o.G
+	return toSerialize, nil
+}
+
+func (o *RGBAColor) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"a",
+		"r",
+		"b",
+		"g",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRGBAColor := _RGBAColor{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varRGBAColor)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RGBAColor(varRGBAColor)
+
+	return err
 }
 
 type NullableRGBAColor struct {

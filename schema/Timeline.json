@@ -2297,16 +2297,16 @@
             "authorizationUrl" : "https://app.hubspot.com/oauth/authorize",
             "tokenUrl" : "https://api.hubapi.com/oauth/v1/token",
             "scopes" : {
-              "crm.objects.contacts.write" : " ",
               "crm.schemas.contacts.write" : " ",
-              "crm.objects.companies.write" : " ",
+              "crm.objects.contacts.write" : " ",
               "crm.schemas.companies.write" : " ",
-              "crm.schemas.deals.write" : " ",
+              "crm.objects.companies.write" : " ",
               "crm.objects.deals.write" : " ",
-              "crm.schemas.contacts.read" : " ",
+              "crm.schemas.deals.write" : " ",
               "crm.objects.contacts.read" : " ",
-              "crm.objects.companies.read" : " ",
+              "crm.schemas.contacts.read" : " ",
               "crm.schemas.companies.read" : " ",
+              "crm.objects.companies.read" : " ",
               "crm.objects.deals.read" : " ",
               "crm.schemas.deals.read" : " "
             }

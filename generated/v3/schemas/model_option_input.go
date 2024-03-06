@@ -11,8 +11,13 @@ API version: v3
 package schemas
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the OptionInput type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OptionInput{}
 
 // OptionInput Defines a enumeration property option
 type OptionInput struct {
@@ -27,6 +32,8 @@ type OptionInput struct {
 	// The internal value of the option, which must be used when setting the property value through the API.
 	Value string `json:"value"`
 }
+
+type _OptionInput OptionInput
 
 // NewOptionInput instantiates a new OptionInput object
 // This constructor will assign default values to properties that have it defined,
@@ -99,7 +106,7 @@ func (o *OptionInput) SetDisplayOrder(v int32) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *OptionInput) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -109,7 +116,7 @@ func (o *OptionInput) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OptionInput) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -117,7 +124,7 @@ func (o *OptionInput) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *OptionInput) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -178,23 +185,63 @@ func (o *OptionInput) SetValue(v string) {
 }
 
 func (o OptionInput) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["hidden"] = o.Hidden
-	}
-	if true {
-		toSerialize["displayOrder"] = o.DisplayOrder
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if true {
-		toSerialize["label"] = o.Label
-	}
-	if true {
-		toSerialize["value"] = o.Value
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o OptionInput) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["hidden"] = o.Hidden
+	toSerialize["displayOrder"] = o.DisplayOrder
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	toSerialize["label"] = o.Label
+	toSerialize["value"] = o.Value
+	return toSerialize, nil
+}
+
+func (o *OptionInput) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"hidden",
+		"displayOrder",
+		"label",
+		"value",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varOptionInput := _OptionInput{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varOptionInput)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OptionInput(varOptionInput)
+
+	return err
 }
 
 type NullableOptionInput struct {

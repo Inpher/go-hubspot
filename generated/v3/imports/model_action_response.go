@@ -11,9 +11,14 @@ API version: v3
 package imports
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the ActionResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ActionResponse{}
 
 // ActionResponse struct for ActionResponse
 type ActionResponse struct {
@@ -23,6 +28,8 @@ type ActionResponse struct {
 	Links       *map[string]string `json:"links,omitempty"`
 	Status      string             `json:"status"`
 }
+
+type _ActionResponse ActionResponse
 
 // NewActionResponse instantiates a new ActionResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -70,7 +77,7 @@ func (o *ActionResponse) SetCompletedAt(v time.Time) {
 
 // GetRequestedAt returns the RequestedAt field value if set, zero value otherwise.
 func (o *ActionResponse) GetRequestedAt() time.Time {
-	if o == nil || o.RequestedAt == nil {
+	if o == nil || IsNil(o.RequestedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -80,7 +87,7 @@ func (o *ActionResponse) GetRequestedAt() time.Time {
 // GetRequestedAtOk returns a tuple with the RequestedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ActionResponse) GetRequestedAtOk() (*time.Time, bool) {
-	if o == nil || o.RequestedAt == nil {
+	if o == nil || IsNil(o.RequestedAt) {
 		return nil, false
 	}
 	return o.RequestedAt, true
@@ -88,7 +95,7 @@ func (o *ActionResponse) GetRequestedAtOk() (*time.Time, bool) {
 
 // HasRequestedAt returns a boolean if a field has been set.
 func (o *ActionResponse) HasRequestedAt() bool {
-	if o != nil && o.RequestedAt != nil {
+	if o != nil && !IsNil(o.RequestedAt) {
 		return true
 	}
 
@@ -126,7 +133,7 @@ func (o *ActionResponse) SetStartedAt(v time.Time) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *ActionResponse) GetLinks() map[string]string {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret map[string]string
 		return ret
 	}
@@ -136,7 +143,7 @@ func (o *ActionResponse) GetLinks() map[string]string {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ActionResponse) GetLinksOk() (*map[string]string, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -144,7 +151,7 @@ func (o *ActionResponse) GetLinksOk() (*map[string]string, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *ActionResponse) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -181,23 +188,64 @@ func (o *ActionResponse) SetStatus(v string) {
 }
 
 func (o ActionResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["completedAt"] = o.CompletedAt
-	}
-	if o.RequestedAt != nil {
-		toSerialize["requestedAt"] = o.RequestedAt
-	}
-	if true {
-		toSerialize["startedAt"] = o.StartedAt
-	}
-	if o.Links != nil {
-		toSerialize["links"] = o.Links
-	}
-	if true {
-		toSerialize["status"] = o.Status
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ActionResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["completedAt"] = o.CompletedAt
+	if !IsNil(o.RequestedAt) {
+		toSerialize["requestedAt"] = o.RequestedAt
+	}
+	toSerialize["startedAt"] = o.StartedAt
+	if !IsNil(o.Links) {
+		toSerialize["links"] = o.Links
+	}
+	toSerialize["status"] = o.Status
+	return toSerialize, nil
+}
+
+func (o *ActionResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"completedAt",
+		"startedAt",
+		"status",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varActionResponse := _ActionResponse{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varActionResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ActionResponse(varActionResponse)
+
+	return err
 }
 
 type NullableActionResponse struct {

@@ -11,8 +11,13 @@ API version: v3
 package communications_status
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the PublicSubscriptionStatus type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PublicSubscriptionStatus{}
 
 // PublicSubscriptionStatus The status of a subscription for a contact.
 type PublicSubscriptionStatus struct {
@@ -35,6 +40,8 @@ type PublicSubscriptionStatus struct {
 	// Where the status is determined from e.g. PORTAL_WIDE_STATUS if the contact opted out from the portal.
 	SourceOfStatus string `json:"sourceOfStatus"`
 }
+
+type _PublicSubscriptionStatus PublicSubscriptionStatus
 
 // NewPublicSubscriptionStatus instantiates a new PublicSubscriptionStatus object
 // This constructor will assign default values to properties that have it defined,
@@ -60,7 +67,7 @@ func NewPublicSubscriptionStatusWithDefaults() *PublicSubscriptionStatus {
 
 // GetBrandId returns the BrandId field value if set, zero value otherwise.
 func (o *PublicSubscriptionStatus) GetBrandId() int64 {
-	if o == nil || o.BrandId == nil {
+	if o == nil || IsNil(o.BrandId) {
 		var ret int64
 		return ret
 	}
@@ -70,7 +77,7 @@ func (o *PublicSubscriptionStatus) GetBrandId() int64 {
 // GetBrandIdOk returns a tuple with the BrandId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicSubscriptionStatus) GetBrandIdOk() (*int64, bool) {
-	if o == nil || o.BrandId == nil {
+	if o == nil || IsNil(o.BrandId) {
 		return nil, false
 	}
 	return o.BrandId, true
@@ -78,7 +85,7 @@ func (o *PublicSubscriptionStatus) GetBrandIdOk() (*int64, bool) {
 
 // HasBrandId returns a boolean if a field has been set.
 func (o *PublicSubscriptionStatus) HasBrandId() bool {
-	if o != nil && o.BrandId != nil {
+	if o != nil && !IsNil(o.BrandId) {
 		return true
 	}
 
@@ -140,7 +147,7 @@ func (o *PublicSubscriptionStatus) SetDescription(v string) {
 
 // GetLegalBasis returns the LegalBasis field value if set, zero value otherwise.
 func (o *PublicSubscriptionStatus) GetLegalBasis() string {
-	if o == nil || o.LegalBasis == nil {
+	if o == nil || IsNil(o.LegalBasis) {
 		var ret string
 		return ret
 	}
@@ -150,7 +157,7 @@ func (o *PublicSubscriptionStatus) GetLegalBasis() string {
 // GetLegalBasisOk returns a tuple with the LegalBasis field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicSubscriptionStatus) GetLegalBasisOk() (*string, bool) {
-	if o == nil || o.LegalBasis == nil {
+	if o == nil || IsNil(o.LegalBasis) {
 		return nil, false
 	}
 	return o.LegalBasis, true
@@ -158,7 +165,7 @@ func (o *PublicSubscriptionStatus) GetLegalBasisOk() (*string, bool) {
 
 // HasLegalBasis returns a boolean if a field has been set.
 func (o *PublicSubscriptionStatus) HasLegalBasis() bool {
-	if o != nil && o.LegalBasis != nil {
+	if o != nil && !IsNil(o.LegalBasis) {
 		return true
 	}
 
@@ -172,7 +179,7 @@ func (o *PublicSubscriptionStatus) SetLegalBasis(v string) {
 
 // GetPreferenceGroupName returns the PreferenceGroupName field value if set, zero value otherwise.
 func (o *PublicSubscriptionStatus) GetPreferenceGroupName() string {
-	if o == nil || o.PreferenceGroupName == nil {
+	if o == nil || IsNil(o.PreferenceGroupName) {
 		var ret string
 		return ret
 	}
@@ -182,7 +189,7 @@ func (o *PublicSubscriptionStatus) GetPreferenceGroupName() string {
 // GetPreferenceGroupNameOk returns a tuple with the PreferenceGroupName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicSubscriptionStatus) GetPreferenceGroupNameOk() (*string, bool) {
-	if o == nil || o.PreferenceGroupName == nil {
+	if o == nil || IsNil(o.PreferenceGroupName) {
 		return nil, false
 	}
 	return o.PreferenceGroupName, true
@@ -190,7 +197,7 @@ func (o *PublicSubscriptionStatus) GetPreferenceGroupNameOk() (*string, bool) {
 
 // HasPreferenceGroupName returns a boolean if a field has been set.
 func (o *PublicSubscriptionStatus) HasPreferenceGroupName() bool {
-	if o != nil && o.PreferenceGroupName != nil {
+	if o != nil && !IsNil(o.PreferenceGroupName) {
 		return true
 	}
 
@@ -228,7 +235,7 @@ func (o *PublicSubscriptionStatus) SetId(v string) {
 
 // GetLegalBasisExplanation returns the LegalBasisExplanation field value if set, zero value otherwise.
 func (o *PublicSubscriptionStatus) GetLegalBasisExplanation() string {
-	if o == nil || o.LegalBasisExplanation == nil {
+	if o == nil || IsNil(o.LegalBasisExplanation) {
 		var ret string
 		return ret
 	}
@@ -238,7 +245,7 @@ func (o *PublicSubscriptionStatus) GetLegalBasisExplanation() string {
 // GetLegalBasisExplanationOk returns a tuple with the LegalBasisExplanation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicSubscriptionStatus) GetLegalBasisExplanationOk() (*string, bool) {
-	if o == nil || o.LegalBasisExplanation == nil {
+	if o == nil || IsNil(o.LegalBasisExplanation) {
 		return nil, false
 	}
 	return o.LegalBasisExplanation, true
@@ -246,7 +253,7 @@ func (o *PublicSubscriptionStatus) GetLegalBasisExplanationOk() (*string, bool) 
 
 // HasLegalBasisExplanation returns a boolean if a field has been set.
 func (o *PublicSubscriptionStatus) HasLegalBasisExplanation() bool {
-	if o != nil && o.LegalBasisExplanation != nil {
+	if o != nil && !IsNil(o.LegalBasisExplanation) {
 		return true
 	}
 
@@ -307,35 +314,74 @@ func (o *PublicSubscriptionStatus) SetSourceOfStatus(v string) {
 }
 
 func (o PublicSubscriptionStatus) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.BrandId != nil {
-		toSerialize["brandId"] = o.BrandId
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["description"] = o.Description
-	}
-	if o.LegalBasis != nil {
-		toSerialize["legalBasis"] = o.LegalBasis
-	}
-	if o.PreferenceGroupName != nil {
-		toSerialize["preferenceGroupName"] = o.PreferenceGroupName
-	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if o.LegalBasisExplanation != nil {
-		toSerialize["legalBasisExplanation"] = o.LegalBasisExplanation
-	}
-	if true {
-		toSerialize["status"] = o.Status
-	}
-	if true {
-		toSerialize["sourceOfStatus"] = o.SourceOfStatus
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PublicSubscriptionStatus) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.BrandId) {
+		toSerialize["brandId"] = o.BrandId
+	}
+	toSerialize["name"] = o.Name
+	toSerialize["description"] = o.Description
+	if !IsNil(o.LegalBasis) {
+		toSerialize["legalBasis"] = o.LegalBasis
+	}
+	if !IsNil(o.PreferenceGroupName) {
+		toSerialize["preferenceGroupName"] = o.PreferenceGroupName
+	}
+	toSerialize["id"] = o.Id
+	if !IsNil(o.LegalBasisExplanation) {
+		toSerialize["legalBasisExplanation"] = o.LegalBasisExplanation
+	}
+	toSerialize["status"] = o.Status
+	toSerialize["sourceOfStatus"] = o.SourceOfStatus
+	return toSerialize, nil
+}
+
+func (o *PublicSubscriptionStatus) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"description",
+		"id",
+		"status",
+		"sourceOfStatus",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPublicSubscriptionStatus := _PublicSubscriptionStatus{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPublicSubscriptionStatus)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PublicSubscriptionStatus(varPublicSubscriptionStatus)
+
+	return err
 }
 
 type NullablePublicSubscriptionStatus struct {

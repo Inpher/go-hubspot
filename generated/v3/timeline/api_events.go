@@ -13,20 +13,20 @@ package timeline
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 
-	"github.com/clarkmcc/go-hubspot"
+	"github.com/inpher/go-hubspot"
 	"net/url"
 	"strings"
 )
 
-// EventsApiService EventsApi service
-type EventsApiService service
+// EventsAPIService EventsAPI service
+type EventsAPIService service
 
 type ApiGetCrmV3TimelineEventsEventTemplateIdEventIdDetailGetDetailByIdRequest struct {
 	ctx             context.Context
-	ApiService      *EventsApiService
+	ApiService      *EventsAPIService
 	eventTemplateId string
 	eventId         string
 }
@@ -40,12 +40,12 @@ GetCrmV3TimelineEventsEventTemplateIdEventIdDetailGetDetailById Gets the detailT
 
 This will take the `detailTemplate` from the event template and return an object rendering the specified event. If the template references `extraData` that isn't found in the event, it will be ignored and we'll render without it.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param eventTemplateId The event template ID.
- @param eventId The event ID.
- @return ApiGetCrmV3TimelineEventsEventTemplateIdEventIdDetailGetDetailByIdRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param eventTemplateId The event template ID.
+	@param eventId The event ID.
+	@return ApiGetCrmV3TimelineEventsEventTemplateIdEventIdDetailGetDetailByIdRequest
 */
-func (a *EventsApiService) GetCrmV3TimelineEventsEventTemplateIdEventIdDetailGetDetailById(ctx context.Context, eventTemplateId string, eventId string) ApiGetCrmV3TimelineEventsEventTemplateIdEventIdDetailGetDetailByIdRequest {
+func (a *EventsAPIService) GetCrmV3TimelineEventsEventTemplateIdEventIdDetailGetDetailById(ctx context.Context, eventTemplateId string, eventId string) ApiGetCrmV3TimelineEventsEventTemplateIdEventIdDetailGetDetailByIdRequest {
 	return ApiGetCrmV3TimelineEventsEventTemplateIdEventIdDetailGetDetailByIdRequest{
 		ApiService:      a,
 		ctx:             ctx,
@@ -55,8 +55,9 @@ func (a *EventsApiService) GetCrmV3TimelineEventsEventTemplateIdEventIdDetailGet
 }
 
 // Execute executes the request
-//  @return EventDetail
-func (a *EventsApiService) GetCrmV3TimelineEventsEventTemplateIdEventIdDetailGetDetailByIdExecute(r ApiGetCrmV3TimelineEventsEventTemplateIdEventIdDetailGetDetailByIdRequest) (*EventDetail, *http.Response, error) {
+//
+//	@return EventDetail
+func (a *EventsAPIService) GetCrmV3TimelineEventsEventTemplateIdEventIdDetailGetDetailByIdExecute(r ApiGetCrmV3TimelineEventsEventTemplateIdEventIdDetailGetDetailByIdRequest) (*EventDetail, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -64,14 +65,14 @@ func (a *EventsApiService) GetCrmV3TimelineEventsEventTemplateIdEventIdDetailGet
 		localVarReturnValue *EventDetail
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsApiService.GetCrmV3TimelineEventsEventTemplateIdEventIdDetailGetDetailById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsAPIService.GetCrmV3TimelineEventsEventTemplateIdEventIdDetailGetDetailById")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/timeline/events/{eventTemplateId}/{eventId}/detail"
-	localVarPath = strings.Replace(localVarPath, "{"+"eventTemplateId"+"}", url.PathEscape(parameterToString(r.eventTemplateId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"eventId"+"}", url.PathEscape(parameterToString(r.eventId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"eventTemplateId"+"}", url.PathEscape(parameterValueToString(r.eventTemplateId, "eventTemplateId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"eventId"+"}", url.PathEscape(parameterValueToString(r.eventId, "eventId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -96,16 +97,6 @@ func (a *EventsApiService) GetCrmV3TimelineEventsEventTemplateIdEventIdDetailGet
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
-		}
-	}
-	if r.ctx != nil {
-		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["private_apps_legacy"]; ok {
 				var key string
@@ -118,6 +109,16 @@ func (a *EventsApiService) GetCrmV3TimelineEventsEventTemplateIdEventIdDetailGet
 			}
 		}
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -128,9 +129,9 @@ func (a *EventsApiService) GetCrmV3TimelineEventsEventTemplateIdEventIdDetailGet
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -146,6 +147,7 @@ func (a *EventsApiService) GetCrmV3TimelineEventsEventTemplateIdEventIdDetailGet
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -164,7 +166,7 @@ func (a *EventsApiService) GetCrmV3TimelineEventsEventTemplateIdEventIdDetailGet
 
 type ApiGetCrmV3TimelineEventsEventTemplateIdEventIdGetByIdRequest struct {
 	ctx             context.Context
-	ApiService      *EventsApiService
+	ApiService      *EventsAPIService
 	eventTemplateId string
 	eventId         string
 }
@@ -178,12 +180,12 @@ GetCrmV3TimelineEventsEventTemplateIdEventIdGetById Gets the event
 
 This returns the previously created event. It contains all existing info for the event, but not necessarily the CRM object.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param eventTemplateId The event template ID.
- @param eventId The event ID.
- @return ApiGetCrmV3TimelineEventsEventTemplateIdEventIdGetByIdRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param eventTemplateId The event template ID.
+	@param eventId The event ID.
+	@return ApiGetCrmV3TimelineEventsEventTemplateIdEventIdGetByIdRequest
 */
-func (a *EventsApiService) GetCrmV3TimelineEventsEventTemplateIdEventIdGetById(ctx context.Context, eventTemplateId string, eventId string) ApiGetCrmV3TimelineEventsEventTemplateIdEventIdGetByIdRequest {
+func (a *EventsAPIService) GetCrmV3TimelineEventsEventTemplateIdEventIdGetById(ctx context.Context, eventTemplateId string, eventId string) ApiGetCrmV3TimelineEventsEventTemplateIdEventIdGetByIdRequest {
 	return ApiGetCrmV3TimelineEventsEventTemplateIdEventIdGetByIdRequest{
 		ApiService:      a,
 		ctx:             ctx,
@@ -193,8 +195,9 @@ func (a *EventsApiService) GetCrmV3TimelineEventsEventTemplateIdEventIdGetById(c
 }
 
 // Execute executes the request
-//  @return TimelineEventResponse
-func (a *EventsApiService) GetCrmV3TimelineEventsEventTemplateIdEventIdGetByIdExecute(r ApiGetCrmV3TimelineEventsEventTemplateIdEventIdGetByIdRequest) (*TimelineEventResponse, *http.Response, error) {
+//
+//	@return TimelineEventResponse
+func (a *EventsAPIService) GetCrmV3TimelineEventsEventTemplateIdEventIdGetByIdExecute(r ApiGetCrmV3TimelineEventsEventTemplateIdEventIdGetByIdRequest) (*TimelineEventResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -202,14 +205,14 @@ func (a *EventsApiService) GetCrmV3TimelineEventsEventTemplateIdEventIdGetByIdEx
 		localVarReturnValue *TimelineEventResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsApiService.GetCrmV3TimelineEventsEventTemplateIdEventIdGetById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsAPIService.GetCrmV3TimelineEventsEventTemplateIdEventIdGetById")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/timeline/events/{eventTemplateId}/{eventId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"eventTemplateId"+"}", url.PathEscape(parameterToString(r.eventTemplateId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"eventId"+"}", url.PathEscape(parameterToString(r.eventId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"eventTemplateId"+"}", url.PathEscape(parameterValueToString(r.eventTemplateId, "eventTemplateId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"eventId"+"}", url.PathEscape(parameterValueToString(r.eventId, "eventId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -234,16 +237,6 @@ func (a *EventsApiService) GetCrmV3TimelineEventsEventTemplateIdEventIdGetByIdEx
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
-		}
-	}
-	if r.ctx != nil {
-		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["private_apps_legacy"]; ok {
 				var key string
@@ -256,6 +249,16 @@ func (a *EventsApiService) GetCrmV3TimelineEventsEventTemplateIdEventIdGetByIdEx
 			}
 		}
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -266,9 +269,9 @@ func (a *EventsApiService) GetCrmV3TimelineEventsEventTemplateIdEventIdGetByIdEx
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -284,6 +287,7 @@ func (a *EventsApiService) GetCrmV3TimelineEventsEventTemplateIdEventIdGetByIdEx
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -302,7 +306,7 @@ func (a *EventsApiService) GetCrmV3TimelineEventsEventTemplateIdEventIdGetByIdEx
 
 type ApiGetCrmV3TimelineEventsEventTemplateIdEventIdRenderGetRenderByIdRequest struct {
 	ctx             context.Context
-	ApiService      *EventsApiService
+	ApiService      *EventsAPIService
 	eventTemplateId string
 	eventId         string
 	detail          *bool
@@ -323,12 +327,12 @@ GetCrmV3TimelineEventsEventTemplateIdEventIdRenderGetRenderById Renders the head
 
 This will take either the `headerTemplate` or `detailTemplate` from the event template and render for the specified event as HTML. If the template references `extraData` that isn't found in the event, it will be ignored and we'll render without it.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param eventTemplateId The event template ID.
- @param eventId The event ID.
- @return ApiGetCrmV3TimelineEventsEventTemplateIdEventIdRenderGetRenderByIdRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param eventTemplateId The event template ID.
+	@param eventId The event ID.
+	@return ApiGetCrmV3TimelineEventsEventTemplateIdEventIdRenderGetRenderByIdRequest
 */
-func (a *EventsApiService) GetCrmV3TimelineEventsEventTemplateIdEventIdRenderGetRenderById(ctx context.Context, eventTemplateId string, eventId string) ApiGetCrmV3TimelineEventsEventTemplateIdEventIdRenderGetRenderByIdRequest {
+func (a *EventsAPIService) GetCrmV3TimelineEventsEventTemplateIdEventIdRenderGetRenderById(ctx context.Context, eventTemplateId string, eventId string) ApiGetCrmV3TimelineEventsEventTemplateIdEventIdRenderGetRenderByIdRequest {
 	return ApiGetCrmV3TimelineEventsEventTemplateIdEventIdRenderGetRenderByIdRequest{
 		ApiService:      a,
 		ctx:             ctx,
@@ -338,8 +342,9 @@ func (a *EventsApiService) GetCrmV3TimelineEventsEventTemplateIdEventIdRenderGet
 }
 
 // Execute executes the request
-//  @return string
-func (a *EventsApiService) GetCrmV3TimelineEventsEventTemplateIdEventIdRenderGetRenderByIdExecute(r ApiGetCrmV3TimelineEventsEventTemplateIdEventIdRenderGetRenderByIdRequest) (string, *http.Response, error) {
+//
+//	@return string
+func (a *EventsAPIService) GetCrmV3TimelineEventsEventTemplateIdEventIdRenderGetRenderByIdExecute(r ApiGetCrmV3TimelineEventsEventTemplateIdEventIdRenderGetRenderByIdRequest) (string, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -347,21 +352,21 @@ func (a *EventsApiService) GetCrmV3TimelineEventsEventTemplateIdEventIdRenderGet
 		localVarReturnValue string
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsApiService.GetCrmV3TimelineEventsEventTemplateIdEventIdRenderGetRenderById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsAPIService.GetCrmV3TimelineEventsEventTemplateIdEventIdRenderGetRenderById")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/timeline/events/{eventTemplateId}/{eventId}/render"
-	localVarPath = strings.Replace(localVarPath, "{"+"eventTemplateId"+"}", url.PathEscape(parameterToString(r.eventTemplateId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"eventId"+"}", url.PathEscape(parameterToString(r.eventId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"eventTemplateId"+"}", url.PathEscape(parameterValueToString(r.eventTemplateId, "eventTemplateId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"eventId"+"}", url.PathEscape(parameterValueToString(r.eventId, "eventId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.detail != nil {
-		localVarQueryParams.Add("detail", parameterToString(*r.detail, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "detail", r.detail, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -382,16 +387,6 @@ func (a *EventsApiService) GetCrmV3TimelineEventsEventTemplateIdEventIdRenderGet
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
-		}
-	}
-	if r.ctx != nil {
-		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["private_apps_legacy"]; ok {
 				var key string
@@ -404,6 +399,16 @@ func (a *EventsApiService) GetCrmV3TimelineEventsEventTemplateIdEventIdRenderGet
 			}
 		}
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -414,9 +419,9 @@ func (a *EventsApiService) GetCrmV3TimelineEventsEventTemplateIdEventIdRenderGet
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -432,6 +437,7 @@ func (a *EventsApiService) GetCrmV3TimelineEventsEventTemplateIdEventIdRenderGet
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -450,7 +456,7 @@ func (a *EventsApiService) GetCrmV3TimelineEventsEventTemplateIdEventIdRenderGet
 
 type ApiPostCrmV3TimelineEventsBatchCreateCreateBatchRequest struct {
 	ctx                     context.Context
-	ApiService              *EventsApiService
+	ApiService              *EventsAPIService
 	batchInputTimelineEvent *BatchInputTimelineEvent
 }
 
@@ -469,10 +475,10 @@ PostCrmV3TimelineEventsBatchCreateCreateBatch Creates multiple events
 
 Creates multiple instances of timeline events based on an event template. Once created, these event are immutable on the object timeline and cannot be modified. If the event template was configured to update object properties via `objectPropertyName`, this call will also attempt to updates those properties, or add them if they don't exist.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostCrmV3TimelineEventsBatchCreateCreateBatchRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiPostCrmV3TimelineEventsBatchCreateCreateBatchRequest
 */
-func (a *EventsApiService) PostCrmV3TimelineEventsBatchCreateCreateBatch(ctx context.Context) ApiPostCrmV3TimelineEventsBatchCreateCreateBatchRequest {
+func (a *EventsAPIService) PostCrmV3TimelineEventsBatchCreateCreateBatch(ctx context.Context) ApiPostCrmV3TimelineEventsBatchCreateCreateBatchRequest {
 	return ApiPostCrmV3TimelineEventsBatchCreateCreateBatchRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -480,14 +486,14 @@ func (a *EventsApiService) PostCrmV3TimelineEventsBatchCreateCreateBatch(ctx con
 }
 
 // Execute executes the request
-func (a *EventsApiService) PostCrmV3TimelineEventsBatchCreateCreateBatchExecute(r ApiPostCrmV3TimelineEventsBatchCreateCreateBatchRequest) (*http.Response, error) {
+func (a *EventsAPIService) PostCrmV3TimelineEventsBatchCreateCreateBatchExecute(r ApiPostCrmV3TimelineEventsBatchCreateCreateBatchRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsApiService.PostCrmV3TimelineEventsBatchCreateCreateBatch")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsAPIService.PostCrmV3TimelineEventsBatchCreateCreateBatch")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -522,16 +528,6 @@ func (a *EventsApiService) PostCrmV3TimelineEventsBatchCreateCreateBatchExecute(
 	localVarPostBody = r.batchInputTimelineEvent
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
-		}
-	}
-	if r.ctx != nil {
-		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["private_apps_legacy"]; ok {
 				var key string
@@ -544,6 +540,16 @@ func (a *EventsApiService) PostCrmV3TimelineEventsBatchCreateCreateBatchExecute(
 			}
 		}
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -554,9 +560,9 @@ func (a *EventsApiService) PostCrmV3TimelineEventsBatchCreateCreateBatchExecute(
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -572,6 +578,7 @@ func (a *EventsApiService) PostCrmV3TimelineEventsBatchCreateCreateBatchExecute(
 			newErr.error = err.Error()
 			return localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
@@ -581,7 +588,7 @@ func (a *EventsApiService) PostCrmV3TimelineEventsBatchCreateCreateBatchExecute(
 
 type ApiPostCrmV3TimelineEventsCreateRequest struct {
 	ctx           context.Context
-	ApiService    *EventsApiService
+	ApiService    *EventsAPIService
 	timelineEvent *TimelineEvent
 }
 
@@ -600,10 +607,10 @@ PostCrmV3TimelineEventsCreate Create a single event
 
 Creates an instance of a timeline event based on an event template. Once created, this event is immutable on the object timeline and cannot be modified. If the event template was configured to update object properties via `objectPropertyName`, this call will also attempt to updates those properties, or add them if they don't exist.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostCrmV3TimelineEventsCreateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiPostCrmV3TimelineEventsCreateRequest
 */
-func (a *EventsApiService) PostCrmV3TimelineEventsCreate(ctx context.Context) ApiPostCrmV3TimelineEventsCreateRequest {
+func (a *EventsAPIService) PostCrmV3TimelineEventsCreate(ctx context.Context) ApiPostCrmV3TimelineEventsCreateRequest {
 	return ApiPostCrmV3TimelineEventsCreateRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -611,8 +618,9 @@ func (a *EventsApiService) PostCrmV3TimelineEventsCreate(ctx context.Context) Ap
 }
 
 // Execute executes the request
-//  @return TimelineEventResponse
-func (a *EventsApiService) PostCrmV3TimelineEventsCreateExecute(r ApiPostCrmV3TimelineEventsCreateRequest) (*TimelineEventResponse, *http.Response, error) {
+//
+//	@return TimelineEventResponse
+func (a *EventsAPIService) PostCrmV3TimelineEventsCreateExecute(r ApiPostCrmV3TimelineEventsCreateRequest) (*TimelineEventResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -620,7 +628,7 @@ func (a *EventsApiService) PostCrmV3TimelineEventsCreateExecute(r ApiPostCrmV3Ti
 		localVarReturnValue *TimelineEventResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsApiService.PostCrmV3TimelineEventsCreate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsAPIService.PostCrmV3TimelineEventsCreate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -655,16 +663,6 @@ func (a *EventsApiService) PostCrmV3TimelineEventsCreateExecute(r ApiPostCrmV3Ti
 	localVarPostBody = r.timelineEvent
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
-		}
-	}
-	if r.ctx != nil {
-		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["private_apps_legacy"]; ok {
 				var key string
@@ -677,6 +675,16 @@ func (a *EventsApiService) PostCrmV3TimelineEventsCreateExecute(r ApiPostCrmV3Ti
 			}
 		}
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -687,9 +695,9 @@ func (a *EventsApiService) PostCrmV3TimelineEventsCreateExecute(r ApiPostCrmV3Ti
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -705,6 +713,7 @@ func (a *EventsApiService) PostCrmV3TimelineEventsCreateExecute(r ApiPostCrmV3Ti
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

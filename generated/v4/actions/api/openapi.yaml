@@ -140,7 +140,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security: []
+      security:
+      - developer_hapikey: []
       summary: Get paged extension definitions
       tags:
       - Definitions
@@ -174,7 +175,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security: []
+      security:
+      - developer_hapikey: []
       summary: Create a new extension definition
       tags:
       - Definitions
@@ -210,7 +212,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security: []
+      security:
+      - developer_hapikey: []
       summary: Get all functions for a given definition
       tags:
       - Functions
@@ -255,7 +258,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security: []
+      security:
+      - developer_hapikey: []
       summary: Delete a function for a definition
       tags:
       - Functions
@@ -302,7 +306,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security: []
+      security:
+      - developer_hapikey: []
       summary: Get all functions by a type for a given definition
       tags:
       - Functions
@@ -355,7 +360,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security: []
+      security:
+      - developer_hapikey: []
       summary: Insert a function for a definition
       tags:
       - Functions
@@ -398,7 +404,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security: []
+      security:
+      - developer_hapikey: []
       summary: Gets a revision for a given definition by revision id
       tags:
       - Revisions
@@ -431,7 +438,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security: []
+      security:
+      - developer_hapikey: []
       summary: Archive an extension definition
       tags:
       - Definitions
@@ -475,7 +483,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security: []
+      security:
+      - developer_hapikey: []
       summary: Get extension definition by Id
       tags:
       - Definitions
@@ -516,7 +525,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security: []
+      security:
+      - developer_hapikey: []
       summary: Patch an existing extension definition
       tags:
       - Definitions
@@ -568,7 +578,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security: []
+      security:
+      - developer_hapikey: []
       summary: Archive a function for a definition
       tags:
       - Functions
@@ -622,7 +633,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security: []
+      security:
+      - developer_hapikey: []
       summary: Get a function for a given definition
       tags:
       - Functions
@@ -682,7 +694,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security: []
+      security:
+      - developer_hapikey: []
       summary: Insert a function for a definition
       tags:
       - Functions
@@ -737,7 +750,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: An error occurred.
-      security: []
+      security:
+      - developer_hapikey: []
       summary: Get all revisions for a given definition
       tags:
       - Revisions
@@ -916,8 +930,16 @@ components:
         revisionId: revisionId
         archivedAt: 1
         inputFieldDependencies:
-        - null
-        - null
+        - dependencyType: SINGLE_FIELD
+          controllingFieldName: controllingFieldName
+          dependentFieldNames:
+          - dependentFieldNames
+          - dependentFieldNames
+        - dependencyType: SINGLE_FIELD
+          controllingFieldName: controllingFieldName
+          dependentFieldNames:
+          - dependentFieldNames
+          - dependentFieldNames
         executionRules:
         - labelName: labelName
           conditions:
@@ -1051,6 +1073,12 @@ components:
       - message
       type: object
     PublicSingleFieldDependency:
+      example:
+        dependencyType: SINGLE_FIELD
+        controllingFieldName: controllingFieldName
+        dependentFieldNames:
+        - dependentFieldNames
+        - dependentFieldNames
       properties:
         dependencyType:
           default: SINGLE_FIELD
@@ -1621,8 +1649,16 @@ components:
           revisionId: revisionId
           archivedAt: 1
           inputFieldDependencies:
-          - null
-          - null
+          - dependencyType: SINGLE_FIELD
+            controllingFieldName: controllingFieldName
+            dependentFieldNames:
+            - dependentFieldNames
+            - dependentFieldNames
+          - dependencyType: SINGLE_FIELD
+            controllingFieldName: controllingFieldName
+            dependentFieldNames:
+            - dependentFieldNames
+            - dependentFieldNames
           executionRules:
           - labelName: labelName
             conditions:
@@ -1817,8 +1853,16 @@ components:
           revisionId: revisionId
           archivedAt: 1
           inputFieldDependencies:
-          - null
-          - null
+          - dependencyType: SINGLE_FIELD
+            controllingFieldName: controllingFieldName
+            dependentFieldNames:
+            - dependentFieldNames
+            - dependentFieldNames
+          - dependencyType: SINGLE_FIELD
+            controllingFieldName: controllingFieldName
+            dependentFieldNames:
+            - dependentFieldNames
+            - dependentFieldNames
           executionRules:
           - labelName: labelName
             conditions:
@@ -1977,8 +2021,16 @@ components:
           revisionId: revisionId
           archivedAt: 1
           inputFieldDependencies:
-          - null
-          - null
+          - dependencyType: SINGLE_FIELD
+            controllingFieldName: controllingFieldName
+            dependentFieldNames:
+            - dependentFieldNames
+            - dependentFieldNames
+          - dependencyType: SINGLE_FIELD
+            controllingFieldName: controllingFieldName
+            dependentFieldNames:
+            - dependentFieldNames
+            - dependentFieldNames
           executionRules:
           - labelName: labelName
             conditions:
@@ -2215,8 +2267,16 @@ components:
             revisionId: revisionId
             archivedAt: 1
             inputFieldDependencies:
-            - null
-            - null
+            - dependencyType: SINGLE_FIELD
+              controllingFieldName: controllingFieldName
+              dependentFieldNames:
+              - dependentFieldNames
+              - dependentFieldNames
+            - dependencyType: SINGLE_FIELD
+              controllingFieldName: controllingFieldName
+              dependentFieldNames:
+              - dependentFieldNames
+              - dependentFieldNames
             executionRules:
             - labelName: labelName
               conditions:
@@ -2379,8 +2439,16 @@ components:
             revisionId: revisionId
             archivedAt: 1
             inputFieldDependencies:
-            - null
-            - null
+            - dependencyType: SINGLE_FIELD
+              controllingFieldName: controllingFieldName
+              dependentFieldNames:
+              - dependentFieldNames
+              - dependentFieldNames
+            - dependencyType: SINGLE_FIELD
+              controllingFieldName: controllingFieldName
+              dependentFieldNames:
+              - dependentFieldNames
+              - dependentFieldNames
             executionRules:
             - labelName: labelName
               conditions:
@@ -2551,8 +2619,16 @@ components:
           id: id
         actionUrl: actionUrl
         inputFieldDependencies:
-        - null
-        - null
+        - dependencyType: SINGLE_FIELD
+          controllingFieldName: controllingFieldName
+          dependentFieldNames:
+          - dependentFieldNames
+          - dependentFieldNames
+        - dependencyType: SINGLE_FIELD
+          controllingFieldName: controllingFieldName
+          dependentFieldNames:
+          - dependentFieldNames
+          - dependentFieldNames
         published: true
         executionRules:
         - labelName: labelName
@@ -2751,8 +2827,16 @@ components:
             externalOptions: true
         actionUrl: actionUrl
         inputFieldDependencies:
-        - null
-        - null
+        - dependencyType: SINGLE_FIELD
+          controllingFieldName: controllingFieldName
+          dependentFieldNames:
+          - dependentFieldNames
+          - dependentFieldNames
+        - dependencyType: SINGLE_FIELD
+          controllingFieldName: controllingFieldName
+          dependentFieldNames:
+          - dependentFieldNames
+          - dependentFieldNames
         published: true
         executionRules:
         - labelName: labelName
@@ -2927,6 +3011,10 @@ components:
             automation: Read from and write to my Workflows
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
+    developer_hapikey:
+      in: query
+      name: hapikey
+      type: apiKey
     private_apps_legacy:
       in: header
       name: private-app-legacy

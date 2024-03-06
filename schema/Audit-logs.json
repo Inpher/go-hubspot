@@ -1,7 +1,7 @@
 {
   "openapi" : "3.0.1",
   "info" : {
-    "title" : "CMS Cms Content Audit",
+    "title" : "Cms Content Audit",
     "description" : "Use this endpoint to query audit logs of CMS changes that occurred on your HubSpot account.",
     "version" : "v3",
     "x-hubspot-product-tier-requirements" : {
@@ -13,13 +13,15 @@
       "name" : "Content Audit Guide",
       "url" : "https://hubspot.dev/guides/api/cms/content-audit"
     } ],
-    "x-hubspot-introduction" : "Use the content audit API to retrieve information about changes made to content objects, su ch as blog posts, website pages, and domains.        "
+    "x-hubspot-introduction" : "Use the content audit API to retrieve information about changes made to content objects, such as blog posts, website pages, and domains.        "
   },
   "servers" : [ {
     "url" : "https://api.hubapi.com"
   } ],
   "tags" : [ {
-    "name" : "Audit_Logs"
+    "name" : "Audit_Logs",
+    "description" : "",
+    "x-hubspot-tag-name-english-source" : "Audit_Logs"
   } ],
   "paths" : {
     "/cms/v3/audit-logs/" : {

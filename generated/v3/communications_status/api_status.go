@@ -13,20 +13,20 @@ package communications_status
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 
-	"github.com/clarkmcc/go-hubspot"
+	"github.com/inpher/go-hubspot"
 	"net/url"
 	"strings"
 )
 
-// StatusApiService StatusApi service
-type StatusApiService service
+// StatusAPIService StatusAPI service
+type StatusAPIService service
 
 type ApiGetEmailStatusRequest struct {
 	ctx          context.Context
-	ApiService   *StatusApiService
+	ApiService   *StatusAPIService
 	emailAddress string
 }
 
@@ -39,11 +39,11 @@ GetEmailStatus Get subscription statuses for a contact
 
 Returns a list of subscriptions and their status for a given contact.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param emailAddress
- @return ApiGetEmailStatusRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param emailAddress
+	@return ApiGetEmailStatusRequest
 */
-func (a *StatusApiService) GetEmailStatus(ctx context.Context, emailAddress string) ApiGetEmailStatusRequest {
+func (a *StatusAPIService) GetEmailStatus(ctx context.Context, emailAddress string) ApiGetEmailStatusRequest {
 	return ApiGetEmailStatusRequest{
 		ApiService:   a,
 		ctx:          ctx,
@@ -52,8 +52,9 @@ func (a *StatusApiService) GetEmailStatus(ctx context.Context, emailAddress stri
 }
 
 // Execute executes the request
-//  @return PublicSubscriptionStatusesResponse
-func (a *StatusApiService) GetEmailStatusExecute(r ApiGetEmailStatusRequest) (*PublicSubscriptionStatusesResponse, *http.Response, error) {
+//
+//	@return PublicSubscriptionStatusesResponse
+func (a *StatusAPIService) GetEmailStatusExecute(r ApiGetEmailStatusRequest) (*PublicSubscriptionStatusesResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -61,13 +62,13 @@ func (a *StatusApiService) GetEmailStatusExecute(r ApiGetEmailStatusRequest) (*P
 		localVarReturnValue *PublicSubscriptionStatusesResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StatusApiService.GetEmailStatus")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StatusAPIService.GetEmailStatus")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/communication-preferences/v3/status/email/{emailAddress}"
-	localVarPath = strings.Replace(localVarPath, "{"+"emailAddress"+"}", url.PathEscape(parameterToString(r.emailAddress, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"emailAddress"+"}", url.PathEscape(parameterValueToString(r.emailAddress, "emailAddress")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -110,9 +111,9 @@ func (a *StatusApiService) GetEmailStatusExecute(r ApiGetEmailStatusRequest) (*P
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -128,6 +129,7 @@ func (a *StatusApiService) GetEmailStatusExecute(r ApiGetEmailStatusRequest) (*P
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -146,7 +148,7 @@ func (a *StatusApiService) GetEmailStatusExecute(r ApiGetEmailStatusRequest) (*P
 
 type ApiSubscribeRequest struct {
 	ctx                                   context.Context
-	ApiService                            *StatusApiService
+	ApiService                            *StatusAPIService
 	publicUpdateSubscriptionStatusRequest *PublicUpdateSubscriptionStatusRequest
 }
 
@@ -164,10 +166,10 @@ Subscribe Subscribe a contact
 
 Subscribes a contact to the given subscription type. This API is not valid to use for subscribing a contact at a brand or portal level and will return an error.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiSubscribeRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiSubscribeRequest
 */
-func (a *StatusApiService) Subscribe(ctx context.Context) ApiSubscribeRequest {
+func (a *StatusAPIService) Subscribe(ctx context.Context) ApiSubscribeRequest {
 	return ApiSubscribeRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -175,8 +177,9 @@ func (a *StatusApiService) Subscribe(ctx context.Context) ApiSubscribeRequest {
 }
 
 // Execute executes the request
-//  @return PublicSubscriptionStatus
-func (a *StatusApiService) SubscribeExecute(r ApiSubscribeRequest) (*PublicSubscriptionStatus, *http.Response, error) {
+//
+//	@return PublicSubscriptionStatus
+func (a *StatusAPIService) SubscribeExecute(r ApiSubscribeRequest) (*PublicSubscriptionStatus, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -184,7 +187,7 @@ func (a *StatusApiService) SubscribeExecute(r ApiSubscribeRequest) (*PublicSubsc
 		localVarReturnValue *PublicSubscriptionStatus
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StatusApiService.Subscribe")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StatusAPIService.Subscribe")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -237,9 +240,9 @@ func (a *StatusApiService) SubscribeExecute(r ApiSubscribeRequest) (*PublicSubsc
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -255,6 +258,7 @@ func (a *StatusApiService) SubscribeExecute(r ApiSubscribeRequest) (*PublicSubsc
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -273,7 +277,7 @@ func (a *StatusApiService) SubscribeExecute(r ApiSubscribeRequest) (*PublicSubsc
 
 type ApiUnsubscribeRequest struct {
 	ctx                                   context.Context
-	ApiService                            *StatusApiService
+	ApiService                            *StatusAPIService
 	publicUpdateSubscriptionStatusRequest *PublicUpdateSubscriptionStatusRequest
 }
 
@@ -291,10 +295,10 @@ Unsubscribe Unsubscribe a contact
 
 Unsubscribes a contact from the given subscription type. This API is not valid to use for unsubscribing a contact at a brand or portal level and will return an error.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiUnsubscribeRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiUnsubscribeRequest
 */
-func (a *StatusApiService) Unsubscribe(ctx context.Context) ApiUnsubscribeRequest {
+func (a *StatusAPIService) Unsubscribe(ctx context.Context) ApiUnsubscribeRequest {
 	return ApiUnsubscribeRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -302,8 +306,9 @@ func (a *StatusApiService) Unsubscribe(ctx context.Context) ApiUnsubscribeReques
 }
 
 // Execute executes the request
-//  @return PublicSubscriptionStatus
-func (a *StatusApiService) UnsubscribeExecute(r ApiUnsubscribeRequest) (*PublicSubscriptionStatus, *http.Response, error) {
+//
+//	@return PublicSubscriptionStatus
+func (a *StatusAPIService) UnsubscribeExecute(r ApiUnsubscribeRequest) (*PublicSubscriptionStatus, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -311,7 +316,7 @@ func (a *StatusApiService) UnsubscribeExecute(r ApiUnsubscribeRequest) (*PublicS
 		localVarReturnValue *PublicSubscriptionStatus
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StatusApiService.Unsubscribe")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StatusAPIService.Unsubscribe")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -364,9 +369,9 @@ func (a *StatusApiService) UnsubscribeExecute(r ApiUnsubscribeRequest) (*PublicS
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -382,6 +387,7 @@ func (a *StatusApiService) UnsubscribeExecute(r ApiUnsubscribeRequest) (*PublicS
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

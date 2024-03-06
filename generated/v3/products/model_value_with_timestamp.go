@@ -11,9 +11,14 @@ API version: v3
 package products
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the ValueWithTimestamp type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ValueWithTimestamp{}
 
 // ValueWithTimestamp struct for ValueWithTimestamp
 type ValueWithTimestamp struct {
@@ -24,6 +29,8 @@ type ValueWithTimestamp struct {
 	Value           string    `json:"value"`
 	Timestamp       time.Time `json:"timestamp"`
 }
+
+type _ValueWithTimestamp ValueWithTimestamp
 
 // NewValueWithTimestamp instantiates a new ValueWithTimestamp object
 // This constructor will assign default values to properties that have it defined,
@@ -47,7 +54,7 @@ func NewValueWithTimestampWithDefaults() *ValueWithTimestamp {
 
 // GetSourceId returns the SourceId field value if set, zero value otherwise.
 func (o *ValueWithTimestamp) GetSourceId() string {
-	if o == nil || o.SourceId == nil {
+	if o == nil || IsNil(o.SourceId) {
 		var ret string
 		return ret
 	}
@@ -57,7 +64,7 @@ func (o *ValueWithTimestamp) GetSourceId() string {
 // GetSourceIdOk returns a tuple with the SourceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ValueWithTimestamp) GetSourceIdOk() (*string, bool) {
-	if o == nil || o.SourceId == nil {
+	if o == nil || IsNil(o.SourceId) {
 		return nil, false
 	}
 	return o.SourceId, true
@@ -65,7 +72,7 @@ func (o *ValueWithTimestamp) GetSourceIdOk() (*string, bool) {
 
 // HasSourceId returns a boolean if a field has been set.
 func (o *ValueWithTimestamp) HasSourceId() bool {
-	if o != nil && o.SourceId != nil {
+	if o != nil && !IsNil(o.SourceId) {
 		return true
 	}
 
@@ -103,7 +110,7 @@ func (o *ValueWithTimestamp) SetSourceType(v string) {
 
 // GetSourceLabel returns the SourceLabel field value if set, zero value otherwise.
 func (o *ValueWithTimestamp) GetSourceLabel() string {
-	if o == nil || o.SourceLabel == nil {
+	if o == nil || IsNil(o.SourceLabel) {
 		var ret string
 		return ret
 	}
@@ -113,7 +120,7 @@ func (o *ValueWithTimestamp) GetSourceLabel() string {
 // GetSourceLabelOk returns a tuple with the SourceLabel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ValueWithTimestamp) GetSourceLabelOk() (*string, bool) {
-	if o == nil || o.SourceLabel == nil {
+	if o == nil || IsNil(o.SourceLabel) {
 		return nil, false
 	}
 	return o.SourceLabel, true
@@ -121,7 +128,7 @@ func (o *ValueWithTimestamp) GetSourceLabelOk() (*string, bool) {
 
 // HasSourceLabel returns a boolean if a field has been set.
 func (o *ValueWithTimestamp) HasSourceLabel() bool {
-	if o != nil && o.SourceLabel != nil {
+	if o != nil && !IsNil(o.SourceLabel) {
 		return true
 	}
 
@@ -135,7 +142,7 @@ func (o *ValueWithTimestamp) SetSourceLabel(v string) {
 
 // GetUpdatedByUserId returns the UpdatedByUserId field value if set, zero value otherwise.
 func (o *ValueWithTimestamp) GetUpdatedByUserId() int32 {
-	if o == nil || o.UpdatedByUserId == nil {
+	if o == nil || IsNil(o.UpdatedByUserId) {
 		var ret int32
 		return ret
 	}
@@ -145,7 +152,7 @@ func (o *ValueWithTimestamp) GetUpdatedByUserId() int32 {
 // GetUpdatedByUserIdOk returns a tuple with the UpdatedByUserId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ValueWithTimestamp) GetUpdatedByUserIdOk() (*int32, bool) {
-	if o == nil || o.UpdatedByUserId == nil {
+	if o == nil || IsNil(o.UpdatedByUserId) {
 		return nil, false
 	}
 	return o.UpdatedByUserId, true
@@ -153,7 +160,7 @@ func (o *ValueWithTimestamp) GetUpdatedByUserIdOk() (*int32, bool) {
 
 // HasUpdatedByUserId returns a boolean if a field has been set.
 func (o *ValueWithTimestamp) HasUpdatedByUserId() bool {
-	if o != nil && o.UpdatedByUserId != nil {
+	if o != nil && !IsNil(o.UpdatedByUserId) {
 		return true
 	}
 
@@ -214,26 +221,67 @@ func (o *ValueWithTimestamp) SetTimestamp(v time.Time) {
 }
 
 func (o ValueWithTimestamp) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.SourceId != nil {
-		toSerialize["sourceId"] = o.SourceId
-	}
-	if true {
-		toSerialize["sourceType"] = o.SourceType
-	}
-	if o.SourceLabel != nil {
-		toSerialize["sourceLabel"] = o.SourceLabel
-	}
-	if o.UpdatedByUserId != nil {
-		toSerialize["updatedByUserId"] = o.UpdatedByUserId
-	}
-	if true {
-		toSerialize["value"] = o.Value
-	}
-	if true {
-		toSerialize["timestamp"] = o.Timestamp
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ValueWithTimestamp) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.SourceId) {
+		toSerialize["sourceId"] = o.SourceId
+	}
+	toSerialize["sourceType"] = o.SourceType
+	if !IsNil(o.SourceLabel) {
+		toSerialize["sourceLabel"] = o.SourceLabel
+	}
+	if !IsNil(o.UpdatedByUserId) {
+		toSerialize["updatedByUserId"] = o.UpdatedByUserId
+	}
+	toSerialize["value"] = o.Value
+	toSerialize["timestamp"] = o.Timestamp
+	return toSerialize, nil
+}
+
+func (o *ValueWithTimestamp) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"sourceType",
+		"value",
+		"timestamp",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varValueWithTimestamp := _ValueWithTimestamp{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varValueWithTimestamp)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ValueWithTimestamp(varValueWithTimestamp)
+
+	return err
 }
 
 type NullableValueWithTimestamp struct {

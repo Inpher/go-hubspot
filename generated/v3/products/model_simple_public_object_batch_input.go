@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SimplePublicObjectBatchInput type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SimplePublicObjectBatchInput{}
+
 // SimplePublicObjectBatchInput struct for SimplePublicObjectBatchInput
 type SimplePublicObjectBatchInput struct {
 	IdProperty *string            `json:"idProperty,omitempty"`
@@ -40,7 +43,7 @@ func NewSimplePublicObjectBatchInputWithDefaults() *SimplePublicObjectBatchInput
 
 // GetIdProperty returns the IdProperty field value if set, zero value otherwise.
 func (o *SimplePublicObjectBatchInput) GetIdProperty() string {
-	if o == nil || o.IdProperty == nil {
+	if o == nil || IsNil(o.IdProperty) {
 		var ret string
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *SimplePublicObjectBatchInput) GetIdProperty() string {
 // GetIdPropertyOk returns a tuple with the IdProperty field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SimplePublicObjectBatchInput) GetIdPropertyOk() (*string, bool) {
-	if o == nil || o.IdProperty == nil {
+	if o == nil || IsNil(o.IdProperty) {
 		return nil, false
 	}
 	return o.IdProperty, true
@@ -58,7 +61,7 @@ func (o *SimplePublicObjectBatchInput) GetIdPropertyOk() (*string, bool) {
 
 // HasIdProperty returns a boolean if a field has been set.
 func (o *SimplePublicObjectBatchInput) HasIdProperty() bool {
-	if o != nil && o.IdProperty != nil {
+	if o != nil && !IsNil(o.IdProperty) {
 		return true
 	}
 
@@ -72,7 +75,7 @@ func (o *SimplePublicObjectBatchInput) SetIdProperty(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *SimplePublicObjectBatchInput) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -82,7 +85,7 @@ func (o *SimplePublicObjectBatchInput) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SimplePublicObjectBatchInput) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -90,7 +93,7 @@ func (o *SimplePublicObjectBatchInput) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *SimplePublicObjectBatchInput) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -104,7 +107,7 @@ func (o *SimplePublicObjectBatchInput) SetId(v string) {
 
 // GetProperties returns the Properties field value if set, zero value otherwise.
 func (o *SimplePublicObjectBatchInput) GetProperties() map[string]string {
-	if o == nil || o.Properties == nil {
+	if o == nil || IsNil(o.Properties) {
 		var ret map[string]string
 		return ret
 	}
@@ -114,7 +117,7 @@ func (o *SimplePublicObjectBatchInput) GetProperties() map[string]string {
 // GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SimplePublicObjectBatchInput) GetPropertiesOk() (*map[string]string, bool) {
-	if o == nil || o.Properties == nil {
+	if o == nil || IsNil(o.Properties) {
 		return nil, false
 	}
 	return o.Properties, true
@@ -122,7 +125,7 @@ func (o *SimplePublicObjectBatchInput) GetPropertiesOk() (*map[string]string, bo
 
 // HasProperties returns a boolean if a field has been set.
 func (o *SimplePublicObjectBatchInput) HasProperties() bool {
-	if o != nil && o.Properties != nil {
+	if o != nil && !IsNil(o.Properties) {
 		return true
 	}
 
@@ -135,17 +138,25 @@ func (o *SimplePublicObjectBatchInput) SetProperties(v map[string]string) {
 }
 
 func (o SimplePublicObjectBatchInput) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.IdProperty != nil {
-		toSerialize["idProperty"] = o.IdProperty
-	}
-	if o.Id != nil {
-		toSerialize["id"] = o.Id
-	}
-	if o.Properties != nil {
-		toSerialize["properties"] = o.Properties
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SimplePublicObjectBatchInput) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.IdProperty) {
+		toSerialize["idProperty"] = o.IdProperty
+	}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Properties) {
+		toSerialize["properties"] = o.Properties
+	}
+	return toSerialize, nil
 }
 
 type NullableSimplePublicObjectBatchInput struct {

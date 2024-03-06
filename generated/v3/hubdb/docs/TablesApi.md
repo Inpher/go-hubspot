@@ -1,23 +1,23 @@
-# \TablesApi
+# \TablesAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ArchiveTable**](TablesApi.md#ArchiveTable) | **Delete** /cms/v3/hubdb/tables/{tableIdOrName} | Archive a table
-[**CloneDraftTable**](TablesApi.md#CloneDraftTable) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/draft/clone | Clone a table
-[**CreateTable**](TablesApi.md#CreateTable) | **Post** /cms/v3/hubdb/tables | Create a new table
-[**ExportDraftTable**](TablesApi.md#ExportDraftTable) | **Get** /cms/v3/hubdb/tables/{tableIdOrName}/draft/export | Export a draft table
-[**ExportTable**](TablesApi.md#ExportTable) | **Get** /cms/v3/hubdb/tables/{tableIdOrName}/export | Export a published version of a table
-[**GetAllDraftTables**](TablesApi.md#GetAllDraftTables) | **Get** /cms/v3/hubdb/tables/draft | Return all draft tables
-[**GetAllTables**](TablesApi.md#GetAllTables) | **Get** /cms/v3/hubdb/tables | Get all published tables
-[**GetDraftTableDetailsByID**](TablesApi.md#GetDraftTableDetailsByID) | **Get** /cms/v3/hubdb/tables/{tableIdOrName}/draft | Get details for a draft table
-[**GetTableDetails**](TablesApi.md#GetTableDetails) | **Get** /cms/v3/hubdb/tables/{tableIdOrName} | Get details for a published table
-[**ImportDraftTable**](TablesApi.md#ImportDraftTable) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/draft/import | Import data into draft table
-[**PublishDraftTable**](TablesApi.md#PublishDraftTable) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/draft/publish | Publish a table from draft
-[**ResetDraftTable**](TablesApi.md#ResetDraftTable) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/draft/reset | Reset a draft table
-[**UnpublishTable**](TablesApi.md#UnpublishTable) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/unpublish | Unpublish a table
-[**UpdateDraftTable**](TablesApi.md#UpdateDraftTable) | **Patch** /cms/v3/hubdb/tables/{tableIdOrName}/draft | Update an existing table
+[**ArchiveTable**](TablesAPI.md#ArchiveTable) | **Delete** /cms/v3/hubdb/tables/{tableIdOrName} | Archive a table
+[**CloneDraftTable**](TablesAPI.md#CloneDraftTable) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/draft/clone | Clone a table
+[**CreateTable**](TablesAPI.md#CreateTable) | **Post** /cms/v3/hubdb/tables | Create a new table
+[**ExportDraftTable**](TablesAPI.md#ExportDraftTable) | **Get** /cms/v3/hubdb/tables/{tableIdOrName}/draft/export | Export a draft table
+[**ExportTable**](TablesAPI.md#ExportTable) | **Get** /cms/v3/hubdb/tables/{tableIdOrName}/export | Export a published version of a table
+[**GetAllDraftTables**](TablesAPI.md#GetAllDraftTables) | **Get** /cms/v3/hubdb/tables/draft | Return all draft tables
+[**GetAllTables**](TablesAPI.md#GetAllTables) | **Get** /cms/v3/hubdb/tables | Get all published tables
+[**GetDraftTableDetailsByID**](TablesAPI.md#GetDraftTableDetailsByID) | **Get** /cms/v3/hubdb/tables/{tableIdOrName}/draft | Get details for a draft table
+[**GetTableDetails**](TablesAPI.md#GetTableDetails) | **Get** /cms/v3/hubdb/tables/{tableIdOrName} | Get details of a published table
+[**ImportDraftTable**](TablesAPI.md#ImportDraftTable) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/draft/import | Import data into draft table
+[**PublishDraftTable**](TablesAPI.md#PublishDraftTable) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/draft/publish | Publish a table from draft
+[**ResetDraftTable**](TablesAPI.md#ResetDraftTable) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/draft/reset | Reset a draft table
+[**UnpublishTable**](TablesAPI.md#UnpublishTable) | **Post** /cms/v3/hubdb/tables/{tableIdOrName}/unpublish | Unpublish a table
+[**UpdateDraftTable**](TablesAPI.md#UpdateDraftTable) | **Patch** /cms/v3/hubdb/tables/{tableIdOrName}/draft | Update an existing table
 
 
 
@@ -35,22 +35,22 @@ Archive a table
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    tableIdOrName := "tableIdOrName_example" // string | The ID or name of the table to archive.
+	tableIdOrName := "tableIdOrName_example" // string | The ID or name of the table to archive.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TablesApi.ArchiveTable(context.Background(), tableIdOrName).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TablesApi.ArchiveTable``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.TablesAPI.ArchiveTable(context.Background(), tableIdOrName).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TablesAPI.ArchiveTable``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -103,25 +103,25 @@ Clone a table
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    tableIdOrName := "tableIdOrName_example" // string | The ID or name of the table to clone.
-    hubDbTableCloneRequest := *openapiclient.NewHubDbTableCloneRequest(true) // HubDbTableCloneRequest | JSON object with the properties newName and newLabel. You can set copyRows to false to clone the table with copying rows and default is true.
+	tableIdOrName := "tableIdOrName_example" // string | The ID or name of the table to clone.
+	hubDbTableCloneRequest := *openapiclient.NewHubDbTableCloneRequest(true) // HubDbTableCloneRequest | JSON object with the properties newName and newLabel. You can set copyRows to false to clone the table with copying rows and default is true.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TablesApi.CloneDraftTable(context.Background(), tableIdOrName).HubDbTableCloneRequest(hubDbTableCloneRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TablesApi.CloneDraftTable``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CloneDraftTable`: HubDbTableV3
-    fmt.Fprintf(os.Stdout, "Response from `TablesApi.CloneDraftTable`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TablesAPI.CloneDraftTable(context.Background(), tableIdOrName).HubDbTableCloneRequest(hubDbTableCloneRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TablesAPI.CloneDraftTable``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CloneDraftTable`: HubDbTableV3
+	fmt.Fprintf(os.Stdout, "Response from `TablesAPI.CloneDraftTable`: %v\n", resp)
 }
 ```
 
@@ -175,24 +175,24 @@ Create a new table
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    hubDbTableV3Request := *openapiclient.NewHubDbTableV3Request("test_table", "Test Table") // HubDbTableV3Request | The JSON schema for the table being created.
+	hubDbTableV3Request := *openapiclient.NewHubDbTableV3Request("test_table", "Test Table") // HubDbTableV3Request | The JSON schema for the table being created.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TablesApi.CreateTable(context.Background()).HubDbTableV3Request(hubDbTableV3Request).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TablesApi.CreateTable``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateTable`: HubDbTableV3
-    fmt.Fprintf(os.Stdout, "Response from `TablesApi.CreateTable`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TablesAPI.CreateTable(context.Background()).HubDbTableV3Request(hubDbTableV3Request).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TablesAPI.CreateTable``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateTable`: HubDbTableV3
+	fmt.Fprintf(os.Stdout, "Response from `TablesAPI.CreateTable`: %v\n", resp)
 }
 ```
 
@@ -241,25 +241,25 @@ Export a draft table
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    tableIdOrName := "tableIdOrName_example" // string | The ID or name of the table to export.
-    format := "format_example" // string | The file format to export. Possible values include `CSV`, `XLSX`, and `XLS`. (optional)
+	tableIdOrName := "tableIdOrName_example" // string | The ID or name of the table to export.
+	format := "format_example" // string | The file format to export. Possible values include `CSV`, `XLSX`, and `XLS`. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TablesApi.ExportDraftTable(context.Background(), tableIdOrName).Format(format).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TablesApi.ExportDraftTable``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ExportDraftTable`: *os.File
-    fmt.Fprintf(os.Stdout, "Response from `TablesApi.ExportDraftTable`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TablesAPI.ExportDraftTable(context.Background(), tableIdOrName).Format(format).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TablesAPI.ExportDraftTable``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ExportDraftTable`: *os.File
+	fmt.Fprintf(os.Stdout, "Response from `TablesAPI.ExportDraftTable`: %v\n", resp)
 }
 ```
 
@@ -313,25 +313,25 @@ Export a published version of a table
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    tableIdOrName := "tableIdOrName_example" // string | The ID or name of the table to export.
-    format := "format_example" // string | The file format to export. Possible values include `CSV`, `XLSX`, and `XLS`. (optional)
+	tableIdOrName := "tableIdOrName_example" // string | The ID or name of the table to export.
+	format := "format_example" // string | The file format to export. Possible values include `CSV`, `XLSX`, and `XLS`. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TablesApi.ExportTable(context.Background(), tableIdOrName).Format(format).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TablesApi.ExportTable``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ExportTable`: *os.File
-    fmt.Fprintf(os.Stdout, "Response from `TablesApi.ExportTable`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TablesAPI.ExportTable(context.Background(), tableIdOrName).Format(format).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TablesAPI.ExportTable``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ExportTable`: *os.File
+	fmt.Fprintf(os.Stdout, "Response from `TablesAPI.ExportTable`: %v\n", resp)
 }
 ```
 
@@ -385,34 +385,34 @@ Return all draft tables
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    openapiclient "./openapi"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    sort := []string{"Inner_example"} // []string | Specifies which fields to use for sorting results. Valid fields are `name`, `createdAt`, `updatedAt`, `createdBy`, `updatedBy`. `createdAt` will be used by default. (optional)
-    after := "after_example" // string | The cursor token value to get the next set of results. You can get this from the `paging.next.after` JSON property of a paged response containing more results. (optional)
-    limit := int32(56) // int32 | The maximum number of results to return. Default is 1000. (optional)
-    createdAt := time.Now() // time.Time | Only return tables created at exactly the specified time. (optional)
-    createdAfter := time.Now() // time.Time | Only return tables created after the specified time. (optional)
-    createdBefore := time.Now() // time.Time | Only return tables created before the specified time. (optional)
-    updatedAt := time.Now() // time.Time | Only return tables last updated at exactly the specified time. (optional)
-    updatedAfter := time.Now() // time.Time | Only return tables last updated after the specified time. (optional)
-    updatedBefore := time.Now() // time.Time | Only return tables last updated before the specified time. (optional)
-    archived := true // bool | Specifies whether to return archived tables. Defaults to `false`. (optional)
+	sort := []string{"Inner_example"} // []string | Specifies which fields to use for sorting results. Valid fields are `name`, `createdAt`, `updatedAt`, `createdBy`, `updatedBy`. `createdAt` will be used by default. (optional)
+	after := "after_example" // string | The cursor token value to get the next set of results. You can get this from the `paging.next.after` JSON property of a paged response containing more results. (optional)
+	limit := int32(56) // int32 | The maximum number of results to return. Default is 1000. (optional)
+	createdAt := time.Now() // time.Time | Only return tables created at exactly the specified time. (optional)
+	createdAfter := time.Now() // time.Time | Only return tables created after the specified time. (optional)
+	createdBefore := time.Now() // time.Time | Only return tables created before the specified time. (optional)
+	updatedAt := time.Now() // time.Time | Only return tables last updated at exactly the specified time. (optional)
+	updatedAfter := time.Now() // time.Time | Only return tables last updated after the specified time. (optional)
+	updatedBefore := time.Now() // time.Time | Only return tables last updated before the specified time. (optional)
+	archived := true // bool | Specifies whether to return archived tables. Defaults to `false`. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TablesApi.GetAllDraftTables(context.Background()).Sort(sort).After(after).Limit(limit).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Archived(archived).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TablesApi.GetAllDraftTables``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetAllDraftTables`: CollectionResponseWithTotalHubDbTableV3ForwardPaging
-    fmt.Fprintf(os.Stdout, "Response from `TablesApi.GetAllDraftTables`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TablesAPI.GetAllDraftTables(context.Background()).Sort(sort).After(after).Limit(limit).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Archived(archived).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TablesAPI.GetAllDraftTables``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAllDraftTables`: CollectionResponseWithTotalHubDbTableV3ForwardPaging
+	fmt.Fprintf(os.Stdout, "Response from `TablesAPI.GetAllDraftTables`: %v\n", resp)
 }
 ```
 
@@ -470,34 +470,34 @@ Get all published tables
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    openapiclient "./openapi"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    sort := []string{"Inner_example"} // []string | Specifies which fields to use for sorting results. Valid fields are `name`, `createdAt`, `updatedAt`, `createdBy`, `updatedBy`. `createdAt` will be used by default. (optional)
-    after := "after_example" // string | The cursor token value to get the next set of results. You can get this from the `paging.next.after` JSON property of a paged response containing more results. (optional)
-    limit := int32(56) // int32 | The maximum number of results to return. Default is 1000. (optional)
-    createdAt := time.Now() // time.Time | Only return tables created at exactly the specified time. (optional)
-    createdAfter := time.Now() // time.Time | Only return tables created after the specified time. (optional)
-    createdBefore := time.Now() // time.Time | Only return tables created before the specified time. (optional)
-    updatedAt := time.Now() // time.Time | Only return tables last updated at exactly the specified time. (optional)
-    updatedAfter := time.Now() // time.Time | Only return tables last updated after the specified time. (optional)
-    updatedBefore := time.Now() // time.Time | Only return tables last updated before the specified time. (optional)
-    archived := true // bool | Specifies whether to return archived tables. Defaults to `false`. (optional)
+	sort := []string{"Inner_example"} // []string | Specifies which fields to use for sorting results. Valid fields are `name`, `createdAt`, `updatedAt`, `createdBy`, `updatedBy`. `createdAt` will be used by default. (optional)
+	after := "after_example" // string | The cursor token value to get the next set of results. You can get this from the `paging.next.after` JSON property of a paged response containing more results. (optional)
+	limit := int32(56) // int32 | The maximum number of results to return. Default is 1000. (optional)
+	createdAt := time.Now() // time.Time | Only return tables created at exactly the specified time. (optional)
+	createdAfter := time.Now() // time.Time | Only return tables created after the specified time. (optional)
+	createdBefore := time.Now() // time.Time | Only return tables created before the specified time. (optional)
+	updatedAt := time.Now() // time.Time | Only return tables last updated at exactly the specified time. (optional)
+	updatedAfter := time.Now() // time.Time | Only return tables last updated after the specified time. (optional)
+	updatedBefore := time.Now() // time.Time | Only return tables last updated before the specified time. (optional)
+	archived := true // bool | Specifies whether to return archived tables. Defaults to `false`. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TablesApi.GetAllTables(context.Background()).Sort(sort).After(after).Limit(limit).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Archived(archived).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TablesApi.GetAllTables``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetAllTables`: CollectionResponseWithTotalHubDbTableV3ForwardPaging
-    fmt.Fprintf(os.Stdout, "Response from `TablesApi.GetAllTables`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TablesAPI.GetAllTables(context.Background()).Sort(sort).After(after).Limit(limit).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Archived(archived).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TablesAPI.GetAllTables``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAllTables`: CollectionResponseWithTotalHubDbTableV3ForwardPaging
+	fmt.Fprintf(os.Stdout, "Response from `TablesAPI.GetAllTables`: %v\n", resp)
 }
 ```
 
@@ -555,26 +555,26 @@ Get details for a draft table
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    tableIdOrName := "tableIdOrName_example" // string | The ID or name of the table to return.
-    includeForeignIds := true // bool | Set this to `true` to populate foreign ID values in the result. (optional)
-    archived := true // bool | Set this to `true` to return an archived table. Defaults to `false`. (optional)
+	tableIdOrName := "tableIdOrName_example" // string | The ID or name of the table to return.
+	includeForeignIds := true // bool | Set this to `true` to populate foreign ID values in the result. (optional)
+	archived := true // bool | Set this to `true` to return an archived table. Defaults to `false`. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TablesApi.GetDraftTableDetailsByID(context.Background(), tableIdOrName).IncludeForeignIds(includeForeignIds).Archived(archived).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TablesApi.GetDraftTableDetailsByID``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetDraftTableDetailsByID`: HubDbTableV3
-    fmt.Fprintf(os.Stdout, "Response from `TablesApi.GetDraftTableDetailsByID`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TablesAPI.GetDraftTableDetailsByID(context.Background(), tableIdOrName).IncludeForeignIds(includeForeignIds).Archived(archived).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TablesAPI.GetDraftTableDetailsByID``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetDraftTableDetailsByID`: HubDbTableV3
+	fmt.Fprintf(os.Stdout, "Response from `TablesAPI.GetDraftTableDetailsByID`: %v\n", resp)
 }
 ```
 
@@ -619,7 +619,7 @@ Name | Type | Description  | Notes
 
 > HubDbTableV3 GetTableDetails(ctx, tableIdOrName).IncludeForeignIds(includeForeignIds).Archived(archived).Execute()
 
-Get details for a published table
+Get details of a published table
 
 
 
@@ -629,26 +629,26 @@ Get details for a published table
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    tableIdOrName := "tableIdOrName_example" // string | The ID or name of the table to return.
-    includeForeignIds := true // bool | Set this to `true` to populate foreign ID values in the result. (optional)
-    archived := true // bool | Set this to `true` to return details for an archived table. Defaults to `false`. (optional)
+	tableIdOrName := "tableIdOrName_example" // string | The ID or name of the table to return.
+	includeForeignIds := true // bool | Set this to `true` to populate foreign ID values in the result. (optional)
+	archived := true // bool | Set this to `true` to return details for an archived table. Defaults to `false`. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TablesApi.GetTableDetails(context.Background(), tableIdOrName).IncludeForeignIds(includeForeignIds).Archived(archived).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TablesApi.GetTableDetails``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetTableDetails`: HubDbTableV3
-    fmt.Fprintf(os.Stdout, "Response from `TablesApi.GetTableDetails`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TablesAPI.GetTableDetails(context.Background(), tableIdOrName).IncludeForeignIds(includeForeignIds).Archived(archived).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TablesAPI.GetTableDetails``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetTableDetails`: HubDbTableV3
+	fmt.Fprintf(os.Stdout, "Response from `TablesAPI.GetTableDetails`: %v\n", resp)
 }
 ```
 
@@ -703,26 +703,26 @@ Import data into draft table
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    tableIdOrName := "tableIdOrName_example" // string | The ID of the destination table where data will be imported.
-    config := "config_example" // string | Configuration for the import in JSON format as described above. (optional)
-    file := os.NewFile(1234, "some_file") // *os.File | The source CSV file to be imported. (optional)
+	tableIdOrName := "tableIdOrName_example" // string | The ID of the destination table where data will be imported.
+	config := "config_example" // string | Configuration for the import in JSON format as described above. (optional)
+	file := os.NewFile(1234, "some_file") // *os.File | The source CSV file to be imported. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TablesApi.ImportDraftTable(context.Background(), tableIdOrName).Config(config).File(file).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TablesApi.ImportDraftTable``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ImportDraftTable`: ImportResult
-    fmt.Fprintf(os.Stdout, "Response from `TablesApi.ImportDraftTable`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TablesAPI.ImportDraftTable(context.Background(), tableIdOrName).Config(config).File(file).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TablesAPI.ImportDraftTable``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ImportDraftTable`: ImportResult
+	fmt.Fprintf(os.Stdout, "Response from `TablesAPI.ImportDraftTable`: %v\n", resp)
 }
 ```
 
@@ -777,25 +777,25 @@ Publish a table from draft
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    tableIdOrName := "tableIdOrName_example" // string | The ID or name of the table to publish.
-    includeForeignIds := true // bool | Set this to `true` to populate foreign ID values in the response. (optional)
+	tableIdOrName := "tableIdOrName_example" // string | The ID or name of the table to publish.
+	includeForeignIds := true // bool | Set this to `true` to populate foreign ID values in the response. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TablesApi.PublishDraftTable(context.Background(), tableIdOrName).IncludeForeignIds(includeForeignIds).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TablesApi.PublishDraftTable``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PublishDraftTable`: HubDbTableV3
-    fmt.Fprintf(os.Stdout, "Response from `TablesApi.PublishDraftTable`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TablesAPI.PublishDraftTable(context.Background(), tableIdOrName).IncludeForeignIds(includeForeignIds).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TablesAPI.PublishDraftTable``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PublishDraftTable`: HubDbTableV3
+	fmt.Fprintf(os.Stdout, "Response from `TablesAPI.PublishDraftTable`: %v\n", resp)
 }
 ```
 
@@ -849,25 +849,25 @@ Reset a draft table
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    tableIdOrName := "tableIdOrName_example" // string | The ID or name of the table to reset.
-    includeForeignIds := true // bool | Set this to `true` to populate foreign ID values in the response. (optional)
+	tableIdOrName := "tableIdOrName_example" // string | The ID or name of the table to reset.
+	includeForeignIds := true // bool | Set this to `true` to populate foreign ID values in the response. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TablesApi.ResetDraftTable(context.Background(), tableIdOrName).IncludeForeignIds(includeForeignIds).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TablesApi.ResetDraftTable``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ResetDraftTable`: HubDbTableV3
-    fmt.Fprintf(os.Stdout, "Response from `TablesApi.ResetDraftTable`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TablesAPI.ResetDraftTable(context.Background(), tableIdOrName).IncludeForeignIds(includeForeignIds).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TablesAPI.ResetDraftTable``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ResetDraftTable`: HubDbTableV3
+	fmt.Fprintf(os.Stdout, "Response from `TablesAPI.ResetDraftTable`: %v\n", resp)
 }
 ```
 
@@ -921,25 +921,25 @@ Unpublish a table
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    tableIdOrName := "tableIdOrName_example" // string | The ID or name of the table to publish.
-    includeForeignIds := true // bool | Set this to `true` to populate foreign ID values in the response. (optional)
+	tableIdOrName := "tableIdOrName_example" // string | The ID or name of the table to publish.
+	includeForeignIds := true // bool | Set this to `true` to populate foreign ID values in the response. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TablesApi.UnpublishTable(context.Background(), tableIdOrName).IncludeForeignIds(includeForeignIds).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TablesApi.UnpublishTable``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UnpublishTable`: HubDbTableV3
-    fmt.Fprintf(os.Stdout, "Response from `TablesApi.UnpublishTable`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TablesAPI.UnpublishTable(context.Background(), tableIdOrName).IncludeForeignIds(includeForeignIds).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TablesAPI.UnpublishTable``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UnpublishTable`: HubDbTableV3
+	fmt.Fprintf(os.Stdout, "Response from `TablesAPI.UnpublishTable`: %v\n", resp)
 }
 ```
 
@@ -993,27 +993,27 @@ Update an existing table
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    tableIdOrName := "tableIdOrName_example" // string | The ID or name of the table to update.
-    hubDbTableV3Request := *openapiclient.NewHubDbTableV3Request("test_table", "Test Table") // HubDbTableV3Request | The JSON schema for the table being updated.
-    includeForeignIds := true // bool | Set this to `true` to populate foreign ID values in the result. (optional)
-    archived := true // bool | Specifies whether to return archived tables. Defaults to `false`. (optional)
+	tableIdOrName := "tableIdOrName_example" // string | The ID or name of the table to update.
+	hubDbTableV3Request := *openapiclient.NewHubDbTableV3Request("test_table", "Test Table") // HubDbTableV3Request | The JSON schema for the table being updated.
+	includeForeignIds := true // bool | Set this to `true` to populate foreign ID values in the result. (optional)
+	archived := true // bool | Specifies whether to return archived tables. Defaults to `false`. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TablesApi.UpdateDraftTable(context.Background(), tableIdOrName).HubDbTableV3Request(hubDbTableV3Request).IncludeForeignIds(includeForeignIds).Archived(archived).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TablesApi.UpdateDraftTable``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateDraftTable`: HubDbTableV3
-    fmt.Fprintf(os.Stdout, "Response from `TablesApi.UpdateDraftTable`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TablesAPI.UpdateDraftTable(context.Background(), tableIdOrName).HubDbTableV3Request(hubDbTableV3Request).IncludeForeignIds(includeForeignIds).Archived(archived).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TablesAPI.UpdateDraftTable``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateDraftTable`: HubDbTableV3
+	fmt.Fprintf(os.Stdout, "Response from `TablesAPI.UpdateDraftTable`: %v\n", resp)
 }
 ```
 

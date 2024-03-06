@@ -11,8 +11,13 @@ API version: v3
 package blog_posts
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the Styles type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Styles{}
 
 // Styles struct for Styles
 type Styles struct {
@@ -24,6 +29,8 @@ type Styles struct {
 	MaxWidthSectionCentering int32           `json:"maxWidthSectionCentering"`
 	BackgroundGradient       Gradient        `json:"backgroundGradient"`
 }
+
+type _Styles Styles
 
 // NewStyles instantiates a new Styles object
 // This constructor will assign default values to properties that have it defined,
@@ -218,29 +225,66 @@ func (o *Styles) SetBackgroundGradient(v Gradient) {
 }
 
 func (o Styles) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["backgroundColor"] = o.BackgroundColor
-	}
-	if true {
-		toSerialize["flexboxPositioning"] = o.FlexboxPositioning
-	}
-	if true {
-		toSerialize["backgroundImage"] = o.BackgroundImage
-	}
-	if true {
-		toSerialize["forceFullWidthSection"] = o.ForceFullWidthSection
-	}
-	if true {
-		toSerialize["verticalAlignment"] = o.VerticalAlignment
-	}
-	if true {
-		toSerialize["maxWidthSectionCentering"] = o.MaxWidthSectionCentering
-	}
-	if true {
-		toSerialize["backgroundGradient"] = o.BackgroundGradient
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Styles) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["backgroundColor"] = o.BackgroundColor
+	toSerialize["flexboxPositioning"] = o.FlexboxPositioning
+	toSerialize["backgroundImage"] = o.BackgroundImage
+	toSerialize["forceFullWidthSection"] = o.ForceFullWidthSection
+	toSerialize["verticalAlignment"] = o.VerticalAlignment
+	toSerialize["maxWidthSectionCentering"] = o.MaxWidthSectionCentering
+	toSerialize["backgroundGradient"] = o.BackgroundGradient
+	return toSerialize, nil
+}
+
+func (o *Styles) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"backgroundColor",
+		"flexboxPositioning",
+		"backgroundImage",
+		"forceFullWidthSection",
+		"verticalAlignment",
+		"maxWidthSectionCentering",
+		"backgroundGradient",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varStyles := _Styles{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varStyles)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Styles(varStyles)
+
+	return err
 }
 
 type NullableStyles struct {

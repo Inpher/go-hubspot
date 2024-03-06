@@ -1,15 +1,15 @@
-# \SubscriptionsApi
+# \SubscriptionsAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**SubscriptionsArchive**](SubscriptionsApi.md#SubscriptionsArchive) | **Delete** /webhooks/v3/{appId}/subscriptions/{subscriptionId} | 
-[**SubscriptionsBatchUpdate**](SubscriptionsApi.md#SubscriptionsBatchUpdate) | **Post** /webhooks/v3/{appId}/subscriptions/batch/update | 
-[**SubscriptionsCreate**](SubscriptionsApi.md#SubscriptionsCreate) | **Post** /webhooks/v3/{appId}/subscriptions | 
-[**SubscriptionsGetAll**](SubscriptionsApi.md#SubscriptionsGetAll) | **Get** /webhooks/v3/{appId}/subscriptions | 
-[**SubscriptionsGetByID**](SubscriptionsApi.md#SubscriptionsGetByID) | **Get** /webhooks/v3/{appId}/subscriptions/{subscriptionId} | 
-[**SubscriptionsUpdate**](SubscriptionsApi.md#SubscriptionsUpdate) | **Patch** /webhooks/v3/{appId}/subscriptions/{subscriptionId} | 
+[**SubscriptionsArchive**](SubscriptionsAPI.md#SubscriptionsArchive) | **Delete** /webhooks/v3/{appId}/subscriptions/{subscriptionId} | 
+[**SubscriptionsBatchUpdate**](SubscriptionsAPI.md#SubscriptionsBatchUpdate) | **Post** /webhooks/v3/{appId}/subscriptions/batch/update | 
+[**SubscriptionsCreate**](SubscriptionsAPI.md#SubscriptionsCreate) | **Post** /webhooks/v3/{appId}/subscriptions | 
+[**SubscriptionsGetAll**](SubscriptionsAPI.md#SubscriptionsGetAll) | **Get** /webhooks/v3/{appId}/subscriptions | 
+[**SubscriptionsGetByID**](SubscriptionsAPI.md#SubscriptionsGetByID) | **Get** /webhooks/v3/{appId}/subscriptions/{subscriptionId} | 
+[**SubscriptionsUpdate**](SubscriptionsAPI.md#SubscriptionsUpdate) | **Patch** /webhooks/v3/{appId}/subscriptions/{subscriptionId} | 
 
 
 
@@ -25,23 +25,23 @@ Method | HTTP request | Description
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    subscriptionId := int32(56) // int32 | 
-    appId := int32(56) // int32 | 
+	subscriptionId := int32(56) // int32 | 
+	appId := int32(56) // int32 | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SubscriptionsApi.SubscriptionsArchive(context.Background(), subscriptionId, appId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionsApi.SubscriptionsArchive``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.SubscriptionsAPI.SubscriptionsArchive(context.Background(), subscriptionId, appId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionsAPI.SubscriptionsArchive``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -94,25 +94,25 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    appId := int32(56) // int32 | 
-    batchInputSubscriptionBatchUpdateRequest := *openapiclient.NewBatchInputSubscriptionBatchUpdateRequest([]openapiclient.SubscriptionBatchUpdateRequest{*openapiclient.NewSubscriptionBatchUpdateRequest(false, int32(123))}) // BatchInputSubscriptionBatchUpdateRequest | 
+	appId := int32(56) // int32 | 
+	batchInputSubscriptionBatchUpdateRequest := *openapiclient.NewBatchInputSubscriptionBatchUpdateRequest([]openapiclient.SubscriptionBatchUpdateRequest{*openapiclient.NewSubscriptionBatchUpdateRequest(false, int32(123))}) // BatchInputSubscriptionBatchUpdateRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SubscriptionsApi.SubscriptionsBatchUpdate(context.Background(), appId).BatchInputSubscriptionBatchUpdateRequest(batchInputSubscriptionBatchUpdateRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionsApi.SubscriptionsBatchUpdate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `SubscriptionsBatchUpdate`: BatchResponseSubscriptionResponse
-    fmt.Fprintf(os.Stdout, "Response from `SubscriptionsApi.SubscriptionsBatchUpdate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SubscriptionsAPI.SubscriptionsBatchUpdate(context.Background(), appId).BatchInputSubscriptionBatchUpdateRequest(batchInputSubscriptionBatchUpdateRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionsAPI.SubscriptionsBatchUpdate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `SubscriptionsBatchUpdate`: BatchResponseSubscriptionResponse
+	fmt.Fprintf(os.Stdout, "Response from `SubscriptionsAPI.SubscriptionsBatchUpdate`: %v\n", resp)
 }
 ```
 
@@ -164,25 +164,25 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    appId := int32(56) // int32 | 
-    subscriptionCreateRequest := *openapiclient.NewSubscriptionCreateRequest("contact.propertyChange") // SubscriptionCreateRequest | 
+	appId := int32(56) // int32 | 
+	subscriptionCreateRequest := *openapiclient.NewSubscriptionCreateRequest("contact.propertyChange") // SubscriptionCreateRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SubscriptionsApi.SubscriptionsCreate(context.Background(), appId).SubscriptionCreateRequest(subscriptionCreateRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionsApi.SubscriptionsCreate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `SubscriptionsCreate`: SubscriptionResponse
-    fmt.Fprintf(os.Stdout, "Response from `SubscriptionsApi.SubscriptionsCreate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SubscriptionsAPI.SubscriptionsCreate(context.Background(), appId).SubscriptionCreateRequest(subscriptionCreateRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionsAPI.SubscriptionsCreate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `SubscriptionsCreate`: SubscriptionResponse
+	fmt.Fprintf(os.Stdout, "Response from `SubscriptionsAPI.SubscriptionsCreate`: %v\n", resp)
 }
 ```
 
@@ -234,24 +234,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    appId := int32(56) // int32 | 
+	appId := int32(56) // int32 | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SubscriptionsApi.SubscriptionsGetAll(context.Background(), appId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionsApi.SubscriptionsGetAll``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `SubscriptionsGetAll`: SubscriptionListResponse
-    fmt.Fprintf(os.Stdout, "Response from `SubscriptionsApi.SubscriptionsGetAll`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SubscriptionsAPI.SubscriptionsGetAll(context.Background(), appId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionsAPI.SubscriptionsGetAll``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `SubscriptionsGetAll`: SubscriptionListResponse
+	fmt.Fprintf(os.Stdout, "Response from `SubscriptionsAPI.SubscriptionsGetAll`: %v\n", resp)
 }
 ```
 
@@ -302,25 +302,25 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    subscriptionId := int32(56) // int32 | 
-    appId := int32(56) // int32 | 
+	subscriptionId := int32(56) // int32 | 
+	appId := int32(56) // int32 | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SubscriptionsApi.SubscriptionsGetByID(context.Background(), subscriptionId, appId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionsApi.SubscriptionsGetByID``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `SubscriptionsGetByID`: SubscriptionResponse
-    fmt.Fprintf(os.Stdout, "Response from `SubscriptionsApi.SubscriptionsGetByID`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SubscriptionsAPI.SubscriptionsGetByID(context.Background(), subscriptionId, appId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionsAPI.SubscriptionsGetByID``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `SubscriptionsGetByID`: SubscriptionResponse
+	fmt.Fprintf(os.Stdout, "Response from `SubscriptionsAPI.SubscriptionsGetByID`: %v\n", resp)
 }
 ```
 
@@ -373,26 +373,26 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    subscriptionId := int32(56) // int32 | 
-    appId := int32(56) // int32 | 
-    subscriptionPatchRequest := *openapiclient.NewSubscriptionPatchRequest() // SubscriptionPatchRequest | 
+	subscriptionId := int32(56) // int32 | 
+	appId := int32(56) // int32 | 
+	subscriptionPatchRequest := *openapiclient.NewSubscriptionPatchRequest() // SubscriptionPatchRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SubscriptionsApi.SubscriptionsUpdate(context.Background(), subscriptionId, appId).SubscriptionPatchRequest(subscriptionPatchRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionsApi.SubscriptionsUpdate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `SubscriptionsUpdate`: SubscriptionResponse
-    fmt.Fprintf(os.Stdout, "Response from `SubscriptionsApi.SubscriptionsUpdate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SubscriptionsAPI.SubscriptionsUpdate(context.Background(), subscriptionId, appId).SubscriptionPatchRequest(subscriptionPatchRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionsAPI.SubscriptionsUpdate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `SubscriptionsUpdate`: SubscriptionResponse
+	fmt.Fprintf(os.Stdout, "Response from `SubscriptionsAPI.SubscriptionsUpdate`: %v\n", resp)
 }
 ```
 

@@ -1,16 +1,16 @@
-# \PublicObjectApi
+# \PublicObjectAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PostCrmV3ObjectsProductsMerge**](PublicObjectApi.md#PostCrmV3ObjectsProductsMerge) | **Post** /crm/v3/objects/products/merge | Merge two products with same type
+[**Merge**](PublicObjectAPI.md#Merge) | **Post** /crm/v3/objects/products/merge | Merge two products with same type
 
 
 
-## PostCrmV3ObjectsProductsMerge
+## Merge
 
-> SimplePublicObject PostCrmV3ObjectsProductsMerge(ctx).PublicMergeInput(publicMergeInput).Execute()
+> SimplePublicObject Merge(ctx).PublicMergeInput(publicMergeInput).Execute()
 
 Merge two products with same type
 
@@ -20,24 +20,24 @@ Merge two products with same type
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    publicMergeInput := *openapiclient.NewPublicMergeInput("ObjectIdToMerge_example", "PrimaryObjectId_example") // PublicMergeInput | 
+	publicMergeInput := *openapiclient.NewPublicMergeInput("ObjectIdToMerge_example", "PrimaryObjectId_example") // PublicMergeInput | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PublicObjectApi.PostCrmV3ObjectsProductsMerge(context.Background()).PublicMergeInput(publicMergeInput).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PublicObjectApi.PostCrmV3ObjectsProductsMerge``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostCrmV3ObjectsProductsMerge`: SimplePublicObject
-    fmt.Fprintf(os.Stdout, "Response from `PublicObjectApi.PostCrmV3ObjectsProductsMerge`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PublicObjectAPI.Merge(context.Background()).PublicMergeInput(publicMergeInput).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PublicObjectAPI.Merge``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `Merge`: SimplePublicObject
+	fmt.Fprintf(os.Stdout, "Response from `PublicObjectAPI.Merge`: %v\n", resp)
 }
 ```
 
@@ -47,7 +47,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCrmV3ObjectsProductsMergeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiMergeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -60,7 +60,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [oauth2](../README.md#oauth2), [private_apps_legacy](../README.md#private_apps_legacy), [private_apps](../README.md#private_apps)
 
 ### HTTP request headers
 

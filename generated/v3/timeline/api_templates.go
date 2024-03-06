@@ -13,20 +13,20 @@ package timeline
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 
-	"github.com/clarkmcc/go-hubspot"
+	"github.com/inpher/go-hubspot"
 	"net/url"
 	"strings"
 )
 
-// TemplatesApiService TemplatesApi service
-type TemplatesApiService service
+// TemplatesAPIService TemplatesAPI service
+type TemplatesAPIService service
 
 type ApiDeleteCrmV3TimelineAppIdEventTemplatesEventTemplateIdArchiveRequest struct {
 	ctx             context.Context
-	ApiService      *TemplatesApiService
+	ApiService      *TemplatesAPIService
 	eventTemplateId string
 	appId           int32
 }
@@ -42,12 +42,12 @@ This will delete the event template. All associated events will be removed from 
 
 This action can't be undone, so it's highly recommended that you stop using any associated events before deleting a template.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param eventTemplateId The event template ID.
- @param appId The ID of the target app.
- @return ApiDeleteCrmV3TimelineAppIdEventTemplatesEventTemplateIdArchiveRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param eventTemplateId The event template ID.
+	@param appId The ID of the target app.
+	@return ApiDeleteCrmV3TimelineAppIdEventTemplatesEventTemplateIdArchiveRequest
 */
-func (a *TemplatesApiService) DeleteCrmV3TimelineAppIdEventTemplatesEventTemplateIdArchive(ctx context.Context, eventTemplateId string, appId int32) ApiDeleteCrmV3TimelineAppIdEventTemplatesEventTemplateIdArchiveRequest {
+func (a *TemplatesAPIService) DeleteCrmV3TimelineAppIdEventTemplatesEventTemplateIdArchive(ctx context.Context, eventTemplateId string, appId int32) ApiDeleteCrmV3TimelineAppIdEventTemplatesEventTemplateIdArchiveRequest {
 	return ApiDeleteCrmV3TimelineAppIdEventTemplatesEventTemplateIdArchiveRequest{
 		ApiService:      a,
 		ctx:             ctx,
@@ -57,21 +57,21 @@ func (a *TemplatesApiService) DeleteCrmV3TimelineAppIdEventTemplatesEventTemplat
 }
 
 // Execute executes the request
-func (a *TemplatesApiService) DeleteCrmV3TimelineAppIdEventTemplatesEventTemplateIdArchiveExecute(r ApiDeleteCrmV3TimelineAppIdEventTemplatesEventTemplateIdArchiveRequest) (*http.Response, error) {
+func (a *TemplatesAPIService) DeleteCrmV3TimelineAppIdEventTemplatesEventTemplateIdArchiveExecute(r ApiDeleteCrmV3TimelineAppIdEventTemplatesEventTemplateIdArchiveRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplatesApiService.DeleteCrmV3TimelineAppIdEventTemplatesEventTemplateIdArchive")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplatesAPIService.DeleteCrmV3TimelineAppIdEventTemplatesEventTemplateIdArchive")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/timeline/{appId}/event-templates/{eventTemplateId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"eventTemplateId"+"}", url.PathEscape(parameterToString(r.eventTemplateId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"eventTemplateId"+"}", url.PathEscape(parameterValueToString(r.eventTemplateId, "eventTemplateId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterValueToString(r.appId, "appId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -114,9 +114,9 @@ func (a *TemplatesApiService) DeleteCrmV3TimelineAppIdEventTemplatesEventTemplat
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -132,6 +132,7 @@ func (a *TemplatesApiService) DeleteCrmV3TimelineAppIdEventTemplatesEventTemplat
 			newErr.error = err.Error()
 			return localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
@@ -141,7 +142,7 @@ func (a *TemplatesApiService) DeleteCrmV3TimelineAppIdEventTemplatesEventTemplat
 
 type ApiGetCrmV3TimelineAppIdEventTemplatesEventTemplateIdGetByIdRequest struct {
 	ctx             context.Context
-	ApiService      *TemplatesApiService
+	ApiService      *TemplatesAPIService
 	eventTemplateId string
 	appId           int32
 }
@@ -155,12 +156,12 @@ GetCrmV3TimelineAppIdEventTemplatesEventTemplateIdGetById Gets a specific event 
 
 View the current state of a specific template and its tokens.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param eventTemplateId The event template ID.
- @param appId The ID of the target app.
- @return ApiGetCrmV3TimelineAppIdEventTemplatesEventTemplateIdGetByIdRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param eventTemplateId The event template ID.
+	@param appId The ID of the target app.
+	@return ApiGetCrmV3TimelineAppIdEventTemplatesEventTemplateIdGetByIdRequest
 */
-func (a *TemplatesApiService) GetCrmV3TimelineAppIdEventTemplatesEventTemplateIdGetById(ctx context.Context, eventTemplateId string, appId int32) ApiGetCrmV3TimelineAppIdEventTemplatesEventTemplateIdGetByIdRequest {
+func (a *TemplatesAPIService) GetCrmV3TimelineAppIdEventTemplatesEventTemplateIdGetById(ctx context.Context, eventTemplateId string, appId int32) ApiGetCrmV3TimelineAppIdEventTemplatesEventTemplateIdGetByIdRequest {
 	return ApiGetCrmV3TimelineAppIdEventTemplatesEventTemplateIdGetByIdRequest{
 		ApiService:      a,
 		ctx:             ctx,
@@ -170,8 +171,9 @@ func (a *TemplatesApiService) GetCrmV3TimelineAppIdEventTemplatesEventTemplateId
 }
 
 // Execute executes the request
-//  @return TimelineEventTemplate
-func (a *TemplatesApiService) GetCrmV3TimelineAppIdEventTemplatesEventTemplateIdGetByIdExecute(r ApiGetCrmV3TimelineAppIdEventTemplatesEventTemplateIdGetByIdRequest) (*TimelineEventTemplate, *http.Response, error) {
+//
+//	@return TimelineEventTemplate
+func (a *TemplatesAPIService) GetCrmV3TimelineAppIdEventTemplatesEventTemplateIdGetByIdExecute(r ApiGetCrmV3TimelineAppIdEventTemplatesEventTemplateIdGetByIdRequest) (*TimelineEventTemplate, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -179,14 +181,14 @@ func (a *TemplatesApiService) GetCrmV3TimelineAppIdEventTemplatesEventTemplateId
 		localVarReturnValue *TimelineEventTemplate
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplatesApiService.GetCrmV3TimelineAppIdEventTemplatesEventTemplateIdGetById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplatesAPIService.GetCrmV3TimelineAppIdEventTemplatesEventTemplateIdGetById")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/timeline/{appId}/event-templates/{eventTemplateId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"eventTemplateId"+"}", url.PathEscape(parameterToString(r.eventTemplateId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"eventTemplateId"+"}", url.PathEscape(parameterValueToString(r.eventTemplateId, "eventTemplateId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterValueToString(r.appId, "appId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -229,9 +231,9 @@ func (a *TemplatesApiService) GetCrmV3TimelineAppIdEventTemplatesEventTemplateId
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -247,6 +249,7 @@ func (a *TemplatesApiService) GetCrmV3TimelineAppIdEventTemplatesEventTemplateId
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -265,7 +268,7 @@ func (a *TemplatesApiService) GetCrmV3TimelineAppIdEventTemplatesEventTemplateId
 
 type ApiGetCrmV3TimelineAppIdEventTemplatesGetAllRequest struct {
 	ctx        context.Context
-	ApiService *TemplatesApiService
+	ApiService *TemplatesAPIService
 	appId      int32
 }
 
@@ -278,11 +281,11 @@ GetCrmV3TimelineAppIdEventTemplatesGetAll List all event templates for your app
 
 Use this to list all event templates owned by your app.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId The ID of the target app.
- @return ApiGetCrmV3TimelineAppIdEventTemplatesGetAllRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId The ID of the target app.
+	@return ApiGetCrmV3TimelineAppIdEventTemplatesGetAllRequest
 */
-func (a *TemplatesApiService) GetCrmV3TimelineAppIdEventTemplatesGetAll(ctx context.Context, appId int32) ApiGetCrmV3TimelineAppIdEventTemplatesGetAllRequest {
+func (a *TemplatesAPIService) GetCrmV3TimelineAppIdEventTemplatesGetAll(ctx context.Context, appId int32) ApiGetCrmV3TimelineAppIdEventTemplatesGetAllRequest {
 	return ApiGetCrmV3TimelineAppIdEventTemplatesGetAllRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -291,8 +294,9 @@ func (a *TemplatesApiService) GetCrmV3TimelineAppIdEventTemplatesGetAll(ctx cont
 }
 
 // Execute executes the request
-//  @return CollectionResponseTimelineEventTemplateNoPaging
-func (a *TemplatesApiService) GetCrmV3TimelineAppIdEventTemplatesGetAllExecute(r ApiGetCrmV3TimelineAppIdEventTemplatesGetAllRequest) (*CollectionResponseTimelineEventTemplateNoPaging, *http.Response, error) {
+//
+//	@return CollectionResponseTimelineEventTemplateNoPaging
+func (a *TemplatesAPIService) GetCrmV3TimelineAppIdEventTemplatesGetAllExecute(r ApiGetCrmV3TimelineAppIdEventTemplatesGetAllRequest) (*CollectionResponseTimelineEventTemplateNoPaging, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -300,13 +304,13 @@ func (a *TemplatesApiService) GetCrmV3TimelineAppIdEventTemplatesGetAllExecute(r
 		localVarReturnValue *CollectionResponseTimelineEventTemplateNoPaging
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplatesApiService.GetCrmV3TimelineAppIdEventTemplatesGetAll")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplatesAPIService.GetCrmV3TimelineAppIdEventTemplatesGetAll")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/timeline/{appId}/event-templates"
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterValueToString(r.appId, "appId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -349,9 +353,9 @@ func (a *TemplatesApiService) GetCrmV3TimelineAppIdEventTemplatesGetAllExecute(r
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -367,6 +371,7 @@ func (a *TemplatesApiService) GetCrmV3TimelineAppIdEventTemplatesGetAllExecute(r
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -385,7 +390,7 @@ func (a *TemplatesApiService) GetCrmV3TimelineAppIdEventTemplatesGetAllExecute(r
 
 type ApiPostCrmV3TimelineAppIdEventTemplatesCreateRequest struct {
 	ctx                                context.Context
-	ApiService                         *TemplatesApiService
+	ApiService                         *TemplatesAPIService
 	appId                              int32
 	timelineEventTemplateCreateRequest *TimelineEventTemplateCreateRequest
 }
@@ -411,11 +416,11 @@ Each event template contains its own set of tokens and `Markdown` templates. The
 
 You must create an event template before you can create events.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId The ID of the target app.
- @return ApiPostCrmV3TimelineAppIdEventTemplatesCreateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId The ID of the target app.
+	@return ApiPostCrmV3TimelineAppIdEventTemplatesCreateRequest
 */
-func (a *TemplatesApiService) PostCrmV3TimelineAppIdEventTemplatesCreate(ctx context.Context, appId int32) ApiPostCrmV3TimelineAppIdEventTemplatesCreateRequest {
+func (a *TemplatesAPIService) PostCrmV3TimelineAppIdEventTemplatesCreate(ctx context.Context, appId int32) ApiPostCrmV3TimelineAppIdEventTemplatesCreateRequest {
 	return ApiPostCrmV3TimelineAppIdEventTemplatesCreateRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -424,8 +429,9 @@ func (a *TemplatesApiService) PostCrmV3TimelineAppIdEventTemplatesCreate(ctx con
 }
 
 // Execute executes the request
-//  @return TimelineEventTemplate
-func (a *TemplatesApiService) PostCrmV3TimelineAppIdEventTemplatesCreateExecute(r ApiPostCrmV3TimelineAppIdEventTemplatesCreateRequest) (*TimelineEventTemplate, *http.Response, error) {
+//
+//	@return TimelineEventTemplate
+func (a *TemplatesAPIService) PostCrmV3TimelineAppIdEventTemplatesCreateExecute(r ApiPostCrmV3TimelineAppIdEventTemplatesCreateRequest) (*TimelineEventTemplate, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -433,13 +439,13 @@ func (a *TemplatesApiService) PostCrmV3TimelineAppIdEventTemplatesCreateExecute(
 		localVarReturnValue *TimelineEventTemplate
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplatesApiService.PostCrmV3TimelineAppIdEventTemplatesCreate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplatesAPIService.PostCrmV3TimelineAppIdEventTemplatesCreate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/timeline/{appId}/event-templates"
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterValueToString(r.appId, "appId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -487,9 +493,9 @@ func (a *TemplatesApiService) PostCrmV3TimelineAppIdEventTemplatesCreateExecute(
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -505,6 +511,7 @@ func (a *TemplatesApiService) PostCrmV3TimelineAppIdEventTemplatesCreateExecute(
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -523,7 +530,7 @@ func (a *TemplatesApiService) PostCrmV3TimelineAppIdEventTemplatesCreateExecute(
 
 type ApiPutCrmV3TimelineAppIdEventTemplatesEventTemplateIdUpdateRequest struct {
 	ctx                                context.Context
-	ApiService                         *TemplatesApiService
+	ApiService                         *TemplatesAPIService
 	eventTemplateId                    string
 	appId                              int32
 	timelineEventTemplateUpdateRequest *TimelineEventTemplateUpdateRequest
@@ -546,12 +553,12 @@ Updates an existing template and its tokens. This is primarily used to update th
 
 You can also update or replace all the tokens in the template here instead of doing individual API calls on the `/tokens` endpoint.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param eventTemplateId The event template ID.
- @param appId The ID of the target app.
- @return ApiPutCrmV3TimelineAppIdEventTemplatesEventTemplateIdUpdateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param eventTemplateId The event template ID.
+	@param appId The ID of the target app.
+	@return ApiPutCrmV3TimelineAppIdEventTemplatesEventTemplateIdUpdateRequest
 */
-func (a *TemplatesApiService) PutCrmV3TimelineAppIdEventTemplatesEventTemplateIdUpdate(ctx context.Context, eventTemplateId string, appId int32) ApiPutCrmV3TimelineAppIdEventTemplatesEventTemplateIdUpdateRequest {
+func (a *TemplatesAPIService) PutCrmV3TimelineAppIdEventTemplatesEventTemplateIdUpdate(ctx context.Context, eventTemplateId string, appId int32) ApiPutCrmV3TimelineAppIdEventTemplatesEventTemplateIdUpdateRequest {
 	return ApiPutCrmV3TimelineAppIdEventTemplatesEventTemplateIdUpdateRequest{
 		ApiService:      a,
 		ctx:             ctx,
@@ -561,8 +568,9 @@ func (a *TemplatesApiService) PutCrmV3TimelineAppIdEventTemplatesEventTemplateId
 }
 
 // Execute executes the request
-//  @return TimelineEventTemplate
-func (a *TemplatesApiService) PutCrmV3TimelineAppIdEventTemplatesEventTemplateIdUpdateExecute(r ApiPutCrmV3TimelineAppIdEventTemplatesEventTemplateIdUpdateRequest) (*TimelineEventTemplate, *http.Response, error) {
+//
+//	@return TimelineEventTemplate
+func (a *TemplatesAPIService) PutCrmV3TimelineAppIdEventTemplatesEventTemplateIdUpdateExecute(r ApiPutCrmV3TimelineAppIdEventTemplatesEventTemplateIdUpdateRequest) (*TimelineEventTemplate, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
@@ -570,14 +578,14 @@ func (a *TemplatesApiService) PutCrmV3TimelineAppIdEventTemplatesEventTemplateId
 		localVarReturnValue *TimelineEventTemplate
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplatesApiService.PutCrmV3TimelineAppIdEventTemplatesEventTemplateIdUpdate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplatesAPIService.PutCrmV3TimelineAppIdEventTemplatesEventTemplateIdUpdate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/timeline/{appId}/event-templates/{eventTemplateId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"eventTemplateId"+"}", url.PathEscape(parameterToString(r.eventTemplateId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"eventTemplateId"+"}", url.PathEscape(parameterValueToString(r.eventTemplateId, "eventTemplateId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterValueToString(r.appId, "appId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -625,9 +633,9 @@ func (a *TemplatesApiService) PutCrmV3TimelineAppIdEventTemplatesEventTemplateId
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -643,6 +651,7 @@ func (a *TemplatesApiService) PutCrmV3TimelineAppIdEventTemplatesEventTemplateId
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

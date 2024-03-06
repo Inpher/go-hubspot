@@ -28,8 +28,6 @@
   }, {
     "name" : "Public_Object"
   }, {
-    "name" : "Associations"
-  }, {
     "name" : "GDPR"
   }, {
     "name" : "Search"
@@ -912,7 +910,7 @@
         }
       },
       "SimplePublicObject" : {
-        "required" : [ "createdAt", "id", "properties", "updatedAt" ],
+        "required" : [ "createdAt", "id", "updatedAt" ],
         "type" : "object",
         "properties" : {
           "createdAt" : {
@@ -947,13 +945,12 @@
               "nullable" : true
             },
             "example" : {
-              "property_date" : "1572480000000",
-              "property_radio" : "option_1",
-              "property_number" : "17",
-              "property_string" : "value",
-              "property_checkbox" : "false",
-              "property_dropdown" : "choice_b",
-              "property_multiple_checkboxes" : "chocolate;strawberry"
+              "name" : "1 year implementation consultation",
+              "price" : "6000.00",
+              "quantity" : "2",
+              "hs_product_id" : "191902",
+              "recurringbillingfrequency" : "monthly",
+              "hs_recurring_billing_period" : "P24M"
             }
           },
           "updatedAt" : {
@@ -1154,7 +1151,6 @@
         }
       },
       "SimplePublicObjectInput" : {
-        "required" : [ "properties" ],
         "type" : "object",
         "properties" : {
           "properties" : {
@@ -1163,13 +1159,12 @@
               "type" : "string"
             },
             "example" : {
-              "property_date" : "1572480000000",
-              "property_radio" : "option_1",
-              "property_number" : "17",
-              "property_string" : "value",
-              "property_checkbox" : "false",
-              "property_dropdown" : "choice_b",
-              "property_multiple_checkboxes" : "chocolate;strawberry"
+              "name" : "1 year implementation consultation",
+              "price" : "6000.00",
+              "quantity" : "2",
+              "hs_product_id" : "191902",
+              "recurringbillingfrequency" : "monthly",
+              "hs_recurring_billing_period" : "P24M"
             }
           }
         },
@@ -1279,7 +1274,7 @@
               "quantity" : "2",
               "hs_product_id" : "191902",
               "recurringbillingfrequency" : "monthly",
-              "hs_recurring_billing_period" : "P2Y"
+              "hs_recurring_billing_period" : "P24M"
             }
           },
           "updatedAt" : {
@@ -1363,7 +1358,7 @@
         }
       },
       "SimplePublicObjectBatchInput" : {
-        "required" : [ "id", "properties" ],
+        "required" : [ "id" ],
         "type" : "object",
         "properties" : {
           "idProperty" : {
@@ -1431,7 +1426,7 @@
         }
       },
       "SimplePublicObjectInputForCreate" : {
-        "required" : [ "associations", "properties" ],
+        "required" : [ "associations" ],
         "type" : "object",
         "properties" : {
           "associations" : {
@@ -1496,12 +1491,12 @@
             "authorizationUrl" : "https://app.hubspot.com/oauth/authorize",
             "tokenUrl" : "https://api.hubapi.com/oauth/v1/token",
             "scopes" : {
+              "crm.objects.custom.write" : "Change custom object records",
               "media_bridge.read" : "Read media and media events",
               "crm.objects.goals.read" : "Read goals",
               "tickets" : "Read and write tickets",
               "crm.objects.custom.read" : "View custom object records",
-              "e-commerce" : "e-commerce",
-              "crm.objects.custom.write" : "Change custom object records"
+              "e-commerce" : "e-commerce"
             }
           }
         }
@@ -1513,6 +1508,8 @@
             "authorizationUrl" : "https://app.hubspot.com/oauth/authorize",
             "tokenUrl" : "https://api.hubapi.com/oauth/v1/token",
             "scopes" : {
+              "crm.objects.contacts.read" : " ",
+              "crm.objects.quotes.write" : "Quotes",
               "crm.objects.deals.read" : " ",
               "crm.objects.line_items.read" : "Line Items",
               "crm.objects.deals.write" : " ",
@@ -1520,9 +1517,7 @@
               "crm.objects.line_items.write" : "Line Items",
               "crm.objects.companies.read" : " ",
               "crm.objects.companies.write" : " ",
-              "crm.objects.contacts.write" : " ",
-              "crm.objects.contacts.read" : " ",
-              "crm.objects.quotes.write" : "Quotes"
+              "crm.objects.contacts.write" : " "
             }
           }
         }

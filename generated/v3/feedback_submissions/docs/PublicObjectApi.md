@@ -1,10 +1,10 @@
-# \PublicObjectApi
+# \PublicObjectAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PostCrmV3ObjectsFeedbackSubmissionsMergeMerge**](PublicObjectApi.md#PostCrmV3ObjectsFeedbackSubmissionsMergeMerge) | **Post** /crm/v3/objects/feedback_submissions/merge | Merge two feedback submissions with same type
+[**PostCrmV3ObjectsFeedbackSubmissionsMergeMerge**](PublicObjectAPI.md#PostCrmV3ObjectsFeedbackSubmissionsMergeMerge) | **Post** /crm/v3/objects/feedback_submissions/merge | Merge two feedback submissions with same type
 
 
 
@@ -20,24 +20,24 @@ Merge two feedback submissions with same type
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    publicMergeInput := *openapiclient.NewPublicMergeInput("ObjectIdToMerge_example", "PrimaryObjectId_example") // PublicMergeInput | 
+	publicMergeInput := *openapiclient.NewPublicMergeInput("ObjectIdToMerge_example", "PrimaryObjectId_example") // PublicMergeInput | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PublicObjectApi.PostCrmV3ObjectsFeedbackSubmissionsMergeMerge(context.Background()).PublicMergeInput(publicMergeInput).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PublicObjectApi.PostCrmV3ObjectsFeedbackSubmissionsMergeMerge``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostCrmV3ObjectsFeedbackSubmissionsMergeMerge`: SimplePublicObject
-    fmt.Fprintf(os.Stdout, "Response from `PublicObjectApi.PostCrmV3ObjectsFeedbackSubmissionsMergeMerge`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PublicObjectAPI.PostCrmV3ObjectsFeedbackSubmissionsMergeMerge(context.Background()).PublicMergeInput(publicMergeInput).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PublicObjectAPI.PostCrmV3ObjectsFeedbackSubmissionsMergeMerge``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostCrmV3ObjectsFeedbackSubmissionsMergeMerge`: SimplePublicObject
+	fmt.Fprintf(os.Stdout, "Response from `PublicObjectAPI.PostCrmV3ObjectsFeedbackSubmissionsMergeMerge`: %v\n", resp)
 }
 ```
 

@@ -13,20 +13,20 @@ package source_code
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 
-	"github.com/clarkmcc/go-hubspot"
+	"github.com/inpher/go-hubspot"
 	"net/url"
 	"strings"
 )
 
-// ExtractApiService ExtractApi service
-type ExtractApiService service
+// ExtractAPIService ExtractAPI service
+type ExtractAPIService service
 
 type ApiExtractByPathRequest struct {
 	ctx        context.Context
-	ApiService *ExtractApiService
+	ApiService *ExtractAPIService
 	path       string
 }
 
@@ -39,13 +39,13 @@ ExtractByPath Extracts a zip file
 
 Extracts a zip file in the file system. The zip file will be extracted in-place and not be deleted automatically.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param path The file system location of the zip file.
- @return ApiExtractByPathRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param path The file system location of the zip file.
+	@return ApiExtractByPathRequest
 
 Deprecated
 */
-func (a *ExtractApiService) ExtractByPath(ctx context.Context, path string) ApiExtractByPathRequest {
+func (a *ExtractAPIService) ExtractByPath(ctx context.Context, path string) ApiExtractByPathRequest {
 	return ApiExtractByPathRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -55,20 +55,20 @@ func (a *ExtractApiService) ExtractByPath(ctx context.Context, path string) ApiE
 
 // Execute executes the request
 // Deprecated
-func (a *ExtractApiService) ExtractByPathExecute(r ApiExtractByPathRequest) (*http.Response, error) {
+func (a *ExtractAPIService) ExtractByPathExecute(r ApiExtractByPathRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExtractApiService.ExtractByPath")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExtractAPIService.ExtractByPath")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/cms/v3/source-code/extract/{path}"
-	localVarPath = strings.Replace(localVarPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"path"+"}", url.PathEscape(parameterValueToString(r.path, "path")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -111,9 +111,9 @@ func (a *ExtractApiService) ExtractByPathExecute(r ApiExtractByPathRequest) (*ht
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -129,6 +129,7 @@ func (a *ExtractApiService) ExtractByPathExecute(r ApiExtractByPathRequest) (*ht
 			newErr.error = err.Error()
 			return localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}

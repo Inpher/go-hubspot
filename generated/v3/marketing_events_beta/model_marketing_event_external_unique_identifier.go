@@ -11,8 +11,13 @@ API version: v3
 package marketing_events_beta
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the MarketingEventExternalUniqueIdentifier type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MarketingEventExternalUniqueIdentifier{}
 
 // MarketingEventExternalUniqueIdentifier struct for MarketingEventExternalUniqueIdentifier
 type MarketingEventExternalUniqueIdentifier struct {
@@ -23,6 +28,8 @@ type MarketingEventExternalUniqueIdentifier struct {
 	// The id of the application that created the marketing event in HubSpot.
 	AppId int32 `json:"appId"`
 }
+
+type _MarketingEventExternalUniqueIdentifier MarketingEventExternalUniqueIdentifier
 
 // NewMarketingEventExternalUniqueIdentifier instantiates a new MarketingEventExternalUniqueIdentifier object
 // This constructor will assign default values to properties that have it defined,
@@ -117,17 +124,58 @@ func (o *MarketingEventExternalUniqueIdentifier) SetAppId(v int32) {
 }
 
 func (o MarketingEventExternalUniqueIdentifier) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["externalAccountId"] = o.ExternalAccountId
-	}
-	if true {
-		toSerialize["externalEventId"] = o.ExternalEventId
-	}
-	if true {
-		toSerialize["appId"] = o.AppId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o MarketingEventExternalUniqueIdentifier) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["externalAccountId"] = o.ExternalAccountId
+	toSerialize["externalEventId"] = o.ExternalEventId
+	toSerialize["appId"] = o.AppId
+	return toSerialize, nil
+}
+
+func (o *MarketingEventExternalUniqueIdentifier) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"externalAccountId",
+		"externalEventId",
+		"appId",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varMarketingEventExternalUniqueIdentifier := _MarketingEventExternalUniqueIdentifier{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varMarketingEventExternalUniqueIdentifier)
+
+	if err != nil {
+		return err
+	}
+
+	*o = MarketingEventExternalUniqueIdentifier(varMarketingEventExternalUniqueIdentifier)
+
+	return err
 }
 
 type NullableMarketingEventExternalUniqueIdentifier struct {

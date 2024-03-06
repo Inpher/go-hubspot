@@ -11,9 +11,14 @@ API version: v3
 package events
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the ExternalUnifiedEvent type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ExternalUnifiedEvent{}
 
 // ExternalUnifiedEvent Used to represent any event. With this format, the `objectType` and `eventType` values are stringified CRM types. Example object: <br/> ```  {       \"objectType\": \"CONTACT\",       \"objectId\": 208451632,       \"eventType\": \"e_visited_page\",       \"occurredAt\": 1567377501421,       \"id\": \"leviathan-be3335d3-46f1-3985-988e-ff38e6e7b9d8\",       \"properties\": {           \"hs_url\": \"https://some-website.com/\",           \"hs_title\": \"Home\",           \"hs_referrer\": \"https://some-other-website.com/blog/why-we-love-big-data-and-you-should-too\",           \"hs_userAgent\": \"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.80 Safari/537.36\",           \"hs_city\": \"lund\",           \"hs_region\": \"m\",           \"hs_country\": \"se\",           \"hs_session_id\" : \"leviathan-be3335d3-46f1-3985-988e-ff38e6e7b9d8\",           \"hs_session_source\" : \"DIRECT\"       }   }       ```
 type ExternalUnifiedEvent struct {
@@ -29,6 +34,8 @@ type ExternalUnifiedEvent struct {
 	// The objectType for the object which did the event.
 	ObjectType string `json:"objectType"`
 }
+
+type _ExternalUnifiedEvent ExternalUnifiedEvent
 
 // NewExternalUnifiedEvent instantiates a new ExternalUnifiedEvent object
 // This constructor will assign default values to properties that have it defined,
@@ -150,7 +157,7 @@ func (o *ExternalUnifiedEvent) SetObjectId(v string) {
 
 // GetProperties returns the Properties field value if set, zero value otherwise.
 func (o *ExternalUnifiedEvent) GetProperties() map[string]string {
-	if o == nil || o.Properties == nil {
+	if o == nil || IsNil(o.Properties) {
 		var ret map[string]string
 		return ret
 	}
@@ -160,7 +167,7 @@ func (o *ExternalUnifiedEvent) GetProperties() map[string]string {
 // GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExternalUnifiedEvent) GetPropertiesOk() (*map[string]string, bool) {
-	if o == nil || o.Properties == nil {
+	if o == nil || IsNil(o.Properties) {
 		return nil, false
 	}
 	return o.Properties, true
@@ -168,7 +175,7 @@ func (o *ExternalUnifiedEvent) GetPropertiesOk() (*map[string]string, bool) {
 
 // HasProperties returns a boolean if a field has been set.
 func (o *ExternalUnifiedEvent) HasProperties() bool {
-	if o != nil && o.Properties != nil {
+	if o != nil && !IsNil(o.Properties) {
 		return true
 	}
 
@@ -205,26 +212,65 @@ func (o *ExternalUnifiedEvent) SetObjectType(v string) {
 }
 
 func (o ExternalUnifiedEvent) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["occurredAt"] = o.OccurredAt
-	}
-	if true {
-		toSerialize["eventType"] = o.EventType
-	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["objectId"] = o.ObjectId
-	}
-	if o.Properties != nil {
-		toSerialize["properties"] = o.Properties
-	}
-	if true {
-		toSerialize["objectType"] = o.ObjectType
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ExternalUnifiedEvent) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["occurredAt"] = o.OccurredAt
+	toSerialize["eventType"] = o.EventType
+	toSerialize["id"] = o.Id
+	toSerialize["objectId"] = o.ObjectId
+	if !IsNil(o.Properties) {
+		toSerialize["properties"] = o.Properties
+	}
+	toSerialize["objectType"] = o.ObjectType
+	return toSerialize, nil
+}
+
+func (o *ExternalUnifiedEvent) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"occurredAt",
+		"eventType",
+		"id",
+		"objectId",
+		"objectType",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varExternalUnifiedEvent := _ExternalUnifiedEvent{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varExternalUnifiedEvent)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ExternalUnifiedEvent(varExternalUnifiedEvent)
+
+	return err
 }
 
 type NullableExternalUnifiedEvent struct {

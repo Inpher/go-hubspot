@@ -2,11 +2,11 @@
 .travis.yml
 README.md
 api/openapi.yaml
-api_behavioral_events_tracking.go
+api_custom_event_data.go
 client.go
 configuration.go
 docs/BehavioralEventHttpCompletionRequest.md
-docs/BehavioralEventsTrackingApi.md
+docs/CustomEventDataAPI.md
 docs/Error.md
 docs/ErrorDetail.md
 git_push.sh

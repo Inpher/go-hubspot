@@ -11,8 +11,13 @@ API version: v3
 package authors
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the StandardError type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &StandardError{}
 
 // StandardError Model definition for a standard error.
 type StandardError struct {
@@ -33,6 +38,8 @@ type StandardError struct {
 	// Error status.
 	Status string `json:"status"`
 }
+
+type _StandardError StandardError
 
 // NewStandardError instantiates a new StandardError object
 // This constructor will assign default values to properties that have it defined,
@@ -59,7 +66,7 @@ func NewStandardErrorWithDefaults() *StandardError {
 
 // GetSubCategory returns the SubCategory field value if set, zero value otherwise.
 func (o *StandardError) GetSubCategory() map[string]interface{} {
-	if o == nil || o.SubCategory == nil {
+	if o == nil || IsNil(o.SubCategory) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -69,15 +76,15 @@ func (o *StandardError) GetSubCategory() map[string]interface{} {
 // GetSubCategoryOk returns a tuple with the SubCategory field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StandardError) GetSubCategoryOk() (map[string]interface{}, bool) {
-	if o == nil || o.SubCategory == nil {
-		return nil, false
+	if o == nil || IsNil(o.SubCategory) {
+		return map[string]interface{}{}, false
 	}
 	return o.SubCategory, true
 }
 
 // HasSubCategory returns a boolean if a field has been set.
 func (o *StandardError) HasSubCategory() bool {
-	if o != nil && o.SubCategory != nil {
+	if o != nil && !IsNil(o.SubCategory) {
 		return true
 	}
 
@@ -139,7 +146,7 @@ func (o *StandardError) SetLinks(v map[string]string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *StandardError) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -149,7 +156,7 @@ func (o *StandardError) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StandardError) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -157,7 +164,7 @@ func (o *StandardError) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *StandardError) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -266,32 +273,70 @@ func (o *StandardError) SetStatus(v string) {
 }
 
 func (o StandardError) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.SubCategory != nil {
-		toSerialize["subCategory"] = o.SubCategory
-	}
-	if true {
-		toSerialize["context"] = o.Context
-	}
-	if true {
-		toSerialize["links"] = o.Links
-	}
-	if o.Id != nil {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["category"] = o.Category
-	}
-	if true {
-		toSerialize["message"] = o.Message
-	}
-	if true {
-		toSerialize["errors"] = o.Errors
-	}
-	if true {
-		toSerialize["status"] = o.Status
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o StandardError) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.SubCategory) {
+		toSerialize["subCategory"] = o.SubCategory
+	}
+	toSerialize["context"] = o.Context
+	toSerialize["links"] = o.Links
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	toSerialize["category"] = o.Category
+	toSerialize["message"] = o.Message
+	toSerialize["errors"] = o.Errors
+	toSerialize["status"] = o.Status
+	return toSerialize, nil
+}
+
+func (o *StandardError) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"context",
+		"links",
+		"category",
+		"message",
+		"errors",
+		"status",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varStandardError := _StandardError{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varStandardError)
+
+	if err != nil {
+		return err
+	}
+
+	*o = StandardError(varStandardError)
+
+	return err
 }
 
 type NullableStandardError struct {

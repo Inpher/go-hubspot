@@ -13,21 +13,21 @@ package imports
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 
-	"github.com/clarkmcc/go-hubspot"
+	"github.com/inpher/go-hubspot"
 	"net/url"
 	"os"
 	"strings"
 )
 
-// CoreApiService CoreApi service
-type CoreApiService service
+// CoreAPIService CoreAPI service
+type CoreAPIService service
 
 type ApiCancelRequest struct {
 	ctx        context.Context
-	ApiService *CoreApiService
+	ApiService *CoreAPIService
 	importId   int64
 }
 
@@ -40,11 +40,11 @@ Cancel Cancel an active import
 
 This allows a developer to cancel an active import.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param importId
- @return ApiCancelRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param importId
+	@return ApiCancelRequest
 */
-func (a *CoreApiService) Cancel(ctx context.Context, importId int64) ApiCancelRequest {
+func (a *CoreAPIService) Cancel(ctx context.Context, importId int64) ApiCancelRequest {
 	return ApiCancelRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -53,8 +53,9 @@ func (a *CoreApiService) Cancel(ctx context.Context, importId int64) ApiCancelRe
 }
 
 // Execute executes the request
-//  @return ActionResponse
-func (a *CoreApiService) CancelExecute(r ApiCancelRequest) (*ActionResponse, *http.Response, error) {
+//
+//	@return ActionResponse
+func (a *CoreAPIService) CancelExecute(r ApiCancelRequest) (*ActionResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -62,13 +63,13 @@ func (a *CoreApiService) CancelExecute(r ApiCancelRequest) (*ActionResponse, *ht
 		localVarReturnValue *ActionResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CoreApiService.Cancel")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CoreAPIService.Cancel")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/imports/{importId}/cancel"
-	localVarPath = strings.Replace(localVarPath, "{"+"importId"+"}", url.PathEscape(parameterToString(r.importId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"importId"+"}", url.PathEscape(parameterValueToString(r.importId, "importId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -111,9 +112,9 @@ func (a *CoreApiService) CancelExecute(r ApiCancelRequest) (*ActionResponse, *ht
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -129,6 +130,7 @@ func (a *CoreApiService) CancelExecute(r ApiCancelRequest) (*ActionResponse, *ht
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -147,14 +149,14 @@ func (a *CoreApiService) CancelExecute(r ApiCancelRequest) (*ActionResponse, *ht
 
 type ApiCreateRequest struct {
 	ctx           context.Context
-	ApiService    *CoreApiService
-	files         **os.File
+	ApiService    *CoreAPIService
+	files         *os.File
 	importRequest *string
 }
 
 // A list of files containing the data to import
 func (r ApiCreateRequest) Files(files *os.File) ApiCreateRequest {
-	r.files = &files
+	r.files = files
 	return r
 }
 
@@ -173,10 +175,10 @@ Create Start a new import
 
 Begins importing data from the specified file resources. This uploads the corresponding file and uses the import request object to convert rows in the files to objects.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateRequest
 */
-func (a *CoreApiService) Create(ctx context.Context) ApiCreateRequest {
+func (a *CoreAPIService) Create(ctx context.Context) ApiCreateRequest {
 	return ApiCreateRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -184,8 +186,9 @@ func (a *CoreApiService) Create(ctx context.Context) ApiCreateRequest {
 }
 
 // Execute executes the request
-//  @return PublicImportResponse
-func (a *CoreApiService) CreateExecute(r ApiCreateRequest) (*PublicImportResponse, *http.Response, error) {
+//
+//	@return PublicImportResponse
+func (a *CoreAPIService) CreateExecute(r ApiCreateRequest) (*PublicImportResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -193,7 +196,7 @@ func (a *CoreApiService) CreateExecute(r ApiCreateRequest) (*PublicImportRespons
 		localVarReturnValue *PublicImportResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CoreApiService.Create")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CoreAPIService.Create")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -226,20 +229,18 @@ func (a *CoreApiService) CreateExecute(r ApiCreateRequest) (*PublicImportRespons
 	var filesLocalVarFileBytes []byte
 
 	filesLocalVarFormFileName = "files"
+	filesLocalVarFile := r.files
 
-	var filesLocalVarFile *os.File
-	if r.files != nil {
-		filesLocalVarFile = *r.files
-	}
 	if filesLocalVarFile != nil {
-		fbs, _ := ioutil.ReadAll(filesLocalVarFile)
+		fbs, _ := io.ReadAll(filesLocalVarFile)
+
 		filesLocalVarFileBytes = fbs
 		filesLocalVarFileName = filesLocalVarFile.Name()
 		filesLocalVarFile.Close()
+		formFiles = append(formFiles, formFile{fileBytes: filesLocalVarFileBytes, fileName: filesLocalVarFileName, formFileName: filesLocalVarFormFileName})
 	}
-	formFiles = append(formFiles, formFile{fileBytes: filesLocalVarFileBytes, fileName: filesLocalVarFileName, formFileName: filesLocalVarFormFileName})
 	if r.importRequest != nil {
-		localVarFormParams.Add("importRequest", parameterToString(*r.importRequest, ""))
+		parameterAddToHeaderOrQuery(localVarFormParams, "importRequest", r.importRequest, "")
 	}
 	if r.ctx != nil {
 		// API Key Authentication
@@ -261,9 +262,9 @@ func (a *CoreApiService) CreateExecute(r ApiCreateRequest) (*PublicImportRespons
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -279,6 +280,7 @@ func (a *CoreApiService) CreateExecute(r ApiCreateRequest) (*PublicImportRespons
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -297,7 +299,7 @@ func (a *CoreApiService) CreateExecute(r ApiCreateRequest) (*PublicImportRespons
 
 type ApiGetByIDRequest struct {
 	ctx        context.Context
-	ApiService *CoreApiService
+	ApiService *CoreAPIService
 	importId   int64
 }
 
@@ -310,11 +312,11 @@ GetByID Get the information on any import
 
 A complete summary of an import record, including any updates.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param importId
- @return ApiGetByIDRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param importId
+	@return ApiGetByIDRequest
 */
-func (a *CoreApiService) GetByID(ctx context.Context, importId int64) ApiGetByIDRequest {
+func (a *CoreAPIService) GetByID(ctx context.Context, importId int64) ApiGetByIDRequest {
 	return ApiGetByIDRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -323,8 +325,9 @@ func (a *CoreApiService) GetByID(ctx context.Context, importId int64) ApiGetByID
 }
 
 // Execute executes the request
-//  @return PublicImportResponse
-func (a *CoreApiService) GetByIDExecute(r ApiGetByIDRequest) (*PublicImportResponse, *http.Response, error) {
+//
+//	@return PublicImportResponse
+func (a *CoreAPIService) GetByIDExecute(r ApiGetByIDRequest) (*PublicImportResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -332,13 +335,13 @@ func (a *CoreApiService) GetByIDExecute(r ApiGetByIDRequest) (*PublicImportRespo
 		localVarReturnValue *PublicImportResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CoreApiService.GetByID")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CoreAPIService.GetByID")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/imports/{importId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"importId"+"}", url.PathEscape(parameterToString(r.importId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"importId"+"}", url.PathEscape(parameterValueToString(r.importId, "importId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -381,9 +384,9 @@ func (a *CoreApiService) GetByIDExecute(r ApiGetByIDRequest) (*PublicImportRespo
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -399,6 +402,7 @@ func (a *CoreApiService) GetByIDExecute(r ApiGetByIDRequest) (*PublicImportRespo
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -417,7 +421,7 @@ func (a *CoreApiService) GetByIDExecute(r ApiGetByIDRequest) (*PublicImportRespo
 
 type ApiGetPageRequest struct {
 	ctx        context.Context
-	ApiService *CoreApiService
+	ApiService *CoreAPIService
 	after      *string
 	before     *string
 	limit      *int32
@@ -449,10 +453,10 @@ GetPage Get active imports
 
 Returns a paged list of active imports for this account.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetPageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetPageRequest
 */
-func (a *CoreApiService) GetPage(ctx context.Context) ApiGetPageRequest {
+func (a *CoreAPIService) GetPage(ctx context.Context) ApiGetPageRequest {
 	return ApiGetPageRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -460,8 +464,9 @@ func (a *CoreApiService) GetPage(ctx context.Context) ApiGetPageRequest {
 }
 
 // Execute executes the request
-//  @return CollectionResponsePublicImportResponse
-func (a *CoreApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionResponsePublicImportResponse, *http.Response, error) {
+//
+//	@return CollectionResponsePublicImportResponse
+func (a *CoreAPIService) GetPageExecute(r ApiGetPageRequest) (*CollectionResponsePublicImportResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -469,7 +474,7 @@ func (a *CoreApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionRespons
 		localVarReturnValue *CollectionResponsePublicImportResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CoreApiService.GetPage")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CoreAPIService.GetPage")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -481,13 +486,13 @@ func (a *CoreApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionRespons
 	localVarFormParams := url.Values{}
 
 	if r.after != nil {
-		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "after", r.after, "")
 	}
 	if r.before != nil {
-		localVarQueryParams.Add("before", parameterToString(*r.before, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "before", r.before, "")
 	}
 	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -526,9 +531,9 @@ func (a *CoreApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionRespons
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -544,6 +549,7 @@ func (a *CoreApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionRespons
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

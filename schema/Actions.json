@@ -165,7 +165,9 @@
             "$ref" : "#/components/responses/Error"
           }
         },
-        "security" : [ ]
+        "security" : [ {
+          "developer_hapikey" : [ ]
+        } ]
       },
       "post" : {
         "tags" : [ "Definitions" ],
@@ -207,7 +209,9 @@
             "$ref" : "#/components/responses/Error"
           }
         },
-        "security" : [ ]
+        "security" : [ {
+          "developer_hapikey" : [ ]
+        } ]
       }
     },
     "/automation/v4/actions/{appId}/{definitionId}/functions" : {
@@ -250,7 +254,9 @@
             "$ref" : "#/components/responses/Error"
           }
         },
-        "security" : [ ]
+        "security" : [ {
+          "developer_hapikey" : [ ]
+        } ]
       }
     },
     "/automation/v4/actions/{appId}/{definitionId}/functions/{functionType}" : {
@@ -303,7 +309,9 @@
             "$ref" : "#/components/responses/Error"
           }
         },
-        "security" : [ ]
+        "security" : [ {
+          "developer_hapikey" : [ ]
+        } ]
       },
       "put" : {
         "tags" : [ "Functions" ],
@@ -364,7 +372,9 @@
             "$ref" : "#/components/responses/Error"
           }
         },
-        "security" : [ ]
+        "security" : [ {
+          "developer_hapikey" : [ ]
+        } ]
       },
       "delete" : {
         "tags" : [ "Functions" ],
@@ -409,7 +419,9 @@
             "$ref" : "#/components/responses/Error"
           }
         },
-        "security" : [ ]
+        "security" : [ {
+          "developer_hapikey" : [ ]
+        } ]
       }
     },
     "/automation/v4/actions/{appId}/{definitionId}/revisions/{revisionId}" : {
@@ -461,7 +473,9 @@
             "$ref" : "#/components/responses/Error"
           }
         },
-        "security" : [ ]
+        "security" : [ {
+          "developer_hapikey" : [ ]
+        } ]
       }
     },
     "/automation/v4/actions/{appId}/{definitionId}" : {
@@ -515,7 +529,9 @@
             "$ref" : "#/components/responses/Error"
           }
         },
-        "security" : [ ]
+        "security" : [ {
+          "developer_hapikey" : [ ]
+        } ]
       },
       "delete" : {
         "tags" : [ "Definitions" ],
@@ -550,7 +566,9 @@
             "$ref" : "#/components/responses/Error"
           }
         },
-        "security" : [ ]
+        "security" : [ {
+          "developer_hapikey" : [ ]
+        } ]
       },
       "patch" : {
         "tags" : [ "Definitions" ],
@@ -601,7 +619,9 @@
             "$ref" : "#/components/responses/Error"
           }
         },
-        "security" : [ ]
+        "security" : [ {
+          "developer_hapikey" : [ ]
+        } ]
       }
     },
     "/automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId}" : {
@@ -663,7 +683,9 @@
             "$ref" : "#/components/responses/Error"
           }
         },
-        "security" : [ ]
+        "security" : [ {
+          "developer_hapikey" : [ ]
+        } ]
       },
       "put" : {
         "tags" : [ "Functions" ],
@@ -733,7 +755,9 @@
             "$ref" : "#/components/responses/Error"
           }
         },
-        "security" : [ ]
+        "security" : [ {
+          "developer_hapikey" : [ ]
+        } ]
       },
       "delete" : {
         "tags" : [ "Functions" ],
@@ -787,7 +811,9 @@
             "$ref" : "#/components/responses/Error"
           }
         },
-        "security" : [ ]
+        "security" : [ {
+          "developer_hapikey" : [ ]
+        } ]
       }
     },
     "/automation/v4/actions/{appId}/{definitionId}/revisions" : {
@@ -851,7 +877,9 @@
             "$ref" : "#/components/responses/Error"
           }
         },
-        "security" : [ ]
+        "security" : [ {
+          "developer_hapikey" : [ ]
+        } ]
       }
     }
   },
@@ -1549,6 +1577,11 @@
             }
           }
         }
+      },
+      "developer_hapikey" : {
+        "type" : "apiKey",
+        "name" : "hapikey",
+        "in" : "query"
       },
       "private_apps_legacy" : {
         "type" : "apiKey",

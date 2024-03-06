@@ -11,8 +11,13 @@ API version: v3
 package tags
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the NextPage type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NextPage{}
 
 // NextPage Model definition for a next page.
 type NextPage struct {
@@ -21,6 +26,8 @@ type NextPage struct {
 	//
 	After string `json:"after"`
 }
+
+type _NextPage NextPage
 
 // NewNextPage instantiates a new NextPage object
 // This constructor will assign default values to properties that have it defined,
@@ -42,7 +49,7 @@ func NewNextPageWithDefaults() *NextPage {
 
 // GetLink returns the Link field value if set, zero value otherwise.
 func (o *NextPage) GetLink() string {
-	if o == nil || o.Link == nil {
+	if o == nil || IsNil(o.Link) {
 		var ret string
 		return ret
 	}
@@ -52,7 +59,7 @@ func (o *NextPage) GetLink() string {
 // GetLinkOk returns a tuple with the Link field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NextPage) GetLinkOk() (*string, bool) {
-	if o == nil || o.Link == nil {
+	if o == nil || IsNil(o.Link) {
 		return nil, false
 	}
 	return o.Link, true
@@ -60,7 +67,7 @@ func (o *NextPage) GetLinkOk() (*string, bool) {
 
 // HasLink returns a boolean if a field has been set.
 func (o *NextPage) HasLink() bool {
-	if o != nil && o.Link != nil {
+	if o != nil && !IsNil(o.Link) {
 		return true
 	}
 
@@ -97,14 +104,57 @@ func (o *NextPage) SetAfter(v string) {
 }
 
 func (o NextPage) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Link != nil {
-		toSerialize["link"] = o.Link
-	}
-	if true {
-		toSerialize["after"] = o.After
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o NextPage) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Link) {
+		toSerialize["link"] = o.Link
+	}
+	toSerialize["after"] = o.After
+	return toSerialize, nil
+}
+
+func (o *NextPage) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"after",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varNextPage := _NextPage{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varNextPage)
+
+	if err != nil {
+		return err
+	}
+
+	*o = NextPage(varNextPage)
+
+	return err
 }
 
 type NullableNextPage struct {

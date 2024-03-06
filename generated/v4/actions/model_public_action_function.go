@@ -11,8 +11,13 @@ API version: v4
 package actions
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the PublicActionFunction type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PublicActionFunction{}
 
 // PublicActionFunction struct for PublicActionFunction
 type PublicActionFunction struct {
@@ -20,6 +25,8 @@ type PublicActionFunction struct {
 	FunctionType   string  `json:"functionType"`
 	Id             *string `json:"id,omitempty"`
 }
+
+type _PublicActionFunction PublicActionFunction
 
 // NewPublicActionFunction instantiates a new PublicActionFunction object
 // This constructor will assign default values to properties that have it defined,
@@ -90,7 +97,7 @@ func (o *PublicActionFunction) SetFunctionType(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *PublicActionFunction) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -100,7 +107,7 @@ func (o *PublicActionFunction) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicActionFunction) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -108,7 +115,7 @@ func (o *PublicActionFunction) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *PublicActionFunction) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -121,17 +128,59 @@ func (o *PublicActionFunction) SetId(v string) {
 }
 
 func (o PublicActionFunction) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["functionSource"] = o.FunctionSource
-	}
-	if true {
-		toSerialize["functionType"] = o.FunctionType
-	}
-	if o.Id != nil {
-		toSerialize["id"] = o.Id
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PublicActionFunction) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["functionSource"] = o.FunctionSource
+	toSerialize["functionType"] = o.FunctionType
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	return toSerialize, nil
+}
+
+func (o *PublicActionFunction) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"functionSource",
+		"functionType",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPublicActionFunction := _PublicActionFunction{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPublicActionFunction)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PublicActionFunction(varPublicActionFunction)
+
+	return err
 }
 
 type NullablePublicActionFunction struct {

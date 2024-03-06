@@ -11,9 +11,14 @@ API version: v3
 package calling
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the SettingsResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SettingsResponse{}
 
 // SettingsResponse Current settings state
 type SettingsResponse struct {
@@ -34,6 +39,8 @@ type SettingsResponse struct {
 	// The last time the settings for this calling extension were modified.
 	UpdatedAt time.Time `json:"updatedAt"`
 }
+
+type _SettingsResponse SettingsResponse
 
 // NewSettingsResponse instantiates a new SettingsResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -253,32 +260,68 @@ func (o *SettingsResponse) SetUpdatedAt(v time.Time) {
 }
 
 func (o SettingsResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if true {
-		toSerialize["supportsCustomObjects"] = o.SupportsCustomObjects
-	}
-	if true {
-		toSerialize["isReady"] = o.IsReady
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["width"] = o.Width
-	}
-	if true {
-		toSerialize["url"] = o.Url
-	}
-	if true {
-		toSerialize["height"] = o.Height
-	}
-	if true {
-		toSerialize["updatedAt"] = o.UpdatedAt
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SettingsResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["createdAt"] = o.CreatedAt
+	toSerialize["supportsCustomObjects"] = o.SupportsCustomObjects
+	toSerialize["isReady"] = o.IsReady
+	toSerialize["name"] = o.Name
+	toSerialize["width"] = o.Width
+	toSerialize["url"] = o.Url
+	toSerialize["height"] = o.Height
+	toSerialize["updatedAt"] = o.UpdatedAt
+	return toSerialize, nil
+}
+
+func (o *SettingsResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"createdAt",
+		"supportsCustomObjects",
+		"isReady",
+		"name",
+		"width",
+		"url",
+		"height",
+		"updatedAt",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSettingsResponse := _SettingsResponse{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varSettingsResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SettingsResponse(varSettingsResponse)
+
+	return err
 }
 
 type NullableSettingsResponse struct {

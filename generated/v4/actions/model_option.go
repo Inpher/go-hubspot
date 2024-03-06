@@ -11,8 +11,13 @@ API version: v4
 package actions
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the Option type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Option{}
 
 // Option struct for Option
 type Option struct {
@@ -24,6 +29,8 @@ type Option struct {
 	Label        string  `json:"label"`
 	Value        string  `json:"value"`
 }
+
+type _Option Option
 
 // NewOption instantiates a new Option object
 // This constructor will assign default values to properties that have it defined,
@@ -218,29 +225,66 @@ func (o *Option) SetValue(v string) {
 }
 
 func (o Option) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["hidden"] = o.Hidden
-	}
-	if true {
-		toSerialize["displayOrder"] = o.DisplayOrder
-	}
-	if true {
-		toSerialize["doubleData"] = o.DoubleData
-	}
-	if true {
-		toSerialize["description"] = o.Description
-	}
-	if true {
-		toSerialize["readOnly"] = o.ReadOnly
-	}
-	if true {
-		toSerialize["label"] = o.Label
-	}
-	if true {
-		toSerialize["value"] = o.Value
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Option) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["hidden"] = o.Hidden
+	toSerialize["displayOrder"] = o.DisplayOrder
+	toSerialize["doubleData"] = o.DoubleData
+	toSerialize["description"] = o.Description
+	toSerialize["readOnly"] = o.ReadOnly
+	toSerialize["label"] = o.Label
+	toSerialize["value"] = o.Value
+	return toSerialize, nil
+}
+
+func (o *Option) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"hidden",
+		"displayOrder",
+		"doubleData",
+		"description",
+		"readOnly",
+		"label",
+		"value",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varOption := _Option{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varOption)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Option(varOption)
+
+	return err
 }
 
 type NullableOption struct {

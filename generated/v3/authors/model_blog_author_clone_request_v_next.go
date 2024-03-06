@@ -11,8 +11,13 @@ API version: v3
 package authors
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the BlogAuthorCloneRequestVNext type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BlogAuthorCloneRequestVNext{}
 
 // BlogAuthorCloneRequestVNext Request body object for cloning blog authors.
 type BlogAuthorCloneRequestVNext struct {
@@ -24,6 +29,8 @@ type BlogAuthorCloneRequestVNext struct {
 	PrimaryLanguage *string    `json:"primaryLanguage,omitempty"`
 	BlogAuthor      BlogAuthor `json:"blogAuthor"`
 }
+
+type _BlogAuthorCloneRequestVNext BlogAuthorCloneRequestVNext
 
 // NewBlogAuthorCloneRequestVNext instantiates a new BlogAuthorCloneRequestVNext object
 // This constructor will assign default values to properties that have it defined,
@@ -46,7 +53,7 @@ func NewBlogAuthorCloneRequestVNextWithDefaults() *BlogAuthorCloneRequestVNext {
 
 // GetLanguage returns the Language field value if set, zero value otherwise.
 func (o *BlogAuthorCloneRequestVNext) GetLanguage() string {
-	if o == nil || o.Language == nil {
+	if o == nil || IsNil(o.Language) {
 		var ret string
 		return ret
 	}
@@ -56,7 +63,7 @@ func (o *BlogAuthorCloneRequestVNext) GetLanguage() string {
 // GetLanguageOk returns a tuple with the Language field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BlogAuthorCloneRequestVNext) GetLanguageOk() (*string, bool) {
-	if o == nil || o.Language == nil {
+	if o == nil || IsNil(o.Language) {
 		return nil, false
 	}
 	return o.Language, true
@@ -64,7 +71,7 @@ func (o *BlogAuthorCloneRequestVNext) GetLanguageOk() (*string, bool) {
 
 // HasLanguage returns a boolean if a field has been set.
 func (o *BlogAuthorCloneRequestVNext) HasLanguage() bool {
-	if o != nil && o.Language != nil {
+	if o != nil && !IsNil(o.Language) {
 		return true
 	}
 
@@ -102,7 +109,7 @@ func (o *BlogAuthorCloneRequestVNext) SetId(v string) {
 
 // GetPrimaryLanguage returns the PrimaryLanguage field value if set, zero value otherwise.
 func (o *BlogAuthorCloneRequestVNext) GetPrimaryLanguage() string {
-	if o == nil || o.PrimaryLanguage == nil {
+	if o == nil || IsNil(o.PrimaryLanguage) {
 		var ret string
 		return ret
 	}
@@ -112,7 +119,7 @@ func (o *BlogAuthorCloneRequestVNext) GetPrimaryLanguage() string {
 // GetPrimaryLanguageOk returns a tuple with the PrimaryLanguage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BlogAuthorCloneRequestVNext) GetPrimaryLanguageOk() (*string, bool) {
-	if o == nil || o.PrimaryLanguage == nil {
+	if o == nil || IsNil(o.PrimaryLanguage) {
 		return nil, false
 	}
 	return o.PrimaryLanguage, true
@@ -120,7 +127,7 @@ func (o *BlogAuthorCloneRequestVNext) GetPrimaryLanguageOk() (*string, bool) {
 
 // HasPrimaryLanguage returns a boolean if a field has been set.
 func (o *BlogAuthorCloneRequestVNext) HasPrimaryLanguage() bool {
-	if o != nil && o.PrimaryLanguage != nil {
+	if o != nil && !IsNil(o.PrimaryLanguage) {
 		return true
 	}
 
@@ -157,20 +164,62 @@ func (o *BlogAuthorCloneRequestVNext) SetBlogAuthor(v BlogAuthor) {
 }
 
 func (o BlogAuthorCloneRequestVNext) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Language != nil {
-		toSerialize["language"] = o.Language
-	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if o.PrimaryLanguage != nil {
-		toSerialize["primaryLanguage"] = o.PrimaryLanguage
-	}
-	if true {
-		toSerialize["blogAuthor"] = o.BlogAuthor
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o BlogAuthorCloneRequestVNext) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Language) {
+		toSerialize["language"] = o.Language
+	}
+	toSerialize["id"] = o.Id
+	if !IsNil(o.PrimaryLanguage) {
+		toSerialize["primaryLanguage"] = o.PrimaryLanguage
+	}
+	toSerialize["blogAuthor"] = o.BlogAuthor
+	return toSerialize, nil
+}
+
+func (o *BlogAuthorCloneRequestVNext) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"blogAuthor",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varBlogAuthorCloneRequestVNext := _BlogAuthorCloneRequestVNext{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varBlogAuthorCloneRequestVNext)
+
+	if err != nil {
+		return err
+	}
+
+	*o = BlogAuthorCloneRequestVNext(varBlogAuthorCloneRequestVNext)
+
+	return err
 }
 
 type NullableBlogAuthorCloneRequestVNext struct {

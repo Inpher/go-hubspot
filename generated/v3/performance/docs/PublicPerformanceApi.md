@@ -1,11 +1,11 @@
-# \PublicPerformanceApi
+# \PublicPerformanceAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetPage**](PublicPerformanceApi.md#GetPage) | **Get** /cms/v3/performance/ | View your website&#39;s performance.
-[**GetUptime**](PublicPerformanceApi.md#GetUptime) | **Get** /cms/v3/performance/uptime | View your website&#39;s uptime.
+[**GetPage**](PublicPerformanceAPI.md#GetPage) | **Get** /cms/v3/performance/ | View your website&#39;s performance.
+[**GetUptime**](PublicPerformanceAPI.md#GetUptime) | **Get** /cms/v3/performance/uptime | View your website&#39;s uptime.
 
 
 
@@ -23,31 +23,31 @@ View your website's performance.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    domain := "domain_example" // string | The domain to search return data for. (optional)
-    path := "path_example" // string | The url path of the domain to return data for. (optional)
-    pad := true // bool | Specifies whether the time series data should have empty intervals if performance data is not present to create a continuous set. (optional)
-    sum := true // bool | Specifies whether the time series data should be summated for the given period. Defaults to false. (optional)
-    period := "period_example" // string | A relative period to return time series data for. This value is ignored if start and/or end are provided. Valid periods: [15m, 30m, 1h, 4h, 12h, 1d, 1w] (optional)
-    interval := "interval_example" // string | The time series interval to group data by. Valid intervals: [1m, 5m, 15m, 30m, 1h, 4h, 12h, 1d, 1w] (optional)
-    start := int64(789) // int64 | A timestamp in milliseconds that indicates the start of the time period. (optional)
-    end := int64(789) // int64 | A timestamp in milliseconds that indicates the end of the time period. (optional)
+	domain := "domain_example" // string | The domain to search return data for. (optional)
+	path := "path_example" // string | The url path of the domain to return data for. (optional)
+	pad := true // bool | Specifies whether the time series data should have empty intervals if performance data is not present to create a continuous set. (optional)
+	sum := true // bool | Specifies whether the time series data should be summated for the given period. Defaults to false. (optional)
+	period := "period_example" // string | A relative period to return time series data for. This value is ignored if start and/or end are provided. Valid periods: [15m, 30m, 1h, 4h, 12h, 1d, 1w] (optional)
+	interval := "interval_example" // string | The time series interval to group data by. Valid intervals: [1m, 5m, 15m, 30m, 1h, 4h, 12h, 1d, 1w] (optional)
+	start := int64(789) // int64 | A timestamp in milliseconds that indicates the start of the time period. (optional)
+	end := int64(789) // int64 | A timestamp in milliseconds that indicates the end of the time period. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PublicPerformanceApi.GetPage(context.Background()).Domain(domain).Path(path).Pad(pad).Sum(sum).Period(period).Interval(interval).Start(start).End(end).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PublicPerformanceApi.GetPage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetPage`: PublicPerformanceResponse
-    fmt.Fprintf(os.Stdout, "Response from `PublicPerformanceApi.GetPage`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PublicPerformanceAPI.GetPage(context.Background()).Domain(domain).Path(path).Pad(pad).Sum(sum).Period(period).Interval(interval).Start(start).End(end).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PublicPerformanceAPI.GetPage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetPage`: PublicPerformanceResponse
+	fmt.Fprintf(os.Stdout, "Response from `PublicPerformanceAPI.GetPage`: %v\n", resp)
 }
 ```
 
@@ -103,31 +103,31 @@ View your website's uptime.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    domain := "domain_example" // string | The domain to search return data for. (optional)
-    path := "path_example" // string |  (optional)
-    pad := true // bool | Specifies whether the time series data should have empty intervals if performance data is not present to create a continuous set. (optional)
-    sum := true // bool | Specifies whether the time series data should be summated for the given period. Defaults to false. (optional)
-    period := "period_example" // string | A relative period to return time series data for. This value is ignored if start and/or end are provided. Valid periods: [15m, 30m, 1h, 4h, 12h, 1d, 1w] (optional)
-    interval := "interval_example" // string | The time series interval to group data by. Valid intervals: [1m, 5m, 15m, 30m, 1h, 4h, 12h, 1d, 1w] (optional)
-    start := int64(789) // int64 | A timestamp in milliseconds that indicates the start of the time period. (optional)
-    end := int64(789) // int64 | A timestamp in milliseconds that indicates the end of the time period. (optional)
+	domain := "domain_example" // string | The domain to search return data for. (optional)
+	path := "path_example" // string |  (optional)
+	pad := true // bool | Specifies whether the time series data should have empty intervals if performance data is not present to create a continuous set. (optional)
+	sum := true // bool | Specifies whether the time series data should be summated for the given period. Defaults to false. (optional)
+	period := "period_example" // string | A relative period to return time series data for. This value is ignored if start and/or end are provided. Valid periods: [15m, 30m, 1h, 4h, 12h, 1d, 1w] (optional)
+	interval := "interval_example" // string | The time series interval to group data by. Valid intervals: [1m, 5m, 15m, 30m, 1h, 4h, 12h, 1d, 1w] (optional)
+	start := int64(789) // int64 | A timestamp in milliseconds that indicates the start of the time period. (optional)
+	end := int64(789) // int64 | A timestamp in milliseconds that indicates the end of the time period. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PublicPerformanceApi.GetUptime(context.Background()).Domain(domain).Path(path).Pad(pad).Sum(sum).Period(period).Interval(interval).Start(start).End(end).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PublicPerformanceApi.GetUptime``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetUptime`: PublicPerformanceResponse
-    fmt.Fprintf(os.Stdout, "Response from `PublicPerformanceApi.GetUptime`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PublicPerformanceAPI.GetUptime(context.Background()).Domain(domain).Path(path).Pad(pad).Sum(sum).Period(period).Interval(interval).Start(start).End(end).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PublicPerformanceAPI.GetUptime``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetUptime`: PublicPerformanceResponse
+	fmt.Fprintf(os.Stdout, "Response from `PublicPerformanceAPI.GetUptime`: %v\n", resp)
 }
 ```
 

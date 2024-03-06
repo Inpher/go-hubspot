@@ -15,7 +15,7 @@ docs/BatchResponseBlogPost.md
 docs/BatchResponseBlogPostWithErrors.md
 docs/BlogPost.md
 docs/BlogPostLanguageCloneRequestVNext.md
-docs/BlogPostsApi.md
+docs/BlogPostsAPI.md
 docs/CollectionResponseWithTotalBlogPostForwardPaging.md
 docs/CollectionResponseWithTotalVersionBlogPost.md
 docs/ColorStop.md

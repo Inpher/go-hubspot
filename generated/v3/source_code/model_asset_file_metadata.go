@@ -11,8 +11,13 @@ API version: v3
 package source_code
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the AssetFileMetadata type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AssetFileMetadata{}
 
 // AssetFileMetadata The object metadata of a file.
 type AssetFileMetadata struct {
@@ -32,6 +37,8 @@ type AssetFileMetadata struct {
 	// Timestamp of when the object was last updated.
 	UpdatedAt int32 `json:"updatedAt"`
 }
+
+type _AssetFileMetadata AssetFileMetadata
 
 // NewAssetFileMetadata instantiates a new AssetFileMetadata object
 // This constructor will assign default values to properties that have it defined,
@@ -81,7 +88,7 @@ func (o *AssetFileMetadata) SetCreatedAt(v int32) {
 
 // GetArchivedAt returns the ArchivedAt field value if set, zero value otherwise.
 func (o *AssetFileMetadata) GetArchivedAt() int64 {
-	if o == nil || o.ArchivedAt == nil {
+	if o == nil || IsNil(o.ArchivedAt) {
 		var ret int64
 		return ret
 	}
@@ -91,7 +98,7 @@ func (o *AssetFileMetadata) GetArchivedAt() int64 {
 // GetArchivedAtOk returns a tuple with the ArchivedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AssetFileMetadata) GetArchivedAtOk() (*int64, bool) {
-	if o == nil || o.ArchivedAt == nil {
+	if o == nil || IsNil(o.ArchivedAt) {
 		return nil, false
 	}
 	return o.ArchivedAt, true
@@ -99,7 +106,7 @@ func (o *AssetFileMetadata) GetArchivedAtOk() (*int64, bool) {
 
 // HasArchivedAt returns a boolean if a field has been set.
 func (o *AssetFileMetadata) HasArchivedAt() bool {
-	if o != nil && o.ArchivedAt != nil {
+	if o != nil && !IsNil(o.ArchivedAt) {
 		return true
 	}
 
@@ -137,7 +144,7 @@ func (o *AssetFileMetadata) SetFolder(v bool) {
 
 // GetChildren returns the Children field value if set, zero value otherwise.
 func (o *AssetFileMetadata) GetChildren() []string {
-	if o == nil || o.Children == nil {
+	if o == nil || IsNil(o.Children) {
 		var ret []string
 		return ret
 	}
@@ -147,7 +154,7 @@ func (o *AssetFileMetadata) GetChildren() []string {
 // GetChildrenOk returns a tuple with the Children field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AssetFileMetadata) GetChildrenOk() ([]string, bool) {
-	if o == nil || o.Children == nil {
+	if o == nil || IsNil(o.Children) {
 		return nil, false
 	}
 	return o.Children, true
@@ -155,7 +162,7 @@ func (o *AssetFileMetadata) GetChildrenOk() ([]string, bool) {
 
 // HasChildren returns a boolean if a field has been set.
 func (o *AssetFileMetadata) HasChildren() bool {
-	if o != nil && o.Children != nil {
+	if o != nil && !IsNil(o.Children) {
 		return true
 	}
 
@@ -217,7 +224,7 @@ func (o *AssetFileMetadata) SetId(v string) {
 
 // GetHash returns the Hash field value if set, zero value otherwise.
 func (o *AssetFileMetadata) GetHash() string {
-	if o == nil || o.Hash == nil {
+	if o == nil || IsNil(o.Hash) {
 		var ret string
 		return ret
 	}
@@ -227,7 +234,7 @@ func (o *AssetFileMetadata) GetHash() string {
 // GetHashOk returns a tuple with the Hash field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AssetFileMetadata) GetHashOk() (*string, bool) {
-	if o == nil || o.Hash == nil {
+	if o == nil || IsNil(o.Hash) {
 		return nil, false
 	}
 	return o.Hash, true
@@ -235,7 +242,7 @@ func (o *AssetFileMetadata) GetHashOk() (*string, bool) {
 
 // HasHash returns a boolean if a field has been set.
 func (o *AssetFileMetadata) HasHash() bool {
-	if o != nil && o.Hash != nil {
+	if o != nil && !IsNil(o.Hash) {
 		return true
 	}
 
@@ -272,32 +279,71 @@ func (o *AssetFileMetadata) SetUpdatedAt(v int32) {
 }
 
 func (o AssetFileMetadata) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if o.ArchivedAt != nil {
-		toSerialize["archivedAt"] = o.ArchivedAt
-	}
-	if true {
-		toSerialize["folder"] = o.Folder
-	}
-	if o.Children != nil {
-		toSerialize["children"] = o.Children
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if o.Hash != nil {
-		toSerialize["hash"] = o.Hash
-	}
-	if true {
-		toSerialize["updatedAt"] = o.UpdatedAt
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AssetFileMetadata) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["createdAt"] = o.CreatedAt
+	if !IsNil(o.ArchivedAt) {
+		toSerialize["archivedAt"] = o.ArchivedAt
+	}
+	toSerialize["folder"] = o.Folder
+	if !IsNil(o.Children) {
+		toSerialize["children"] = o.Children
+	}
+	toSerialize["name"] = o.Name
+	toSerialize["id"] = o.Id
+	if !IsNil(o.Hash) {
+		toSerialize["hash"] = o.Hash
+	}
+	toSerialize["updatedAt"] = o.UpdatedAt
+	return toSerialize, nil
+}
+
+func (o *AssetFileMetadata) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"createdAt",
+		"folder",
+		"name",
+		"id",
+		"updatedAt",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAssetFileMetadata := _AssetFileMetadata{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varAssetFileMetadata)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AssetFileMetadata(varAssetFileMetadata)
+
+	return err
 }
 
 type NullableAssetFileMetadata struct {

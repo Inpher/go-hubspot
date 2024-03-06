@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SimplePublicObjectInputForCreate type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SimplePublicObjectInputForCreate{}
+
 // SimplePublicObjectInputForCreate struct for SimplePublicObjectInputForCreate
 type SimplePublicObjectInputForCreate struct {
 	Associations []PublicAssociationsForObject `json:"associations,omitempty"`
@@ -40,7 +43,7 @@ func NewSimplePublicObjectInputForCreateWithDefaults() *SimplePublicObjectInputF
 
 // GetAssociations returns the Associations field value if set, zero value otherwise.
 func (o *SimplePublicObjectInputForCreate) GetAssociations() []PublicAssociationsForObject {
-	if o == nil || o.Associations == nil {
+	if o == nil || IsNil(o.Associations) {
 		var ret []PublicAssociationsForObject
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *SimplePublicObjectInputForCreate) GetAssociations() []PublicAssociation
 // GetAssociationsOk returns a tuple with the Associations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SimplePublicObjectInputForCreate) GetAssociationsOk() ([]PublicAssociationsForObject, bool) {
-	if o == nil || o.Associations == nil {
+	if o == nil || IsNil(o.Associations) {
 		return nil, false
 	}
 	return o.Associations, true
@@ -58,7 +61,7 @@ func (o *SimplePublicObjectInputForCreate) GetAssociationsOk() ([]PublicAssociat
 
 // HasAssociations returns a boolean if a field has been set.
 func (o *SimplePublicObjectInputForCreate) HasAssociations() bool {
-	if o != nil && o.Associations != nil {
+	if o != nil && !IsNil(o.Associations) {
 		return true
 	}
 
@@ -72,7 +75,7 @@ func (o *SimplePublicObjectInputForCreate) SetAssociations(v []PublicAssociation
 
 // GetProperties returns the Properties field value if set, zero value otherwise.
 func (o *SimplePublicObjectInputForCreate) GetProperties() map[string]string {
-	if o == nil || o.Properties == nil {
+	if o == nil || IsNil(o.Properties) {
 		var ret map[string]string
 		return ret
 	}
@@ -82,7 +85,7 @@ func (o *SimplePublicObjectInputForCreate) GetProperties() map[string]string {
 // GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SimplePublicObjectInputForCreate) GetPropertiesOk() (*map[string]string, bool) {
-	if o == nil || o.Properties == nil {
+	if o == nil || IsNil(o.Properties) {
 		return nil, false
 	}
 	return o.Properties, true
@@ -90,7 +93,7 @@ func (o *SimplePublicObjectInputForCreate) GetPropertiesOk() (*map[string]string
 
 // HasProperties returns a boolean if a field has been set.
 func (o *SimplePublicObjectInputForCreate) HasProperties() bool {
-	if o != nil && o.Properties != nil {
+	if o != nil && !IsNil(o.Properties) {
 		return true
 	}
 
@@ -103,14 +106,22 @@ func (o *SimplePublicObjectInputForCreate) SetProperties(v map[string]string) {
 }
 
 func (o SimplePublicObjectInputForCreate) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Associations != nil {
-		toSerialize["associations"] = o.Associations
-	}
-	if o.Properties != nil {
-		toSerialize["properties"] = o.Properties
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SimplePublicObjectInputForCreate) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Associations) {
+		toSerialize["associations"] = o.Associations
+	}
+	if !IsNil(o.Properties) {
+		toSerialize["properties"] = o.Properties
+	}
+	return toSerialize, nil
 }
 
 type NullableSimplePublicObjectInputForCreate struct {

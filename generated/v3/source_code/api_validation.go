@@ -13,28 +13,28 @@ package source_code
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 
-	"github.com/clarkmcc/go-hubspot"
+	"github.com/inpher/go-hubspot"
 	"net/url"
 	"os"
 	"strings"
 )
 
-// ValidationApiService ValidationApi service
-type ValidationApiService service
+// ValidationAPIService ValidationAPI service
+type ValidationAPIService service
 
 type ApiValidateRequest struct {
 	ctx        context.Context
-	ApiService *ValidationApiService
+	ApiService *ValidationAPIService
 	path       string
-	file       **os.File
+	file       *os.File
 }
 
 // The file to validate.
 func (r ApiValidateRequest) File(file *os.File) ApiValidateRequest {
-	r.file = &file
+	r.file = file
 	return r
 }
 
@@ -47,11 +47,11 @@ Validate Validate the contents of a file
 
 Validates the file contents passed to the endpoint given a specified path and environment. Accepts multipart/form-data content type.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param path The file system location of the file.
- @return ApiValidateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param path The file system location of the file.
+	@return ApiValidateRequest
 */
-func (a *ValidationApiService) Validate(ctx context.Context, path string) ApiValidateRequest {
+func (a *ValidationAPIService) Validate(ctx context.Context, path string) ApiValidateRequest {
 	return ApiValidateRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -60,8 +60,9 @@ func (a *ValidationApiService) Validate(ctx context.Context, path string) ApiVal
 }
 
 // Execute executes the request
-//  @return Error
-func (a *ValidationApiService) ValidateExecute(r ApiValidateRequest) (*Error, *http.Response, error) {
+//
+//	@return Error
+func (a *ValidationAPIService) ValidateExecute(r ApiValidateRequest) (*Error, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -69,13 +70,13 @@ func (a *ValidationApiService) ValidateExecute(r ApiValidateRequest) (*Error, *h
 		localVarReturnValue *Error
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ValidationApiService.Validate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ValidationAPIService.Validate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/cms/v3/source-code/{environment}/validate/{path}"
-	localVarPath = strings.Replace(localVarPath, "{"+"path"+"}", url.PathEscape(parameterToString(r.path, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"path"+"}", url.PathEscape(parameterValueToString(r.path, "path")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -103,18 +104,16 @@ func (a *ValidationApiService) ValidateExecute(r ApiValidateRequest) (*Error, *h
 	var fileLocalVarFileBytes []byte
 
 	fileLocalVarFormFileName = "file"
+	fileLocalVarFile := r.file
 
-	var fileLocalVarFile *os.File
-	if r.file != nil {
-		fileLocalVarFile = *r.file
-	}
 	if fileLocalVarFile != nil {
-		fbs, _ := ioutil.ReadAll(fileLocalVarFile)
+		fbs, _ := io.ReadAll(fileLocalVarFile)
+
 		fileLocalVarFileBytes = fbs
 		fileLocalVarFileName = fileLocalVarFile.Name()
 		fileLocalVarFile.Close()
+		formFiles = append(formFiles, formFile{fileBytes: fileLocalVarFileBytes, fileName: fileLocalVarFileName, formFileName: fileLocalVarFormFileName})
 	}
-	formFiles = append(formFiles, formFile{fileBytes: fileLocalVarFileBytes, fileName: fileLocalVarFileName, formFileName: fileLocalVarFormFileName})
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
@@ -135,9 +134,9 @@ func (a *ValidationApiService) ValidateExecute(r ApiValidateRequest) (*Error, *h
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -153,6 +152,7 @@ func (a *ValidationApiService) ValidateExecute(r ApiValidateRequest) (*Error, *h
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

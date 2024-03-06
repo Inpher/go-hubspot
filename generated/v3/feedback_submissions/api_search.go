@@ -13,19 +13,19 @@ package feedback_submissions
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 
-	"github.com/clarkmcc/go-hubspot"
+	"github.com/inpher/go-hubspot"
 	"net/url"
 )
 
-// SearchApiService SearchApi service
-type SearchApiService service
+// SearchAPIService SearchAPI service
+type SearchAPIService service
 
 type ApiPostCrmV3ObjectsFeedbackSubmissionsSearchDoSearchRequest struct {
 	ctx                       context.Context
-	ApiService                *SearchApiService
+	ApiService                *SearchAPIService
 	publicObjectSearchRequest *PublicObjectSearchRequest
 }
 
@@ -41,10 +41,10 @@ func (r ApiPostCrmV3ObjectsFeedbackSubmissionsSearchDoSearchRequest) Execute() (
 /*
 PostCrmV3ObjectsFeedbackSubmissionsSearchDoSearch Method for PostCrmV3ObjectsFeedbackSubmissionsSearchDoSearch
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostCrmV3ObjectsFeedbackSubmissionsSearchDoSearchRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiPostCrmV3ObjectsFeedbackSubmissionsSearchDoSearchRequest
 */
-func (a *SearchApiService) PostCrmV3ObjectsFeedbackSubmissionsSearchDoSearch(ctx context.Context) ApiPostCrmV3ObjectsFeedbackSubmissionsSearchDoSearchRequest {
+func (a *SearchAPIService) PostCrmV3ObjectsFeedbackSubmissionsSearchDoSearch(ctx context.Context) ApiPostCrmV3ObjectsFeedbackSubmissionsSearchDoSearchRequest {
 	return ApiPostCrmV3ObjectsFeedbackSubmissionsSearchDoSearchRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -52,8 +52,9 @@ func (a *SearchApiService) PostCrmV3ObjectsFeedbackSubmissionsSearchDoSearch(ctx
 }
 
 // Execute executes the request
-//  @return CollectionResponseWithTotalSimplePublicObjectForwardPaging
-func (a *SearchApiService) PostCrmV3ObjectsFeedbackSubmissionsSearchDoSearchExecute(r ApiPostCrmV3ObjectsFeedbackSubmissionsSearchDoSearchRequest) (*CollectionResponseWithTotalSimplePublicObjectForwardPaging, *http.Response, error) {
+//
+//	@return CollectionResponseWithTotalSimplePublicObjectForwardPaging
+func (a *SearchAPIService) PostCrmV3ObjectsFeedbackSubmissionsSearchDoSearchExecute(r ApiPostCrmV3ObjectsFeedbackSubmissionsSearchDoSearchRequest) (*CollectionResponseWithTotalSimplePublicObjectForwardPaging, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -61,7 +62,7 @@ func (a *SearchApiService) PostCrmV3ObjectsFeedbackSubmissionsSearchDoSearchExec
 		localVarReturnValue *CollectionResponseWithTotalSimplePublicObjectForwardPaging
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SearchApiService.PostCrmV3ObjectsFeedbackSubmissionsSearchDoSearch")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SearchAPIService.PostCrmV3ObjectsFeedbackSubmissionsSearchDoSearch")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -114,9 +115,9 @@ func (a *SearchApiService) PostCrmV3ObjectsFeedbackSubmissionsSearchDoSearchExec
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -132,6 +133,7 @@ func (a *SearchApiService) PostCrmV3ObjectsFeedbackSubmissionsSearchDoSearchExec
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

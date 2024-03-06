@@ -1,33 +1,33 @@
-# \BlogPostsApi
+# \BlogPostsAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Archive**](BlogPostsApi.md#Archive) | **Delete** /cms/v3/blogs/posts/{objectId} | Delete a Blog Post
-[**AttachToLanguageGroup**](BlogPostsApi.md#AttachToLanguageGroup) | **Post** /cms/v3/blogs/posts/multi-language/attach-to-lang-group | Attach a Blog Post to a multi-language group
-[**BatchArchive**](BlogPostsApi.md#BatchArchive) | **Post** /cms/v3/blogs/posts/batch/archive | Delete a batch of Blog Posts
-[**BatchCreate**](BlogPostsApi.md#BatchCreate) | **Post** /cms/v3/blogs/posts/batch/create | Create a batch of Blog Posts
-[**BatchRead**](BlogPostsApi.md#BatchRead) | **Post** /cms/v3/blogs/posts/batch/read | Retrieve a batch of Blog Posts
-[**BatchUpdate**](BlogPostsApi.md#BatchUpdate) | **Post** /cms/v3/blogs/posts/batch/update | Update a batch of Blog Posts
-[**Clone**](BlogPostsApi.md#Clone) | **Post** /cms/v3/blogs/posts/clone | Clone a Blog Post
-[**Create**](BlogPostsApi.md#Create) | **Post** /cms/v3/blogs/posts | Create a new Blog Post
-[**CreateLanguageVariation**](BlogPostsApi.md#CreateLanguageVariation) | **Post** /cms/v3/blogs/posts/multi-language/create-language-variation | Create a new language variation
-[**DetachFromLanguageGroup**](BlogPostsApi.md#DetachFromLanguageGroup) | **Post** /cms/v3/blogs/posts/multi-language/detach-from-lang-group | Detach a Blog Post from a multi-language group
-[**GetByID**](BlogPostsApi.md#GetByID) | **Get** /cms/v3/blogs/posts/{objectId} | Retrieve a Blog Post
-[**GetDraftByID**](BlogPostsApi.md#GetDraftByID) | **Get** /cms/v3/blogs/posts/{objectId}/draft | Retrieve the full draft version of the Blog Post
-[**GetPage**](BlogPostsApi.md#GetPage) | **Get** /cms/v3/blogs/posts | Get all Blog Posts
-[**GetPreviousVersion**](BlogPostsApi.md#GetPreviousVersion) | **Get** /cms/v3/blogs/posts/{objectId}/revisions/{revisionId} | Retrieves a previous version of a blog post
-[**GetPreviousVersions**](BlogPostsApi.md#GetPreviousVersions) | **Get** /cms/v3/blogs/posts/{objectId}/revisions | Retrieves all the previous versions of a blog post
-[**PushLive**](BlogPostsApi.md#PushLive) | **Post** /cms/v3/blogs/posts/{objectId}/draft/push-live | Push Blog Post draft edits live
-[**ResetDraft**](BlogPostsApi.md#ResetDraft) | **Post** /cms/v3/blogs/posts/{objectId}/draft/reset | Reset the Blog Post draft to the live version
-[**RestorePreviousVersion**](BlogPostsApi.md#RestorePreviousVersion) | **Post** /cms/v3/blogs/posts/{objectId}/revisions/{revisionId}/restore | Restore a previous version of a blog post
-[**RestorePreviousVersionToDraft**](BlogPostsApi.md#RestorePreviousVersionToDraft) | **Post** /cms/v3/blogs/posts/{objectId}/revisions/{revisionId}/restore-to-draft | Restore a previous version of a blog post, to the draft version of the blog post
-[**Schedule**](BlogPostsApi.md#Schedule) | **Post** /cms/v3/blogs/posts/schedule | Schedule a Blog Post to be Published
-[**SetLanguagePrimary**](BlogPostsApi.md#SetLanguagePrimary) | **Put** /cms/v3/blogs/posts/multi-language/set-new-lang-primary | Set a new primary language
-[**Update**](BlogPostsApi.md#Update) | **Patch** /cms/v3/blogs/posts/{objectId} | Update a Blog Post
-[**UpdateDraft**](BlogPostsApi.md#UpdateDraft) | **Patch** /cms/v3/blogs/posts/{objectId}/draft | Update a Blog Post draft
-[**UpdateLanguages**](BlogPostsApi.md#UpdateLanguages) | **Post** /cms/v3/blogs/posts/multi-language/update-languages | Update languages of multi-language group
+[**Archive**](BlogPostsAPI.md#Archive) | **Delete** /cms/v3/blogs/posts/{objectId} | Delete a Blog Post
+[**AttachToLanguageGroup**](BlogPostsAPI.md#AttachToLanguageGroup) | **Post** /cms/v3/blogs/posts/multi-language/attach-to-lang-group | Attach a Blog Post to a multi-language group
+[**BatchArchive**](BlogPostsAPI.md#BatchArchive) | **Post** /cms/v3/blogs/posts/batch/archive | Delete a batch of Blog Posts
+[**BatchCreate**](BlogPostsAPI.md#BatchCreate) | **Post** /cms/v3/blogs/posts/batch/create | Create a batch of Blog Posts
+[**BatchRead**](BlogPostsAPI.md#BatchRead) | **Post** /cms/v3/blogs/posts/batch/read | Retrieve a batch of Blog Posts
+[**BatchUpdate**](BlogPostsAPI.md#BatchUpdate) | **Post** /cms/v3/blogs/posts/batch/update | Update a batch of Blog Posts
+[**Clone**](BlogPostsAPI.md#Clone) | **Post** /cms/v3/blogs/posts/clone | Clone a Blog Post
+[**Create**](BlogPostsAPI.md#Create) | **Post** /cms/v3/blogs/posts | Create a new Blog Post
+[**CreateLanguageVariation**](BlogPostsAPI.md#CreateLanguageVariation) | **Post** /cms/v3/blogs/posts/multi-language/create-language-variation | Create a new language variation
+[**DetachFromLanguageGroup**](BlogPostsAPI.md#DetachFromLanguageGroup) | **Post** /cms/v3/blogs/posts/multi-language/detach-from-lang-group | Detach a Blog Post from a multi-language group
+[**GetByID**](BlogPostsAPI.md#GetByID) | **Get** /cms/v3/blogs/posts/{objectId} | Retrieve a Blog Post
+[**GetDraftByID**](BlogPostsAPI.md#GetDraftByID) | **Get** /cms/v3/blogs/posts/{objectId}/draft | Retrieve the full draft version of the Blog Post
+[**GetPage**](BlogPostsAPI.md#GetPage) | **Get** /cms/v3/blogs/posts | Get all Blog Posts
+[**GetPreviousVersion**](BlogPostsAPI.md#GetPreviousVersion) | **Get** /cms/v3/blogs/posts/{objectId}/revisions/{revisionId} | Retrieves a previous version of a blog post
+[**GetPreviousVersions**](BlogPostsAPI.md#GetPreviousVersions) | **Get** /cms/v3/blogs/posts/{objectId}/revisions | Retrieves all the previous versions of a blog post
+[**PushLive**](BlogPostsAPI.md#PushLive) | **Post** /cms/v3/blogs/posts/{objectId}/draft/push-live | Push Blog Post draft edits live
+[**ResetDraft**](BlogPostsAPI.md#ResetDraft) | **Post** /cms/v3/blogs/posts/{objectId}/draft/reset | Reset the Blog Post draft to the live version
+[**RestorePreviousVersion**](BlogPostsAPI.md#RestorePreviousVersion) | **Post** /cms/v3/blogs/posts/{objectId}/revisions/{revisionId}/restore | Restore a previous version of a blog post
+[**RestorePreviousVersionToDraft**](BlogPostsAPI.md#RestorePreviousVersionToDraft) | **Post** /cms/v3/blogs/posts/{objectId}/revisions/{revisionId}/restore-to-draft | Restore a previous version of a blog post, to the draft version of the blog post
+[**Schedule**](BlogPostsAPI.md#Schedule) | **Post** /cms/v3/blogs/posts/schedule | Schedule a Blog Post to be Published
+[**SetLanguagePrimary**](BlogPostsAPI.md#SetLanguagePrimary) | **Put** /cms/v3/blogs/posts/multi-language/set-new-lang-primary | Set a new primary language
+[**Update**](BlogPostsAPI.md#Update) | **Patch** /cms/v3/blogs/posts/{objectId} | Update a Blog Post
+[**UpdateDraft**](BlogPostsAPI.md#UpdateDraft) | **Patch** /cms/v3/blogs/posts/{objectId}/draft | Update a Blog Post draft
+[**UpdateLanguages**](BlogPostsAPI.md#UpdateLanguages) | **Post** /cms/v3/blogs/posts/multi-language/update-languages | Update languages of multi-language group
 
 
 
@@ -45,23 +45,23 @@ Delete a Blog Post
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    objectId := "objectId_example" // string | The Blog Post id.
-    archived := true // bool | Whether to return only results that have been archived. (optional)
+	objectId := "objectId_example" // string | The Blog Post id.
+	archived := true // bool | Whether to return only results that have been archived. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogPostsApi.Archive(context.Background(), objectId).Archived(archived).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.Archive``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.BlogPostsAPI.Archive(context.Background(), objectId).Archived(archived).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsAPI.Archive``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -115,22 +115,22 @@ Attach a Blog Post to a multi-language group
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    attachToLangPrimaryRequestVNext := *openapiclient.NewAttachToLangPrimaryRequestVNext("Language_example", "Id_example", "PrimaryId_example") // AttachToLangPrimaryRequestVNext | The JSON representation of the AttachToLangPrimaryRequest object.
+	attachToLangPrimaryRequestVNext := *openapiclient.NewAttachToLangPrimaryRequestVNext("Language_example", "Id_example", "PrimaryId_example") // AttachToLangPrimaryRequestVNext | The JSON representation of the AttachToLangPrimaryRequest object.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogPostsApi.AttachToLanguageGroup(context.Background()).AttachToLangPrimaryRequestVNext(attachToLangPrimaryRequestVNext).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.AttachToLanguageGroup``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.BlogPostsAPI.AttachToLanguageGroup(context.Background()).AttachToLangPrimaryRequestVNext(attachToLangPrimaryRequestVNext).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsAPI.AttachToLanguageGroup``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -179,22 +179,22 @@ Delete a batch of Blog Posts
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    batchInputString := *openapiclient.NewBatchInputString([]string{"Inputs_example"}) // BatchInputString | The JSON array of Blog Post ids.
+	batchInputString := *openapiclient.NewBatchInputString([]string{"Inputs_example"}) // BatchInputString | The JSON array of Blog Post ids.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogPostsApi.BatchArchive(context.Background()).BatchInputString(batchInputString).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.BatchArchive``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.BlogPostsAPI.BatchArchive(context.Background()).BatchInputString(batchInputString).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsAPI.BatchArchive``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -243,25 +243,25 @@ Create a batch of Blog Posts
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    openapiclient "./openapi"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    batchInputBlogPost := *openapiclient.NewBatchInputBlogPost([]openapiclient.BlogPost{*openapiclient.NewBlogPost(time.Now(), "Language_example", false, "MetaDescription_example", []map[string]map[string]interface{}{map[string]map[string]interface{}{"key": map[string]interface{}(123)}}, "Password_example", "HtmlTitle_example", false, map[string]ContentLanguageVariation{"key": *openapiclient.NewContentLanguageVariation(false, time.Now(), time.Now(), []map[string]interface{}{map[string]interface{}(123)}, "Password_example", "AuthorName_example", false, "Name_example", "Campaign_example", int64(123), "State_example", time.Now(), "Slug_example")}, "Id_example", "State_example", "Slug_example", "CreatedById_example", "RssBody_example", false, false, time.Now(), "ContentTypeCategory_example", "MabExperimentId_example", "UpdatedById_example", "TranslatedFromId_example", "FolderId_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, int64(123), int32(123), "FeaturedImage_example", "AuthorName_example", "Domain_example", "Name_example", "DynamicPageHubDbTableId_example", "Campaign_example", "DynamicPageDataSourceId_example", false, false, map[string]LayoutSection{"key": *openapiclient.NewLayoutSection("CssStyle_example", "Label_example", "Type_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, []map[string]LayoutSection{map[string]LayoutSection{"key": *openapiclient.NewLayoutSection("CssStyle_example", "Label_example", "Type_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, []map[string]LayoutSection{map[string]LayoutSection{"key": }}, []openapiclient.RowMetaData{*openapiclient.NewRowMetaData("CssClass_example", *openapiclient.NewStyles(*openapiclient.NewRGBAColor(float32(123), int32(123), int32(123), int32(123)), "FlexboxPositioning_example", *openapiclient.NewBackgroundImage("ImageUrl_example", "BackgroundSize_example", "BackgroundPosition_example"), false, "VerticalAlignment_example", int32(123), *openapiclient.NewGradient(*openapiclient.NewAngle("Units_example", float32(123)), *openapiclient.NewSideOrCorner("HorizontalSide_example", "VerticalSide_example"), []openapiclient.ColorStop{*openapiclient.NewColorStop(*openapiclient.NewRGBAColor(float32(123), int32(123), int32(123), int32(123)))})))}, []openapiclient.LayoutSection{}, "CssClass_example", int32(123), "CssId_example", int32(123), "Name_example", *openapiclient.NewStyles(, "FlexboxPositioning_example", *openapiclient.NewBackgroundImage("ImageUrl_example", "BackgroundSize_example", "BackgroundPosition_example"), false, "VerticalAlignment_example", int32(123), *openapiclient.NewGradient(*openapiclient.NewAngle("Units_example", float32(123)), *openapiclient.NewSideOrCorner("HorizontalSide_example", "VerticalSide_example"), []openapiclient.ColorStop{*openapiclient.NewColorStop()})))}}, []openapiclient.RowMetaData{*openapiclient.NewRowMetaData("CssClass_example", )}, []openapiclient.LayoutSection{}, "CssClass_example", int32(123), "CssId_example", int32(123), "Name_example", )}, time.Now(), "FooterHtml_example", []int64{int64(123)}, map[string]map[string]interface{}{"key": map[string]interface{}(123)}, "PostSummary_example", "HeadHtml_example", "PageExpiryRedirectUrl_example", "AbStatus_example", false, "AbTestId_example", "FeaturedImageAltText_example", "BlogAuthorId_example", "ContentGroupId_example", "RssSummary_example", false, "Url_example", []map[string]interface{}{map[string]interface{}(123)}, false, int64(123), "PostBody_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, int64(123), false, "CurrentState_example", int32(123), "LinkRelCanonicalUrl_example")}) // BatchInputBlogPost | The JSON array of new Blog Posts to create.
+	batchInputBlogPost := *openapiclient.NewBatchInputBlogPost([]openapiclient.BlogPost{*openapiclient.NewBlogPost(time.Now(), "Language_example", false, "MetaDescription_example", []map[string]map[string]interface{}{map[string]map[string]interface{}{"key": map[string]interface{}(123)}}, "Password_example", "HtmlTitle_example", false, map[string]ContentLanguageVariation{"key": *openapiclient.NewContentLanguageVariation(false, time.Now(), time.Now(), []map[string]interface{}{map[string]interface{}(123)}, "Password_example", "AuthorName_example", false, "Name_example", "Campaign_example", int64(123), "State_example", time.Now(), "Slug_example")}, "Id_example", "State_example", "Slug_example", "CreatedById_example", "RssBody_example", false, false, time.Now(), "ContentTypeCategory_example", "MabExperimentId_example", "UpdatedById_example", "TranslatedFromId_example", "FolderId_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, int64(123), int32(123), "FeaturedImage_example", "AuthorName_example", "Domain_example", "Name_example", "DynamicPageHubDbTableId_example", "Campaign_example", "DynamicPageDataSourceId_example", false, false, map[string]LayoutSection{"key": *openapiclient.NewLayoutSection("CssStyle_example", "Label_example", "Type_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, []map[string]LayoutSection{map[string]LayoutSection{"key": *openapiclient.NewLayoutSection("CssStyle_example", "Label_example", "Type_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, []map[string]LayoutSection{map[string]LayoutSection{"key": }}, []openapiclient.RowMetaData{*openapiclient.NewRowMetaData("CssClass_example", *openapiclient.NewStyles(*openapiclient.NewRGBAColor(float32(123), int32(123), int32(123), int32(123)), "FlexboxPositioning_example", *openapiclient.NewBackgroundImage("ImageUrl_example", "BackgroundSize_example", "BackgroundPosition_example"), false, "VerticalAlignment_example", int32(123), *openapiclient.NewGradient(*openapiclient.NewAngle("Units_example", float32(123)), *openapiclient.NewSideOrCorner("HorizontalSide_example", "VerticalSide_example"), []openapiclient.ColorStop{*openapiclient.NewColorStop(*openapiclient.NewRGBAColor(float32(123), int32(123), int32(123), int32(123)))})))}, []openapiclient.LayoutSection{}, "CssClass_example", int32(123), "CssId_example", int32(123), "Name_example", *openapiclient.NewStyles(, "FlexboxPositioning_example", *openapiclient.NewBackgroundImage("ImageUrl_example", "BackgroundSize_example", "BackgroundPosition_example"), false, "VerticalAlignment_example", int32(123), *openapiclient.NewGradient(*openapiclient.NewAngle("Units_example", float32(123)), *openapiclient.NewSideOrCorner("HorizontalSide_example", "VerticalSide_example"), []openapiclient.ColorStop{*openapiclient.NewColorStop()})))}}, []openapiclient.RowMetaData{*openapiclient.NewRowMetaData("CssClass_example", )}, []openapiclient.LayoutSection{}, "CssClass_example", int32(123), "CssId_example", int32(123), "Name_example", )}, time.Now(), "FooterHtml_example", []int64{int64(123)}, map[string]map[string]interface{}{"key": map[string]interface{}(123)}, "PostSummary_example", "HeadHtml_example", "PageExpiryRedirectUrl_example", "AbStatus_example", false, "AbTestId_example", "FeaturedImageAltText_example", "BlogAuthorId_example", "ContentGroupId_example", "RssSummary_example", false, "Url_example", []map[string]interface{}{map[string]interface{}(123)}, false, int64(123), "PostBody_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, int64(123), false, "CurrentState_example", int32(123), "LinkRelCanonicalUrl_example")}) // BatchInputBlogPost | The JSON array of new Blog Posts to create.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogPostsApi.BatchCreate(context.Background()).BatchInputBlogPost(batchInputBlogPost).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.BatchCreate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `BatchCreate`: BatchResponseBlogPost
-    fmt.Fprintf(os.Stdout, "Response from `BlogPostsApi.BatchCreate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BlogPostsAPI.BatchCreate(context.Background()).BatchInputBlogPost(batchInputBlogPost).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsAPI.BatchCreate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `BatchCreate`: BatchResponseBlogPost
+	fmt.Fprintf(os.Stdout, "Response from `BlogPostsAPI.BatchCreate`: %v\n", resp)
 }
 ```
 
@@ -310,25 +310,25 @@ Retrieve a batch of Blog Posts
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    batchInputString := *openapiclient.NewBatchInputString([]string{"Inputs_example"}) // BatchInputString | The JSON array of Blog Post ids.
-    archived := true // bool | Specifies whether to return deleted Blog Posts. Defaults to `false`. (optional)
+	batchInputString := *openapiclient.NewBatchInputString([]string{"Inputs_example"}) // BatchInputString | The JSON array of Blog Post ids.
+	archived := true // bool | Specifies whether to return deleted Blog Posts. Defaults to `false`. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogPostsApi.BatchRead(context.Background()).BatchInputString(batchInputString).Archived(archived).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.BatchRead``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `BatchRead`: BatchResponseBlogPost
-    fmt.Fprintf(os.Stdout, "Response from `BlogPostsApi.BatchRead`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BlogPostsAPI.BatchRead(context.Background()).BatchInputString(batchInputString).Archived(archived).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsAPI.BatchRead``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `BatchRead`: BatchResponseBlogPost
+	fmt.Fprintf(os.Stdout, "Response from `BlogPostsAPI.BatchRead`: %v\n", resp)
 }
 ```
 
@@ -378,25 +378,25 @@ Update a batch of Blog Posts
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    batchInputJsonNode := *openapiclient.NewBatchInputJsonNode([]map[string]interface{}{map[string]interface{}(123)}) // BatchInputJsonNode | A JSON array of the JSON representations of the updated Blog Posts.
-    archived := true // bool | Specifies whether to update deleted Blog Posts. Defaults to `false`. (optional)
+	batchInputJsonNode := *openapiclient.NewBatchInputJsonNode([]map[string]interface{}{map[string]interface{}(123)}) // BatchInputJsonNode | A JSON array of the JSON representations of the updated Blog Posts.
+	archived := true // bool | Specifies whether to update deleted Blog Posts. Defaults to `false`. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogPostsApi.BatchUpdate(context.Background()).BatchInputJsonNode(batchInputJsonNode).Archived(archived).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.BatchUpdate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `BatchUpdate`: BatchResponseBlogPost
-    fmt.Fprintf(os.Stdout, "Response from `BlogPostsApi.BatchUpdate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BlogPostsAPI.BatchUpdate(context.Background()).BatchInputJsonNode(batchInputJsonNode).Archived(archived).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsAPI.BatchUpdate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `BatchUpdate`: BatchResponseBlogPost
+	fmt.Fprintf(os.Stdout, "Response from `BlogPostsAPI.BatchUpdate`: %v\n", resp)
 }
 ```
 
@@ -446,24 +446,24 @@ Clone a Blog Post
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    contentCloneRequestVNext := *openapiclient.NewContentCloneRequestVNext("Id_example") // ContentCloneRequestVNext | The JSON representation of the ContentCloneRequest object.
+	contentCloneRequestVNext := *openapiclient.NewContentCloneRequestVNext("Id_example") // ContentCloneRequestVNext | The JSON representation of the ContentCloneRequest object.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogPostsApi.Clone(context.Background()).ContentCloneRequestVNext(contentCloneRequestVNext).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.Clone``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `Clone`: BlogPost
-    fmt.Fprintf(os.Stdout, "Response from `BlogPostsApi.Clone`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BlogPostsAPI.Clone(context.Background()).ContentCloneRequestVNext(contentCloneRequestVNext).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsAPI.Clone``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `Clone`: BlogPost
+	fmt.Fprintf(os.Stdout, "Response from `BlogPostsAPI.Clone`: %v\n", resp)
 }
 ```
 
@@ -512,25 +512,25 @@ Create a new Blog Post
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    openapiclient "./openapi"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    blogPost := *openapiclient.NewBlogPost(time.Now(), "Language_example", false, "MetaDescription_example", []map[string]map[string]interface{}{map[string]map[string]interface{}{"key": map[string]interface{}(123)}}, "Password_example", "HtmlTitle_example", false, map[string]ContentLanguageVariation{"key": *openapiclient.NewContentLanguageVariation(false, time.Now(), time.Now(), []map[string]interface{}{map[string]interface{}(123)}, "Password_example", "AuthorName_example", false, "Name_example", "Campaign_example", int64(123), "State_example", time.Now(), "Slug_example")}, "Id_example", "State_example", "Slug_example", "CreatedById_example", "RssBody_example", false, false, time.Now(), "ContentTypeCategory_example", "MabExperimentId_example", "UpdatedById_example", "TranslatedFromId_example", "FolderId_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, int64(123), int32(123), "FeaturedImage_example", "AuthorName_example", "Domain_example", "Name_example", "DynamicPageHubDbTableId_example", "Campaign_example", "DynamicPageDataSourceId_example", false, false, map[string]LayoutSection{"key": *openapiclient.NewLayoutSection("CssStyle_example", "Label_example", "Type_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, []map[string]LayoutSection{map[string]LayoutSection{"key": *openapiclient.NewLayoutSection("CssStyle_example", "Label_example", "Type_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, []map[string]LayoutSection{map[string]LayoutSection{"key": }}, []openapiclient.RowMetaData{*openapiclient.NewRowMetaData("CssClass_example", *openapiclient.NewStyles(*openapiclient.NewRGBAColor(float32(123), int32(123), int32(123), int32(123)), "FlexboxPositioning_example", *openapiclient.NewBackgroundImage("ImageUrl_example", "BackgroundSize_example", "BackgroundPosition_example"), false, "VerticalAlignment_example", int32(123), *openapiclient.NewGradient(*openapiclient.NewAngle("Units_example", float32(123)), *openapiclient.NewSideOrCorner("HorizontalSide_example", "VerticalSide_example"), []openapiclient.ColorStop{*openapiclient.NewColorStop(*openapiclient.NewRGBAColor(float32(123), int32(123), int32(123), int32(123)))})))}, []openapiclient.LayoutSection{}, "CssClass_example", int32(123), "CssId_example", int32(123), "Name_example", *openapiclient.NewStyles(, "FlexboxPositioning_example", *openapiclient.NewBackgroundImage("ImageUrl_example", "BackgroundSize_example", "BackgroundPosition_example"), false, "VerticalAlignment_example", int32(123), *openapiclient.NewGradient(*openapiclient.NewAngle("Units_example", float32(123)), *openapiclient.NewSideOrCorner("HorizontalSide_example", "VerticalSide_example"), []openapiclient.ColorStop{*openapiclient.NewColorStop()})))}}, []openapiclient.RowMetaData{*openapiclient.NewRowMetaData("CssClass_example", )}, []openapiclient.LayoutSection{}, "CssClass_example", int32(123), "CssId_example", int32(123), "Name_example", )}, time.Now(), "FooterHtml_example", []int64{int64(123)}, map[string]map[string]interface{}{"key": map[string]interface{}(123)}, "PostSummary_example", "HeadHtml_example", "PageExpiryRedirectUrl_example", "AbStatus_example", false, "AbTestId_example", "FeaturedImageAltText_example", "BlogAuthorId_example", "ContentGroupId_example", "RssSummary_example", false, "Url_example", []map[string]interface{}{map[string]interface{}(123)}, false, int64(123), "PostBody_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, int64(123), false, "CurrentState_example", int32(123), "LinkRelCanonicalUrl_example") // BlogPost | The JSON representation of a new Blog Post.
+	blogPost := *openapiclient.NewBlogPost(time.Now(), "Language_example", false, "MetaDescription_example", []map[string]map[string]interface{}{map[string]map[string]interface{}{"key": map[string]interface{}(123)}}, "Password_example", "HtmlTitle_example", false, map[string]ContentLanguageVariation{"key": *openapiclient.NewContentLanguageVariation(false, time.Now(), time.Now(), []map[string]interface{}{map[string]interface{}(123)}, "Password_example", "AuthorName_example", false, "Name_example", "Campaign_example", int64(123), "State_example", time.Now(), "Slug_example")}, "Id_example", "State_example", "Slug_example", "CreatedById_example", "RssBody_example", false, false, time.Now(), "ContentTypeCategory_example", "MabExperimentId_example", "UpdatedById_example", "TranslatedFromId_example", "FolderId_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, int64(123), int32(123), "FeaturedImage_example", "AuthorName_example", "Domain_example", "Name_example", "DynamicPageHubDbTableId_example", "Campaign_example", "DynamicPageDataSourceId_example", false, false, map[string]LayoutSection{"key": *openapiclient.NewLayoutSection("CssStyle_example", "Label_example", "Type_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, []map[string]LayoutSection{map[string]LayoutSection{"key": *openapiclient.NewLayoutSection("CssStyle_example", "Label_example", "Type_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, []map[string]LayoutSection{map[string]LayoutSection{"key": }}, []openapiclient.RowMetaData{*openapiclient.NewRowMetaData("CssClass_example", *openapiclient.NewStyles(*openapiclient.NewRGBAColor(float32(123), int32(123), int32(123), int32(123)), "FlexboxPositioning_example", *openapiclient.NewBackgroundImage("ImageUrl_example", "BackgroundSize_example", "BackgroundPosition_example"), false, "VerticalAlignment_example", int32(123), *openapiclient.NewGradient(*openapiclient.NewAngle("Units_example", float32(123)), *openapiclient.NewSideOrCorner("HorizontalSide_example", "VerticalSide_example"), []openapiclient.ColorStop{*openapiclient.NewColorStop(*openapiclient.NewRGBAColor(float32(123), int32(123), int32(123), int32(123)))})))}, []openapiclient.LayoutSection{}, "CssClass_example", int32(123), "CssId_example", int32(123), "Name_example", *openapiclient.NewStyles(, "FlexboxPositioning_example", *openapiclient.NewBackgroundImage("ImageUrl_example", "BackgroundSize_example", "BackgroundPosition_example"), false, "VerticalAlignment_example", int32(123), *openapiclient.NewGradient(*openapiclient.NewAngle("Units_example", float32(123)), *openapiclient.NewSideOrCorner("HorizontalSide_example", "VerticalSide_example"), []openapiclient.ColorStop{*openapiclient.NewColorStop()})))}}, []openapiclient.RowMetaData{*openapiclient.NewRowMetaData("CssClass_example", )}, []openapiclient.LayoutSection{}, "CssClass_example", int32(123), "CssId_example", int32(123), "Name_example", )}, time.Now(), "FooterHtml_example", []int64{int64(123)}, map[string]map[string]interface{}{"key": map[string]interface{}(123)}, "PostSummary_example", "HeadHtml_example", "PageExpiryRedirectUrl_example", "AbStatus_example", false, "AbTestId_example", "FeaturedImageAltText_example", "BlogAuthorId_example", "ContentGroupId_example", "RssSummary_example", false, "Url_example", []map[string]interface{}{map[string]interface{}(123)}, false, int64(123), "PostBody_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, int64(123), false, "CurrentState_example", int32(123), "LinkRelCanonicalUrl_example") // BlogPost | The JSON representation of a new Blog Post.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogPostsApi.Create(context.Background()).BlogPost(blogPost).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.Create``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `Create`: BlogPost
-    fmt.Fprintf(os.Stdout, "Response from `BlogPostsApi.Create`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BlogPostsAPI.Create(context.Background()).BlogPost(blogPost).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsAPI.Create``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `Create`: BlogPost
+	fmt.Fprintf(os.Stdout, "Response from `BlogPostsAPI.Create`: %v\n", resp)
 }
 ```
 
@@ -579,24 +579,24 @@ Create a new language variation
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    blogPostLanguageCloneRequestVNext := *openapiclient.NewBlogPostLanguageCloneRequestVNext("Id_example") // BlogPostLanguageCloneRequestVNext | The JSON representation of the BlogPostLanguageCloneRequestVNext object.
+	blogPostLanguageCloneRequestVNext := *openapiclient.NewBlogPostLanguageCloneRequestVNext("Id_example") // BlogPostLanguageCloneRequestVNext | The JSON representation of the BlogPostLanguageCloneRequestVNext object.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogPostsApi.CreateLanguageVariation(context.Background()).BlogPostLanguageCloneRequestVNext(blogPostLanguageCloneRequestVNext).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.CreateLanguageVariation``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateLanguageVariation`: BlogPost
-    fmt.Fprintf(os.Stdout, "Response from `BlogPostsApi.CreateLanguageVariation`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BlogPostsAPI.CreateLanguageVariation(context.Background()).BlogPostLanguageCloneRequestVNext(blogPostLanguageCloneRequestVNext).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsAPI.CreateLanguageVariation``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateLanguageVariation`: BlogPost
+	fmt.Fprintf(os.Stdout, "Response from `BlogPostsAPI.CreateLanguageVariation`: %v\n", resp)
 }
 ```
 
@@ -645,22 +645,22 @@ Detach a Blog Post from a multi-language group
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    detachFromLangGroupRequestVNext := *openapiclient.NewDetachFromLangGroupRequestVNext("Id_example") // DetachFromLangGroupRequestVNext | The JSON representation of the DetachFromLangGroupRequest object.
+	detachFromLangGroupRequestVNext := *openapiclient.NewDetachFromLangGroupRequestVNext("Id_example") // DetachFromLangGroupRequestVNext | The JSON representation of the DetachFromLangGroupRequest object.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogPostsApi.DetachFromLanguageGroup(context.Background()).DetachFromLangGroupRequestVNext(detachFromLangGroupRequestVNext).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.DetachFromLanguageGroup``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.BlogPostsAPI.DetachFromLanguageGroup(context.Background()).DetachFromLangGroupRequestVNext(detachFromLangGroupRequestVNext).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsAPI.DetachFromLanguageGroup``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -709,26 +709,26 @@ Retrieve a Blog Post
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    objectId := "objectId_example" // string | The Blog Post id.
-    archived := true // bool | Specifies whether to return deleted Blog Posts. Defaults to `false`. (optional)
-    property := "property_example" // string |  (optional)
+	objectId := "objectId_example" // string | The Blog Post id.
+	archived := true // bool | Specifies whether to return deleted Blog Posts. Defaults to `false`. (optional)
+	property := "property_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogPostsApi.GetByID(context.Background(), objectId).Archived(archived).Property(property).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.GetByID``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetByID`: BlogPost
-    fmt.Fprintf(os.Stdout, "Response from `BlogPostsApi.GetByID`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BlogPostsAPI.GetByID(context.Background(), objectId).Archived(archived).Property(property).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsAPI.GetByID``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetByID`: BlogPost
+	fmt.Fprintf(os.Stdout, "Response from `BlogPostsAPI.GetByID`: %v\n", resp)
 }
 ```
 
@@ -783,24 +783,24 @@ Retrieve the full draft version of the Blog Post
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    objectId := "objectId_example" // string | The Blog Post id.
+	objectId := "objectId_example" // string | The Blog Post id.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogPostsApi.GetDraftByID(context.Background(), objectId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.GetDraftByID``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetDraftByID`: BlogPost
-    fmt.Fprintf(os.Stdout, "Response from `BlogPostsApi.GetDraftByID`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BlogPostsAPI.GetDraftByID(context.Background(), objectId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsAPI.GetDraftByID``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetDraftByID`: BlogPost
+	fmt.Fprintf(os.Stdout, "Response from `BlogPostsAPI.GetDraftByID`: %v\n", resp)
 }
 ```
 
@@ -853,35 +853,35 @@ Get all Blog Posts
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    openapiclient "./openapi"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    createdAt := time.Now() // time.Time | Only return Blog Posts created at exactly the specified time. (optional)
-    createdAfter := time.Now() // time.Time | Only return Blog Posts created after the specified time. (optional)
-    createdBefore := time.Now() // time.Time | Only return Blog Posts created before the specified time. (optional)
-    updatedAt := time.Now() // time.Time | Only return Blog Posts last updated at exactly the specified time. (optional)
-    updatedAfter := time.Now() // time.Time | Only return Blog Posts last updated after the specified time. (optional)
-    updatedBefore := time.Now() // time.Time | Only return Blog Posts last updated before the specified time. (optional)
-    sort := []string{"Inner_example"} // []string | Specifies which fields to use for sorting results. Valid fields are `name`, `createdAt`, `updatedAt`, `createdBy`, `updatedBy`. `createdAt` will be used by default. (optional)
-    after := "after_example" // string | The cursor token value to get the next set of results. You can get this from the `paging.next.after` JSON property of a paged response containing more results. (optional)
-    limit := int32(56) // int32 | The maximum number of results to return. Default is 20. (optional)
-    archived := true // bool | Specifies whether to return deleted Blog Posts. Defaults to `false`. (optional)
-    property := "property_example" // string |  (optional)
+	createdAt := time.Now() // time.Time | Only return Blog Posts created at exactly the specified time. (optional)
+	createdAfter := time.Now() // time.Time | Only return Blog Posts created after the specified time. (optional)
+	createdBefore := time.Now() // time.Time | Only return Blog Posts created before the specified time. (optional)
+	updatedAt := time.Now() // time.Time | Only return Blog Posts last updated at exactly the specified time. (optional)
+	updatedAfter := time.Now() // time.Time | Only return Blog Posts last updated after the specified time. (optional)
+	updatedBefore := time.Now() // time.Time | Only return Blog Posts last updated before the specified time. (optional)
+	sort := []string{"Inner_example"} // []string | Specifies which fields to use for sorting results. Valid fields are `name`, `createdAt`, `updatedAt`, `createdBy`, `updatedBy`. `createdAt` will be used by default. (optional)
+	after := "after_example" // string | The cursor token value to get the next set of results. You can get this from the `paging.next.after` JSON property of a paged response containing more results. (optional)
+	limit := int32(56) // int32 | The maximum number of results to return. Default is 20. (optional)
+	archived := true // bool | Specifies whether to return deleted Blog Posts. Defaults to `false`. (optional)
+	property := "property_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogPostsApi.GetPage(context.Background()).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Sort(sort).After(after).Limit(limit).Archived(archived).Property(property).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.GetPage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetPage`: CollectionResponseWithTotalBlogPostForwardPaging
-    fmt.Fprintf(os.Stdout, "Response from `BlogPostsApi.GetPage`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BlogPostsAPI.GetPage(context.Background()).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Sort(sort).After(after).Limit(limit).Archived(archived).Property(property).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsAPI.GetPage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetPage`: CollectionResponseWithTotalBlogPostForwardPaging
+	fmt.Fprintf(os.Stdout, "Response from `BlogPostsAPI.GetPage`: %v\n", resp)
 }
 ```
 
@@ -940,25 +940,25 @@ Retrieves a previous version of a blog post
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    objectId := "objectId_example" // string | The Blog Post id.
-    revisionId := "revisionId_example" // string | The Blog Post version id.
+	objectId := "objectId_example" // string | The Blog Post id.
+	revisionId := "revisionId_example" // string | The Blog Post version id.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogPostsApi.GetPreviousVersion(context.Background(), objectId, revisionId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.GetPreviousVersion``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetPreviousVersion`: VersionBlogPost
-    fmt.Fprintf(os.Stdout, "Response from `BlogPostsApi.GetPreviousVersion`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BlogPostsAPI.GetPreviousVersion(context.Background(), objectId, revisionId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsAPI.GetPreviousVersion``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetPreviousVersion`: VersionBlogPost
+	fmt.Fprintf(os.Stdout, "Response from `BlogPostsAPI.GetPreviousVersion`: %v\n", resp)
 }
 ```
 
@@ -1013,27 +1013,27 @@ Retrieves all the previous versions of a blog post
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    objectId := "objectId_example" // string | The Blog Post id.
-    after := "after_example" // string | The cursor token value to get the next set of results. You can get this from the `paging.next.after` JSON property of a paged response containing more results. (optional)
-    before := "before_example" // string |  (optional)
-    limit := int32(56) // int32 | The maximum number of results to return. Default is 100. (optional)
+	objectId := "objectId_example" // string | The Blog Post id.
+	after := "after_example" // string | The cursor token value to get the next set of results. You can get this from the `paging.next.after` JSON property of a paged response containing more results. (optional)
+	before := "before_example" // string |  (optional)
+	limit := int32(56) // int32 | The maximum number of results to return. Default is 100. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogPostsApi.GetPreviousVersions(context.Background(), objectId).After(after).Before(before).Limit(limit).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.GetPreviousVersions``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetPreviousVersions`: CollectionResponseWithTotalVersionBlogPost
-    fmt.Fprintf(os.Stdout, "Response from `BlogPostsApi.GetPreviousVersions`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BlogPostsAPI.GetPreviousVersions(context.Background(), objectId).After(after).Before(before).Limit(limit).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsAPI.GetPreviousVersions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetPreviousVersions`: CollectionResponseWithTotalVersionBlogPost
+	fmt.Fprintf(os.Stdout, "Response from `BlogPostsAPI.GetPreviousVersions`: %v\n", resp)
 }
 ```
 
@@ -1089,22 +1089,22 @@ Push Blog Post draft edits live
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    objectId := "objectId_example" // string | The id of the Blog Post for which it's draft will be pushed live.
+	objectId := "objectId_example" // string | The id of the Blog Post for which it's draft will be pushed live.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogPostsApi.PushLive(context.Background(), objectId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.PushLive``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.BlogPostsAPI.PushLive(context.Background(), objectId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsAPI.PushLive``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -1157,22 +1157,22 @@ Reset the Blog Post draft to the live version
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    objectId := "objectId_example" // string | The id of the Blog Post for which it's draft will be reset.
+	objectId := "objectId_example" // string | The id of the Blog Post for which it's draft will be reset.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogPostsApi.ResetDraft(context.Background(), objectId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.ResetDraft``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.BlogPostsAPI.ResetDraft(context.Background(), objectId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsAPI.ResetDraft``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -1225,25 +1225,25 @@ Restore a previous version of a blog post
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    objectId := "objectId_example" // string | The Blog Post id.
-    revisionId := "revisionId_example" // string | The Blog Post version id to restore.
+	objectId := "objectId_example" // string | The Blog Post id.
+	revisionId := "revisionId_example" // string | The Blog Post version id to restore.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogPostsApi.RestorePreviousVersion(context.Background(), objectId, revisionId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.RestorePreviousVersion``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `RestorePreviousVersion`: BlogPost
-    fmt.Fprintf(os.Stdout, "Response from `BlogPostsApi.RestorePreviousVersion`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BlogPostsAPI.RestorePreviousVersion(context.Background(), objectId, revisionId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsAPI.RestorePreviousVersion``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `RestorePreviousVersion`: BlogPost
+	fmt.Fprintf(os.Stdout, "Response from `BlogPostsAPI.RestorePreviousVersion`: %v\n", resp)
 }
 ```
 
@@ -1298,25 +1298,25 @@ Restore a previous version of a blog post, to the draft version of the blog post
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    objectId := "objectId_example" // string | The Blog Post id.
-    revisionId := int64(789) // int64 | The Blog Post version id to restore.
+	objectId := "objectId_example" // string | The Blog Post id.
+	revisionId := int64(789) // int64 | The Blog Post version id to restore.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogPostsApi.RestorePreviousVersionToDraft(context.Background(), objectId, revisionId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.RestorePreviousVersionToDraft``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `RestorePreviousVersionToDraft`: BlogPost
-    fmt.Fprintf(os.Stdout, "Response from `BlogPostsApi.RestorePreviousVersionToDraft`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BlogPostsAPI.RestorePreviousVersionToDraft(context.Background(), objectId, revisionId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsAPI.RestorePreviousVersionToDraft``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `RestorePreviousVersionToDraft`: BlogPost
+	fmt.Fprintf(os.Stdout, "Response from `BlogPostsAPI.RestorePreviousVersionToDraft`: %v\n", resp)
 }
 ```
 
@@ -1371,23 +1371,23 @@ Schedule a Blog Post to be Published
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    openapiclient "./openapi"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    contentScheduleRequestVNext := *openapiclient.NewContentScheduleRequestVNext(time.Now(), "Id_example") // ContentScheduleRequestVNext | The JSON representation of the ContentScheduleRequestVNext object.
+	contentScheduleRequestVNext := *openapiclient.NewContentScheduleRequestVNext(time.Now(), "Id_example") // ContentScheduleRequestVNext | The JSON representation of the ContentScheduleRequestVNext object.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogPostsApi.Schedule(context.Background()).ContentScheduleRequestVNext(contentScheduleRequestVNext).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.Schedule``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.BlogPostsAPI.Schedule(context.Background()).ContentScheduleRequestVNext(contentScheduleRequestVNext).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsAPI.Schedule``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -1436,22 +1436,22 @@ Set a new primary language
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    setNewLanguagePrimaryRequestVNext := *openapiclient.NewSetNewLanguagePrimaryRequestVNext("Id_example") // SetNewLanguagePrimaryRequestVNext | The JSON representation of the SetNewLanguagePrimaryRequest object.
+	setNewLanguagePrimaryRequestVNext := *openapiclient.NewSetNewLanguagePrimaryRequestVNext("Id_example") // SetNewLanguagePrimaryRequestVNext | The JSON representation of the SetNewLanguagePrimaryRequest object.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogPostsApi.SetLanguagePrimary(context.Background()).SetNewLanguagePrimaryRequestVNext(setNewLanguagePrimaryRequestVNext).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.SetLanguagePrimary``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.BlogPostsAPI.SetLanguagePrimary(context.Background()).SetNewLanguagePrimaryRequestVNext(setNewLanguagePrimaryRequestVNext).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsAPI.SetLanguagePrimary``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -1500,27 +1500,27 @@ Update a Blog Post
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    openapiclient "./openapi"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    objectId := "objectId_example" // string | The Blog Post id.
-    blogPost := *openapiclient.NewBlogPost(time.Now(), "Language_example", false, "MetaDescription_example", []map[string]map[string]interface{}{map[string]map[string]interface{}{"key": map[string]interface{}(123)}}, "Password_example", "HtmlTitle_example", false, map[string]ContentLanguageVariation{"key": *openapiclient.NewContentLanguageVariation(false, time.Now(), time.Now(), []map[string]interface{}{map[string]interface{}(123)}, "Password_example", "AuthorName_example", false, "Name_example", "Campaign_example", int64(123), "State_example", time.Now(), "Slug_example")}, "Id_example", "State_example", "Slug_example", "CreatedById_example", "RssBody_example", false, false, time.Now(), "ContentTypeCategory_example", "MabExperimentId_example", "UpdatedById_example", "TranslatedFromId_example", "FolderId_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, int64(123), int32(123), "FeaturedImage_example", "AuthorName_example", "Domain_example", "Name_example", "DynamicPageHubDbTableId_example", "Campaign_example", "DynamicPageDataSourceId_example", false, false, map[string]LayoutSection{"key": *openapiclient.NewLayoutSection("CssStyle_example", "Label_example", "Type_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, []map[string]LayoutSection{map[string]LayoutSection{"key": *openapiclient.NewLayoutSection("CssStyle_example", "Label_example", "Type_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, []map[string]LayoutSection{map[string]LayoutSection{"key": }}, []openapiclient.RowMetaData{*openapiclient.NewRowMetaData("CssClass_example", *openapiclient.NewStyles(*openapiclient.NewRGBAColor(float32(123), int32(123), int32(123), int32(123)), "FlexboxPositioning_example", *openapiclient.NewBackgroundImage("ImageUrl_example", "BackgroundSize_example", "BackgroundPosition_example"), false, "VerticalAlignment_example", int32(123), *openapiclient.NewGradient(*openapiclient.NewAngle("Units_example", float32(123)), *openapiclient.NewSideOrCorner("HorizontalSide_example", "VerticalSide_example"), []openapiclient.ColorStop{*openapiclient.NewColorStop(*openapiclient.NewRGBAColor(float32(123), int32(123), int32(123), int32(123)))})))}, []openapiclient.LayoutSection{}, "CssClass_example", int32(123), "CssId_example", int32(123), "Name_example", *openapiclient.NewStyles(, "FlexboxPositioning_example", *openapiclient.NewBackgroundImage("ImageUrl_example", "BackgroundSize_example", "BackgroundPosition_example"), false, "VerticalAlignment_example", int32(123), *openapiclient.NewGradient(*openapiclient.NewAngle("Units_example", float32(123)), *openapiclient.NewSideOrCorner("HorizontalSide_example", "VerticalSide_example"), []openapiclient.ColorStop{*openapiclient.NewColorStop()})))}}, []openapiclient.RowMetaData{*openapiclient.NewRowMetaData("CssClass_example", )}, []openapiclient.LayoutSection{}, "CssClass_example", int32(123), "CssId_example", int32(123), "Name_example", )}, time.Now(), "FooterHtml_example", []int64{int64(123)}, map[string]map[string]interface{}{"key": map[string]interface{}(123)}, "PostSummary_example", "HeadHtml_example", "PageExpiryRedirectUrl_example", "AbStatus_example", false, "AbTestId_example", "FeaturedImageAltText_example", "BlogAuthorId_example", "ContentGroupId_example", "RssSummary_example", false, "Url_example", []map[string]interface{}{map[string]interface{}(123)}, false, int64(123), "PostBody_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, int64(123), false, "CurrentState_example", int32(123), "LinkRelCanonicalUrl_example") // BlogPost | The JSON representation of the updated Blog Post.
-    archived := true // bool | Specifies whether to update deleted Blog Posts. Defaults to `false`. (optional)
+	objectId := "objectId_example" // string | The Blog Post id.
+	blogPost := *openapiclient.NewBlogPost(time.Now(), "Language_example", false, "MetaDescription_example", []map[string]map[string]interface{}{map[string]map[string]interface{}{"key": map[string]interface{}(123)}}, "Password_example", "HtmlTitle_example", false, map[string]ContentLanguageVariation{"key": *openapiclient.NewContentLanguageVariation(false, time.Now(), time.Now(), []map[string]interface{}{map[string]interface{}(123)}, "Password_example", "AuthorName_example", false, "Name_example", "Campaign_example", int64(123), "State_example", time.Now(), "Slug_example")}, "Id_example", "State_example", "Slug_example", "CreatedById_example", "RssBody_example", false, false, time.Now(), "ContentTypeCategory_example", "MabExperimentId_example", "UpdatedById_example", "TranslatedFromId_example", "FolderId_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, int64(123), int32(123), "FeaturedImage_example", "AuthorName_example", "Domain_example", "Name_example", "DynamicPageHubDbTableId_example", "Campaign_example", "DynamicPageDataSourceId_example", false, false, map[string]LayoutSection{"key": *openapiclient.NewLayoutSection("CssStyle_example", "Label_example", "Type_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, []map[string]LayoutSection{map[string]LayoutSection{"key": *openapiclient.NewLayoutSection("CssStyle_example", "Label_example", "Type_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, []map[string]LayoutSection{map[string]LayoutSection{"key": }}, []openapiclient.RowMetaData{*openapiclient.NewRowMetaData("CssClass_example", *openapiclient.NewStyles(*openapiclient.NewRGBAColor(float32(123), int32(123), int32(123), int32(123)), "FlexboxPositioning_example", *openapiclient.NewBackgroundImage("ImageUrl_example", "BackgroundSize_example", "BackgroundPosition_example"), false, "VerticalAlignment_example", int32(123), *openapiclient.NewGradient(*openapiclient.NewAngle("Units_example", float32(123)), *openapiclient.NewSideOrCorner("HorizontalSide_example", "VerticalSide_example"), []openapiclient.ColorStop{*openapiclient.NewColorStop(*openapiclient.NewRGBAColor(float32(123), int32(123), int32(123), int32(123)))})))}, []openapiclient.LayoutSection{}, "CssClass_example", int32(123), "CssId_example", int32(123), "Name_example", *openapiclient.NewStyles(, "FlexboxPositioning_example", *openapiclient.NewBackgroundImage("ImageUrl_example", "BackgroundSize_example", "BackgroundPosition_example"), false, "VerticalAlignment_example", int32(123), *openapiclient.NewGradient(*openapiclient.NewAngle("Units_example", float32(123)), *openapiclient.NewSideOrCorner("HorizontalSide_example", "VerticalSide_example"), []openapiclient.ColorStop{*openapiclient.NewColorStop()})))}}, []openapiclient.RowMetaData{*openapiclient.NewRowMetaData("CssClass_example", )}, []openapiclient.LayoutSection{}, "CssClass_example", int32(123), "CssId_example", int32(123), "Name_example", )}, time.Now(), "FooterHtml_example", []int64{int64(123)}, map[string]map[string]interface{}{"key": map[string]interface{}(123)}, "PostSummary_example", "HeadHtml_example", "PageExpiryRedirectUrl_example", "AbStatus_example", false, "AbTestId_example", "FeaturedImageAltText_example", "BlogAuthorId_example", "ContentGroupId_example", "RssSummary_example", false, "Url_example", []map[string]interface{}{map[string]interface{}(123)}, false, int64(123), "PostBody_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, int64(123), false, "CurrentState_example", int32(123), "LinkRelCanonicalUrl_example") // BlogPost | The JSON representation of the updated Blog Post.
+	archived := true // bool | Specifies whether to update deleted Blog Posts. Defaults to `false`. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogPostsApi.Update(context.Background(), objectId).BlogPost(blogPost).Archived(archived).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.Update``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `Update`: BlogPost
-    fmt.Fprintf(os.Stdout, "Response from `BlogPostsApi.Update`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BlogPostsAPI.Update(context.Background(), objectId).BlogPost(blogPost).Archived(archived).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsAPI.Update``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `Update`: BlogPost
+	fmt.Fprintf(os.Stdout, "Response from `BlogPostsAPI.Update`: %v\n", resp)
 }
 ```
 
@@ -1575,26 +1575,26 @@ Update a Blog Post draft
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    openapiclient "./openapi"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    objectId := "objectId_example" // string | The Blog Post id.
-    blogPost := *openapiclient.NewBlogPost(time.Now(), "Language_example", false, "MetaDescription_example", []map[string]map[string]interface{}{map[string]map[string]interface{}{"key": map[string]interface{}(123)}}, "Password_example", "HtmlTitle_example", false, map[string]ContentLanguageVariation{"key": *openapiclient.NewContentLanguageVariation(false, time.Now(), time.Now(), []map[string]interface{}{map[string]interface{}(123)}, "Password_example", "AuthorName_example", false, "Name_example", "Campaign_example", int64(123), "State_example", time.Now(), "Slug_example")}, "Id_example", "State_example", "Slug_example", "CreatedById_example", "RssBody_example", false, false, time.Now(), "ContentTypeCategory_example", "MabExperimentId_example", "UpdatedById_example", "TranslatedFromId_example", "FolderId_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, int64(123), int32(123), "FeaturedImage_example", "AuthorName_example", "Domain_example", "Name_example", "DynamicPageHubDbTableId_example", "Campaign_example", "DynamicPageDataSourceId_example", false, false, map[string]LayoutSection{"key": *openapiclient.NewLayoutSection("CssStyle_example", "Label_example", "Type_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, []map[string]LayoutSection{map[string]LayoutSection{"key": *openapiclient.NewLayoutSection("CssStyle_example", "Label_example", "Type_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, []map[string]LayoutSection{map[string]LayoutSection{"key": }}, []openapiclient.RowMetaData{*openapiclient.NewRowMetaData("CssClass_example", *openapiclient.NewStyles(*openapiclient.NewRGBAColor(float32(123), int32(123), int32(123), int32(123)), "FlexboxPositioning_example", *openapiclient.NewBackgroundImage("ImageUrl_example", "BackgroundSize_example", "BackgroundPosition_example"), false, "VerticalAlignment_example", int32(123), *openapiclient.NewGradient(*openapiclient.NewAngle("Units_example", float32(123)), *openapiclient.NewSideOrCorner("HorizontalSide_example", "VerticalSide_example"), []openapiclient.ColorStop{*openapiclient.NewColorStop(*openapiclient.NewRGBAColor(float32(123), int32(123), int32(123), int32(123)))})))}, []openapiclient.LayoutSection{}, "CssClass_example", int32(123), "CssId_example", int32(123), "Name_example", *openapiclient.NewStyles(, "FlexboxPositioning_example", *openapiclient.NewBackgroundImage("ImageUrl_example", "BackgroundSize_example", "BackgroundPosition_example"), false, "VerticalAlignment_example", int32(123), *openapiclient.NewGradient(*openapiclient.NewAngle("Units_example", float32(123)), *openapiclient.NewSideOrCorner("HorizontalSide_example", "VerticalSide_example"), []openapiclient.ColorStop{*openapiclient.NewColorStop()})))}}, []openapiclient.RowMetaData{*openapiclient.NewRowMetaData("CssClass_example", )}, []openapiclient.LayoutSection{}, "CssClass_example", int32(123), "CssId_example", int32(123), "Name_example", )}, time.Now(), "FooterHtml_example", []int64{int64(123)}, map[string]map[string]interface{}{"key": map[string]interface{}(123)}, "PostSummary_example", "HeadHtml_example", "PageExpiryRedirectUrl_example", "AbStatus_example", false, "AbTestId_example", "FeaturedImageAltText_example", "BlogAuthorId_example", "ContentGroupId_example", "RssSummary_example", false, "Url_example", []map[string]interface{}{map[string]interface{}(123)}, false, int64(123), "PostBody_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, int64(123), false, "CurrentState_example", int32(123), "LinkRelCanonicalUrl_example") // BlogPost | The JSON representation of the updated Blog Post to be applied to the draft.
+	objectId := "objectId_example" // string | The Blog Post id.
+	blogPost := *openapiclient.NewBlogPost(time.Now(), "Language_example", false, "MetaDescription_example", []map[string]map[string]interface{}{map[string]map[string]interface{}{"key": map[string]interface{}(123)}}, "Password_example", "HtmlTitle_example", false, map[string]ContentLanguageVariation{"key": *openapiclient.NewContentLanguageVariation(false, time.Now(), time.Now(), []map[string]interface{}{map[string]interface{}(123)}, "Password_example", "AuthorName_example", false, "Name_example", "Campaign_example", int64(123), "State_example", time.Now(), "Slug_example")}, "Id_example", "State_example", "Slug_example", "CreatedById_example", "RssBody_example", false, false, time.Now(), "ContentTypeCategory_example", "MabExperimentId_example", "UpdatedById_example", "TranslatedFromId_example", "FolderId_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, int64(123), int32(123), "FeaturedImage_example", "AuthorName_example", "Domain_example", "Name_example", "DynamicPageHubDbTableId_example", "Campaign_example", "DynamicPageDataSourceId_example", false, false, map[string]LayoutSection{"key": *openapiclient.NewLayoutSection("CssStyle_example", "Label_example", "Type_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, []map[string]LayoutSection{map[string]LayoutSection{"key": *openapiclient.NewLayoutSection("CssStyle_example", "Label_example", "Type_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, []map[string]LayoutSection{map[string]LayoutSection{"key": }}, []openapiclient.RowMetaData{*openapiclient.NewRowMetaData("CssClass_example", *openapiclient.NewStyles(*openapiclient.NewRGBAColor(float32(123), int32(123), int32(123), int32(123)), "FlexboxPositioning_example", *openapiclient.NewBackgroundImage("ImageUrl_example", "BackgroundSize_example", "BackgroundPosition_example"), false, "VerticalAlignment_example", int32(123), *openapiclient.NewGradient(*openapiclient.NewAngle("Units_example", float32(123)), *openapiclient.NewSideOrCorner("HorizontalSide_example", "VerticalSide_example"), []openapiclient.ColorStop{*openapiclient.NewColorStop(*openapiclient.NewRGBAColor(float32(123), int32(123), int32(123), int32(123)))})))}, []openapiclient.LayoutSection{}, "CssClass_example", int32(123), "CssId_example", int32(123), "Name_example", *openapiclient.NewStyles(, "FlexboxPositioning_example", *openapiclient.NewBackgroundImage("ImageUrl_example", "BackgroundSize_example", "BackgroundPosition_example"), false, "VerticalAlignment_example", int32(123), *openapiclient.NewGradient(*openapiclient.NewAngle("Units_example", float32(123)), *openapiclient.NewSideOrCorner("HorizontalSide_example", "VerticalSide_example"), []openapiclient.ColorStop{*openapiclient.NewColorStop()})))}}, []openapiclient.RowMetaData{*openapiclient.NewRowMetaData("CssClass_example", )}, []openapiclient.LayoutSection{}, "CssClass_example", int32(123), "CssId_example", int32(123), "Name_example", )}, time.Now(), "FooterHtml_example", []int64{int64(123)}, map[string]map[string]interface{}{"key": map[string]interface{}(123)}, "PostSummary_example", "HeadHtml_example", "PageExpiryRedirectUrl_example", "AbStatus_example", false, "AbTestId_example", "FeaturedImageAltText_example", "BlogAuthorId_example", "ContentGroupId_example", "RssSummary_example", false, "Url_example", []map[string]interface{}{map[string]interface{}(123)}, false, int64(123), "PostBody_example", map[string]map[string]interface{}{"key": map[string]interface{}(123)}, int64(123), false, "CurrentState_example", int32(123), "LinkRelCanonicalUrl_example") // BlogPost | The JSON representation of the updated Blog Post to be applied to the draft.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogPostsApi.UpdateDraft(context.Background(), objectId).BlogPost(blogPost).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.UpdateDraft``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateDraft`: BlogPost
-    fmt.Fprintf(os.Stdout, "Response from `BlogPostsApi.UpdateDraft`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BlogPostsAPI.UpdateDraft(context.Background(), objectId).BlogPost(blogPost).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsAPI.UpdateDraft``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateDraft`: BlogPost
+	fmt.Fprintf(os.Stdout, "Response from `BlogPostsAPI.UpdateDraft`: %v\n", resp)
 }
 ```
 
@@ -1648,22 +1648,22 @@ Update languages of multi-language group
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    updateLanguagesRequestVNext := *openapiclient.NewUpdateLanguagesRequestVNext(map[string]string{"key": "Inner_example"}, "PrimaryId_example") // UpdateLanguagesRequestVNext | The JSON representation of the SetNewLanguagePrimaryRequest object.
+	updateLanguagesRequestVNext := *openapiclient.NewUpdateLanguagesRequestVNext(map[string]string{"key": "Inner_example"}, "PrimaryId_example") // UpdateLanguagesRequestVNext | The JSON representation of the SetNewLanguagePrimaryRequest object.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogPostsApi.UpdateLanguages(context.Background()).UpdateLanguagesRequestVNext(updateLanguagesRequestVNext).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsApi.UpdateLanguages``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.BlogPostsAPI.UpdateLanguages(context.Background()).UpdateLanguagesRequestVNext(updateLanguagesRequestVNext).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BlogPostsAPI.UpdateLanguages``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 

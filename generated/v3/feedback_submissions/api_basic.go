@@ -13,21 +13,21 @@ package feedback_submissions
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 
-	"github.com/clarkmcc/go-hubspot"
+	"github.com/inpher/go-hubspot"
 	"net/url"
 	"reflect"
 	"strings"
 )
 
-// BasicApiService BasicApi service
-type BasicApiService service
+// BasicAPIService BasicAPI service
+type BasicAPIService service
 
 type ApiDeleteCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdArchiveRequest struct {
 	ctx                  context.Context
-	ApiService           *BasicApiService
+	ApiService           *BasicAPIService
 	feedbackSubmissionId string
 }
 
@@ -40,11 +40,11 @@ DeleteCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdArchive Archive
 
 Move an Object identified by `{feedbackSubmissionId}` to the recycling bin.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param feedbackSubmissionId
- @return ApiDeleteCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdArchiveRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param feedbackSubmissionId
+	@return ApiDeleteCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdArchiveRequest
 */
-func (a *BasicApiService) DeleteCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdArchive(ctx context.Context, feedbackSubmissionId string) ApiDeleteCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdArchiveRequest {
+func (a *BasicAPIService) DeleteCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdArchive(ctx context.Context, feedbackSubmissionId string) ApiDeleteCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdArchiveRequest {
 	return ApiDeleteCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdArchiveRequest{
 		ApiService:           a,
 		ctx:                  ctx,
@@ -53,20 +53,20 @@ func (a *BasicApiService) DeleteCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissio
 }
 
 // Execute executes the request
-func (a *BasicApiService) DeleteCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdArchiveExecute(r ApiDeleteCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdArchiveRequest) (*http.Response, error) {
+func (a *BasicAPIService) DeleteCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdArchiveExecute(r ApiDeleteCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdArchiveRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.DeleteCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdArchive")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicAPIService.DeleteCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdArchive")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/objects/feedback_submissions/{feedbackSubmissionId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"feedbackSubmissionId"+"}", url.PathEscape(parameterToString(r.feedbackSubmissionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"feedbackSubmissionId"+"}", url.PathEscape(parameterValueToString(r.feedbackSubmissionId, "feedbackSubmissionId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -109,9 +109,9 @@ func (a *BasicApiService) DeleteCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissio
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -127,6 +127,7 @@ func (a *BasicApiService) DeleteCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissio
 			newErr.error = err.Error()
 			return localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
@@ -136,7 +137,7 @@ func (a *BasicApiService) DeleteCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissio
 
 type ApiGetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetByIdRequest struct {
 	ctx                   context.Context
-	ApiService            *BasicApiService
+	ApiService            *BasicAPIService
 	feedbackSubmissionId  string
 	properties            *[]string
 	propertiesWithHistory *[]string
@@ -184,11 +185,11 @@ GetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetById Read
 
 Read an Object identified by `{feedbackSubmissionId}`. `{feedbackSubmissionId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param feedbackSubmissionId
- @return ApiGetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetByIdRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param feedbackSubmissionId
+	@return ApiGetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetByIdRequest
 */
-func (a *BasicApiService) GetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetById(ctx context.Context, feedbackSubmissionId string) ApiGetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetByIdRequest {
+func (a *BasicAPIService) GetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetById(ctx context.Context, feedbackSubmissionId string) ApiGetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetByIdRequest {
 	return ApiGetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetByIdRequest{
 		ApiService:           a,
 		ctx:                  ctx,
@@ -197,8 +198,9 @@ func (a *BasicApiService) GetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionId
 }
 
 // Execute executes the request
-//  @return SimplePublicObjectWithAssociations
-func (a *BasicApiService) GetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetByIdExecute(r ApiGetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetByIdRequest) (*SimplePublicObjectWithAssociations, *http.Response, error) {
+//
+//	@return SimplePublicObjectWithAssociations
+func (a *BasicAPIService) GetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetByIdExecute(r ApiGetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetByIdRequest) (*SimplePublicObjectWithAssociations, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -206,13 +208,13 @@ func (a *BasicApiService) GetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionId
 		localVarReturnValue *SimplePublicObjectWithAssociations
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.GetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicAPIService.GetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdGetById")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/objects/feedback_submissions/{feedbackSubmissionId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"feedbackSubmissionId"+"}", url.PathEscape(parameterToString(r.feedbackSubmissionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"feedbackSubmissionId"+"}", url.PathEscape(parameterValueToString(r.feedbackSubmissionId, "feedbackSubmissionId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -223,10 +225,10 @@ func (a *BasicApiService) GetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionId
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("properties", parameterToString(s.Index(i), "multi"))
+				parameterAddToHeaderOrQuery(localVarQueryParams, "properties", s.Index(i).Interface(), "multi")
 			}
 		} else {
-			localVarQueryParams.Add("properties", parameterToString(t, "multi"))
+			parameterAddToHeaderOrQuery(localVarQueryParams, "properties", t, "multi")
 		}
 	}
 	if r.propertiesWithHistory != nil {
@@ -234,10 +236,10 @@ func (a *BasicApiService) GetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionId
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("propertiesWithHistory", parameterToString(s.Index(i), "multi"))
+				parameterAddToHeaderOrQuery(localVarQueryParams, "propertiesWithHistory", s.Index(i).Interface(), "multi")
 			}
 		} else {
-			localVarQueryParams.Add("propertiesWithHistory", parameterToString(t, "multi"))
+			parameterAddToHeaderOrQuery(localVarQueryParams, "propertiesWithHistory", t, "multi")
 		}
 	}
 	if r.associations != nil {
@@ -245,17 +247,20 @@ func (a *BasicApiService) GetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionId
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("associations", parameterToString(s.Index(i), "multi"))
+				parameterAddToHeaderOrQuery(localVarQueryParams, "associations", s.Index(i).Interface(), "multi")
 			}
 		} else {
-			localVarQueryParams.Add("associations", parameterToString(t, "multi"))
+			parameterAddToHeaderOrQuery(localVarQueryParams, "associations", t, "multi")
 		}
 	}
 	if r.archived != nil {
-		localVarQueryParams.Add("archived", parameterToString(*r.archived, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "archived", r.archived, "")
+	} else {
+		var defaultValue bool = false
+		r.archived = &defaultValue
 	}
 	if r.idProperty != nil {
-		localVarQueryParams.Add("idProperty", parameterToString(*r.idProperty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "idProperty", r.idProperty, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -294,9 +299,9 @@ func (a *BasicApiService) GetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionId
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -312,6 +317,7 @@ func (a *BasicApiService) GetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionId
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -330,7 +336,7 @@ func (a *BasicApiService) GetCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionId
 
 type ApiGetCrmV3ObjectsFeedbackSubmissionsGetPageRequest struct {
 	ctx                   context.Context
-	ApiService            *BasicApiService
+	ApiService            *BasicAPIService
 	limit                 *int32
 	after                 *string
 	properties            *[]string
@@ -384,10 +390,10 @@ GetCrmV3ObjectsFeedbackSubmissionsGetPage List
 
 Read a page of feedback submissions. Control what is returned via the `properties` query param.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetCrmV3ObjectsFeedbackSubmissionsGetPageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetCrmV3ObjectsFeedbackSubmissionsGetPageRequest
 */
-func (a *BasicApiService) GetCrmV3ObjectsFeedbackSubmissionsGetPage(ctx context.Context) ApiGetCrmV3ObjectsFeedbackSubmissionsGetPageRequest {
+func (a *BasicAPIService) GetCrmV3ObjectsFeedbackSubmissionsGetPage(ctx context.Context) ApiGetCrmV3ObjectsFeedbackSubmissionsGetPageRequest {
 	return ApiGetCrmV3ObjectsFeedbackSubmissionsGetPageRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -395,8 +401,9 @@ func (a *BasicApiService) GetCrmV3ObjectsFeedbackSubmissionsGetPage(ctx context.
 }
 
 // Execute executes the request
-//  @return CollectionResponseSimplePublicObjectWithAssociationsForwardPaging
-func (a *BasicApiService) GetCrmV3ObjectsFeedbackSubmissionsGetPageExecute(r ApiGetCrmV3ObjectsFeedbackSubmissionsGetPageRequest) (*CollectionResponseSimplePublicObjectWithAssociationsForwardPaging, *http.Response, error) {
+//
+//	@return CollectionResponseSimplePublicObjectWithAssociationsForwardPaging
+func (a *BasicAPIService) GetCrmV3ObjectsFeedbackSubmissionsGetPageExecute(r ApiGetCrmV3ObjectsFeedbackSubmissionsGetPageRequest) (*CollectionResponseSimplePublicObjectWithAssociationsForwardPaging, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -404,7 +411,7 @@ func (a *BasicApiService) GetCrmV3ObjectsFeedbackSubmissionsGetPageExecute(r Api
 		localVarReturnValue *CollectionResponseSimplePublicObjectWithAssociationsForwardPaging
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.GetCrmV3ObjectsFeedbackSubmissionsGetPage")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicAPIService.GetCrmV3ObjectsFeedbackSubmissionsGetPage")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -416,20 +423,23 @@ func (a *BasicApiService) GetCrmV3ObjectsFeedbackSubmissionsGetPageExecute(r Api
 	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+	} else {
+		var defaultValue int32 = 10
+		r.limit = &defaultValue
 	}
 	if r.after != nil {
-		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "after", r.after, "")
 	}
 	if r.properties != nil {
 		t := *r.properties
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("properties", parameterToString(s.Index(i), "multi"))
+				parameterAddToHeaderOrQuery(localVarQueryParams, "properties", s.Index(i).Interface(), "multi")
 			}
 		} else {
-			localVarQueryParams.Add("properties", parameterToString(t, "multi"))
+			parameterAddToHeaderOrQuery(localVarQueryParams, "properties", t, "multi")
 		}
 	}
 	if r.propertiesWithHistory != nil {
@@ -437,10 +447,10 @@ func (a *BasicApiService) GetCrmV3ObjectsFeedbackSubmissionsGetPageExecute(r Api
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("propertiesWithHistory", parameterToString(s.Index(i), "multi"))
+				parameterAddToHeaderOrQuery(localVarQueryParams, "propertiesWithHistory", s.Index(i).Interface(), "multi")
 			}
 		} else {
-			localVarQueryParams.Add("propertiesWithHistory", parameterToString(t, "multi"))
+			parameterAddToHeaderOrQuery(localVarQueryParams, "propertiesWithHistory", t, "multi")
 		}
 	}
 	if r.associations != nil {
@@ -448,14 +458,17 @@ func (a *BasicApiService) GetCrmV3ObjectsFeedbackSubmissionsGetPageExecute(r Api
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("associations", parameterToString(s.Index(i), "multi"))
+				parameterAddToHeaderOrQuery(localVarQueryParams, "associations", s.Index(i).Interface(), "multi")
 			}
 		} else {
-			localVarQueryParams.Add("associations", parameterToString(t, "multi"))
+			parameterAddToHeaderOrQuery(localVarQueryParams, "associations", t, "multi")
 		}
 	}
 	if r.archived != nil {
-		localVarQueryParams.Add("archived", parameterToString(*r.archived, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "archived", r.archived, "")
+	} else {
+		var defaultValue bool = false
+		r.archived = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -494,9 +507,9 @@ func (a *BasicApiService) GetCrmV3ObjectsFeedbackSubmissionsGetPageExecute(r Api
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -512,6 +525,7 @@ func (a *BasicApiService) GetCrmV3ObjectsFeedbackSubmissionsGetPageExecute(r Api
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -530,7 +544,7 @@ func (a *BasicApiService) GetCrmV3ObjectsFeedbackSubmissionsGetPageExecute(r Api
 
 type ApiPatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdUpdateRequest struct {
 	ctx                     context.Context
-	ApiService              *BasicApiService
+	ApiService              *BasicAPIService
 	feedbackSubmissionId    string
 	simplePublicObjectInput *SimplePublicObjectInput
 	idProperty              *string
@@ -556,11 +570,11 @@ PatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdUpdate Update
 
 Perform a partial update of an Object identified by `{feedbackSubmissionId}`. `{feedbackSubmissionId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param feedbackSubmissionId
- @return ApiPatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdUpdateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param feedbackSubmissionId
+	@return ApiPatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdUpdateRequest
 */
-func (a *BasicApiService) PatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdUpdate(ctx context.Context, feedbackSubmissionId string) ApiPatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdUpdateRequest {
+func (a *BasicAPIService) PatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdUpdate(ctx context.Context, feedbackSubmissionId string) ApiPatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdUpdateRequest {
 	return ApiPatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdUpdateRequest{
 		ApiService:           a,
 		ctx:                  ctx,
@@ -569,8 +583,9 @@ func (a *BasicApiService) PatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmission
 }
 
 // Execute executes the request
-//  @return SimplePublicObject
-func (a *BasicApiService) PatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdUpdateExecute(r ApiPatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdUpdateRequest) (*SimplePublicObject, *http.Response, error) {
+//
+//	@return SimplePublicObject
+func (a *BasicAPIService) PatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdUpdateExecute(r ApiPatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdUpdateRequest) (*SimplePublicObject, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
 		localVarPostBody    interface{}
@@ -578,13 +593,13 @@ func (a *BasicApiService) PatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmission
 		localVarReturnValue *SimplePublicObject
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.PatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdUpdate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicAPIService.PatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmissionIdUpdate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/objects/feedback_submissions/{feedbackSubmissionId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"feedbackSubmissionId"+"}", url.PathEscape(parameterToString(r.feedbackSubmissionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"feedbackSubmissionId"+"}", url.PathEscape(parameterValueToString(r.feedbackSubmissionId, "feedbackSubmissionId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -594,7 +609,7 @@ func (a *BasicApiService) PatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmission
 	}
 
 	if r.idProperty != nil {
-		localVarQueryParams.Add("idProperty", parameterToString(*r.idProperty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "idProperty", r.idProperty, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -635,9 +650,9 @@ func (a *BasicApiService) PatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmission
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -653,6 +668,7 @@ func (a *BasicApiService) PatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmission
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -671,7 +687,7 @@ func (a *BasicApiService) PatchCrmV3ObjectsFeedbackSubmissionsFeedbackSubmission
 
 type ApiPostCrmV3ObjectsFeedbackSubmissionsCreateRequest struct {
 	ctx                              context.Context
-	ApiService                       *BasicApiService
+	ApiService                       *BasicAPIService
 	simplePublicObjectInputForCreate *SimplePublicObjectInputForCreate
 }
 
@@ -689,10 +705,10 @@ PostCrmV3ObjectsFeedbackSubmissionsCreate Create
 
 Create a feedback submission with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard feedback submissions is provided.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostCrmV3ObjectsFeedbackSubmissionsCreateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiPostCrmV3ObjectsFeedbackSubmissionsCreateRequest
 */
-func (a *BasicApiService) PostCrmV3ObjectsFeedbackSubmissionsCreate(ctx context.Context) ApiPostCrmV3ObjectsFeedbackSubmissionsCreateRequest {
+func (a *BasicAPIService) PostCrmV3ObjectsFeedbackSubmissionsCreate(ctx context.Context) ApiPostCrmV3ObjectsFeedbackSubmissionsCreateRequest {
 	return ApiPostCrmV3ObjectsFeedbackSubmissionsCreateRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -700,8 +716,9 @@ func (a *BasicApiService) PostCrmV3ObjectsFeedbackSubmissionsCreate(ctx context.
 }
 
 // Execute executes the request
-//  @return SimplePublicObject
-func (a *BasicApiService) PostCrmV3ObjectsFeedbackSubmissionsCreateExecute(r ApiPostCrmV3ObjectsFeedbackSubmissionsCreateRequest) (*SimplePublicObject, *http.Response, error) {
+//
+//	@return SimplePublicObject
+func (a *BasicAPIService) PostCrmV3ObjectsFeedbackSubmissionsCreateExecute(r ApiPostCrmV3ObjectsFeedbackSubmissionsCreateRequest) (*SimplePublicObject, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -709,7 +726,7 @@ func (a *BasicApiService) PostCrmV3ObjectsFeedbackSubmissionsCreateExecute(r Api
 		localVarReturnValue *SimplePublicObject
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicApiService.PostCrmV3ObjectsFeedbackSubmissionsCreate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BasicAPIService.PostCrmV3ObjectsFeedbackSubmissionsCreate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -762,9 +779,9 @@ func (a *BasicApiService) PostCrmV3ObjectsFeedbackSubmissionsCreateExecute(r Api
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -780,6 +797,7 @@ func (a *BasicApiService) PostCrmV3ObjectsFeedbackSubmissionsCreateExecute(r Api
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

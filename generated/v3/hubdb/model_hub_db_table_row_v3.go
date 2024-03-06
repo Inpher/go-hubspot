@@ -11,9 +11,14 @@ API version: v3
 package hubdb
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the HubDbTableRowV3 type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &HubDbTableRowV3{}
 
 // HubDbTableRowV3 struct for HubDbTableRowV3
 type HubDbTableRowV3 struct {
@@ -33,6 +38,8 @@ type HubDbTableRowV3 struct {
 	// Timestamp at which the row is updated last time
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 }
+
+type _HubDbTableRowV3 HubDbTableRowV3
 
 // NewHubDbTableRowV3 instantiates a new HubDbTableRowV3 object
 // This constructor will assign default values to properties that have it defined,
@@ -54,7 +61,7 @@ func NewHubDbTableRowV3WithDefaults() *HubDbTableRowV3 {
 
 // GetPath returns the Path field value if set, zero value otherwise.
 func (o *HubDbTableRowV3) GetPath() string {
-	if o == nil || o.Path == nil {
+	if o == nil || IsNil(o.Path) {
 		var ret string
 		return ret
 	}
@@ -64,7 +71,7 @@ func (o *HubDbTableRowV3) GetPath() string {
 // GetPathOk returns a tuple with the Path field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *HubDbTableRowV3) GetPathOk() (*string, bool) {
-	if o == nil || o.Path == nil {
+	if o == nil || IsNil(o.Path) {
 		return nil, false
 	}
 	return o.Path, true
@@ -72,7 +79,7 @@ func (o *HubDbTableRowV3) GetPathOk() (*string, bool) {
 
 // HasPath returns a boolean if a field has been set.
 func (o *HubDbTableRowV3) HasPath() bool {
-	if o != nil && o.Path != nil {
+	if o != nil && !IsNil(o.Path) {
 		return true
 	}
 
@@ -86,7 +93,7 @@ func (o *HubDbTableRowV3) SetPath(v string) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *HubDbTableRowV3) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -96,7 +103,7 @@ func (o *HubDbTableRowV3) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *HubDbTableRowV3) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -104,7 +111,7 @@ func (o *HubDbTableRowV3) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *HubDbTableRowV3) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -118,7 +125,7 @@ func (o *HubDbTableRowV3) SetCreatedAt(v time.Time) {
 
 // GetChildTableId returns the ChildTableId field value if set, zero value otherwise.
 func (o *HubDbTableRowV3) GetChildTableId() string {
-	if o == nil || o.ChildTableId == nil {
+	if o == nil || IsNil(o.ChildTableId) {
 		var ret string
 		return ret
 	}
@@ -128,7 +135,7 @@ func (o *HubDbTableRowV3) GetChildTableId() string {
 // GetChildTableIdOk returns a tuple with the ChildTableId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *HubDbTableRowV3) GetChildTableIdOk() (*string, bool) {
-	if o == nil || o.ChildTableId == nil {
+	if o == nil || IsNil(o.ChildTableId) {
 		return nil, false
 	}
 	return o.ChildTableId, true
@@ -136,7 +143,7 @@ func (o *HubDbTableRowV3) GetChildTableIdOk() (*string, bool) {
 
 // HasChildTableId returns a boolean if a field has been set.
 func (o *HubDbTableRowV3) HasChildTableId() bool {
-	if o != nil && o.ChildTableId != nil {
+	if o != nil && !IsNil(o.ChildTableId) {
 		return true
 	}
 
@@ -150,7 +157,7 @@ func (o *HubDbTableRowV3) SetChildTableId(v string) {
 
 // GetPublishedAt returns the PublishedAt field value if set, zero value otherwise.
 func (o *HubDbTableRowV3) GetPublishedAt() time.Time {
-	if o == nil || o.PublishedAt == nil {
+	if o == nil || IsNil(o.PublishedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -160,7 +167,7 @@ func (o *HubDbTableRowV3) GetPublishedAt() time.Time {
 // GetPublishedAtOk returns a tuple with the PublishedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *HubDbTableRowV3) GetPublishedAtOk() (*time.Time, bool) {
-	if o == nil || o.PublishedAt == nil {
+	if o == nil || IsNil(o.PublishedAt) {
 		return nil, false
 	}
 	return o.PublishedAt, true
@@ -168,7 +175,7 @@ func (o *HubDbTableRowV3) GetPublishedAtOk() (*time.Time, bool) {
 
 // HasPublishedAt returns a boolean if a field has been set.
 func (o *HubDbTableRowV3) HasPublishedAt() bool {
-	if o != nil && o.PublishedAt != nil {
+	if o != nil && !IsNil(o.PublishedAt) {
 		return true
 	}
 
@@ -194,7 +201,7 @@ func (o *HubDbTableRowV3) GetValues() map[string]map[string]interface{} {
 // and a boolean to check if the value has been set.
 func (o *HubDbTableRowV3) GetValuesOk() (map[string]map[string]interface{}, bool) {
 	if o == nil {
-		return nil, false
+		return map[string]map[string]interface{}{}, false
 	}
 	return o.Values, true
 }
@@ -206,7 +213,7 @@ func (o *HubDbTableRowV3) SetValues(v map[string]map[string]interface{}) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *HubDbTableRowV3) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -216,7 +223,7 @@ func (o *HubDbTableRowV3) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *HubDbTableRowV3) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -224,7 +231,7 @@ func (o *HubDbTableRowV3) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *HubDbTableRowV3) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -238,7 +245,7 @@ func (o *HubDbTableRowV3) SetName(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *HubDbTableRowV3) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -248,7 +255,7 @@ func (o *HubDbTableRowV3) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *HubDbTableRowV3) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -256,7 +263,7 @@ func (o *HubDbTableRowV3) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *HubDbTableRowV3) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -270,7 +277,7 @@ func (o *HubDbTableRowV3) SetId(v string) {
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
 func (o *HubDbTableRowV3) GetUpdatedAt() time.Time {
-	if o == nil || o.UpdatedAt == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -280,7 +287,7 @@ func (o *HubDbTableRowV3) GetUpdatedAt() time.Time {
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *HubDbTableRowV3) GetUpdatedAtOk() (*time.Time, bool) {
-	if o == nil || o.UpdatedAt == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
 	return o.UpdatedAt, true
@@ -288,7 +295,7 @@ func (o *HubDbTableRowV3) GetUpdatedAtOk() (*time.Time, bool) {
 
 // HasUpdatedAt returns a boolean if a field has been set.
 func (o *HubDbTableRowV3) HasUpdatedAt() bool {
-	if o != nil && o.UpdatedAt != nil {
+	if o != nil && !IsNil(o.UpdatedAt) {
 		return true
 	}
 
@@ -301,32 +308,75 @@ func (o *HubDbTableRowV3) SetUpdatedAt(v time.Time) {
 }
 
 func (o HubDbTableRowV3) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Path != nil {
-		toSerialize["path"] = o.Path
-	}
-	if o.CreatedAt != nil {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if o.ChildTableId != nil {
-		toSerialize["childTableId"] = o.ChildTableId
-	}
-	if o.PublishedAt != nil {
-		toSerialize["publishedAt"] = o.PublishedAt
-	}
-	if true {
-		toSerialize["values"] = o.Values
-	}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.Id != nil {
-		toSerialize["id"] = o.Id
-	}
-	if o.UpdatedAt != nil {
-		toSerialize["updatedAt"] = o.UpdatedAt
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o HubDbTableRowV3) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Path) {
+		toSerialize["path"] = o.Path
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["createdAt"] = o.CreatedAt
+	}
+	if !IsNil(o.ChildTableId) {
+		toSerialize["childTableId"] = o.ChildTableId
+	}
+	if !IsNil(o.PublishedAt) {
+		toSerialize["publishedAt"] = o.PublishedAt
+	}
+	toSerialize["values"] = o.Values
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.UpdatedAt) {
+		toSerialize["updatedAt"] = o.UpdatedAt
+	}
+	return toSerialize, nil
+}
+
+func (o *HubDbTableRowV3) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"values",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varHubDbTableRowV3 := _HubDbTableRowV3{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varHubDbTableRowV3)
+
+	if err != nil {
+		return err
+	}
+
+	*o = HubDbTableRowV3(varHubDbTableRowV3)
+
+	return err
 }
 
 type NullableHubDbTableRowV3 struct {

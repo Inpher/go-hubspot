@@ -181,40 +181,40 @@ paths:
       security:
       - oauth2_legacy:
         - media_bridge.read
-      - oauth2:
-        - crm.objects.contacts.read
       - private_apps:
         - crm.objects.deals.read
       - private_apps_legacy:
         - timeline
+      - private_apps_legacy:
+        - crm.objects.marketing_events.read
+      - oauth2_legacy:
+        - crm.objects.marketing_events.write
       - oauth2:
         - crm.objects.deals.read
       - private_apps_legacy:
         - contacts
       - private_apps:
-        - crm.objects.contacts.read
+        - crm.objects.owners.read
+      - oauth2:
+        - crm.objects.owners.read
       - oauth2_legacy:
         - crm.schemas.custom.read
       - private_apps:
         - crm.objects.companies.read
-      - private_apps:
-        - crm.objects.deals.write
       - oauth2:
         - crm.schemas.quotes.read
       - private_apps:
         - crm.schemas.quotes.read
-      - oauth2:
-        - crm.objects.deals.write
       - oauth2:
         - crm.objects.companies.read
+      - oauth2_legacy:
+        - crm.objects.marketing_events.read
+      - private_apps_legacy:
+        - crm.objects.marketing_events.write
       - private_apps_legacy:
         - crm.schemas.custom.read
       - private_apps_legacy:
         - crm.objects.goals.read
-      - private_apps:
-        - crm.schemas.deals.read
-      - oauth2:
-        - crm.schemas.deals.read
       - oauth2_legacy:
         - timeline
       - private_apps_legacy:
@@ -223,18 +223,14 @@ paths:
         - crm.objects.companies.write
       - oauth2:
         - crm.objects.companies.write
-      - oauth2:
-        - crm.schemas.contacts.read
-      - private_apps:
-        - crm.schemas.contacts.read
       - oauth2_legacy:
         - tickets
       - private_apps_legacy:
+        - crm.objects.custom.write
+      - oauth2_legacy:
+        - crm.objects.feedback_submissions.read
+      - private_apps_legacy:
         - e-commerce
-      - oauth2:
-        - crm.objects.contacts.write
-      - private_apps:
-        - crm.objects.contacts.write
       - private_apps:
         - crm.schemas.companies.read
       - oauth2:
@@ -243,12 +239,56 @@ paths:
         - e-commerce
       - private_apps_legacy:
         - tickets
+      - private_apps_legacy:
+        - crm.objects.feedback_submissions.read
       - oauth2_legacy:
         - crm.objects.goals.read
       - private_apps:
         - crm.schemas.line_items.read
+      - oauth2_legacy:
+        - crm.objects.custom.write
       - oauth2:
         - crm.schemas.line_items.read
+      - oauth2:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.deals.write
+      - private_apps:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.schemas.contacts.read
+      - oauth2:
+        - crm.objects.quotes.write
+      - private_apps:
+        - crm.schemas.contacts.read
+      - private_apps:
+        - crm.objects.quotes.write
+      - private_apps:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2_legacy:
+        - crm.objects.custom.read
+      - private_apps_legacy:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
+      - private_apps:
+        - crm.objects.line_items.write
+      - oauth2:
+        - crm.objects.quotes.read
+      - private_apps:
+        - crm.objects.quotes.read
       summary: Read a property group
       tags:
       - Groups
@@ -426,40 +466,40 @@ paths:
       security:
       - oauth2_legacy:
         - media_bridge.read
-      - oauth2:
-        - crm.objects.contacts.read
       - private_apps:
         - crm.objects.deals.read
       - private_apps_legacy:
         - timeline
+      - private_apps_legacy:
+        - crm.objects.marketing_events.read
+      - oauth2_legacy:
+        - crm.objects.marketing_events.write
       - oauth2:
         - crm.objects.deals.read
       - private_apps_legacy:
         - contacts
       - private_apps:
-        - crm.objects.contacts.read
+        - crm.objects.owners.read
+      - oauth2:
+        - crm.objects.owners.read
       - oauth2_legacy:
         - crm.schemas.custom.read
       - private_apps:
         - crm.objects.companies.read
-      - private_apps:
-        - crm.objects.deals.write
       - oauth2:
         - crm.schemas.quotes.read
       - private_apps:
         - crm.schemas.quotes.read
-      - oauth2:
-        - crm.objects.deals.write
       - oauth2:
         - crm.objects.companies.read
+      - oauth2_legacy:
+        - crm.objects.marketing_events.read
+      - private_apps_legacy:
+        - crm.objects.marketing_events.write
       - private_apps_legacy:
         - crm.schemas.custom.read
       - private_apps_legacy:
         - crm.objects.goals.read
-      - private_apps:
-        - crm.schemas.deals.read
-      - oauth2:
-        - crm.schemas.deals.read
       - oauth2_legacy:
         - timeline
       - private_apps_legacy:
@@ -468,18 +508,14 @@ paths:
         - crm.objects.companies.write
       - oauth2:
         - crm.objects.companies.write
-      - oauth2:
-        - crm.schemas.contacts.read
-      - private_apps:
-        - crm.schemas.contacts.read
       - oauth2_legacy:
         - tickets
       - private_apps_legacy:
+        - crm.objects.custom.write
+      - oauth2_legacy:
+        - crm.objects.feedback_submissions.read
+      - private_apps_legacy:
         - e-commerce
-      - oauth2:
-        - crm.objects.contacts.write
-      - private_apps:
-        - crm.objects.contacts.write
       - private_apps:
         - crm.schemas.companies.read
       - oauth2:
@@ -488,12 +524,56 @@ paths:
         - e-commerce
       - private_apps_legacy:
         - tickets
+      - private_apps_legacy:
+        - crm.objects.feedback_submissions.read
       - oauth2_legacy:
         - crm.objects.goals.read
       - private_apps:
         - crm.schemas.line_items.read
+      - oauth2_legacy:
+        - crm.objects.custom.write
       - oauth2:
         - crm.schemas.line_items.read
+      - oauth2:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.deals.write
+      - private_apps:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.schemas.contacts.read
+      - oauth2:
+        - crm.objects.quotes.write
+      - private_apps:
+        - crm.schemas.contacts.read
+      - private_apps:
+        - crm.objects.quotes.write
+      - private_apps:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2_legacy:
+        - crm.objects.custom.read
+      - private_apps_legacy:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
+      - private_apps:
+        - crm.objects.line_items.write
+      - oauth2:
+        - crm.objects.quotes.read
+      - private_apps:
+        - crm.objects.quotes.read
       summary: Read a property
       tags:
       - Core
@@ -603,40 +683,40 @@ paths:
       security:
       - oauth2_legacy:
         - media_bridge.read
-      - oauth2:
-        - crm.objects.contacts.read
       - private_apps:
         - crm.objects.deals.read
       - private_apps_legacy:
         - timeline
+      - private_apps_legacy:
+        - crm.objects.marketing_events.read
+      - oauth2_legacy:
+        - crm.objects.marketing_events.write
       - oauth2:
         - crm.objects.deals.read
       - private_apps_legacy:
         - contacts
       - private_apps:
-        - crm.objects.contacts.read
+        - crm.objects.owners.read
+      - oauth2:
+        - crm.objects.owners.read
       - oauth2_legacy:
         - crm.schemas.custom.read
       - private_apps:
         - crm.objects.companies.read
-      - private_apps:
-        - crm.objects.deals.write
       - oauth2:
         - crm.schemas.quotes.read
       - private_apps:
         - crm.schemas.quotes.read
-      - oauth2:
-        - crm.objects.deals.write
       - oauth2:
         - crm.objects.companies.read
+      - oauth2_legacy:
+        - crm.objects.marketing_events.read
+      - private_apps_legacy:
+        - crm.objects.marketing_events.write
       - private_apps_legacy:
         - crm.schemas.custom.read
       - private_apps_legacy:
         - crm.objects.goals.read
-      - private_apps:
-        - crm.schemas.deals.read
-      - oauth2:
-        - crm.schemas.deals.read
       - oauth2_legacy:
         - timeline
       - private_apps_legacy:
@@ -645,18 +725,14 @@ paths:
         - crm.objects.companies.write
       - oauth2:
         - crm.objects.companies.write
-      - oauth2:
-        - crm.schemas.contacts.read
-      - private_apps:
-        - crm.schemas.contacts.read
       - oauth2_legacy:
         - tickets
       - private_apps_legacy:
+        - crm.objects.custom.write
+      - oauth2_legacy:
+        - crm.objects.feedback_submissions.read
+      - private_apps_legacy:
         - e-commerce
-      - oauth2:
-        - crm.objects.contacts.write
-      - private_apps:
-        - crm.objects.contacts.write
       - private_apps:
         - crm.schemas.companies.read
       - oauth2:
@@ -665,12 +741,56 @@ paths:
         - e-commerce
       - private_apps_legacy:
         - tickets
+      - private_apps_legacy:
+        - crm.objects.feedback_submissions.read
       - oauth2_legacy:
         - crm.objects.goals.read
       - private_apps:
         - crm.schemas.line_items.read
+      - oauth2_legacy:
+        - crm.objects.custom.write
       - oauth2:
         - crm.schemas.line_items.read
+      - oauth2:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.deals.write
+      - private_apps:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.schemas.contacts.read
+      - oauth2:
+        - crm.objects.quotes.write
+      - private_apps:
+        - crm.schemas.contacts.read
+      - private_apps:
+        - crm.objects.quotes.write
+      - private_apps:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2_legacy:
+        - crm.objects.custom.read
+      - private_apps_legacy:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
+      - private_apps:
+        - crm.objects.line_items.write
+      - oauth2:
+        - crm.objects.quotes.read
+      - private_apps:
+        - crm.objects.quotes.read
       summary: Read a batch of properties
       tags:
       - Batch
@@ -785,40 +905,40 @@ paths:
       security:
       - oauth2_legacy:
         - media_bridge.read
-      - oauth2:
-        - crm.objects.contacts.read
       - private_apps:
         - crm.objects.deals.read
       - private_apps_legacy:
         - timeline
+      - private_apps_legacy:
+        - crm.objects.marketing_events.read
+      - oauth2_legacy:
+        - crm.objects.marketing_events.write
       - oauth2:
         - crm.objects.deals.read
       - private_apps_legacy:
         - contacts
       - private_apps:
-        - crm.objects.contacts.read
+        - crm.objects.owners.read
+      - oauth2:
+        - crm.objects.owners.read
       - oauth2_legacy:
         - crm.schemas.custom.read
       - private_apps:
         - crm.objects.companies.read
-      - private_apps:
-        - crm.objects.deals.write
       - oauth2:
         - crm.schemas.quotes.read
       - private_apps:
         - crm.schemas.quotes.read
-      - oauth2:
-        - crm.objects.deals.write
       - oauth2:
         - crm.objects.companies.read
+      - oauth2_legacy:
+        - crm.objects.marketing_events.read
+      - private_apps_legacy:
+        - crm.objects.marketing_events.write
       - private_apps_legacy:
         - crm.schemas.custom.read
       - private_apps_legacy:
         - crm.objects.goals.read
-      - private_apps:
-        - crm.schemas.deals.read
-      - oauth2:
-        - crm.schemas.deals.read
       - oauth2_legacy:
         - timeline
       - private_apps_legacy:
@@ -827,18 +947,14 @@ paths:
         - crm.objects.companies.write
       - oauth2:
         - crm.objects.companies.write
-      - oauth2:
-        - crm.schemas.contacts.read
-      - private_apps:
-        - crm.schemas.contacts.read
       - oauth2_legacy:
         - tickets
       - private_apps_legacy:
+        - crm.objects.custom.write
+      - oauth2_legacy:
+        - crm.objects.feedback_submissions.read
+      - private_apps_legacy:
         - e-commerce
-      - oauth2:
-        - crm.objects.contacts.write
-      - private_apps:
-        - crm.objects.contacts.write
       - private_apps:
         - crm.schemas.companies.read
       - oauth2:
@@ -847,12 +963,56 @@ paths:
         - e-commerce
       - private_apps_legacy:
         - tickets
+      - private_apps_legacy:
+        - crm.objects.feedback_submissions.read
       - oauth2_legacy:
         - crm.objects.goals.read
       - private_apps:
         - crm.schemas.line_items.read
+      - oauth2_legacy:
+        - crm.objects.custom.write
       - oauth2:
         - crm.schemas.line_items.read
+      - oauth2:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.deals.write
+      - private_apps:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.schemas.contacts.read
+      - oauth2:
+        - crm.objects.quotes.write
+      - private_apps:
+        - crm.schemas.contacts.read
+      - private_apps:
+        - crm.objects.quotes.write
+      - private_apps:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2_legacy:
+        - crm.objects.custom.read
+      - private_apps_legacy:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
+      - private_apps:
+        - crm.objects.line_items.write
+      - oauth2:
+        - crm.objects.quotes.read
+      - private_apps:
+        - crm.objects.quotes.read
       summary: Read all properties
       tags:
       - Core
@@ -944,40 +1104,40 @@ paths:
       security:
       - oauth2_legacy:
         - media_bridge.read
-      - oauth2:
-        - crm.objects.contacts.read
       - private_apps:
         - crm.objects.deals.read
       - private_apps_legacy:
         - timeline
+      - private_apps_legacy:
+        - crm.objects.marketing_events.read
+      - oauth2_legacy:
+        - crm.objects.marketing_events.write
       - oauth2:
         - crm.objects.deals.read
       - private_apps_legacy:
         - contacts
       - private_apps:
-        - crm.objects.contacts.read
+        - crm.objects.owners.read
+      - oauth2:
+        - crm.objects.owners.read
       - oauth2_legacy:
         - crm.schemas.custom.read
       - private_apps:
         - crm.objects.companies.read
-      - private_apps:
-        - crm.objects.deals.write
       - oauth2:
         - crm.schemas.quotes.read
       - private_apps:
         - crm.schemas.quotes.read
-      - oauth2:
-        - crm.objects.deals.write
       - oauth2:
         - crm.objects.companies.read
+      - oauth2_legacy:
+        - crm.objects.marketing_events.read
+      - private_apps_legacy:
+        - crm.objects.marketing_events.write
       - private_apps_legacy:
         - crm.schemas.custom.read
       - private_apps_legacy:
         - crm.objects.goals.read
-      - private_apps:
-        - crm.schemas.deals.read
-      - oauth2:
-        - crm.schemas.deals.read
       - oauth2_legacy:
         - timeline
       - private_apps_legacy:
@@ -986,18 +1146,14 @@ paths:
         - crm.objects.companies.write
       - oauth2:
         - crm.objects.companies.write
-      - oauth2:
-        - crm.schemas.contacts.read
-      - private_apps:
-        - crm.schemas.contacts.read
       - oauth2_legacy:
         - tickets
       - private_apps_legacy:
+        - crm.objects.custom.write
+      - oauth2_legacy:
+        - crm.objects.feedback_submissions.read
+      - private_apps_legacy:
         - e-commerce
-      - oauth2:
-        - crm.objects.contacts.write
-      - private_apps:
-        - crm.objects.contacts.write
       - private_apps:
         - crm.schemas.companies.read
       - oauth2:
@@ -1006,12 +1162,56 @@ paths:
         - e-commerce
       - private_apps_legacy:
         - tickets
+      - private_apps_legacy:
+        - crm.objects.feedback_submissions.read
       - oauth2_legacy:
         - crm.objects.goals.read
       - private_apps:
         - crm.schemas.line_items.read
+      - oauth2_legacy:
+        - crm.objects.custom.write
       - oauth2:
         - crm.schemas.line_items.read
+      - oauth2:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.deals.write
+      - private_apps:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.schemas.contacts.read
+      - oauth2:
+        - crm.objects.quotes.write
+      - private_apps:
+        - crm.schemas.contacts.read
+      - private_apps:
+        - crm.objects.quotes.write
+      - private_apps:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2_legacy:
+        - crm.objects.custom.read
+      - private_apps_legacy:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
+      - private_apps:
+        - crm.objects.line_items.write
+      - oauth2:
+        - crm.objects.quotes.read
+      - private_apps:
+        - crm.objects.quotes.read
       summary: Read all property groups
       tags:
       - Groups
@@ -1083,6 +1283,35 @@ components:
       description: An error occurred.
   schemas:
     StandardError:
+      example:
+        subCategory: "{}"
+        context:
+          key:
+          - context
+          - context
+        links:
+          key: links
+        id: id
+        category: category
+        message: message
+        errors:
+        - subCategory: subCategory
+          code: code
+          in: in
+          context:
+            missingScopes:
+            - scope1
+            - scope2
+          message: message
+        - subCategory: subCategory
+          code: code
+          in: in
+          context:
+            missingScopes:
+            - scope1
+            - scope2
+          message: message
+        status: status
       properties:
         subCategory:
           properties: {}
@@ -1484,6 +1713,15 @@ components:
       - message
       type: object
     ErrorDetail:
+      example:
+        subCategory: subCategory
+        code: code
+        in: in
+        context:
+          missingScopes:
+          - scope1
+          - scope2
+        message: message
       properties:
         subCategory:
           description: A specific category that contains more specific detail about
@@ -1790,6 +2028,122 @@ components:
       - inputs
       type: object
     BatchResponsePropertyWithErrors:
+      example:
+        completedAt: 2000-01-23T04:56:07.000+00:00
+        numErrors: 0
+        requestedAt: 2000-01-23T04:56:07.000+00:00
+        startedAt: 2000-01-23T04:56:07.000+00:00
+        links:
+          key: links
+        results:
+        - name: my_contact_property
+          label: My Contact Property
+          type: enumeration
+          fieldType: select
+          groupName: contactinformation
+          hidden: false
+          displayOrder: 2
+          hasUniqueValue: false
+          formField: true
+          modificationMetadata:
+            readOnlyOptions: false
+            readOnlyValue: false
+            readOnlyDefinition: false
+            archivable: true
+          options:
+          - label: Option A
+            description: Choice number one
+            value: A
+            displayOrder: 1
+            hidden: false
+          - label: Option B
+            description: Choice number two
+            value: B
+            displayOrder: 2
+            hidden: false
+        - name: my_contact_property
+          label: My Contact Property
+          type: enumeration
+          fieldType: select
+          groupName: contactinformation
+          hidden: false
+          displayOrder: 2
+          hasUniqueValue: false
+          formField: true
+          modificationMetadata:
+            readOnlyOptions: false
+            readOnlyValue: false
+            readOnlyDefinition: false
+            archivable: true
+          options:
+          - label: Option A
+            description: Choice number one
+            value: A
+            displayOrder: 1
+            hidden: false
+          - label: Option B
+            description: Choice number two
+            value: B
+            displayOrder: 2
+            hidden: false
+        errors:
+        - subCategory: "{}"
+          context:
+            key:
+            - context
+            - context
+          links:
+            key: links
+          id: id
+          category: category
+          message: message
+          errors:
+          - subCategory: subCategory
+            code: code
+            in: in
+            context:
+              missingScopes:
+              - scope1
+              - scope2
+            message: message
+          - subCategory: subCategory
+            code: code
+            in: in
+            context:
+              missingScopes:
+              - scope1
+              - scope2
+            message: message
+          status: status
+        - subCategory: "{}"
+          context:
+            key:
+            - context
+            - context
+          links:
+            key: links
+          id: id
+          category: category
+          message: message
+          errors:
+          - subCategory: subCategory
+            code: code
+            in: in
+            context:
+              missingScopes:
+              - scope1
+              - scope2
+            message: message
+          - subCategory: subCategory
+            code: code
+            in: in
+            context:
+              missingScopes:
+              - scope1
+              - scope2
+            message: message
+          status: status
+        status: PENDING
       properties:
         completedAt:
           format: date-time
@@ -2037,12 +2391,17 @@ components:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
+            crm.objects.marketing_events.read: Read marketing events
             crm.objects.goals.read: Read goals
-            tickets: Read and write tickets
             crm.schemas.custom.read: View custom object definitions
-            timeline: Create timeline events
+            crm.objects.custom.read: View custom object records
+            tickets: Read and write tickets
             e-commerce: e-commerce
             media_bridge.read: Read media and media events
+            timeline: Create timeline events
+            crm.objects.marketing_events.write: Write marketing events
+            crm.objects.custom.write: Change custom object records
+            crm.objects.feedback_submissions.read: View feedback survey submissions
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
     oauth2:
@@ -2050,20 +2409,25 @@ components:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
+            crm.schemas.quotes.read: Quotes schemas
+            crm.objects.companies.write: ' '
+            crm.schemas.line_items.read: Line Items schemas
+            crm.objects.quotes.read: Quotes
+            crm.objects.line_items.read: Line Items
+            crm.schemas.contacts.read: ' '
+            crm.objects.deals.read: ' '
             crm.objects.contacts.read: ' '
             crm.schemas.deals.read: ' '
-            crm.objects.deals.write: ' '
-            crm.schemas.line_items.read: Line Items schemas
-            crm.objects.deals.read: ' '
-            crm.schemas.companies.read: ' '
-            crm.objects.companies.read: ' '
-            crm.objects.companies.write: ' '
-            crm.schemas.contacts.read: ' '
             crm.objects.contacts.write: ' '
-            crm.schemas.quotes.read: Quotes schemas
-            crm.schemas.companies.write: ' '
+            crm.objects.deals.write: ' '
+            crm.objects.line_items.write: Line Items
+            crm.objects.quotes.write: Quotes
+            crm.objects.companies.read: ' '
+            crm.schemas.companies.read: ' '
+            crm.objects.owners.read: ' '
             crm.schemas.contacts.write: ' '
             crm.schemas.deals.write: ' '
+            crm.schemas.companies.write: ' '
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
     private_apps_legacy:

@@ -11,14 +11,21 @@ API version: v3
 package source_code
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the TaskLocator type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TaskLocator{}
 
 // TaskLocator struct for TaskLocator
 type TaskLocator struct {
 	Links *map[string]string `json:"links,omitempty"`
 	Id    string             `json:"id"`
 }
+
+type _TaskLocator TaskLocator
 
 // NewTaskLocator instantiates a new TaskLocator object
 // This constructor will assign default values to properties that have it defined,
@@ -40,7 +47,7 @@ func NewTaskLocatorWithDefaults() *TaskLocator {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *TaskLocator) GetLinks() map[string]string {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret map[string]string
 		return ret
 	}
@@ -50,7 +57,7 @@ func (o *TaskLocator) GetLinks() map[string]string {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TaskLocator) GetLinksOk() (*map[string]string, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -58,7 +65,7 @@ func (o *TaskLocator) GetLinksOk() (*map[string]string, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *TaskLocator) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -95,14 +102,57 @@ func (o *TaskLocator) SetId(v string) {
 }
 
 func (o TaskLocator) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Links != nil {
-		toSerialize["links"] = o.Links
-	}
-	if true {
-		toSerialize["id"] = o.Id
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o TaskLocator) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Links) {
+		toSerialize["links"] = o.Links
+	}
+	toSerialize["id"] = o.Id
+	return toSerialize, nil
+}
+
+func (o *TaskLocator) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varTaskLocator := _TaskLocator{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varTaskLocator)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TaskLocator(varTaskLocator)
+
+	return err
 }
 
 type NullableTaskLocator struct {

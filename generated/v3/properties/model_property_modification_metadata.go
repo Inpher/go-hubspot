@@ -11,8 +11,13 @@ API version: v3
 package properties
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the PropertyModificationMetadata type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PropertyModificationMetadata{}
 
 // PropertyModificationMetadata struct for PropertyModificationMetadata
 type PropertyModificationMetadata struct {
@@ -21,6 +26,8 @@ type PropertyModificationMetadata struct {
 	ReadOnlyDefinition bool  `json:"readOnlyDefinition"`
 	Archivable         bool  `json:"archivable"`
 }
+
+type _PropertyModificationMetadata PropertyModificationMetadata
 
 // NewPropertyModificationMetadata instantiates a new PropertyModificationMetadata object
 // This constructor will assign default values to properties that have it defined,
@@ -44,7 +51,7 @@ func NewPropertyModificationMetadataWithDefaults() *PropertyModificationMetadata
 
 // GetReadOnlyOptions returns the ReadOnlyOptions field value if set, zero value otherwise.
 func (o *PropertyModificationMetadata) GetReadOnlyOptions() bool {
-	if o == nil || o.ReadOnlyOptions == nil {
+	if o == nil || IsNil(o.ReadOnlyOptions) {
 		var ret bool
 		return ret
 	}
@@ -54,7 +61,7 @@ func (o *PropertyModificationMetadata) GetReadOnlyOptions() bool {
 // GetReadOnlyOptionsOk returns a tuple with the ReadOnlyOptions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PropertyModificationMetadata) GetReadOnlyOptionsOk() (*bool, bool) {
-	if o == nil || o.ReadOnlyOptions == nil {
+	if o == nil || IsNil(o.ReadOnlyOptions) {
 		return nil, false
 	}
 	return o.ReadOnlyOptions, true
@@ -62,7 +69,7 @@ func (o *PropertyModificationMetadata) GetReadOnlyOptionsOk() (*bool, bool) {
 
 // HasReadOnlyOptions returns a boolean if a field has been set.
 func (o *PropertyModificationMetadata) HasReadOnlyOptions() bool {
-	if o != nil && o.ReadOnlyOptions != nil {
+	if o != nil && !IsNil(o.ReadOnlyOptions) {
 		return true
 	}
 
@@ -147,20 +154,61 @@ func (o *PropertyModificationMetadata) SetArchivable(v bool) {
 }
 
 func (o PropertyModificationMetadata) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.ReadOnlyOptions != nil {
-		toSerialize["readOnlyOptions"] = o.ReadOnlyOptions
-	}
-	if true {
-		toSerialize["readOnlyValue"] = o.ReadOnlyValue
-	}
-	if true {
-		toSerialize["readOnlyDefinition"] = o.ReadOnlyDefinition
-	}
-	if true {
-		toSerialize["archivable"] = o.Archivable
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PropertyModificationMetadata) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ReadOnlyOptions) {
+		toSerialize["readOnlyOptions"] = o.ReadOnlyOptions
+	}
+	toSerialize["readOnlyValue"] = o.ReadOnlyValue
+	toSerialize["readOnlyDefinition"] = o.ReadOnlyDefinition
+	toSerialize["archivable"] = o.Archivable
+	return toSerialize, nil
+}
+
+func (o *PropertyModificationMetadata) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"readOnlyValue",
+		"readOnlyDefinition",
+		"archivable",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPropertyModificationMetadata := _PropertyModificationMetadata{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPropertyModificationMetadata)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PropertyModificationMetadata(varPropertyModificationMetadata)
+
+	return err
 }
 
 type NullablePropertyModificationMetadata struct {

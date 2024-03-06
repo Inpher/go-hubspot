@@ -11,8 +11,13 @@ API version: v3
 package pipelines
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the PipelineStageInput type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PipelineStageInput{}
 
 // PipelineStageInput An input used to create or replace a pipeline stage's definition.
 type PipelineStageInput struct {
@@ -23,6 +28,8 @@ type PipelineStageInput struct {
 	// A label used to organize pipeline stages in HubSpot's UI. Each pipeline stage's label must be unique within that pipeline.
 	Label string `json:"label"`
 }
+
+type _PipelineStageInput PipelineStageInput
 
 // NewPipelineStageInput instantiates a new PipelineStageInput object
 // This constructor will assign default values to properties that have it defined,
@@ -117,17 +124,58 @@ func (o *PipelineStageInput) SetLabel(v string) {
 }
 
 func (o PipelineStageInput) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["metadata"] = o.Metadata
-	}
-	if true {
-		toSerialize["displayOrder"] = o.DisplayOrder
-	}
-	if true {
-		toSerialize["label"] = o.Label
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PipelineStageInput) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["metadata"] = o.Metadata
+	toSerialize["displayOrder"] = o.DisplayOrder
+	toSerialize["label"] = o.Label
+	return toSerialize, nil
+}
+
+func (o *PipelineStageInput) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"metadata",
+		"displayOrder",
+		"label",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPipelineStageInput := _PipelineStageInput{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPipelineStageInput)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PipelineStageInput(varPipelineStageInput)
+
+	return err
 }
 
 type NullablePipelineStageInput struct {

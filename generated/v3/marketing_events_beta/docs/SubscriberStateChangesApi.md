@@ -1,11 +1,11 @@
-# \SubscriberStateChangesApi
+# \SubscriberStateChangesAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ExternalEmailUpsertByID**](SubscriberStateChangesApi.md#ExternalEmailUpsertByID) | **Post** /marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/email-upsert | Record
-[**ExternalUpsertByID**](SubscriberStateChangesApi.md#ExternalUpsertByID) | **Post** /marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/upsert | Record
+[**ExternalEmailUpsertByID**](SubscriberStateChangesAPI.md#ExternalEmailUpsertByID) | **Post** /marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/email-upsert | Record
+[**ExternalUpsertByID**](SubscriberStateChangesAPI.md#ExternalUpsertByID) | **Post** /marketing/v3/marketing-events/events/{externalEventId}/{subscriberState}/upsert | Record
 
 
 
@@ -23,27 +23,27 @@ Record
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    externalEventId := "externalEventId_example" // string | The id of the marketing event
-    subscriberState := "subscriberState_example" // string | The new subscriber state for the HubSpot contacts and the specified marketing event
-    externalAccountId := "externalAccountId_example" // string | The account id associated with the marketing event
-    batchInputMarketingEventEmailSubscriber := *openapiclient.NewBatchInputMarketingEventEmailSubscriber([]openapiclient.MarketingEventEmailSubscriber{*openapiclient.NewMarketingEventEmailSubscriber("Email_example", int64(123))}) // BatchInputMarketingEventEmailSubscriber | The details of the contacts to subscribe to the event
+	externalEventId := "externalEventId_example" // string | The id of the marketing event
+	subscriberState := "subscriberState_example" // string | The new subscriber state for the HubSpot contacts and the specified marketing event
+	externalAccountId := "externalAccountId_example" // string | The account id associated with the marketing event
+	batchInputMarketingEventEmailSubscriber := *openapiclient.NewBatchInputMarketingEventEmailSubscriber([]openapiclient.MarketingEventEmailSubscriber{*openapiclient.NewMarketingEventEmailSubscriber("Email_example", int64(123))}) // BatchInputMarketingEventEmailSubscriber | The details of the contacts to subscribe to the event
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SubscriberStateChangesApi.ExternalEmailUpsertByID(context.Background(), externalEventId, subscriberState).ExternalAccountId(externalAccountId).BatchInputMarketingEventEmailSubscriber(batchInputMarketingEventEmailSubscriber).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SubscriberStateChangesApi.ExternalEmailUpsertByID``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ExternalEmailUpsertByID`: Error
-    fmt.Fprintf(os.Stdout, "Response from `SubscriberStateChangesApi.ExternalEmailUpsertByID`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SubscriberStateChangesAPI.ExternalEmailUpsertByID(context.Background(), externalEventId, subscriberState).ExternalAccountId(externalAccountId).BatchInputMarketingEventEmailSubscriber(batchInputMarketingEventEmailSubscriber).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SubscriberStateChangesAPI.ExternalEmailUpsertByID``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ExternalEmailUpsertByID`: Error
+	fmt.Fprintf(os.Stdout, "Response from `SubscriberStateChangesAPI.ExternalEmailUpsertByID`: %v\n", resp)
 }
 ```
 
@@ -100,27 +100,27 @@ Record
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    externalEventId := "externalEventId_example" // string | The id of the marketing event
-    subscriberState := "subscriberState_example" // string | The new subscriber state for the HubSpot contacts and the specified marketing event
-    externalAccountId := "externalAccountId_example" // string | The account id associated with the marketing event
-    batchInputMarketingEventSubscriber := *openapiclient.NewBatchInputMarketingEventSubscriber([]openapiclient.MarketingEventSubscriber{*openapiclient.NewMarketingEventSubscriber(int64(123))}) // BatchInputMarketingEventSubscriber | The details of the contacts to subscribe to the event
+	externalEventId := "externalEventId_example" // string | The id of the marketing event
+	subscriberState := "subscriberState_example" // string | The new subscriber state for the HubSpot contacts and the specified marketing event
+	externalAccountId := "externalAccountId_example" // string | The account id associated with the marketing event
+	batchInputMarketingEventSubscriber := *openapiclient.NewBatchInputMarketingEventSubscriber([]openapiclient.MarketingEventSubscriber{*openapiclient.NewMarketingEventSubscriber(int64(123))}) // BatchInputMarketingEventSubscriber | The details of the contacts to subscribe to the event
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SubscriberStateChangesApi.ExternalUpsertByID(context.Background(), externalEventId, subscriberState).ExternalAccountId(externalAccountId).BatchInputMarketingEventSubscriber(batchInputMarketingEventSubscriber).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SubscriberStateChangesApi.ExternalUpsertByID``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ExternalUpsertByID`: Error
-    fmt.Fprintf(os.Stdout, "Response from `SubscriberStateChangesApi.ExternalUpsertByID`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SubscriberStateChangesAPI.ExternalUpsertByID(context.Background(), externalEventId, subscriberState).ExternalAccountId(externalAccountId).BatchInputMarketingEventSubscriber(batchInputMarketingEventSubscriber).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SubscriberStateChangesAPI.ExternalUpsertByID``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ExternalUpsertByID`: Error
+	fmt.Fprintf(os.Stdout, "Response from `SubscriberStateChangesAPI.ExternalUpsertByID`: %v\n", resp)
 }
 ```
 

@@ -7,7 +7,7 @@ client.go
 configuration.go
 docs/CollectionResponseWithTotalDomainForwardPaging.md
 docs/Domain.md
-docs/DomainsApi.md
+docs/DomainsAPI.md
 docs/Error.md
 docs/ErrorDetail.md
 docs/ForwardPaging.md

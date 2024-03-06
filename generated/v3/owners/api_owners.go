@@ -13,20 +13,20 @@ package owners
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 
-	"github.com/clarkmcc/go-hubspot"
+	"github.com/inpher/go-hubspot"
 	"net/url"
 	"strings"
 )
 
-// OwnersApiService OwnersApi service
-type OwnersApiService service
+// OwnersAPIService OwnersAPI service
+type OwnersAPIService service
 
 type ApiGetByIDRequest struct {
 	ctx        context.Context
-	ApiService *OwnersApiService
+	ApiService *OwnersAPIService
 	ownerId    int32
 	idProperty *string
 	archived   *bool
@@ -50,11 +50,11 @@ func (r ApiGetByIDRequest) Execute() (*PublicOwner, *http.Response, error) {
 /*
 GetByID Read an owner by given `id` or `userId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param ownerId
- @return ApiGetByIDRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param ownerId
+	@return ApiGetByIDRequest
 */
-func (a *OwnersApiService) GetByID(ctx context.Context, ownerId int32) ApiGetByIDRequest {
+func (a *OwnersAPIService) GetByID(ctx context.Context, ownerId int32) ApiGetByIDRequest {
 	return ApiGetByIDRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -63,8 +63,9 @@ func (a *OwnersApiService) GetByID(ctx context.Context, ownerId int32) ApiGetByI
 }
 
 // Execute executes the request
-//  @return PublicOwner
-func (a *OwnersApiService) GetByIDExecute(r ApiGetByIDRequest) (*PublicOwner, *http.Response, error) {
+//
+//	@return PublicOwner
+func (a *OwnersAPIService) GetByIDExecute(r ApiGetByIDRequest) (*PublicOwner, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -72,23 +73,29 @@ func (a *OwnersApiService) GetByIDExecute(r ApiGetByIDRequest) (*PublicOwner, *h
 		localVarReturnValue *PublicOwner
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OwnersApiService.GetByID")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OwnersAPIService.GetByID")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/owners/{ownerId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"ownerId"+"}", url.PathEscape(parameterToString(r.ownerId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"ownerId"+"}", url.PathEscape(parameterValueToString(r.ownerId, "ownerId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.idProperty != nil {
-		localVarQueryParams.Add("idProperty", parameterToString(*r.idProperty, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "idProperty", r.idProperty, "")
+	} else {
+		var defaultValue string = "id"
+		r.idProperty = &defaultValue
 	}
 	if r.archived != nil {
-		localVarQueryParams.Add("archived", parameterToString(*r.archived, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "archived", r.archived, "")
+	} else {
+		var defaultValue bool = false
+		r.archived = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -109,16 +116,6 @@ func (a *OwnersApiService) GetByIDExecute(r ApiGetByIDRequest) (*PublicOwner, *h
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
-		}
-	}
-	if r.ctx != nil {
-		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["private_apps_legacy"]; ok {
 				var key string
@@ -131,6 +128,16 @@ func (a *OwnersApiService) GetByIDExecute(r ApiGetByIDRequest) (*PublicOwner, *h
 			}
 		}
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -141,9 +148,9 @@ func (a *OwnersApiService) GetByIDExecute(r ApiGetByIDRequest) (*PublicOwner, *h
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -159,6 +166,7 @@ func (a *OwnersApiService) GetByIDExecute(r ApiGetByIDRequest) (*PublicOwner, *h
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -177,7 +185,7 @@ func (a *OwnersApiService) GetByIDExecute(r ApiGetByIDRequest) (*PublicOwner, *h
 
 type ApiGetPageRequest struct {
 	ctx        context.Context
-	ApiService *OwnersApiService
+	ApiService *OwnersAPIService
 	email      *string
 	after      *string
 	limit      *int32
@@ -215,10 +223,10 @@ func (r ApiGetPageRequest) Execute() (*CollectionResponsePublicOwnerForwardPagin
 /*
 GetPage Get a page of owners
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetPageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetPageRequest
 */
-func (a *OwnersApiService) GetPage(ctx context.Context) ApiGetPageRequest {
+func (a *OwnersAPIService) GetPage(ctx context.Context) ApiGetPageRequest {
 	return ApiGetPageRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -226,8 +234,9 @@ func (a *OwnersApiService) GetPage(ctx context.Context) ApiGetPageRequest {
 }
 
 // Execute executes the request
-//  @return CollectionResponsePublicOwnerForwardPaging
-func (a *OwnersApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionResponsePublicOwnerForwardPaging, *http.Response, error) {
+//
+//	@return CollectionResponsePublicOwnerForwardPaging
+func (a *OwnersAPIService) GetPageExecute(r ApiGetPageRequest) (*CollectionResponsePublicOwnerForwardPaging, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -235,7 +244,7 @@ func (a *OwnersApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionRespo
 		localVarReturnValue *CollectionResponsePublicOwnerForwardPaging
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OwnersApiService.GetPage")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OwnersAPIService.GetPage")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -247,16 +256,22 @@ func (a *OwnersApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionRespo
 	localVarFormParams := url.Values{}
 
 	if r.email != nil {
-		localVarQueryParams.Add("email", parameterToString(*r.email, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "email", r.email, "")
 	}
 	if r.after != nil {
-		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "after", r.after, "")
 	}
 	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+	} else {
+		var defaultValue int32 = 100
+		r.limit = &defaultValue
 	}
 	if r.archived != nil {
-		localVarQueryParams.Add("archived", parameterToString(*r.archived, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "archived", r.archived, "")
+	} else {
+		var defaultValue bool = false
+		r.archived = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -277,16 +292,6 @@ func (a *OwnersApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionRespo
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
-			auth.Apply(hubspot.AuthorizationRequest{
-				QueryParams: localVarQueryParams,
-				FormParams:  localVarFormParams,
-				Headers:     localVarHeaderParams,
-			})
-		}
-	}
-	if r.ctx != nil {
-		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["private_apps_legacy"]; ok {
 				var key string
@@ -299,6 +304,16 @@ func (a *OwnersApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionRespo
 			}
 		}
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(hubspot.ContextKey).(hubspot.Authorizer); ok {
+			auth.Apply(hubspot.AuthorizationRequest{
+				QueryParams: localVarQueryParams,
+				FormParams:  localVarFormParams,
+				Headers:     localVarHeaderParams,
+			})
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -309,9 +324,9 @@ func (a *OwnersApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionRespo
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -327,6 +342,7 @@ func (a *OwnersApiService) GetPageExecute(r ApiGetPageRequest) (*CollectionRespo
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

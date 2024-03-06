@@ -13,20 +13,20 @@ package actions
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 
-	"github.com/clarkmcc/go-hubspot"
+	"github.com/inpher/go-hubspot"
 	"net/url"
 	"strings"
 )
 
-// CallbacksApiService CallbacksApi service
-type CallbacksApiService service
+// CallbacksAPIService CallbacksAPI service
+type CallbacksAPIService service
 
 type ApiCallbackCompleteRequest struct {
 	ctx                       context.Context
-	ApiService                *CallbacksApiService
+	ApiService                *CallbacksAPIService
 	callbackId                string
 	callbackCompletionRequest *CallbackCompletionRequest
 }
@@ -43,11 +43,11 @@ func (r ApiCallbackCompleteRequest) Execute() (*http.Response, error) {
 /*
 CallbackComplete Completes a single callback
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param callbackId
- @return ApiCallbackCompleteRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param callbackId
+	@return ApiCallbackCompleteRequest
 */
-func (a *CallbacksApiService) CallbackComplete(ctx context.Context, callbackId string) ApiCallbackCompleteRequest {
+func (a *CallbacksAPIService) CallbackComplete(ctx context.Context, callbackId string) ApiCallbackCompleteRequest {
 	return ApiCallbackCompleteRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -56,20 +56,20 @@ func (a *CallbacksApiService) CallbackComplete(ctx context.Context, callbackId s
 }
 
 // Execute executes the request
-func (a *CallbacksApiService) CallbackCompleteExecute(r ApiCallbackCompleteRequest) (*http.Response, error) {
+func (a *CallbacksAPIService) CallbackCompleteExecute(r ApiCallbackCompleteRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksApiService.CallbackComplete")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksAPIService.CallbackComplete")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/automation/v4/actions/callbacks/{callbackId}/complete"
-	localVarPath = strings.Replace(localVarPath, "{"+"callbackId"+"}", url.PathEscape(parameterToString(r.callbackId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"callbackId"+"}", url.PathEscape(parameterValueToString(r.callbackId, "callbackId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -117,9 +117,9 @@ func (a *CallbacksApiService) CallbackCompleteExecute(r ApiCallbackCompleteReque
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -135,6 +135,7 @@ func (a *CallbacksApiService) CallbackCompleteExecute(r ApiCallbackCompleteReque
 			newErr.error = err.Error()
 			return localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
@@ -144,7 +145,7 @@ func (a *CallbacksApiService) CallbackCompleteExecute(r ApiCallbackCompleteReque
 
 type ApiCallbackCompleteBatchRequest struct {
 	ctx                                      context.Context
-	ApiService                               *CallbacksApiService
+	ApiService                               *CallbacksAPIService
 	batchInputCallbackCompletionBatchRequest *BatchInputCallbackCompletionBatchRequest
 }
 
@@ -160,10 +161,10 @@ func (r ApiCallbackCompleteBatchRequest) Execute() (*http.Response, error) {
 /*
 CallbackCompleteBatch Completes a batch of callbacks
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCallbackCompleteBatchRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCallbackCompleteBatchRequest
 */
-func (a *CallbacksApiService) CallbackCompleteBatch(ctx context.Context) ApiCallbackCompleteBatchRequest {
+func (a *CallbacksAPIService) CallbackCompleteBatch(ctx context.Context) ApiCallbackCompleteBatchRequest {
 	return ApiCallbackCompleteBatchRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -171,14 +172,14 @@ func (a *CallbacksApiService) CallbackCompleteBatch(ctx context.Context) ApiCall
 }
 
 // Execute executes the request
-func (a *CallbacksApiService) CallbackCompleteBatchExecute(r ApiCallbackCompleteBatchRequest) (*http.Response, error) {
+func (a *CallbacksAPIService) CallbackCompleteBatchExecute(r ApiCallbackCompleteBatchRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksApiService.CallbackCompleteBatch")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CallbacksAPIService.CallbackCompleteBatch")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -231,9 +232,9 @@ func (a *CallbacksApiService) CallbackCompleteBatchExecute(r ApiCallbackComplete
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -249,6 +250,7 @@ func (a *CallbacksApiService) CallbackCompleteBatchExecute(r ApiCallbackComplete
 			newErr.error = err.Error()
 			return localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}

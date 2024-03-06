@@ -11,8 +11,13 @@ API version: v3
 package transactional
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the SmtpApiTokenRequestEgg type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SmtpApiTokenRequestEgg{}
 
 // SmtpApiTokenRequestEgg A request object to create a SMTP API token
 type SmtpApiTokenRequestEgg struct {
@@ -21,6 +26,8 @@ type SmtpApiTokenRequestEgg struct {
 	// A name for the campaign tied to the SMTP API token.
 	CampaignName string `json:"campaignName"`
 }
+
+type _SmtpApiTokenRequestEgg SmtpApiTokenRequestEgg
 
 // NewSmtpApiTokenRequestEgg instantiates a new SmtpApiTokenRequestEgg object
 // This constructor will assign default values to properties that have it defined,
@@ -90,14 +97,56 @@ func (o *SmtpApiTokenRequestEgg) SetCampaignName(v string) {
 }
 
 func (o SmtpApiTokenRequestEgg) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["createContact"] = o.CreateContact
-	}
-	if true {
-		toSerialize["campaignName"] = o.CampaignName
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SmtpApiTokenRequestEgg) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["createContact"] = o.CreateContact
+	toSerialize["campaignName"] = o.CampaignName
+	return toSerialize, nil
+}
+
+func (o *SmtpApiTokenRequestEgg) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"createContact",
+		"campaignName",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSmtpApiTokenRequestEgg := _SmtpApiTokenRequestEgg{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varSmtpApiTokenRequestEgg)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SmtpApiTokenRequestEgg(varSmtpApiTokenRequestEgg)
+
+	return err
 }
 
 type NullableSmtpApiTokenRequestEgg struct {

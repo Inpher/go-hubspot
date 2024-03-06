@@ -1,14 +1,14 @@
-# \EventsApi
+# \EventsAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetCrmV3TimelineEventsEventTemplateIdEventIdDetailGetDetailById**](EventsApi.md#GetCrmV3TimelineEventsEventTemplateIdEventIdDetailGetDetailById) | **Get** /crm/v3/timeline/events/{eventTemplateId}/{eventId}/detail | Gets the detailTemplate as rendered
-[**GetCrmV3TimelineEventsEventTemplateIdEventIdGetById**](EventsApi.md#GetCrmV3TimelineEventsEventTemplateIdEventIdGetById) | **Get** /crm/v3/timeline/events/{eventTemplateId}/{eventId} | Gets the event
-[**GetCrmV3TimelineEventsEventTemplateIdEventIdRenderGetRenderById**](EventsApi.md#GetCrmV3TimelineEventsEventTemplateIdEventIdRenderGetRenderById) | **Get** /crm/v3/timeline/events/{eventTemplateId}/{eventId}/render | Renders the header or detail as HTML
-[**PostCrmV3TimelineEventsBatchCreateCreateBatch**](EventsApi.md#PostCrmV3TimelineEventsBatchCreateCreateBatch) | **Post** /crm/v3/timeline/events/batch/create | Creates multiple events
-[**PostCrmV3TimelineEventsCreate**](EventsApi.md#PostCrmV3TimelineEventsCreate) | **Post** /crm/v3/timeline/events | Create a single event
+[**GetCrmV3TimelineEventsEventTemplateIdEventIdDetailGetDetailById**](EventsAPI.md#GetCrmV3TimelineEventsEventTemplateIdEventIdDetailGetDetailById) | **Get** /crm/v3/timeline/events/{eventTemplateId}/{eventId}/detail | Gets the detailTemplate as rendered
+[**GetCrmV3TimelineEventsEventTemplateIdEventIdGetById**](EventsAPI.md#GetCrmV3TimelineEventsEventTemplateIdEventIdGetById) | **Get** /crm/v3/timeline/events/{eventTemplateId}/{eventId} | Gets the event
+[**GetCrmV3TimelineEventsEventTemplateIdEventIdRenderGetRenderById**](EventsAPI.md#GetCrmV3TimelineEventsEventTemplateIdEventIdRenderGetRenderById) | **Get** /crm/v3/timeline/events/{eventTemplateId}/{eventId}/render | Renders the header or detail as HTML
+[**PostCrmV3TimelineEventsBatchCreateCreateBatch**](EventsAPI.md#PostCrmV3TimelineEventsBatchCreateCreateBatch) | **Post** /crm/v3/timeline/events/batch/create | Creates multiple events
+[**PostCrmV3TimelineEventsCreate**](EventsAPI.md#PostCrmV3TimelineEventsCreate) | **Post** /crm/v3/timeline/events | Create a single event
 
 
 
@@ -26,25 +26,25 @@ Gets the detailTemplate as rendered
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    eventTemplateId := "eventTemplateId_example" // string | The event template ID.
-    eventId := "eventId_example" // string | The event ID.
+	eventTemplateId := "eventTemplateId_example" // string | The event template ID.
+	eventId := "eventId_example" // string | The event ID.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.EventsApi.GetCrmV3TimelineEventsEventTemplateIdEventIdDetailGetDetailById(context.Background(), eventTemplateId, eventId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.GetCrmV3TimelineEventsEventTemplateIdEventIdDetailGetDetailById``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetCrmV3TimelineEventsEventTemplateIdEventIdDetailGetDetailById`: EventDetail
-    fmt.Fprintf(os.Stdout, "Response from `EventsApi.GetCrmV3TimelineEventsEventTemplateIdEventIdDetailGetDetailById`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.EventsAPI.GetCrmV3TimelineEventsEventTemplateIdEventIdDetailGetDetailById(context.Background(), eventTemplateId, eventId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `EventsAPI.GetCrmV3TimelineEventsEventTemplateIdEventIdDetailGetDetailById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetCrmV3TimelineEventsEventTemplateIdEventIdDetailGetDetailById`: EventDetail
+	fmt.Fprintf(os.Stdout, "Response from `EventsAPI.GetCrmV3TimelineEventsEventTemplateIdEventIdDetailGetDetailById`: %v\n", resp)
 }
 ```
 
@@ -73,7 +73,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [oauth2](../README.md#oauth2), [private_apps_legacy](../README.md#private_apps_legacy), [private_apps](../README.md#private_apps)
 
 ### HTTP request headers
 
@@ -99,25 +99,25 @@ Gets the event
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    eventTemplateId := "eventTemplateId_example" // string | The event template ID.
-    eventId := "eventId_example" // string | The event ID.
+	eventTemplateId := "eventTemplateId_example" // string | The event template ID.
+	eventId := "eventId_example" // string | The event ID.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.EventsApi.GetCrmV3TimelineEventsEventTemplateIdEventIdGetById(context.Background(), eventTemplateId, eventId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.GetCrmV3TimelineEventsEventTemplateIdEventIdGetById``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetCrmV3TimelineEventsEventTemplateIdEventIdGetById`: TimelineEventResponse
-    fmt.Fprintf(os.Stdout, "Response from `EventsApi.GetCrmV3TimelineEventsEventTemplateIdEventIdGetById`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.EventsAPI.GetCrmV3TimelineEventsEventTemplateIdEventIdGetById(context.Background(), eventTemplateId, eventId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `EventsAPI.GetCrmV3TimelineEventsEventTemplateIdEventIdGetById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetCrmV3TimelineEventsEventTemplateIdEventIdGetById`: TimelineEventResponse
+	fmt.Fprintf(os.Stdout, "Response from `EventsAPI.GetCrmV3TimelineEventsEventTemplateIdEventIdGetById`: %v\n", resp)
 }
 ```
 
@@ -146,7 +146,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [oauth2](../README.md#oauth2), [private_apps_legacy](../README.md#private_apps_legacy), [private_apps](../README.md#private_apps)
 
 ### HTTP request headers
 
@@ -172,26 +172,26 @@ Renders the header or detail as HTML
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    eventTemplateId := "eventTemplateId_example" // string | The event template ID.
-    eventId := "eventId_example" // string | The event ID.
-    detail := true // bool | Set to 'true', we want to render the `detailTemplate` instead of the `headerTemplate`. (optional)
+	eventTemplateId := "eventTemplateId_example" // string | The event template ID.
+	eventId := "eventId_example" // string | The event ID.
+	detail := true // bool | Set to 'true', we want to render the `detailTemplate` instead of the `headerTemplate`. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.EventsApi.GetCrmV3TimelineEventsEventTemplateIdEventIdRenderGetRenderById(context.Background(), eventTemplateId, eventId).Detail(detail).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.GetCrmV3TimelineEventsEventTemplateIdEventIdRenderGetRenderById``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetCrmV3TimelineEventsEventTemplateIdEventIdRenderGetRenderById`: string
-    fmt.Fprintf(os.Stdout, "Response from `EventsApi.GetCrmV3TimelineEventsEventTemplateIdEventIdRenderGetRenderById`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.EventsAPI.GetCrmV3TimelineEventsEventTemplateIdEventIdRenderGetRenderById(context.Background(), eventTemplateId, eventId).Detail(detail).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `EventsAPI.GetCrmV3TimelineEventsEventTemplateIdEventIdRenderGetRenderById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetCrmV3TimelineEventsEventTemplateIdEventIdRenderGetRenderById`: string
+	fmt.Fprintf(os.Stdout, "Response from `EventsAPI.GetCrmV3TimelineEventsEventTemplateIdEventIdRenderGetRenderById`: %v\n", resp)
 }
 ```
 
@@ -221,7 +221,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [oauth2](../README.md#oauth2), [private_apps_legacy](../README.md#private_apps_legacy), [private_apps](../README.md#private_apps)
 
 ### HTTP request headers
 
@@ -247,22 +247,22 @@ Creates multiple events
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    batchInputTimelineEvent := *openapiclient.NewBatchInputTimelineEvent([]openapiclient.TimelineEvent{*openapiclient.NewTimelineEvent("1001298", map[string]string{"key": "Inner_example"})}) // BatchInputTimelineEvent | The timeline event definition.
+	batchInputTimelineEvent := *openapiclient.NewBatchInputTimelineEvent([]openapiclient.TimelineEvent{*openapiclient.NewTimelineEvent("1001298", map[string]string{"key": "Inner_example"})}) // BatchInputTimelineEvent | The timeline event definition.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.EventsApi.PostCrmV3TimelineEventsBatchCreateCreateBatch(context.Background()).BatchInputTimelineEvent(batchInputTimelineEvent).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.PostCrmV3TimelineEventsBatchCreateCreateBatch``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.EventsAPI.PostCrmV3TimelineEventsBatchCreateCreateBatch(context.Background()).BatchInputTimelineEvent(batchInputTimelineEvent).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `EventsAPI.PostCrmV3TimelineEventsBatchCreateCreateBatch``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -285,7 +285,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [oauth2](../README.md#oauth2), [private_apps_legacy](../README.md#private_apps_legacy), [private_apps](../README.md#private_apps)
 
 ### HTTP request headers
 
@@ -311,24 +311,24 @@ Create a single event
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    timelineEvent := *openapiclient.NewTimelineEvent("1001298", map[string]string{"key": "Inner_example"}) // TimelineEvent | The timeline event definition.
+	timelineEvent := *openapiclient.NewTimelineEvent("1001298", map[string]string{"key": "Inner_example"}) // TimelineEvent | The timeline event definition.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.EventsApi.PostCrmV3TimelineEventsCreate(context.Background()).TimelineEvent(timelineEvent).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.PostCrmV3TimelineEventsCreate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostCrmV3TimelineEventsCreate`: TimelineEventResponse
-    fmt.Fprintf(os.Stdout, "Response from `EventsApi.PostCrmV3TimelineEventsCreate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.EventsAPI.PostCrmV3TimelineEventsCreate(context.Background()).TimelineEvent(timelineEvent).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `EventsAPI.PostCrmV3TimelineEventsCreate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostCrmV3TimelineEventsCreate`: TimelineEventResponse
+	fmt.Fprintf(os.Stdout, "Response from `EventsAPI.PostCrmV3TimelineEventsCreate`: %v\n", resp)
 }
 ```
 
@@ -351,7 +351,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2_legacy](../README.md#oauth2_legacy), [private_apps](../README.md#private_apps), [private_apps_legacy](../README.md#private_apps_legacy)
+[oauth2_legacy](../README.md#oauth2_legacy), [oauth2](../README.md#oauth2), [private_apps_legacy](../README.md#private_apps_legacy), [private_apps](../README.md#private_apps)
 
 ### HTTP request headers
 

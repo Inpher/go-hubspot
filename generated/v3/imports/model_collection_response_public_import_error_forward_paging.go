@@ -11,14 +11,21 @@ API version: v3
 package imports
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the CollectionResponsePublicImportErrorForwardPaging type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CollectionResponsePublicImportErrorForwardPaging{}
 
 // CollectionResponsePublicImportErrorForwardPaging struct for CollectionResponsePublicImportErrorForwardPaging
 type CollectionResponsePublicImportErrorForwardPaging struct {
 	Paging  *ForwardPaging      `json:"paging,omitempty"`
 	Results []PublicImportError `json:"results"`
 }
+
+type _CollectionResponsePublicImportErrorForwardPaging CollectionResponsePublicImportErrorForwardPaging
 
 // NewCollectionResponsePublicImportErrorForwardPaging instantiates a new CollectionResponsePublicImportErrorForwardPaging object
 // This constructor will assign default values to properties that have it defined,
@@ -40,7 +47,7 @@ func NewCollectionResponsePublicImportErrorForwardPagingWithDefaults() *Collecti
 
 // GetPaging returns the Paging field value if set, zero value otherwise.
 func (o *CollectionResponsePublicImportErrorForwardPaging) GetPaging() ForwardPaging {
-	if o == nil || o.Paging == nil {
+	if o == nil || IsNil(o.Paging) {
 		var ret ForwardPaging
 		return ret
 	}
@@ -50,7 +57,7 @@ func (o *CollectionResponsePublicImportErrorForwardPaging) GetPaging() ForwardPa
 // GetPagingOk returns a tuple with the Paging field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionResponsePublicImportErrorForwardPaging) GetPagingOk() (*ForwardPaging, bool) {
-	if o == nil || o.Paging == nil {
+	if o == nil || IsNil(o.Paging) {
 		return nil, false
 	}
 	return o.Paging, true
@@ -58,7 +65,7 @@ func (o *CollectionResponsePublicImportErrorForwardPaging) GetPagingOk() (*Forwa
 
 // HasPaging returns a boolean if a field has been set.
 func (o *CollectionResponsePublicImportErrorForwardPaging) HasPaging() bool {
-	if o != nil && o.Paging != nil {
+	if o != nil && !IsNil(o.Paging) {
 		return true
 	}
 
@@ -95,14 +102,57 @@ func (o *CollectionResponsePublicImportErrorForwardPaging) SetResults(v []Public
 }
 
 func (o CollectionResponsePublicImportErrorForwardPaging) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Paging != nil {
-		toSerialize["paging"] = o.Paging
-	}
-	if true {
-		toSerialize["results"] = o.Results
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CollectionResponsePublicImportErrorForwardPaging) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Paging) {
+		toSerialize["paging"] = o.Paging
+	}
+	toSerialize["results"] = o.Results
+	return toSerialize, nil
+}
+
+func (o *CollectionResponsePublicImportErrorForwardPaging) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"results",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCollectionResponsePublicImportErrorForwardPaging := _CollectionResponsePublicImportErrorForwardPaging{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varCollectionResponsePublicImportErrorForwardPaging)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CollectionResponsePublicImportErrorForwardPaging(varCollectionResponsePublicImportErrorForwardPaging)
+
+	return err
 }
 
 type NullableCollectionResponsePublicImportErrorForwardPaging struct {

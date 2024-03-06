@@ -11,8 +11,13 @@ API version: v3
 package tickets
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the PublicObjectSearchRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PublicObjectSearchRequest{}
 
 // PublicObjectSearchRequest struct for PublicObjectSearchRequest
 type PublicObjectSearchRequest struct {
@@ -23,6 +28,8 @@ type PublicObjectSearchRequest struct {
 	Properties   []string      `json:"properties"`
 	FilterGroups []FilterGroup `json:"filterGroups"`
 }
+
+type _PublicObjectSearchRequest PublicObjectSearchRequest
 
 // NewPublicObjectSearchRequest instantiates a new PublicObjectSearchRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -48,7 +55,7 @@ func NewPublicObjectSearchRequestWithDefaults() *PublicObjectSearchRequest {
 
 // GetQuery returns the Query field value if set, zero value otherwise.
 func (o *PublicObjectSearchRequest) GetQuery() string {
-	if o == nil || o.Query == nil {
+	if o == nil || IsNil(o.Query) {
 		var ret string
 		return ret
 	}
@@ -58,7 +65,7 @@ func (o *PublicObjectSearchRequest) GetQuery() string {
 // GetQueryOk returns a tuple with the Query field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicObjectSearchRequest) GetQueryOk() (*string, bool) {
-	if o == nil || o.Query == nil {
+	if o == nil || IsNil(o.Query) {
 		return nil, false
 	}
 	return o.Query, true
@@ -66,7 +73,7 @@ func (o *PublicObjectSearchRequest) GetQueryOk() (*string, bool) {
 
 // HasQuery returns a boolean if a field has been set.
 func (o *PublicObjectSearchRequest) HasQuery() bool {
-	if o != nil && o.Query != nil {
+	if o != nil && !IsNil(o.Query) {
 		return true
 	}
 
@@ -199,26 +206,65 @@ func (o *PublicObjectSearchRequest) SetFilterGroups(v []FilterGroup) {
 }
 
 func (o PublicObjectSearchRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Query != nil {
-		toSerialize["query"] = o.Query
-	}
-	if true {
-		toSerialize["limit"] = o.Limit
-	}
-	if true {
-		toSerialize["after"] = o.After
-	}
-	if true {
-		toSerialize["sorts"] = o.Sorts
-	}
-	if true {
-		toSerialize["properties"] = o.Properties
-	}
-	if true {
-		toSerialize["filterGroups"] = o.FilterGroups
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PublicObjectSearchRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Query) {
+		toSerialize["query"] = o.Query
+	}
+	toSerialize["limit"] = o.Limit
+	toSerialize["after"] = o.After
+	toSerialize["sorts"] = o.Sorts
+	toSerialize["properties"] = o.Properties
+	toSerialize["filterGroups"] = o.FilterGroups
+	return toSerialize, nil
+}
+
+func (o *PublicObjectSearchRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"limit",
+		"after",
+		"sorts",
+		"properties",
+		"filterGroups",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPublicObjectSearchRequest := _PublicObjectSearchRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPublicObjectSearchRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PublicObjectSearchRequest(varPublicObjectSearchRequest)
+
+	return err
 }
 
 type NullablePublicObjectSearchRequest struct {

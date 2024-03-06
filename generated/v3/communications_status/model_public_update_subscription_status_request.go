@@ -11,8 +11,13 @@ API version: v3
 package communications_status
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the PublicUpdateSubscriptionStatusRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PublicUpdateSubscriptionStatusRequest{}
 
 // PublicUpdateSubscriptionStatusRequest A request to change the status of a contact's subscription.
 type PublicUpdateSubscriptionStatusRequest struct {
@@ -25,6 +30,8 @@ type PublicUpdateSubscriptionStatusRequest struct {
 	// A more detailed explanation to go with the legal basis (required for GDPR enabled portals).
 	LegalBasisExplanation *string `json:"legalBasisExplanation,omitempty"`
 }
+
+type _PublicUpdateSubscriptionStatusRequest PublicUpdateSubscriptionStatusRequest
 
 // NewPublicUpdateSubscriptionStatusRequest instantiates a new PublicUpdateSubscriptionStatusRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -71,7 +78,7 @@ func (o *PublicUpdateSubscriptionStatusRequest) SetEmailAddress(v string) {
 
 // GetLegalBasis returns the LegalBasis field value if set, zero value otherwise.
 func (o *PublicUpdateSubscriptionStatusRequest) GetLegalBasis() string {
-	if o == nil || o.LegalBasis == nil {
+	if o == nil || IsNil(o.LegalBasis) {
 		var ret string
 		return ret
 	}
@@ -81,7 +88,7 @@ func (o *PublicUpdateSubscriptionStatusRequest) GetLegalBasis() string {
 // GetLegalBasisOk returns a tuple with the LegalBasis field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicUpdateSubscriptionStatusRequest) GetLegalBasisOk() (*string, bool) {
-	if o == nil || o.LegalBasis == nil {
+	if o == nil || IsNil(o.LegalBasis) {
 		return nil, false
 	}
 	return o.LegalBasis, true
@@ -89,7 +96,7 @@ func (o *PublicUpdateSubscriptionStatusRequest) GetLegalBasisOk() (*string, bool
 
 // HasLegalBasis returns a boolean if a field has been set.
 func (o *PublicUpdateSubscriptionStatusRequest) HasLegalBasis() bool {
-	if o != nil && o.LegalBasis != nil {
+	if o != nil && !IsNil(o.LegalBasis) {
 		return true
 	}
 
@@ -127,7 +134,7 @@ func (o *PublicUpdateSubscriptionStatusRequest) SetSubscriptionId(v string) {
 
 // GetLegalBasisExplanation returns the LegalBasisExplanation field value if set, zero value otherwise.
 func (o *PublicUpdateSubscriptionStatusRequest) GetLegalBasisExplanation() string {
-	if o == nil || o.LegalBasisExplanation == nil {
+	if o == nil || IsNil(o.LegalBasisExplanation) {
 		var ret string
 		return ret
 	}
@@ -137,7 +144,7 @@ func (o *PublicUpdateSubscriptionStatusRequest) GetLegalBasisExplanation() strin
 // GetLegalBasisExplanationOk returns a tuple with the LegalBasisExplanation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PublicUpdateSubscriptionStatusRequest) GetLegalBasisExplanationOk() (*string, bool) {
-	if o == nil || o.LegalBasisExplanation == nil {
+	if o == nil || IsNil(o.LegalBasisExplanation) {
 		return nil, false
 	}
 	return o.LegalBasisExplanation, true
@@ -145,7 +152,7 @@ func (o *PublicUpdateSubscriptionStatusRequest) GetLegalBasisExplanationOk() (*s
 
 // HasLegalBasisExplanation returns a boolean if a field has been set.
 func (o *PublicUpdateSubscriptionStatusRequest) HasLegalBasisExplanation() bool {
-	if o != nil && o.LegalBasisExplanation != nil {
+	if o != nil && !IsNil(o.LegalBasisExplanation) {
 		return true
 	}
 
@@ -158,20 +165,62 @@ func (o *PublicUpdateSubscriptionStatusRequest) SetLegalBasisExplanation(v strin
 }
 
 func (o PublicUpdateSubscriptionStatusRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["emailAddress"] = o.EmailAddress
-	}
-	if o.LegalBasis != nil {
-		toSerialize["legalBasis"] = o.LegalBasis
-	}
-	if true {
-		toSerialize["subscriptionId"] = o.SubscriptionId
-	}
-	if o.LegalBasisExplanation != nil {
-		toSerialize["legalBasisExplanation"] = o.LegalBasisExplanation
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PublicUpdateSubscriptionStatusRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["emailAddress"] = o.EmailAddress
+	if !IsNil(o.LegalBasis) {
+		toSerialize["legalBasis"] = o.LegalBasis
+	}
+	toSerialize["subscriptionId"] = o.SubscriptionId
+	if !IsNil(o.LegalBasisExplanation) {
+		toSerialize["legalBasisExplanation"] = o.LegalBasisExplanation
+	}
+	return toSerialize, nil
+}
+
+func (o *PublicUpdateSubscriptionStatusRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"emailAddress",
+		"subscriptionId",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPublicUpdateSubscriptionStatusRequest := _PublicUpdateSubscriptionStatusRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPublicUpdateSubscriptionStatusRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PublicUpdateSubscriptionStatusRequest(varPublicUpdateSubscriptionStatusRequest)
+
+	return err
 }
 
 type NullablePublicUpdateSubscriptionStatusRequest struct {

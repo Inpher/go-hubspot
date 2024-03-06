@@ -11,14 +11,21 @@ API version: v3
 package properties
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the PropertyName type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PropertyName{}
 
 // PropertyName struct for PropertyName
 type PropertyName struct {
 	// The name of the property to read or modify.
 	Name string `json:"name"`
 }
+
+type _PropertyName PropertyName
 
 // NewPropertyName instantiates a new PropertyName object
 // This constructor will assign default values to properties that have it defined,
@@ -63,11 +70,54 @@ func (o *PropertyName) SetName(v string) {
 }
 
 func (o PropertyName) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PropertyName) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	return toSerialize, nil
+}
+
+func (o *PropertyName) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPropertyName := _PropertyName{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPropertyName)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PropertyName(varPropertyName)
+
+	return err
 }
 
 type NullablePropertyName struct {

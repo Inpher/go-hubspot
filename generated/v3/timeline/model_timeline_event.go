@@ -11,9 +11,14 @@ API version: v3
 package timeline
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the TimelineEvent type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TimelineEvent{}
 
 // TimelineEvent The state of the timeline event.
 type TimelineEvent struct {
@@ -37,6 +42,8 @@ type TimelineEvent struct {
 	// The time the event occurred. If not passed in, the curren time will be assumed. This is used to determine where an event is shown on a CRM object's timeline.
 	Timestamp *time.Time `json:"timestamp,omitempty"`
 }
+
+type _TimelineEvent TimelineEvent
 
 // NewTimelineEvent instantiates a new TimelineEvent object
 // This constructor will assign default values to properties that have it defined,
@@ -83,7 +90,7 @@ func (o *TimelineEvent) SetEventTemplateId(v string) {
 
 // GetExtraData returns the ExtraData field value if set, zero value otherwise.
 func (o *TimelineEvent) GetExtraData() map[string]interface{} {
-	if o == nil || o.ExtraData == nil {
+	if o == nil || IsNil(o.ExtraData) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -93,15 +100,15 @@ func (o *TimelineEvent) GetExtraData() map[string]interface{} {
 // GetExtraDataOk returns a tuple with the ExtraData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TimelineEvent) GetExtraDataOk() (map[string]interface{}, bool) {
-	if o == nil || o.ExtraData == nil {
-		return nil, false
+	if o == nil || IsNil(o.ExtraData) {
+		return map[string]interface{}{}, false
 	}
 	return o.ExtraData, true
 }
 
 // HasExtraData returns a boolean if a field has been set.
 func (o *TimelineEvent) HasExtraData() bool {
-	if o != nil && o.ExtraData != nil {
+	if o != nil && !IsNil(o.ExtraData) {
 		return true
 	}
 
@@ -115,7 +122,7 @@ func (o *TimelineEvent) SetExtraData(v map[string]interface{}) {
 
 // GetTimelineIFrame returns the TimelineIFrame field value if set, zero value otherwise.
 func (o *TimelineEvent) GetTimelineIFrame() TimelineEventIFrame {
-	if o == nil || o.TimelineIFrame == nil {
+	if o == nil || IsNil(o.TimelineIFrame) {
 		var ret TimelineEventIFrame
 		return ret
 	}
@@ -125,7 +132,7 @@ func (o *TimelineEvent) GetTimelineIFrame() TimelineEventIFrame {
 // GetTimelineIFrameOk returns a tuple with the TimelineIFrame field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TimelineEvent) GetTimelineIFrameOk() (*TimelineEventIFrame, bool) {
-	if o == nil || o.TimelineIFrame == nil {
+	if o == nil || IsNil(o.TimelineIFrame) {
 		return nil, false
 	}
 	return o.TimelineIFrame, true
@@ -133,7 +140,7 @@ func (o *TimelineEvent) GetTimelineIFrameOk() (*TimelineEventIFrame, bool) {
 
 // HasTimelineIFrame returns a boolean if a field has been set.
 func (o *TimelineEvent) HasTimelineIFrame() bool {
-	if o != nil && o.TimelineIFrame != nil {
+	if o != nil && !IsNil(o.TimelineIFrame) {
 		return true
 	}
 
@@ -147,7 +154,7 @@ func (o *TimelineEvent) SetTimelineIFrame(v TimelineEventIFrame) {
 
 // GetDomain returns the Domain field value if set, zero value otherwise.
 func (o *TimelineEvent) GetDomain() string {
-	if o == nil || o.Domain == nil {
+	if o == nil || IsNil(o.Domain) {
 		var ret string
 		return ret
 	}
@@ -157,7 +164,7 @@ func (o *TimelineEvent) GetDomain() string {
 // GetDomainOk returns a tuple with the Domain field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TimelineEvent) GetDomainOk() (*string, bool) {
-	if o == nil || o.Domain == nil {
+	if o == nil || IsNil(o.Domain) {
 		return nil, false
 	}
 	return o.Domain, true
@@ -165,7 +172,7 @@ func (o *TimelineEvent) GetDomainOk() (*string, bool) {
 
 // HasDomain returns a boolean if a field has been set.
 func (o *TimelineEvent) HasDomain() bool {
-	if o != nil && o.Domain != nil {
+	if o != nil && !IsNil(o.Domain) {
 		return true
 	}
 
@@ -203,7 +210,7 @@ func (o *TimelineEvent) SetTokens(v map[string]string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *TimelineEvent) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -213,7 +220,7 @@ func (o *TimelineEvent) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TimelineEvent) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -221,7 +228,7 @@ func (o *TimelineEvent) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *TimelineEvent) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -235,7 +242,7 @@ func (o *TimelineEvent) SetId(v string) {
 
 // GetUtk returns the Utk field value if set, zero value otherwise.
 func (o *TimelineEvent) GetUtk() string {
-	if o == nil || o.Utk == nil {
+	if o == nil || IsNil(o.Utk) {
 		var ret string
 		return ret
 	}
@@ -245,7 +252,7 @@ func (o *TimelineEvent) GetUtk() string {
 // GetUtkOk returns a tuple with the Utk field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TimelineEvent) GetUtkOk() (*string, bool) {
-	if o == nil || o.Utk == nil {
+	if o == nil || IsNil(o.Utk) {
 		return nil, false
 	}
 	return o.Utk, true
@@ -253,7 +260,7 @@ func (o *TimelineEvent) GetUtkOk() (*string, bool) {
 
 // HasUtk returns a boolean if a field has been set.
 func (o *TimelineEvent) HasUtk() bool {
-	if o != nil && o.Utk != nil {
+	if o != nil && !IsNil(o.Utk) {
 		return true
 	}
 
@@ -267,7 +274,7 @@ func (o *TimelineEvent) SetUtk(v string) {
 
 // GetEmail returns the Email field value if set, zero value otherwise.
 func (o *TimelineEvent) GetEmail() string {
-	if o == nil || o.Email == nil {
+	if o == nil || IsNil(o.Email) {
 		var ret string
 		return ret
 	}
@@ -277,7 +284,7 @@ func (o *TimelineEvent) GetEmail() string {
 // GetEmailOk returns a tuple with the Email field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TimelineEvent) GetEmailOk() (*string, bool) {
-	if o == nil || o.Email == nil {
+	if o == nil || IsNil(o.Email) {
 		return nil, false
 	}
 	return o.Email, true
@@ -285,7 +292,7 @@ func (o *TimelineEvent) GetEmailOk() (*string, bool) {
 
 // HasEmail returns a boolean if a field has been set.
 func (o *TimelineEvent) HasEmail() bool {
-	if o != nil && o.Email != nil {
+	if o != nil && !IsNil(o.Email) {
 		return true
 	}
 
@@ -299,7 +306,7 @@ func (o *TimelineEvent) SetEmail(v string) {
 
 // GetObjectId returns the ObjectId field value if set, zero value otherwise.
 func (o *TimelineEvent) GetObjectId() string {
-	if o == nil || o.ObjectId == nil {
+	if o == nil || IsNil(o.ObjectId) {
 		var ret string
 		return ret
 	}
@@ -309,7 +316,7 @@ func (o *TimelineEvent) GetObjectId() string {
 // GetObjectIdOk returns a tuple with the ObjectId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TimelineEvent) GetObjectIdOk() (*string, bool) {
-	if o == nil || o.ObjectId == nil {
+	if o == nil || IsNil(o.ObjectId) {
 		return nil, false
 	}
 	return o.ObjectId, true
@@ -317,7 +324,7 @@ func (o *TimelineEvent) GetObjectIdOk() (*string, bool) {
 
 // HasObjectId returns a boolean if a field has been set.
 func (o *TimelineEvent) HasObjectId() bool {
-	if o != nil && o.ObjectId != nil {
+	if o != nil && !IsNil(o.ObjectId) {
 		return true
 	}
 
@@ -331,7 +338,7 @@ func (o *TimelineEvent) SetObjectId(v string) {
 
 // GetTimestamp returns the Timestamp field value if set, zero value otherwise.
 func (o *TimelineEvent) GetTimestamp() time.Time {
-	if o == nil || o.Timestamp == nil {
+	if o == nil || IsNil(o.Timestamp) {
 		var ret time.Time
 		return ret
 	}
@@ -341,7 +348,7 @@ func (o *TimelineEvent) GetTimestamp() time.Time {
 // GetTimestampOk returns a tuple with the Timestamp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TimelineEvent) GetTimestampOk() (*time.Time, bool) {
-	if o == nil || o.Timestamp == nil {
+	if o == nil || IsNil(o.Timestamp) {
 		return nil, false
 	}
 	return o.Timestamp, true
@@ -349,7 +356,7 @@ func (o *TimelineEvent) GetTimestampOk() (*time.Time, bool) {
 
 // HasTimestamp returns a boolean if a field has been set.
 func (o *TimelineEvent) HasTimestamp() bool {
-	if o != nil && o.Timestamp != nil {
+	if o != nil && !IsNil(o.Timestamp) {
 		return true
 	}
 
@@ -362,38 +369,80 @@ func (o *TimelineEvent) SetTimestamp(v time.Time) {
 }
 
 func (o TimelineEvent) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["eventTemplateId"] = o.EventTemplateId
-	}
-	if o.ExtraData != nil {
-		toSerialize["extraData"] = o.ExtraData
-	}
-	if o.TimelineIFrame != nil {
-		toSerialize["timelineIFrame"] = o.TimelineIFrame
-	}
-	if o.Domain != nil {
-		toSerialize["domain"] = o.Domain
-	}
-	if true {
-		toSerialize["tokens"] = o.Tokens
-	}
-	if o.Id != nil {
-		toSerialize["id"] = o.Id
-	}
-	if o.Utk != nil {
-		toSerialize["utk"] = o.Utk
-	}
-	if o.Email != nil {
-		toSerialize["email"] = o.Email
-	}
-	if o.ObjectId != nil {
-		toSerialize["objectId"] = o.ObjectId
-	}
-	if o.Timestamp != nil {
-		toSerialize["timestamp"] = o.Timestamp
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o TimelineEvent) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["eventTemplateId"] = o.EventTemplateId
+	if !IsNil(o.ExtraData) {
+		toSerialize["extraData"] = o.ExtraData
+	}
+	if !IsNil(o.TimelineIFrame) {
+		toSerialize["timelineIFrame"] = o.TimelineIFrame
+	}
+	if !IsNil(o.Domain) {
+		toSerialize["domain"] = o.Domain
+	}
+	toSerialize["tokens"] = o.Tokens
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Utk) {
+		toSerialize["utk"] = o.Utk
+	}
+	if !IsNil(o.Email) {
+		toSerialize["email"] = o.Email
+	}
+	if !IsNil(o.ObjectId) {
+		toSerialize["objectId"] = o.ObjectId
+	}
+	if !IsNil(o.Timestamp) {
+		toSerialize["timestamp"] = o.Timestamp
+	}
+	return toSerialize, nil
+}
+
+func (o *TimelineEvent) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"eventTemplateId",
+		"tokens",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varTimelineEvent := _TimelineEvent{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varTimelineEvent)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TimelineEvent(varTimelineEvent)
+
+	return err
 }
 
 type NullableTimelineEvent struct {

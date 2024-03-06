@@ -11,9 +11,14 @@ API version: v3
 package blog_posts
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the VersionBlogPost type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &VersionBlogPost{}
 
 // VersionBlogPost Model definition of a version of a blog post.
 type VersionBlogPost struct {
@@ -23,6 +28,8 @@ type VersionBlogPost struct {
 	Object    BlogPost    `json:"object"`
 	UpdatedAt time.Time   `json:"updatedAt"`
 }
+
+type _VersionBlogPost VersionBlogPost
 
 // NewVersionBlogPost instantiates a new VersionBlogPost object
 // This constructor will assign default values to properties that have it defined,
@@ -142,20 +149,60 @@ func (o *VersionBlogPost) SetUpdatedAt(v time.Time) {
 }
 
 func (o VersionBlogPost) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["user"] = o.User
-	}
-	if true {
-		toSerialize["object"] = o.Object
-	}
-	if true {
-		toSerialize["updatedAt"] = o.UpdatedAt
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o VersionBlogPost) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["user"] = o.User
+	toSerialize["object"] = o.Object
+	toSerialize["updatedAt"] = o.UpdatedAt
+	return toSerialize, nil
+}
+
+func (o *VersionBlogPost) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"user",
+		"object",
+		"updatedAt",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varVersionBlogPost := _VersionBlogPost{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varVersionBlogPost)
+
+	if err != nil {
+		return err
+	}
+
+	*o = VersionBlogPost(varVersionBlogPost)
+
+	return err
 }
 
 type NullableVersionBlogPost struct {

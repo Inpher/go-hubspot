@@ -13,19 +13,19 @@ package visitor_identification
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 
-	"github.com/clarkmcc/go-hubspot"
+	"github.com/inpher/go-hubspot"
 	"net/url"
 )
 
-// GenerateApiService GenerateApi service
-type GenerateApiService service
+// GenerateAPIService GenerateAPI service
+type GenerateAPIService service
 
 type ApiPostConversationsV3VisitorIdentificationTokensCreateGenerateTokenRequest struct {
 	ctx                                  context.Context
-	ApiService                           *GenerateApiService
+	ApiService                           *GenerateAPIService
 	identificationTokenGenerationRequest *IdentificationTokenGenerationRequest
 }
 
@@ -43,10 +43,10 @@ PostConversationsV3VisitorIdentificationTokensCreateGenerateToken Generate a tok
 
 Generates a new visitor identification token. This token will be unique every time this endpoint is called, even if called with the same email address. This token is temporary and will expire after 12 hours
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostConversationsV3VisitorIdentificationTokensCreateGenerateTokenRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiPostConversationsV3VisitorIdentificationTokensCreateGenerateTokenRequest
 */
-func (a *GenerateApiService) PostConversationsV3VisitorIdentificationTokensCreateGenerateToken(ctx context.Context) ApiPostConversationsV3VisitorIdentificationTokensCreateGenerateTokenRequest {
+func (a *GenerateAPIService) PostConversationsV3VisitorIdentificationTokensCreateGenerateToken(ctx context.Context) ApiPostConversationsV3VisitorIdentificationTokensCreateGenerateTokenRequest {
 	return ApiPostConversationsV3VisitorIdentificationTokensCreateGenerateTokenRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -54,8 +54,9 @@ func (a *GenerateApiService) PostConversationsV3VisitorIdentificationTokensCreat
 }
 
 // Execute executes the request
-//  @return IdentificationTokenResponse
-func (a *GenerateApiService) PostConversationsV3VisitorIdentificationTokensCreateGenerateTokenExecute(r ApiPostConversationsV3VisitorIdentificationTokensCreateGenerateTokenRequest) (*IdentificationTokenResponse, *http.Response, error) {
+//
+//	@return IdentificationTokenResponse
+func (a *GenerateAPIService) PostConversationsV3VisitorIdentificationTokensCreateGenerateTokenExecute(r ApiPostConversationsV3VisitorIdentificationTokensCreateGenerateTokenRequest) (*IdentificationTokenResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -63,7 +64,7 @@ func (a *GenerateApiService) PostConversationsV3VisitorIdentificationTokensCreat
 		localVarReturnValue *IdentificationTokenResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GenerateApiService.PostConversationsV3VisitorIdentificationTokensCreateGenerateToken")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GenerateAPIService.PostConversationsV3VisitorIdentificationTokensCreateGenerateToken")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -116,9 +117,9 @@ func (a *GenerateApiService) PostConversationsV3VisitorIdentificationTokensCreat
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -134,6 +135,7 @@ func (a *GenerateApiService) PostConversationsV3VisitorIdentificationTokensCreat
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

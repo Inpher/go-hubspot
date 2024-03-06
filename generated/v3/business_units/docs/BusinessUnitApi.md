@@ -1,10 +1,10 @@
-# \BusinessUnitApi
+# \BusinessUnitAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserID**](BusinessUnitApi.md#GetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserID) | **Get** /business-units/v3/business-units/user/{userId} | Get Business Units for a user
+[**GetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserID**](BusinessUnitAPI.md#GetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserID) | **Get** /business-units/v3/business-units/user/{userId} | Get Business Units for a user
 
 
 
@@ -22,26 +22,26 @@ Get Business Units for a user
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    userId := "userId_example" // string | Identifier of user to retrieve.
-    properties := []string{"Inner_example"} // []string | The names of properties to optionally include in the response body. The only valid value is `logoMetadata`. (optional)
-    name := []string{"Inner_example"} // []string | The names of Business Units to retrieve. If empty or not provided, then all associated Business Units will be returned. (optional)
+	userId := "userId_example" // string | Identifier of user to retrieve.
+	properties := []string{"Inner_example"} // []string | The names of properties to optionally include in the response body. The only valid value is `logoMetadata`. (optional)
+	name := []string{"Inner_example"} // []string | The names of Business Units to retrieve. If empty or not provided, then all associated Business Units will be returned. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BusinessUnitApi.GetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserID(context.Background(), userId).Properties(properties).Name(name).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BusinessUnitApi.GetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserID``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserID`: CollectionResponsePublicBusinessUnitNoPaging
-    fmt.Fprintf(os.Stdout, "Response from `BusinessUnitApi.GetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserID`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BusinessUnitAPI.GetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserID(context.Background(), userId).Properties(properties).Name(name).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BusinessUnitAPI.GetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserID``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserID`: CollectionResponsePublicBusinessUnitNoPaging
+	fmt.Fprintf(os.Stdout, "Response from `BusinessUnitAPI.GetBusinessUnitsV3BusinessUnitsUserUserIdGetByUserID`: %v\n", resp)
 }
 ```
 

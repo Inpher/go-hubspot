@@ -11,8 +11,13 @@ API version: v3
 package marketing_events_beta
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the MarketingEventSubscriber type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MarketingEventSubscriber{}
 
 // MarketingEventSubscriber struct for MarketingEventSubscriber
 type MarketingEventSubscriber struct {
@@ -21,6 +26,8 @@ type MarketingEventSubscriber struct {
 	// The date and time at which the contact subscribed to the event.
 	InteractionDateTime int64 `json:"interactionDateTime"`
 }
+
+type _MarketingEventSubscriber MarketingEventSubscriber
 
 // NewMarketingEventSubscriber instantiates a new MarketingEventSubscriber object
 // This constructor will assign default values to properties that have it defined,
@@ -42,7 +49,7 @@ func NewMarketingEventSubscriberWithDefaults() *MarketingEventSubscriber {
 
 // GetVid returns the Vid field value if set, zero value otherwise.
 func (o *MarketingEventSubscriber) GetVid() int32 {
-	if o == nil || o.Vid == nil {
+	if o == nil || IsNil(o.Vid) {
 		var ret int32
 		return ret
 	}
@@ -52,7 +59,7 @@ func (o *MarketingEventSubscriber) GetVid() int32 {
 // GetVidOk returns a tuple with the Vid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MarketingEventSubscriber) GetVidOk() (*int32, bool) {
-	if o == nil || o.Vid == nil {
+	if o == nil || IsNil(o.Vid) {
 		return nil, false
 	}
 	return o.Vid, true
@@ -60,7 +67,7 @@ func (o *MarketingEventSubscriber) GetVidOk() (*int32, bool) {
 
 // HasVid returns a boolean if a field has been set.
 func (o *MarketingEventSubscriber) HasVid() bool {
-	if o != nil && o.Vid != nil {
+	if o != nil && !IsNil(o.Vid) {
 		return true
 	}
 
@@ -74,7 +81,7 @@ func (o *MarketingEventSubscriber) SetVid(v int32) {
 
 // GetProperties returns the Properties field value if set, zero value otherwise.
 func (o *MarketingEventSubscriber) GetProperties() map[string]string {
-	if o == nil || o.Properties == nil {
+	if o == nil || IsNil(o.Properties) {
 		var ret map[string]string
 		return ret
 	}
@@ -84,7 +91,7 @@ func (o *MarketingEventSubscriber) GetProperties() map[string]string {
 // GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MarketingEventSubscriber) GetPropertiesOk() (*map[string]string, bool) {
-	if o == nil || o.Properties == nil {
+	if o == nil || IsNil(o.Properties) {
 		return nil, false
 	}
 	return o.Properties, true
@@ -92,7 +99,7 @@ func (o *MarketingEventSubscriber) GetPropertiesOk() (*map[string]string, bool) 
 
 // HasProperties returns a boolean if a field has been set.
 func (o *MarketingEventSubscriber) HasProperties() bool {
-	if o != nil && o.Properties != nil {
+	if o != nil && !IsNil(o.Properties) {
 		return true
 	}
 
@@ -129,17 +136,60 @@ func (o *MarketingEventSubscriber) SetInteractionDateTime(v int64) {
 }
 
 func (o MarketingEventSubscriber) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Vid != nil {
-		toSerialize["vid"] = o.Vid
-	}
-	if o.Properties != nil {
-		toSerialize["properties"] = o.Properties
-	}
-	if true {
-		toSerialize["interactionDateTime"] = o.InteractionDateTime
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o MarketingEventSubscriber) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Vid) {
+		toSerialize["vid"] = o.Vid
+	}
+	if !IsNil(o.Properties) {
+		toSerialize["properties"] = o.Properties
+	}
+	toSerialize["interactionDateTime"] = o.InteractionDateTime
+	return toSerialize, nil
+}
+
+func (o *MarketingEventSubscriber) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"interactionDateTime",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varMarketingEventSubscriber := _MarketingEventSubscriber{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varMarketingEventSubscriber)
+
+	if err != nil {
+		return err
+	}
+
+	*o = MarketingEventSubscriber(varMarketingEventSubscriber)
+
+	return err
 }
 
 type NullableMarketingEventSubscriber struct {

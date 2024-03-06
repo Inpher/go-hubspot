@@ -9,14 +9,14 @@ Name | Type | Description | Notes
 **ArchivedAt** | Pointer to **time.Time** |  | [optional] 
 **PropertiesWithHistory** | Pointer to [**map[string][]ValueWithTimestamp**](array.md) |  | [optional] 
 **Id** | **string** |  | 
-**Properties** | **map[string]string** |  | 
+**Properties** | Pointer to **map[string]string** |  | [optional] 
 **UpdatedAt** | **time.Time** |  | 
 
 ## Methods
 
 ### NewSimplePublicObject
 
-`func NewSimplePublicObject(createdAt time.Time, id string, properties map[string]string, updatedAt time.Time, ) *SimplePublicObject`
+`func NewSimplePublicObject(createdAt time.Time, id string, updatedAt time.Time, ) *SimplePublicObject`
 
 NewSimplePublicObject instantiates a new SimplePublicObject object
 This constructor will assign default values to properties that have it defined,
@@ -165,6 +165,11 @@ and a boolean to check if the value has been set.
 
 SetProperties sets Properties field to given value.
 
+### HasProperties
+
+`func (o *SimplePublicObject) HasProperties() bool`
+
+HasProperties returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 

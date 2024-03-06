@@ -11,8 +11,13 @@ API version: v3
 package performance
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the PerformanceView type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PerformanceView{}
 
 // PerformanceView An individual time series performance data point.
 type PerformanceView struct {
@@ -59,6 +64,8 @@ type PerformanceView struct {
 	AvgOriginResponseTime int32 `json:"avgOriginResponseTime"`
 }
 
+type _PerformanceView PerformanceView
+
 // NewPerformanceView instantiates a new PerformanceView object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
@@ -97,7 +104,7 @@ func NewPerformanceViewWithDefaults() *PerformanceView {
 
 // GetStartDatetime returns the StartDatetime field value if set, zero value otherwise.
 func (o *PerformanceView) GetStartDatetime() string {
-	if o == nil || o.StartDatetime == nil {
+	if o == nil || IsNil(o.StartDatetime) {
 		var ret string
 		return ret
 	}
@@ -107,7 +114,7 @@ func (o *PerformanceView) GetStartDatetime() string {
 // GetStartDatetimeOk returns a tuple with the StartDatetime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PerformanceView) GetStartDatetimeOk() (*string, bool) {
-	if o == nil || o.StartDatetime == nil {
+	if o == nil || IsNil(o.StartDatetime) {
 		return nil, false
 	}
 	return o.StartDatetime, true
@@ -115,7 +122,7 @@ func (o *PerformanceView) GetStartDatetimeOk() (*string, bool) {
 
 // HasStartDatetime returns a boolean if a field has been set.
 func (o *PerformanceView) HasStartDatetime() bool {
-	if o != nil && o.StartDatetime != nil {
+	if o != nil && !IsNil(o.StartDatetime) {
 		return true
 	}
 
@@ -249,7 +256,7 @@ func (o *PerformanceView) SetVar99th(v int32) {
 
 // GetTotalRequestTime returns the TotalRequestTime field value if set, zero value otherwise.
 func (o *PerformanceView) GetTotalRequestTime() int32 {
-	if o == nil || o.TotalRequestTime == nil {
+	if o == nil || IsNil(o.TotalRequestTime) {
 		var ret int32
 		return ret
 	}
@@ -259,7 +266,7 @@ func (o *PerformanceView) GetTotalRequestTime() int32 {
 // GetTotalRequestTimeOk returns a tuple with the TotalRequestTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PerformanceView) GetTotalRequestTimeOk() (*int32, bool) {
-	if o == nil || o.TotalRequestTime == nil {
+	if o == nil || IsNil(o.TotalRequestTime) {
 		return nil, false
 	}
 	return o.TotalRequestTime, true
@@ -267,7 +274,7 @@ func (o *PerformanceView) GetTotalRequestTimeOk() (*int32, bool) {
 
 // HasTotalRequestTime returns a boolean if a field has been set.
 func (o *PerformanceView) HasTotalRequestTime() bool {
-	if o != nil && o.TotalRequestTime != nil {
+	if o != nil && !IsNil(o.TotalRequestTime) {
 		return true
 	}
 
@@ -593,7 +600,7 @@ func (o *PerformanceView) SetStartTimestamp(v int64) {
 
 // GetEndDatetime returns the EndDatetime field value if set, zero value otherwise.
 func (o *PerformanceView) GetEndDatetime() string {
-	if o == nil || o.EndDatetime == nil {
+	if o == nil || IsNil(o.EndDatetime) {
 		var ret string
 		return ret
 	}
@@ -603,7 +610,7 @@ func (o *PerformanceView) GetEndDatetime() string {
 // GetEndDatetimeOk returns a tuple with the EndDatetime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PerformanceView) GetEndDatetimeOk() (*string, bool) {
-	if o == nil || o.EndDatetime == nil {
+	if o == nil || IsNil(o.EndDatetime) {
 		return nil, false
 	}
 	return o.EndDatetime, true
@@ -611,7 +618,7 @@ func (o *PerformanceView) GetEndDatetimeOk() (*string, bool) {
 
 // HasEndDatetime returns a boolean if a field has been set.
 func (o *PerformanceView) HasEndDatetime() bool {
-	if o != nil && o.EndDatetime != nil {
+	if o != nil && !IsNil(o.EndDatetime) {
 		return true
 	}
 
@@ -648,74 +655,99 @@ func (o *PerformanceView) SetAvgOriginResponseTime(v int32) {
 }
 
 func (o PerformanceView) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.StartDatetime != nil {
-		toSerialize["startDatetime"] = o.StartDatetime
-	}
-	if true {
-		toSerialize["responseTimeMs"] = o.ResponseTimeMs
-	}
-	if true {
-		toSerialize["95th"] = o.Var95th
-	}
-	if true {
-		toSerialize["totalRequests"] = o.TotalRequests
-	}
-	if true {
-		toSerialize["cacheHitRate"] = o.CacheHitRate
-	}
-	if true {
-		toSerialize["99th"] = o.Var99th
-	}
-	if o.TotalRequestTime != nil {
-		toSerialize["totalRequestTime"] = o.TotalRequestTime
-	}
-	if true {
-		toSerialize["100X"] = o.Var100X
-	}
-	if true {
-		toSerialize["500"] = o.Var500
-	}
-	if true {
-		toSerialize["403"] = o.Var403
-	}
-	if true {
-		toSerialize["50th"] = o.Var50th
-	}
-	if true {
-		toSerialize["404"] = o.Var404
-	}
-	if true {
-		toSerialize["cacheHits"] = o.CacheHits
-	}
-	if true {
-		toSerialize["504"] = o.Var504
-	}
-	if true {
-		toSerialize["20X"] = o.Var20X
-	}
-	if true {
-		toSerialize["30X"] = o.Var30X
-	}
-	if true {
-		toSerialize["40X"] = o.Var40X
-	}
-	if true {
-		toSerialize["endTimestamp"] = o.EndTimestamp
-	}
-	if true {
-		toSerialize["50X"] = o.Var50X
-	}
-	if true {
-		toSerialize["startTimestamp"] = o.StartTimestamp
-	}
-	if o.EndDatetime != nil {
-		toSerialize["endDatetime"] = o.EndDatetime
-	}
-	if true {
-		toSerialize["avgOriginResponseTime"] = o.AvgOriginResponseTime
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PerformanceView) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.StartDatetime) {
+		toSerialize["startDatetime"] = o.StartDatetime
+	}
+	toSerialize["responseTimeMs"] = o.ResponseTimeMs
+	toSerialize["95th"] = o.Var95th
+	toSerialize["totalRequests"] = o.TotalRequests
+	toSerialize["cacheHitRate"] = o.CacheHitRate
+	toSerialize["99th"] = o.Var99th
+	if !IsNil(o.TotalRequestTime) {
+		toSerialize["totalRequestTime"] = o.TotalRequestTime
+	}
+	toSerialize["100X"] = o.Var100X
+	toSerialize["500"] = o.Var500
+	toSerialize["403"] = o.Var403
+	toSerialize["50th"] = o.Var50th
+	toSerialize["404"] = o.Var404
+	toSerialize["cacheHits"] = o.CacheHits
+	toSerialize["504"] = o.Var504
+	toSerialize["20X"] = o.Var20X
+	toSerialize["30X"] = o.Var30X
+	toSerialize["40X"] = o.Var40X
+	toSerialize["endTimestamp"] = o.EndTimestamp
+	toSerialize["50X"] = o.Var50X
+	toSerialize["startTimestamp"] = o.StartTimestamp
+	if !IsNil(o.EndDatetime) {
+		toSerialize["endDatetime"] = o.EndDatetime
+	}
+	toSerialize["avgOriginResponseTime"] = o.AvgOriginResponseTime
+	return toSerialize, nil
+}
+
+func (o *PerformanceView) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"responseTimeMs",
+		"95th",
+		"totalRequests",
+		"cacheHitRate",
+		"99th",
+		"100X",
+		"500",
+		"403",
+		"50th",
+		"404",
+		"cacheHits",
+		"504",
+		"20X",
+		"30X",
+		"40X",
+		"endTimestamp",
+		"50X",
+		"startTimestamp",
+		"avgOriginResponseTime",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPerformanceView := _PerformanceView{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPerformanceView)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PerformanceView(varPerformanceView)
+
+	return err
 }
 
 type NullablePerformanceView struct {

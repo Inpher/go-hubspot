@@ -13,19 +13,19 @@ package performance
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 
-	"github.com/clarkmcc/go-hubspot"
+	"github.com/inpher/go-hubspot"
 	"net/url"
 )
 
-// PublicPerformanceApiService PublicPerformanceApi service
-type PublicPerformanceApiService service
+// PublicPerformanceAPIService PublicPerformanceAPI service
+type PublicPerformanceAPIService service
 
 type ApiGetPageRequest struct {
 	ctx        context.Context
-	ApiService *PublicPerformanceApiService
+	ApiService *PublicPerformanceAPIService
 	domain     *string
 	path       *string
 	pad        *bool
@@ -93,10 +93,10 @@ GetPage View your website's performance.
 
 Returns time series data website performance data for the given domain and/or path.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetPageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetPageRequest
 */
-func (a *PublicPerformanceApiService) GetPage(ctx context.Context) ApiGetPageRequest {
+func (a *PublicPerformanceAPIService) GetPage(ctx context.Context) ApiGetPageRequest {
 	return ApiGetPageRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -104,8 +104,9 @@ func (a *PublicPerformanceApiService) GetPage(ctx context.Context) ApiGetPageReq
 }
 
 // Execute executes the request
-//  @return PublicPerformanceResponse
-func (a *PublicPerformanceApiService) GetPageExecute(r ApiGetPageRequest) (*PublicPerformanceResponse, *http.Response, error) {
+//
+//	@return PublicPerformanceResponse
+func (a *PublicPerformanceAPIService) GetPageExecute(r ApiGetPageRequest) (*PublicPerformanceResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -113,7 +114,7 @@ func (a *PublicPerformanceApiService) GetPageExecute(r ApiGetPageRequest) (*Publ
 		localVarReturnValue *PublicPerformanceResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicPerformanceApiService.GetPage")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicPerformanceAPIService.GetPage")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -125,28 +126,28 @@ func (a *PublicPerformanceApiService) GetPageExecute(r ApiGetPageRequest) (*Publ
 	localVarFormParams := url.Values{}
 
 	if r.domain != nil {
-		localVarQueryParams.Add("domain", parameterToString(*r.domain, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "domain", r.domain, "")
 	}
 	if r.path != nil {
-		localVarQueryParams.Add("path", parameterToString(*r.path, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "path", r.path, "")
 	}
 	if r.pad != nil {
-		localVarQueryParams.Add("pad", parameterToString(*r.pad, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pad", r.pad, "")
 	}
 	if r.sum != nil {
-		localVarQueryParams.Add("sum", parameterToString(*r.sum, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sum", r.sum, "")
 	}
 	if r.period != nil {
-		localVarQueryParams.Add("period", parameterToString(*r.period, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "period", r.period, "")
 	}
 	if r.interval != nil {
-		localVarQueryParams.Add("interval", parameterToString(*r.interval, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "interval", r.interval, "")
 	}
 	if r.start != nil {
-		localVarQueryParams.Add("start", parameterToString(*r.start, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "start", r.start, "")
 	}
 	if r.end != nil {
-		localVarQueryParams.Add("end", parameterToString(*r.end, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "end", r.end, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -185,9 +186,9 @@ func (a *PublicPerformanceApiService) GetPageExecute(r ApiGetPageRequest) (*Publ
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -203,6 +204,7 @@ func (a *PublicPerformanceApiService) GetPageExecute(r ApiGetPageRequest) (*Publ
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -221,7 +223,7 @@ func (a *PublicPerformanceApiService) GetPageExecute(r ApiGetPageRequest) (*Publ
 
 type ApiGetUptimeRequest struct {
 	ctx        context.Context
-	ApiService *PublicPerformanceApiService
+	ApiService *PublicPerformanceAPIService
 	domain     *string
 	path       *string
 	pad        *bool
@@ -288,10 +290,10 @@ GetUptime View your website's uptime.
 
 Returns uptime time series website performance data for the given domain.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetUptimeRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetUptimeRequest
 */
-func (a *PublicPerformanceApiService) GetUptime(ctx context.Context) ApiGetUptimeRequest {
+func (a *PublicPerformanceAPIService) GetUptime(ctx context.Context) ApiGetUptimeRequest {
 	return ApiGetUptimeRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -299,8 +301,9 @@ func (a *PublicPerformanceApiService) GetUptime(ctx context.Context) ApiGetUptim
 }
 
 // Execute executes the request
-//  @return PublicPerformanceResponse
-func (a *PublicPerformanceApiService) GetUptimeExecute(r ApiGetUptimeRequest) (*PublicPerformanceResponse, *http.Response, error) {
+//
+//	@return PublicPerformanceResponse
+func (a *PublicPerformanceAPIService) GetUptimeExecute(r ApiGetUptimeRequest) (*PublicPerformanceResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -308,7 +311,7 @@ func (a *PublicPerformanceApiService) GetUptimeExecute(r ApiGetUptimeRequest) (*
 		localVarReturnValue *PublicPerformanceResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicPerformanceApiService.GetUptime")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PublicPerformanceAPIService.GetUptime")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -320,28 +323,28 @@ func (a *PublicPerformanceApiService) GetUptimeExecute(r ApiGetUptimeRequest) (*
 	localVarFormParams := url.Values{}
 
 	if r.domain != nil {
-		localVarQueryParams.Add("domain", parameterToString(*r.domain, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "domain", r.domain, "")
 	}
 	if r.path != nil {
-		localVarQueryParams.Add("path", parameterToString(*r.path, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "path", r.path, "")
 	}
 	if r.pad != nil {
-		localVarQueryParams.Add("pad", parameterToString(*r.pad, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pad", r.pad, "")
 	}
 	if r.sum != nil {
-		localVarQueryParams.Add("sum", parameterToString(*r.sum, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sum", r.sum, "")
 	}
 	if r.period != nil {
-		localVarQueryParams.Add("period", parameterToString(*r.period, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "period", r.period, "")
 	}
 	if r.interval != nil {
-		localVarQueryParams.Add("interval", parameterToString(*r.interval, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "interval", r.interval, "")
 	}
 	if r.start != nil {
-		localVarQueryParams.Add("start", parameterToString(*r.start, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "start", r.start, "")
 	}
 	if r.end != nil {
-		localVarQueryParams.Add("end", parameterToString(*r.end, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "end", r.end, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -380,9 +383,9 @@ func (a *PublicPerformanceApiService) GetUptimeExecute(r ApiGetUptimeRequest) (*
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -398,6 +401,7 @@ func (a *PublicPerformanceApiService) GetUptimeExecute(r ApiGetUptimeRequest) (*
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

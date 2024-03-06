@@ -11,8 +11,13 @@ API version: v3
 package timeline
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the TimelineEventTemplateTokenUpdateRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TimelineEventTemplateTokenUpdateRequest{}
 
 // TimelineEventTemplateTokenUpdateRequest State of the token definition for update requests.
 type TimelineEventTemplateTokenUpdateRequest struct {
@@ -23,6 +28,8 @@ type TimelineEventTemplateTokenUpdateRequest struct {
 	// The name of the CRM object property. This will populate the CRM object property associated with the event. With enough of these, you can fully build CRM objects via the Timeline API.
 	ObjectPropertyName *string `json:"objectPropertyName,omitempty"`
 }
+
+type _TimelineEventTemplateTokenUpdateRequest TimelineEventTemplateTokenUpdateRequest
 
 // NewTimelineEventTemplateTokenUpdateRequest instantiates a new TimelineEventTemplateTokenUpdateRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -44,7 +51,7 @@ func NewTimelineEventTemplateTokenUpdateRequestWithDefaults() *TimelineEventTemp
 
 // GetOptions returns the Options field value if set, zero value otherwise.
 func (o *TimelineEventTemplateTokenUpdateRequest) GetOptions() []TimelineEventTemplateTokenOption {
-	if o == nil || o.Options == nil {
+	if o == nil || IsNil(o.Options) {
 		var ret []TimelineEventTemplateTokenOption
 		return ret
 	}
@@ -54,7 +61,7 @@ func (o *TimelineEventTemplateTokenUpdateRequest) GetOptions() []TimelineEventTe
 // GetOptionsOk returns a tuple with the Options field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TimelineEventTemplateTokenUpdateRequest) GetOptionsOk() ([]TimelineEventTemplateTokenOption, bool) {
-	if o == nil || o.Options == nil {
+	if o == nil || IsNil(o.Options) {
 		return nil, false
 	}
 	return o.Options, true
@@ -62,7 +69,7 @@ func (o *TimelineEventTemplateTokenUpdateRequest) GetOptionsOk() ([]TimelineEven
 
 // HasOptions returns a boolean if a field has been set.
 func (o *TimelineEventTemplateTokenUpdateRequest) HasOptions() bool {
-	if o != nil && o.Options != nil {
+	if o != nil && !IsNil(o.Options) {
 		return true
 	}
 
@@ -100,7 +107,7 @@ func (o *TimelineEventTemplateTokenUpdateRequest) SetLabel(v string) {
 
 // GetObjectPropertyName returns the ObjectPropertyName field value if set, zero value otherwise.
 func (o *TimelineEventTemplateTokenUpdateRequest) GetObjectPropertyName() string {
-	if o == nil || o.ObjectPropertyName == nil {
+	if o == nil || IsNil(o.ObjectPropertyName) {
 		var ret string
 		return ret
 	}
@@ -110,7 +117,7 @@ func (o *TimelineEventTemplateTokenUpdateRequest) GetObjectPropertyName() string
 // GetObjectPropertyNameOk returns a tuple with the ObjectPropertyName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TimelineEventTemplateTokenUpdateRequest) GetObjectPropertyNameOk() (*string, bool) {
-	if o == nil || o.ObjectPropertyName == nil {
+	if o == nil || IsNil(o.ObjectPropertyName) {
 		return nil, false
 	}
 	return o.ObjectPropertyName, true
@@ -118,7 +125,7 @@ func (o *TimelineEventTemplateTokenUpdateRequest) GetObjectPropertyNameOk() (*st
 
 // HasObjectPropertyName returns a boolean if a field has been set.
 func (o *TimelineEventTemplateTokenUpdateRequest) HasObjectPropertyName() bool {
-	if o != nil && o.ObjectPropertyName != nil {
+	if o != nil && !IsNil(o.ObjectPropertyName) {
 		return true
 	}
 
@@ -131,17 +138,60 @@ func (o *TimelineEventTemplateTokenUpdateRequest) SetObjectPropertyName(v string
 }
 
 func (o TimelineEventTemplateTokenUpdateRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Options != nil {
-		toSerialize["options"] = o.Options
-	}
-	if true {
-		toSerialize["label"] = o.Label
-	}
-	if o.ObjectPropertyName != nil {
-		toSerialize["objectPropertyName"] = o.ObjectPropertyName
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o TimelineEventTemplateTokenUpdateRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Options) {
+		toSerialize["options"] = o.Options
+	}
+	toSerialize["label"] = o.Label
+	if !IsNil(o.ObjectPropertyName) {
+		toSerialize["objectPropertyName"] = o.ObjectPropertyName
+	}
+	return toSerialize, nil
+}
+
+func (o *TimelineEventTemplateTokenUpdateRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"label",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varTimelineEventTemplateTokenUpdateRequest := _TimelineEventTemplateTokenUpdateRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varTimelineEventTemplateTokenUpdateRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TimelineEventTemplateTokenUpdateRequest(varTimelineEventTemplateTokenUpdateRequest)
+
+	return err
 }
 
 type NullableTimelineEventTemplateTokenUpdateRequest struct {

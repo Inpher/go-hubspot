@@ -8,7 +8,7 @@ configuration.go
 docs/CollectionResponseExternalUnifiedEvent.md
 docs/Error.md
 docs/ErrorDetail.md
-docs/EventsApi.md
+docs/EventsAPI.md
 docs/ExternalUnifiedEvent.md
 docs/NextPage.md
 docs/Paging.md

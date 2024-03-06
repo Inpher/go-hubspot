@@ -9,7 +9,7 @@ configuration.go
 docs/AssociationDefinition.md
 docs/AssociationDefinitionEgg.md
 docs/CollectionResponseObjectSchemaNoPaging.md
-docs/CoreApi.md
+docs/CoreAPI.md
 docs/Error.md
 docs/ErrorDetail.md
 docs/ObjectSchema.md
@@ -22,7 +22,7 @@ docs/Option.md
 docs/OptionInput.md
 docs/Property.md
 docs/PropertyModificationMetadata.md
-docs/PublicObjectSchemasApi.md
+docs/PublicObjectSchemasAPI.md
 git_push.sh
 go.mod
 go.sum

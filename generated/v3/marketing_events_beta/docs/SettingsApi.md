@@ -1,11 +1,11 @@
-# \SettingsApi
+# \SettingsAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**SettingsCreate**](SettingsApi.md#SettingsCreate) | **Post** /marketing/v3/marketing-events/{appId}/settings | Update the application settings
-[**SettingsGetAll**](SettingsApi.md#SettingsGetAll) | **Get** /marketing/v3/marketing-events/{appId}/settings | Retrieve the application settings
+[**SettingsCreate**](SettingsAPI.md#SettingsCreate) | **Post** /marketing/v3/marketing-events/{appId}/settings | Update the application settings
+[**SettingsGetAll**](SettingsAPI.md#SettingsGetAll) | **Get** /marketing/v3/marketing-events/{appId}/settings | Retrieve the application settings
 
 
 
@@ -23,25 +23,25 @@ Update the application settings
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    appId := int32(56) // int32 | The id of the application to update the settings for.
-    eventDetailSettingsUrl := *openapiclient.NewEventDetailSettingsUrl("EventDetailsUrl_example") // EventDetailSettingsUrl | The new application settings
+	appId := int32(56) // int32 | The id of the application to update the settings for.
+	eventDetailSettingsUrl := *openapiclient.NewEventDetailSettingsUrl("EventDetailsUrl_example") // EventDetailSettingsUrl | The new application settings
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SettingsApi.SettingsCreate(context.Background(), appId).EventDetailSettingsUrl(eventDetailSettingsUrl).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SettingsApi.SettingsCreate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `SettingsCreate`: EventDetailSettings
-    fmt.Fprintf(os.Stdout, "Response from `SettingsApi.SettingsCreate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SettingsAPI.SettingsCreate(context.Background(), appId).EventDetailSettingsUrl(eventDetailSettingsUrl).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SettingsAPI.SettingsCreate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `SettingsCreate`: EventDetailSettings
+	fmt.Fprintf(os.Stdout, "Response from `SettingsAPI.SettingsCreate`: %v\n", resp)
 }
 ```
 
@@ -95,24 +95,24 @@ Retrieve the application settings
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    appId := int32(56) // int32 | The id of the application to retrieve the settings for.
+	appId := int32(56) // int32 | The id of the application to retrieve the settings for.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SettingsApi.SettingsGetAll(context.Background(), appId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SettingsApi.SettingsGetAll``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `SettingsGetAll`: EventDetailSettings
-    fmt.Fprintf(os.Stdout, "Response from `SettingsApi.SettingsGetAll`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SettingsAPI.SettingsGetAll(context.Background(), appId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SettingsAPI.SettingsGetAll``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `SettingsGetAll`: EventDetailSettings
+	fmt.Fprintf(os.Stdout, "Response from `SettingsAPI.SettingsGetAll`: %v\n", resp)
 }
 ```
 

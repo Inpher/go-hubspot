@@ -23,7 +23,6 @@ tags:
 - name: Batch
 - name: Basic
 - name: Public_Object
-- name: Associations
 - name: GDPR
 - name: Search
 paths:
@@ -578,6 +577,35 @@ components:
       description: An error occurred.
   schemas:
     StandardError:
+      example:
+        subCategory: "{}"
+        context:
+          key:
+          - context
+          - context
+        links:
+          key: links
+        id: id
+        category: category
+        message: message
+        errors:
+        - subCategory: subCategory
+          code: code
+          in: in
+          context:
+            missingScopes:
+            - scope1
+            - scope2
+          message: message
+        - subCategory: subCategory
+          code: code
+          in: in
+          context:
+            missingScopes:
+            - scope1
+            - scope2
+          message: message
+        status: status
       properties:
         subCategory:
           properties: {}
@@ -727,6 +755,15 @@ components:
       - filters
       type: object
     ErrorDetail:
+      example:
+        subCategory: subCategory
+        code: code
+        in: in
+        context:
+          missingScopes:
+          - scope1
+          - scope2
+        message: message
       properties:
         subCategory:
           description: A specific category that contains more specific detail about
@@ -927,13 +964,12 @@ components:
             nullable: true
             type: string
           example:
-            property_date: "1572480000000"
-            property_radio: option_1
-            property_number: "17"
-            property_string: value
-            property_checkbox: "false"
-            property_dropdown: choice_b
-            property_multiple_checkboxes: chocolate;strawberry
+            name: 1 year implementation consultation
+            price: "6000.00"
+            quantity: "2"
+            hs_product_id: "191902"
+            recurringbillingfrequency: monthly
+            hs_recurring_billing_period: P24M
           type: object
         updatedAt:
           format: date-time
@@ -941,7 +977,6 @@ components:
       required:
       - createdAt
       - id
-      - properties
       - updatedAt
       type: object
     PublicObjectId:
@@ -1086,6 +1121,98 @@ components:
       - message
       type: object
     BatchResponseSimplePublicObjectWithErrors:
+      example:
+        completedAt: 2000-01-23T04:56:07.000+00:00
+        numErrors: 0
+        requestedAt: 2000-01-23T04:56:07.000+00:00
+        startedAt: 2000-01-23T04:56:07.000+00:00
+        links:
+          key: links
+        results:
+        - id: "512"
+          properties:
+            createdate: 2019-10-30T03:30:17.883Z
+            hs_lastmodifieddate: 2019-12-07T16:50:06.678Z
+            hs_product_id: "191902"
+            hs_recurring_billing_period: "24"
+            name: 1 year implementation consultation
+            price: "6000.00"
+            quantity: "2"
+            recurringbillingfrequency: monthly
+          createdAt: 2019-10-30T03:30:17.883Z
+          updatedAt: 2019-12-07T16:50:06.678Z
+          archived: false
+        - id: "512"
+          properties:
+            createdate: 2019-10-30T03:30:17.883Z
+            hs_lastmodifieddate: 2019-12-07T16:50:06.678Z
+            hs_product_id: "191902"
+            hs_recurring_billing_period: "24"
+            name: 1 year implementation consultation
+            price: "6000.00"
+            quantity: "2"
+            recurringbillingfrequency: monthly
+          createdAt: 2019-10-30T03:30:17.883Z
+          updatedAt: 2019-12-07T16:50:06.678Z
+          archived: false
+        errors:
+        - subCategory: "{}"
+          context:
+            key:
+            - context
+            - context
+          links:
+            key: links
+          id: id
+          category: category
+          message: message
+          errors:
+          - subCategory: subCategory
+            code: code
+            in: in
+            context:
+              missingScopes:
+              - scope1
+              - scope2
+            message: message
+          - subCategory: subCategory
+            code: code
+            in: in
+            context:
+              missingScopes:
+              - scope1
+              - scope2
+            message: message
+          status: status
+        - subCategory: "{}"
+          context:
+            key:
+            - context
+            - context
+          links:
+            key: links
+          id: id
+          category: category
+          message: message
+          errors:
+          - subCategory: subCategory
+            code: code
+            in: in
+            context:
+              missingScopes:
+              - scope1
+              - scope2
+            message: message
+          - subCategory: subCategory
+            code: code
+            in: in
+            context:
+              missingScopes:
+              - scope1
+              - scope2
+            message: message
+          status: status
+        status: PENDING
       properties:
         completedAt:
           format: date-time
@@ -1156,16 +1283,13 @@ components:
           additionalProperties:
             type: string
           example:
-            property_date: "1572480000000"
-            property_radio: option_1
-            property_number: "17"
-            property_string: value
-            property_checkbox: "false"
-            property_dropdown: choice_b
-            property_multiple_checkboxes: chocolate;strawberry
+            name: 1 year implementation consultation
+            price: "6000.00"
+            quantity: "2"
+            hs_product_id: "191902"
+            recurringbillingfrequency: monthly
+            hs_recurring_billing_period: P24M
           type: object
-      required:
-      - properties
       type: object
     CollectionResponseSimplePublicObjectWithAssociationsForwardPaging:
       example:
@@ -1272,7 +1396,7 @@ components:
             quantity: "2"
             hs_product_id: "191902"
             recurringbillingfrequency: monthly
-            hs_recurring_billing_period: P2Y
+            hs_recurring_billing_period: P24M
           type: object
         updatedAt:
           format: date-time
@@ -1426,7 +1550,6 @@ components:
           type: object
       required:
       - id
-      - properties
       type: object
     AssociatedId:
       properties:
@@ -1485,7 +1608,6 @@ components:
           type: object
       required:
       - associations
-      - properties
       type: object
   securitySchemes:
     oauth2_legacy:
@@ -1493,12 +1615,12 @@ components:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
+            crm.objects.custom.write: Change custom object records
             media_bridge.read: Read media and media events
             crm.objects.goals.read: Read goals
             tickets: Read and write tickets
             crm.objects.custom.read: View custom object records
             e-commerce: e-commerce
-            crm.objects.custom.write: Change custom object records
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
     oauth2:
@@ -1506,6 +1628,8 @@ components:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
+            crm.objects.contacts.read: ' '
+            crm.objects.quotes.write: Quotes
             crm.objects.deals.read: ' '
             crm.objects.line_items.read: Line Items
             crm.objects.deals.write: ' '
@@ -1514,8 +1638,6 @@ components:
             crm.objects.companies.read: ' '
             crm.objects.companies.write: ' '
             crm.objects.contacts.write: ' '
-            crm.objects.contacts.read: ' '
-            crm.objects.quotes.write: Quotes
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
     private_apps_legacy:

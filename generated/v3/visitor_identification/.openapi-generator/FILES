@@ -7,7 +7,7 @@ client.go
 configuration.go
 docs/Error.md
 docs/ErrorDetail.md
-docs/GenerateApi.md
+docs/GenerateAPI.md
 docs/IdentificationTokenGenerationRequest.md
 docs/IdentificationTokenResponse.md
 git_push.sh

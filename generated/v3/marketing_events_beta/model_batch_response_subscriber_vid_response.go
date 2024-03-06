@@ -11,9 +11,14 @@ API version: v3
 package marketing_events_beta
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the BatchResponseSubscriberVidResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BatchResponseSubscriberVidResponse{}
 
 // BatchResponseSubscriberVidResponse struct for BatchResponseSubscriberVidResponse
 type BatchResponseSubscriberVidResponse struct {
@@ -26,6 +31,8 @@ type BatchResponseSubscriberVidResponse struct {
 	Errors      []StandardError         `json:"errors,omitempty"`
 	Status      string                  `json:"status"`
 }
+
+type _BatchResponseSubscriberVidResponse BatchResponseSubscriberVidResponse
 
 // NewBatchResponseSubscriberVidResponse instantiates a new BatchResponseSubscriberVidResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -74,7 +81,7 @@ func (o *BatchResponseSubscriberVidResponse) SetCompletedAt(v time.Time) {
 
 // GetNumErrors returns the NumErrors field value if set, zero value otherwise.
 func (o *BatchResponseSubscriberVidResponse) GetNumErrors() int32 {
-	if o == nil || o.NumErrors == nil {
+	if o == nil || IsNil(o.NumErrors) {
 		var ret int32
 		return ret
 	}
@@ -84,7 +91,7 @@ func (o *BatchResponseSubscriberVidResponse) GetNumErrors() int32 {
 // GetNumErrorsOk returns a tuple with the NumErrors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BatchResponseSubscriberVidResponse) GetNumErrorsOk() (*int32, bool) {
-	if o == nil || o.NumErrors == nil {
+	if o == nil || IsNil(o.NumErrors) {
 		return nil, false
 	}
 	return o.NumErrors, true
@@ -92,7 +99,7 @@ func (o *BatchResponseSubscriberVidResponse) GetNumErrorsOk() (*int32, bool) {
 
 // HasNumErrors returns a boolean if a field has been set.
 func (o *BatchResponseSubscriberVidResponse) HasNumErrors() bool {
-	if o != nil && o.NumErrors != nil {
+	if o != nil && !IsNil(o.NumErrors) {
 		return true
 	}
 
@@ -106,7 +113,7 @@ func (o *BatchResponseSubscriberVidResponse) SetNumErrors(v int32) {
 
 // GetRequestedAt returns the RequestedAt field value if set, zero value otherwise.
 func (o *BatchResponseSubscriberVidResponse) GetRequestedAt() time.Time {
-	if o == nil || o.RequestedAt == nil {
+	if o == nil || IsNil(o.RequestedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -116,7 +123,7 @@ func (o *BatchResponseSubscriberVidResponse) GetRequestedAt() time.Time {
 // GetRequestedAtOk returns a tuple with the RequestedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BatchResponseSubscriberVidResponse) GetRequestedAtOk() (*time.Time, bool) {
-	if o == nil || o.RequestedAt == nil {
+	if o == nil || IsNil(o.RequestedAt) {
 		return nil, false
 	}
 	return o.RequestedAt, true
@@ -124,7 +131,7 @@ func (o *BatchResponseSubscriberVidResponse) GetRequestedAtOk() (*time.Time, boo
 
 // HasRequestedAt returns a boolean if a field has been set.
 func (o *BatchResponseSubscriberVidResponse) HasRequestedAt() bool {
-	if o != nil && o.RequestedAt != nil {
+	if o != nil && !IsNil(o.RequestedAt) {
 		return true
 	}
 
@@ -162,7 +169,7 @@ func (o *BatchResponseSubscriberVidResponse) SetStartedAt(v time.Time) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *BatchResponseSubscriberVidResponse) GetLinks() map[string]string {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret map[string]string
 		return ret
 	}
@@ -172,7 +179,7 @@ func (o *BatchResponseSubscriberVidResponse) GetLinks() map[string]string {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BatchResponseSubscriberVidResponse) GetLinksOk() (*map[string]string, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -180,7 +187,7 @@ func (o *BatchResponseSubscriberVidResponse) GetLinksOk() (*map[string]string, b
 
 // HasLinks returns a boolean if a field has been set.
 func (o *BatchResponseSubscriberVidResponse) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -218,7 +225,7 @@ func (o *BatchResponseSubscriberVidResponse) SetResults(v []SubscriberVidRespons
 
 // GetErrors returns the Errors field value if set, zero value otherwise.
 func (o *BatchResponseSubscriberVidResponse) GetErrors() []StandardError {
-	if o == nil || o.Errors == nil {
+	if o == nil || IsNil(o.Errors) {
 		var ret []StandardError
 		return ret
 	}
@@ -228,7 +235,7 @@ func (o *BatchResponseSubscriberVidResponse) GetErrors() []StandardError {
 // GetErrorsOk returns a tuple with the Errors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BatchResponseSubscriberVidResponse) GetErrorsOk() ([]StandardError, bool) {
-	if o == nil || o.Errors == nil {
+	if o == nil || IsNil(o.Errors) {
 		return nil, false
 	}
 	return o.Errors, true
@@ -236,7 +243,7 @@ func (o *BatchResponseSubscriberVidResponse) GetErrorsOk() ([]StandardError, boo
 
 // HasErrors returns a boolean if a field has been set.
 func (o *BatchResponseSubscriberVidResponse) HasErrors() bool {
-	if o != nil && o.Errors != nil {
+	if o != nil && !IsNil(o.Errors) {
 		return true
 	}
 
@@ -273,32 +280,72 @@ func (o *BatchResponseSubscriberVidResponse) SetStatus(v string) {
 }
 
 func (o BatchResponseSubscriberVidResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["completedAt"] = o.CompletedAt
-	}
-	if o.NumErrors != nil {
-		toSerialize["numErrors"] = o.NumErrors
-	}
-	if o.RequestedAt != nil {
-		toSerialize["requestedAt"] = o.RequestedAt
-	}
-	if true {
-		toSerialize["startedAt"] = o.StartedAt
-	}
-	if o.Links != nil {
-		toSerialize["links"] = o.Links
-	}
-	if true {
-		toSerialize["results"] = o.Results
-	}
-	if o.Errors != nil {
-		toSerialize["errors"] = o.Errors
-	}
-	if true {
-		toSerialize["status"] = o.Status
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o BatchResponseSubscriberVidResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["completedAt"] = o.CompletedAt
+	if !IsNil(o.NumErrors) {
+		toSerialize["numErrors"] = o.NumErrors
+	}
+	if !IsNil(o.RequestedAt) {
+		toSerialize["requestedAt"] = o.RequestedAt
+	}
+	toSerialize["startedAt"] = o.StartedAt
+	if !IsNil(o.Links) {
+		toSerialize["links"] = o.Links
+	}
+	toSerialize["results"] = o.Results
+	if !IsNil(o.Errors) {
+		toSerialize["errors"] = o.Errors
+	}
+	toSerialize["status"] = o.Status
+	return toSerialize, nil
+}
+
+func (o *BatchResponseSubscriberVidResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"completedAt",
+		"startedAt",
+		"results",
+		"status",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varBatchResponseSubscriberVidResponse := _BatchResponseSubscriberVidResponse{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varBatchResponseSubscriberVidResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = BatchResponseSubscriberVidResponse(varBatchResponseSubscriberVidResponse)
+
+	return err
 }
 
 type NullableBatchResponseSubscriberVidResponse struct {

@@ -11,9 +11,14 @@ API version: v3
 package tags
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the Tag type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Tag{}
 
 // Tag Model definition for a Tag.
 type Tag struct {
@@ -30,6 +35,8 @@ type Tag struct {
 	TranslatedFromId int64     `json:"translatedFromId"`
 	Updated          time.Time `json:"updated"`
 }
+
+type _Tag Tag
 
 // NewTag instantiates a new Tag object
 // This constructor will assign default values to properties that have it defined,
@@ -224,29 +231,66 @@ func (o *Tag) SetUpdated(v time.Time) {
 }
 
 func (o Tag) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["deletedAt"] = o.DeletedAt
-	}
-	if true {
-		toSerialize["created"] = o.Created
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["language"] = o.Language
-	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["translatedFromId"] = o.TranslatedFromId
-	}
-	if true {
-		toSerialize["updated"] = o.Updated
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Tag) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["deletedAt"] = o.DeletedAt
+	toSerialize["created"] = o.Created
+	toSerialize["name"] = o.Name
+	toSerialize["language"] = o.Language
+	toSerialize["id"] = o.Id
+	toSerialize["translatedFromId"] = o.TranslatedFromId
+	toSerialize["updated"] = o.Updated
+	return toSerialize, nil
+}
+
+func (o *Tag) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"deletedAt",
+		"created",
+		"name",
+		"language",
+		"id",
+		"translatedFromId",
+		"updated",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varTag := _Tag{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varTag)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Tag(varTag)
+
+	return err
 }
 
 type NullableTag struct {

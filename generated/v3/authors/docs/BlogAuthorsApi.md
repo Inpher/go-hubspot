@@ -1,23 +1,23 @@
-# \BlogAuthorsApi
+# \BlogAuthorsAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Archive**](BlogAuthorsApi.md#Archive) | **Delete** /cms/v3/blogs/authors/{objectId} | Delete a Blog Author
-[**AttachToLanguageGroup**](BlogAuthorsApi.md#AttachToLanguageGroup) | **Post** /cms/v3/blogs/authors/multi-language/attach-to-lang-group | Attach a Blog Author to a multi-language group
-[**BatchArchive**](BlogAuthorsApi.md#BatchArchive) | **Post** /cms/v3/blogs/authors/batch/archive | Delete a batch of Blog Authors
-[**BatchCreate**](BlogAuthorsApi.md#BatchCreate) | **Post** /cms/v3/blogs/authors/batch/create | Create a batch of Blog Authors
-[**BatchRead**](BlogAuthorsApi.md#BatchRead) | **Post** /cms/v3/blogs/authors/batch/read | Retrieve a batch of Blog Authors
-[**BatchUpdate**](BlogAuthorsApi.md#BatchUpdate) | **Post** /cms/v3/blogs/authors/batch/update | Update a batch of Blog Authors
-[**Create**](BlogAuthorsApi.md#Create) | **Post** /cms/v3/blogs/authors | Create a new Blog Author
-[**CreateLanguageVariation**](BlogAuthorsApi.md#CreateLanguageVariation) | **Post** /cms/v3/blogs/authors/multi-language/create-language-variation | Create a new language variation
-[**DetachFromLanguageGroup**](BlogAuthorsApi.md#DetachFromLanguageGroup) | **Post** /cms/v3/blogs/authors/multi-language/detach-from-lang-group | Detach a Blog Author from a multi-language group
-[**GetByID**](BlogAuthorsApi.md#GetByID) | **Get** /cms/v3/blogs/authors/{objectId} | Retrieve a Blog Author
-[**GetPage**](BlogAuthorsApi.md#GetPage) | **Get** /cms/v3/blogs/authors | Get all Blog Authors
-[**SetLanguagePrimary**](BlogAuthorsApi.md#SetLanguagePrimary) | **Put** /cms/v3/blogs/authors/multi-language/set-new-lang-primary | Set a new primary language
-[**Update**](BlogAuthorsApi.md#Update) | **Patch** /cms/v3/blogs/authors/{objectId} | Update a Blog Author
-[**UpdateLanguages**](BlogAuthorsApi.md#UpdateLanguages) | **Post** /cms/v3/blogs/authors/multi-language/update-languages | Update languages of multi-language group
+[**Archive**](BlogAuthorsAPI.md#Archive) | **Delete** /cms/v3/blogs/authors/{objectId} | Delete a Blog Author
+[**AttachToLanguageGroup**](BlogAuthorsAPI.md#AttachToLanguageGroup) | **Post** /cms/v3/blogs/authors/multi-language/attach-to-lang-group | Attach a Blog Author to a multi-language group
+[**BatchArchive**](BlogAuthorsAPI.md#BatchArchive) | **Post** /cms/v3/blogs/authors/batch/archive | Delete a batch of Blog Authors
+[**BatchCreate**](BlogAuthorsAPI.md#BatchCreate) | **Post** /cms/v3/blogs/authors/batch/create | Create a batch of Blog Authors
+[**BatchRead**](BlogAuthorsAPI.md#BatchRead) | **Post** /cms/v3/blogs/authors/batch/read | Retrieve a batch of Blog Authors
+[**BatchUpdate**](BlogAuthorsAPI.md#BatchUpdate) | **Post** /cms/v3/blogs/authors/batch/update | Update a batch of Blog Authors
+[**Create**](BlogAuthorsAPI.md#Create) | **Post** /cms/v3/blogs/authors | Create a new Blog Author
+[**CreateLanguageVariation**](BlogAuthorsAPI.md#CreateLanguageVariation) | **Post** /cms/v3/blogs/authors/multi-language/create-language-variation | Create a new language variation
+[**DetachFromLanguageGroup**](BlogAuthorsAPI.md#DetachFromLanguageGroup) | **Post** /cms/v3/blogs/authors/multi-language/detach-from-lang-group | Detach a Blog Author from a multi-language group
+[**GetByID**](BlogAuthorsAPI.md#GetByID) | **Get** /cms/v3/blogs/authors/{objectId} | Retrieve a Blog Author
+[**GetPage**](BlogAuthorsAPI.md#GetPage) | **Get** /cms/v3/blogs/authors | Get all Blog Authors
+[**SetLanguagePrimary**](BlogAuthorsAPI.md#SetLanguagePrimary) | **Put** /cms/v3/blogs/authors/multi-language/set-new-lang-primary | Set a new primary language
+[**Update**](BlogAuthorsAPI.md#Update) | **Patch** /cms/v3/blogs/authors/{objectId} | Update a Blog Author
+[**UpdateLanguages**](BlogAuthorsAPI.md#UpdateLanguages) | **Post** /cms/v3/blogs/authors/multi-language/update-languages | Update languages of multi-language group
 
 
 
@@ -35,23 +35,23 @@ Delete a Blog Author
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    objectId := "objectId_example" // string | The Blog Author id.
-    archived := true // bool | Whether to return only results that have been archived. (optional)
+	objectId := "objectId_example" // string | The Blog Author id.
+	archived := true // bool | Whether to return only results that have been archived. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogAuthorsApi.Archive(context.Background(), objectId).Archived(archived).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogAuthorsApi.Archive``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.BlogAuthorsAPI.Archive(context.Background(), objectId).Archived(archived).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BlogAuthorsAPI.Archive``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -105,22 +105,22 @@ Attach a Blog Author to a multi-language group
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    attachToLangPrimaryRequestVNext := *openapiclient.NewAttachToLangPrimaryRequestVNext("Language_example", "Id_example", "PrimaryId_example") // AttachToLangPrimaryRequestVNext | The JSON representation of the AttachToLangPrimaryRequest object.
+	attachToLangPrimaryRequestVNext := *openapiclient.NewAttachToLangPrimaryRequestVNext("Language_example", "Id_example", "PrimaryId_example") // AttachToLangPrimaryRequestVNext | The JSON representation of the AttachToLangPrimaryRequest object.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogAuthorsApi.AttachToLanguageGroup(context.Background()).AttachToLangPrimaryRequestVNext(attachToLangPrimaryRequestVNext).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogAuthorsApi.AttachToLanguageGroup``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.BlogAuthorsAPI.AttachToLanguageGroup(context.Background()).AttachToLangPrimaryRequestVNext(attachToLangPrimaryRequestVNext).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BlogAuthorsAPI.AttachToLanguageGroup``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -169,22 +169,22 @@ Delete a batch of Blog Authors
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    batchInputString := *openapiclient.NewBatchInputString([]string{"Inputs_example"}) // BatchInputString | The JSON array of Blog Author ids.
+	batchInputString := *openapiclient.NewBatchInputString([]string{"Inputs_example"}) // BatchInputString | The JSON array of Blog Author ids.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogAuthorsApi.BatchArchive(context.Background()).BatchInputString(batchInputString).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogAuthorsApi.BatchArchive``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.BlogAuthorsAPI.BatchArchive(context.Background()).BatchInputString(batchInputString).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BlogAuthorsAPI.BatchArchive``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -233,25 +233,25 @@ Create a batch of Blog Authors
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    openapiclient "./openapi"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    batchInputBlogAuthor := *openapiclient.NewBatchInputBlogAuthor([]openapiclient.BlogAuthor{*openapiclient.NewBlogAuthor("Website_example", "DisplayName_example", time.Now(), "Facebook_example", "FullName_example", "Bio_example", "Language_example", "Linkedin_example", "Avatar_example", int64(123), "Twitter_example", time.Now(), "Name_example", "Id_example", time.Now(), "Email_example", "Slug_example")}) // BatchInputBlogAuthor | The JSON array of new Blog Authors to create.
+	batchInputBlogAuthor := *openapiclient.NewBatchInputBlogAuthor([]openapiclient.BlogAuthor{*openapiclient.NewBlogAuthor("Website_example", "DisplayName_example", time.Now(), "Facebook_example", "FullName_example", "Bio_example", "Language_example", "Linkedin_example", "Avatar_example", int64(123), "Twitter_example", time.Now(), "Name_example", "Id_example", time.Now(), "Email_example", "Slug_example")}) // BatchInputBlogAuthor | The JSON array of new Blog Authors to create.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogAuthorsApi.BatchCreate(context.Background()).BatchInputBlogAuthor(batchInputBlogAuthor).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogAuthorsApi.BatchCreate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `BatchCreate`: BatchResponseBlogAuthor
-    fmt.Fprintf(os.Stdout, "Response from `BlogAuthorsApi.BatchCreate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BlogAuthorsAPI.BatchCreate(context.Background()).BatchInputBlogAuthor(batchInputBlogAuthor).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BlogAuthorsAPI.BatchCreate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `BatchCreate`: BatchResponseBlogAuthor
+	fmt.Fprintf(os.Stdout, "Response from `BlogAuthorsAPI.BatchCreate`: %v\n", resp)
 }
 ```
 
@@ -300,25 +300,25 @@ Retrieve a batch of Blog Authors
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    batchInputString := *openapiclient.NewBatchInputString([]string{"Inputs_example"}) // BatchInputString | The JSON array of Blog Author ids.
-    archived := true // bool | Specifies whether to return deleted Blog Authors. Defaults to `false`. (optional)
+	batchInputString := *openapiclient.NewBatchInputString([]string{"Inputs_example"}) // BatchInputString | The JSON array of Blog Author ids.
+	archived := true // bool | Specifies whether to return deleted Blog Authors. Defaults to `false`. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogAuthorsApi.BatchRead(context.Background()).BatchInputString(batchInputString).Archived(archived).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogAuthorsApi.BatchRead``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `BatchRead`: BatchResponseBlogAuthor
-    fmt.Fprintf(os.Stdout, "Response from `BlogAuthorsApi.BatchRead`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BlogAuthorsAPI.BatchRead(context.Background()).BatchInputString(batchInputString).Archived(archived).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BlogAuthorsAPI.BatchRead``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `BatchRead`: BatchResponseBlogAuthor
+	fmt.Fprintf(os.Stdout, "Response from `BlogAuthorsAPI.BatchRead`: %v\n", resp)
 }
 ```
 
@@ -368,25 +368,25 @@ Update a batch of Blog Authors
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    batchInputJsonNode := *openapiclient.NewBatchInputJsonNode([]map[string]interface{}{map[string]interface{}(123)}) // BatchInputJsonNode | A JSON array of the JSON representations of the updated Blog Authors.
-    archived := true // bool | Specifies whether to update deleted Blog Authors. Defaults to `false`. (optional)
+	batchInputJsonNode := *openapiclient.NewBatchInputJsonNode([]map[string]interface{}{map[string]interface{}(123)}) // BatchInputJsonNode | A JSON array of the JSON representations of the updated Blog Authors.
+	archived := true // bool | Specifies whether to update deleted Blog Authors. Defaults to `false`. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogAuthorsApi.BatchUpdate(context.Background()).BatchInputJsonNode(batchInputJsonNode).Archived(archived).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogAuthorsApi.BatchUpdate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `BatchUpdate`: BatchResponseBlogAuthor
-    fmt.Fprintf(os.Stdout, "Response from `BlogAuthorsApi.BatchUpdate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BlogAuthorsAPI.BatchUpdate(context.Background()).BatchInputJsonNode(batchInputJsonNode).Archived(archived).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BlogAuthorsAPI.BatchUpdate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `BatchUpdate`: BatchResponseBlogAuthor
+	fmt.Fprintf(os.Stdout, "Response from `BlogAuthorsAPI.BatchUpdate`: %v\n", resp)
 }
 ```
 
@@ -436,25 +436,25 @@ Create a new Blog Author
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    openapiclient "./openapi"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    blogAuthor := *openapiclient.NewBlogAuthor("Website_example", "DisplayName_example", time.Now(), "Facebook_example", "FullName_example", "Bio_example", "Language_example", "Linkedin_example", "Avatar_example", int64(123), "Twitter_example", time.Now(), "Name_example", "Id_example", time.Now(), "Email_example", "Slug_example") // BlogAuthor | The JSON representation of a new Blog Author.
+	blogAuthor := *openapiclient.NewBlogAuthor("Website_example", "DisplayName_example", time.Now(), "Facebook_example", "FullName_example", "Bio_example", "Language_example", "Linkedin_example", "Avatar_example", int64(123), "Twitter_example", time.Now(), "Name_example", "Id_example", time.Now(), "Email_example", "Slug_example") // BlogAuthor | The JSON representation of a new Blog Author.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogAuthorsApi.Create(context.Background()).BlogAuthor(blogAuthor).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogAuthorsApi.Create``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `Create`: BlogAuthor
-    fmt.Fprintf(os.Stdout, "Response from `BlogAuthorsApi.Create`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BlogAuthorsAPI.Create(context.Background()).BlogAuthor(blogAuthor).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BlogAuthorsAPI.Create``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `Create`: BlogAuthor
+	fmt.Fprintf(os.Stdout, "Response from `BlogAuthorsAPI.Create`: %v\n", resp)
 }
 ```
 
@@ -503,25 +503,25 @@ Create a new language variation
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    openapiclient "./openapi"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    blogAuthorCloneRequestVNext := *openapiclient.NewBlogAuthorCloneRequestVNext("Id_example", *openapiclient.NewBlogAuthor("Website_example", "DisplayName_example", time.Now(), "Facebook_example", "FullName_example", "Bio_example", "Language_example", "Linkedin_example", "Avatar_example", int64(123), "Twitter_example", time.Now(), "Name_example", "Id_example", time.Now(), "Email_example", "Slug_example")) // BlogAuthorCloneRequestVNext | The JSON representation of the ContentLanguageCloneRequest object.
+	blogAuthorCloneRequestVNext := *openapiclient.NewBlogAuthorCloneRequestVNext("Id_example", *openapiclient.NewBlogAuthor("Website_example", "DisplayName_example", time.Now(), "Facebook_example", "FullName_example", "Bio_example", "Language_example", "Linkedin_example", "Avatar_example", int64(123), "Twitter_example", time.Now(), "Name_example", "Id_example", time.Now(), "Email_example", "Slug_example")) // BlogAuthorCloneRequestVNext | The JSON representation of the ContentLanguageCloneRequest object.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogAuthorsApi.CreateLanguageVariation(context.Background()).BlogAuthorCloneRequestVNext(blogAuthorCloneRequestVNext).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogAuthorsApi.CreateLanguageVariation``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateLanguageVariation`: BlogAuthor
-    fmt.Fprintf(os.Stdout, "Response from `BlogAuthorsApi.CreateLanguageVariation`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BlogAuthorsAPI.CreateLanguageVariation(context.Background()).BlogAuthorCloneRequestVNext(blogAuthorCloneRequestVNext).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BlogAuthorsAPI.CreateLanguageVariation``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateLanguageVariation`: BlogAuthor
+	fmt.Fprintf(os.Stdout, "Response from `BlogAuthorsAPI.CreateLanguageVariation`: %v\n", resp)
 }
 ```
 
@@ -570,22 +570,22 @@ Detach a Blog Author from a multi-language group
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    detachFromLangGroupRequestVNext := *openapiclient.NewDetachFromLangGroupRequestVNext("Id_example") // DetachFromLangGroupRequestVNext | The JSON representation of the DetachFromLangGroupRequest object.
+	detachFromLangGroupRequestVNext := *openapiclient.NewDetachFromLangGroupRequestVNext("Id_example") // DetachFromLangGroupRequestVNext | The JSON representation of the DetachFromLangGroupRequest object.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogAuthorsApi.DetachFromLanguageGroup(context.Background()).DetachFromLangGroupRequestVNext(detachFromLangGroupRequestVNext).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogAuthorsApi.DetachFromLanguageGroup``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.BlogAuthorsAPI.DetachFromLanguageGroup(context.Background()).DetachFromLangGroupRequestVNext(detachFromLangGroupRequestVNext).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BlogAuthorsAPI.DetachFromLanguageGroup``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -634,26 +634,26 @@ Retrieve a Blog Author
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    objectId := "objectId_example" // string | The Blog Author id.
-    archived := true // bool | Specifies whether to return deleted Blog Authors. Defaults to `false`. (optional)
-    property := "property_example" // string |  (optional)
+	objectId := "objectId_example" // string | The Blog Author id.
+	archived := true // bool | Specifies whether to return deleted Blog Authors. Defaults to `false`. (optional)
+	property := "property_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogAuthorsApi.GetByID(context.Background(), objectId).Archived(archived).Property(property).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogAuthorsApi.GetByID``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetByID`: BlogAuthor
-    fmt.Fprintf(os.Stdout, "Response from `BlogAuthorsApi.GetByID`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BlogAuthorsAPI.GetByID(context.Background(), objectId).Archived(archived).Property(property).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BlogAuthorsAPI.GetByID``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetByID`: BlogAuthor
+	fmt.Fprintf(os.Stdout, "Response from `BlogAuthorsAPI.GetByID`: %v\n", resp)
 }
 ```
 
@@ -708,35 +708,35 @@ Get all Blog Authors
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    openapiclient "./openapi"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    createdAt := time.Now() // time.Time | Only return Blog Authors created at exactly the specified time. (optional)
-    createdAfter := time.Now() // time.Time | Only return Blog Authors created after the specified time. (optional)
-    createdBefore := time.Now() // time.Time | Only return Blog Authors created before the specified time. (optional)
-    updatedAt := time.Now() // time.Time | Only return Blog Authors last updated at exactly the specified time. (optional)
-    updatedAfter := time.Now() // time.Time | Only return Blog Authors last updated after the specified time. (optional)
-    updatedBefore := time.Now() // time.Time | Only return Blog Authors last updated before the specified time. (optional)
-    sort := []string{"Inner_example"} // []string | Specifies which fields to use for sorting results. Valid fields are `name`, `createdAt`, `updatedAt`, `createdBy`, `updatedBy`. `createdAt` will be used by default. (optional)
-    after := "after_example" // string | The cursor token value to get the next set of results. You can get this from the `paging.next.after` JSON property of a paged response containing more results. (optional)
-    limit := int32(56) // int32 | The maximum number of results to return. Default is 100. (optional)
-    archived := true // bool | Specifies whether to return deleted Blog Authors. Defaults to `false`. (optional)
-    property := "property_example" // string |  (optional)
+	createdAt := time.Now() // time.Time | Only return Blog Authors created at exactly the specified time. (optional)
+	createdAfter := time.Now() // time.Time | Only return Blog Authors created after the specified time. (optional)
+	createdBefore := time.Now() // time.Time | Only return Blog Authors created before the specified time. (optional)
+	updatedAt := time.Now() // time.Time | Only return Blog Authors last updated at exactly the specified time. (optional)
+	updatedAfter := time.Now() // time.Time | Only return Blog Authors last updated after the specified time. (optional)
+	updatedBefore := time.Now() // time.Time | Only return Blog Authors last updated before the specified time. (optional)
+	sort := []string{"Inner_example"} // []string | Specifies which fields to use for sorting results. Valid fields are `name`, `createdAt`, `updatedAt`, `createdBy`, `updatedBy`. `createdAt` will be used by default. (optional)
+	after := "after_example" // string | The cursor token value to get the next set of results. You can get this from the `paging.next.after` JSON property of a paged response containing more results. (optional)
+	limit := int32(56) // int32 | The maximum number of results to return. Default is 100. (optional)
+	archived := true // bool | Specifies whether to return deleted Blog Authors. Defaults to `false`. (optional)
+	property := "property_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogAuthorsApi.GetPage(context.Background()).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Sort(sort).After(after).Limit(limit).Archived(archived).Property(property).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogAuthorsApi.GetPage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetPage`: CollectionResponseWithTotalBlogAuthorForwardPaging
-    fmt.Fprintf(os.Stdout, "Response from `BlogAuthorsApi.GetPage`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BlogAuthorsAPI.GetPage(context.Background()).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Sort(sort).After(after).Limit(limit).Archived(archived).Property(property).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BlogAuthorsAPI.GetPage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetPage`: CollectionResponseWithTotalBlogAuthorForwardPaging
+	fmt.Fprintf(os.Stdout, "Response from `BlogAuthorsAPI.GetPage`: %v\n", resp)
 }
 ```
 
@@ -795,22 +795,22 @@ Set a new primary language
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    setNewLanguagePrimaryRequestVNext := *openapiclient.NewSetNewLanguagePrimaryRequestVNext("Id_example") // SetNewLanguagePrimaryRequestVNext | The JSON representation of the SetNewLanguagePrimaryRequest object.
+	setNewLanguagePrimaryRequestVNext := *openapiclient.NewSetNewLanguagePrimaryRequestVNext("Id_example") // SetNewLanguagePrimaryRequestVNext | The JSON representation of the SetNewLanguagePrimaryRequest object.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogAuthorsApi.SetLanguagePrimary(context.Background()).SetNewLanguagePrimaryRequestVNext(setNewLanguagePrimaryRequestVNext).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogAuthorsApi.SetLanguagePrimary``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.BlogAuthorsAPI.SetLanguagePrimary(context.Background()).SetNewLanguagePrimaryRequestVNext(setNewLanguagePrimaryRequestVNext).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BlogAuthorsAPI.SetLanguagePrimary``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -859,27 +859,27 @@ Update a Blog Author
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    openapiclient "./openapi"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    objectId := "objectId_example" // string | The Blog Author id.
-    blogAuthor := *openapiclient.NewBlogAuthor("Website_example", "DisplayName_example", time.Now(), "Facebook_example", "FullName_example", "Bio_example", "Language_example", "Linkedin_example", "Avatar_example", int64(123), "Twitter_example", time.Now(), "Name_example", "Id_example", time.Now(), "Email_example", "Slug_example") // BlogAuthor | The JSON representation of the updated Blog Author.
-    archived := true // bool | Specifies whether to update deleted Blog Authors. Defaults to `false`. (optional)
+	objectId := "objectId_example" // string | The Blog Author id.
+	blogAuthor := *openapiclient.NewBlogAuthor("Website_example", "DisplayName_example", time.Now(), "Facebook_example", "FullName_example", "Bio_example", "Language_example", "Linkedin_example", "Avatar_example", int64(123), "Twitter_example", time.Now(), "Name_example", "Id_example", time.Now(), "Email_example", "Slug_example") // BlogAuthor | The JSON representation of the updated Blog Author.
+	archived := true // bool | Specifies whether to update deleted Blog Authors. Defaults to `false`. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogAuthorsApi.Update(context.Background(), objectId).BlogAuthor(blogAuthor).Archived(archived).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogAuthorsApi.Update``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `Update`: BlogAuthor
-    fmt.Fprintf(os.Stdout, "Response from `BlogAuthorsApi.Update`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BlogAuthorsAPI.Update(context.Background(), objectId).BlogAuthor(blogAuthor).Archived(archived).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BlogAuthorsAPI.Update``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `Update`: BlogAuthor
+	fmt.Fprintf(os.Stdout, "Response from `BlogAuthorsAPI.Update`: %v\n", resp)
 }
 ```
 
@@ -934,22 +934,22 @@ Update languages of multi-language group
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    updateLanguagesRequestVNext := *openapiclient.NewUpdateLanguagesRequestVNext(map[string]string{"key": "Inner_example"}, "PrimaryId_example") // UpdateLanguagesRequestVNext | The JSON representation of the UpdateLanguagesRequest object.
+	updateLanguagesRequestVNext := *openapiclient.NewUpdateLanguagesRequestVNext(map[string]string{"key": "Inner_example"}, "PrimaryId_example") // UpdateLanguagesRequestVNext | The JSON representation of the UpdateLanguagesRequest object.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BlogAuthorsApi.UpdateLanguages(context.Background()).UpdateLanguagesRequestVNext(updateLanguagesRequestVNext).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BlogAuthorsApi.UpdateLanguages``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.BlogAuthorsAPI.UpdateLanguages(context.Background()).UpdateLanguagesRequestVNext(updateLanguagesRequestVNext).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BlogAuthorsAPI.UpdateLanguages``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 

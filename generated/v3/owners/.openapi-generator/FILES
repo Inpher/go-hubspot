@@ -10,7 +10,7 @@ docs/Error.md
 docs/ErrorDetail.md
 docs/ForwardPaging.md
 docs/NextPage.md
-docs/OwnersApi.md
+docs/OwnersAPI.md
 docs/PublicOwner.md
 docs/PublicTeam.md
 git_push.sh

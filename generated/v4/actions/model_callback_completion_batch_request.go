@@ -11,14 +11,21 @@ API version: v4
 package actions
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the CallbackCompletionBatchRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CallbackCompletionBatchRequest{}
 
 // CallbackCompletionBatchRequest struct for CallbackCompletionBatchRequest
 type CallbackCompletionBatchRequest struct {
 	OutputFields map[string]string `json:"outputFields"`
 	CallbackId   string            `json:"callbackId"`
 }
+
+type _CallbackCompletionBatchRequest CallbackCompletionBatchRequest
 
 // NewCallbackCompletionBatchRequest instantiates a new CallbackCompletionBatchRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -88,14 +95,56 @@ func (o *CallbackCompletionBatchRequest) SetCallbackId(v string) {
 }
 
 func (o CallbackCompletionBatchRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["outputFields"] = o.OutputFields
-	}
-	if true {
-		toSerialize["callbackId"] = o.CallbackId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CallbackCompletionBatchRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["outputFields"] = o.OutputFields
+	toSerialize["callbackId"] = o.CallbackId
+	return toSerialize, nil
+}
+
+func (o *CallbackCompletionBatchRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"outputFields",
+		"callbackId",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCallbackCompletionBatchRequest := _CallbackCompletionBatchRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varCallbackCompletionBatchRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CallbackCompletionBatchRequest(varCallbackCompletionBatchRequest)
+
+	return err
 }
 
 type NullableCallbackCompletionBatchRequest struct {

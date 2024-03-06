@@ -1,11 +1,11 @@
 openapi: 3.0.1
 info:
-  description: "Pipelines represent distinct stages in a workflow, like closing a\
-    \ deal or servicing a support ticket. These endpoints provide access to read and\
-    \ modify pipelines in HubSpot. Pipelines support `deals` and `tickets` object\
-    \ types.\n\n## Pipeline ID validation\n\nWhen calling endpoints that take pipelineId\
-    \ as a parameter, that ID must correspond to an existing, un-archived pipeline.\
-    \ Otherwise the request will fail with a `404 Not Found` response."
+  description: |-
+    Pipelines represent distinct stages in a workflow, like closing a deal or servicing a support ticket. These endpoints provide access to read and modify pipelines in HubSpot. Pipelines support `deals` and `tickets` object types.
+
+    ## Pipeline ID validation
+
+    When calling endpoints that take pipelineId as a parameter, that ID must correspond to an existing, un-archived pipeline. Otherwise the request will fail with a `404 Not Found` response.
   title: Pipelines
   version: v3
   x-hubspot-product-tier-requirements:
@@ -76,40 +76,40 @@ paths:
       security:
       - oauth2_legacy:
         - media_bridge.read
-      - oauth2:
-        - crm.objects.contacts.read
       - private_apps:
         - crm.objects.deals.read
       - private_apps_legacy:
         - timeline
+      - private_apps_legacy:
+        - crm.objects.marketing_events.read
+      - oauth2_legacy:
+        - crm.objects.marketing_events.write
       - oauth2:
         - crm.objects.deals.read
       - private_apps_legacy:
         - contacts
       - private_apps:
-        - crm.objects.contacts.read
+        - crm.objects.owners.read
+      - oauth2:
+        - crm.objects.owners.read
       - oauth2_legacy:
         - crm.schemas.custom.read
       - private_apps:
         - crm.objects.companies.read
-      - private_apps:
-        - crm.objects.deals.write
       - oauth2:
         - crm.schemas.quotes.read
       - private_apps:
         - crm.schemas.quotes.read
-      - oauth2:
-        - crm.objects.deals.write
       - oauth2:
         - crm.objects.companies.read
+      - oauth2_legacy:
+        - crm.objects.marketing_events.read
+      - private_apps_legacy:
+        - crm.objects.marketing_events.write
       - private_apps_legacy:
         - crm.schemas.custom.read
       - private_apps_legacy:
         - crm.objects.goals.read
-      - private_apps:
-        - crm.schemas.deals.read
-      - oauth2:
-        - crm.schemas.deals.read
       - oauth2_legacy:
         - timeline
       - private_apps_legacy:
@@ -118,18 +118,14 @@ paths:
         - crm.objects.companies.write
       - oauth2:
         - crm.objects.companies.write
-      - oauth2:
-        - crm.schemas.contacts.read
-      - private_apps:
-        - crm.schemas.contacts.read
       - oauth2_legacy:
         - tickets
       - private_apps_legacy:
+        - crm.objects.custom.write
+      - oauth2_legacy:
+        - crm.objects.feedback_submissions.read
+      - private_apps_legacy:
         - e-commerce
-      - oauth2:
-        - crm.objects.contacts.write
-      - private_apps:
-        - crm.objects.contacts.write
       - private_apps:
         - crm.schemas.companies.read
       - oauth2:
@@ -138,12 +134,56 @@ paths:
         - e-commerce
       - private_apps_legacy:
         - tickets
+      - private_apps_legacy:
+        - crm.objects.feedback_submissions.read
       - oauth2_legacy:
         - crm.objects.goals.read
       - private_apps:
         - crm.schemas.line_items.read
+      - oauth2_legacy:
+        - crm.objects.custom.write
       - oauth2:
         - crm.schemas.line_items.read
+      - oauth2:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.deals.write
+      - private_apps:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.schemas.contacts.read
+      - oauth2:
+        - crm.objects.quotes.write
+      - private_apps:
+        - crm.schemas.contacts.read
+      - private_apps:
+        - crm.objects.quotes.write
+      - private_apps:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2_legacy:
+        - crm.objects.custom.read
+      - private_apps_legacy:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
+      - private_apps:
+        - crm.objects.line_items.write
+      - oauth2:
+        - crm.objects.quotes.read
+      - private_apps:
+        - crm.objects.quotes.read
       summary: Return an audit of all changes to the pipeline stage
       tags:
       - Pipeline Stage Audits
@@ -254,40 +294,40 @@ paths:
       security:
       - oauth2_legacy:
         - media_bridge.read
-      - oauth2:
-        - crm.objects.contacts.read
       - private_apps:
         - crm.objects.deals.read
       - private_apps_legacy:
         - timeline
+      - private_apps_legacy:
+        - crm.objects.marketing_events.read
+      - oauth2_legacy:
+        - crm.objects.marketing_events.write
       - oauth2:
         - crm.objects.deals.read
       - private_apps_legacy:
         - contacts
       - private_apps:
-        - crm.objects.contacts.read
+        - crm.objects.owners.read
+      - oauth2:
+        - crm.objects.owners.read
       - oauth2_legacy:
         - crm.schemas.custom.read
       - private_apps:
         - crm.objects.companies.read
-      - private_apps:
-        - crm.objects.deals.write
       - oauth2:
         - crm.schemas.quotes.read
       - private_apps:
         - crm.schemas.quotes.read
-      - oauth2:
-        - crm.objects.deals.write
       - oauth2:
         - crm.objects.companies.read
+      - oauth2_legacy:
+        - crm.objects.marketing_events.read
+      - private_apps_legacy:
+        - crm.objects.marketing_events.write
       - private_apps_legacy:
         - crm.schemas.custom.read
       - private_apps_legacy:
         - crm.objects.goals.read
-      - private_apps:
-        - crm.schemas.deals.read
-      - oauth2:
-        - crm.schemas.deals.read
       - oauth2_legacy:
         - timeline
       - private_apps_legacy:
@@ -296,18 +336,14 @@ paths:
         - crm.objects.companies.write
       - oauth2:
         - crm.objects.companies.write
-      - oauth2:
-        - crm.schemas.contacts.read
-      - private_apps:
-        - crm.schemas.contacts.read
       - oauth2_legacy:
         - tickets
       - private_apps_legacy:
+        - crm.objects.custom.write
+      - oauth2_legacy:
+        - crm.objects.feedback_submissions.read
+      - private_apps_legacy:
         - e-commerce
-      - oauth2:
-        - crm.objects.contacts.write
-      - private_apps:
-        - crm.objects.contacts.write
       - private_apps:
         - crm.schemas.companies.read
       - oauth2:
@@ -316,12 +352,56 @@ paths:
         - e-commerce
       - private_apps_legacy:
         - tickets
+      - private_apps_legacy:
+        - crm.objects.feedback_submissions.read
       - oauth2_legacy:
         - crm.objects.goals.read
       - private_apps:
         - crm.schemas.line_items.read
+      - oauth2_legacy:
+        - crm.objects.custom.write
       - oauth2:
         - crm.schemas.line_items.read
+      - oauth2:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.deals.write
+      - private_apps:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.schemas.contacts.read
+      - oauth2:
+        - crm.objects.quotes.write
+      - private_apps:
+        - crm.schemas.contacts.read
+      - private_apps:
+        - crm.objects.quotes.write
+      - private_apps:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2_legacy:
+        - crm.objects.custom.read
+      - private_apps_legacy:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
+      - private_apps:
+        - crm.objects.line_items.write
+      - oauth2:
+        - crm.objects.quotes.read
+      - private_apps:
+        - crm.objects.quotes.read
       summary: Return a pipeline by ID
       tags:
       - Pipelines
@@ -526,40 +606,40 @@ paths:
       security:
       - oauth2_legacy:
         - media_bridge.read
-      - oauth2:
-        - crm.objects.contacts.read
       - private_apps:
         - crm.objects.deals.read
       - private_apps_legacy:
         - timeline
+      - private_apps_legacy:
+        - crm.objects.marketing_events.read
+      - oauth2_legacy:
+        - crm.objects.marketing_events.write
       - oauth2:
         - crm.objects.deals.read
       - private_apps_legacy:
         - contacts
       - private_apps:
-        - crm.objects.contacts.read
+        - crm.objects.owners.read
+      - oauth2:
+        - crm.objects.owners.read
       - oauth2_legacy:
         - crm.schemas.custom.read
       - private_apps:
         - crm.objects.companies.read
-      - private_apps:
-        - crm.objects.deals.write
       - oauth2:
         - crm.schemas.quotes.read
       - private_apps:
         - crm.schemas.quotes.read
-      - oauth2:
-        - crm.objects.deals.write
       - oauth2:
         - crm.objects.companies.read
+      - oauth2_legacy:
+        - crm.objects.marketing_events.read
+      - private_apps_legacy:
+        - crm.objects.marketing_events.write
       - private_apps_legacy:
         - crm.schemas.custom.read
       - private_apps_legacy:
         - crm.objects.goals.read
-      - private_apps:
-        - crm.schemas.deals.read
-      - oauth2:
-        - crm.schemas.deals.read
       - oauth2_legacy:
         - timeline
       - private_apps_legacy:
@@ -568,18 +648,14 @@ paths:
         - crm.objects.companies.write
       - oauth2:
         - crm.objects.companies.write
-      - oauth2:
-        - crm.schemas.contacts.read
-      - private_apps:
-        - crm.schemas.contacts.read
       - oauth2_legacy:
         - tickets
       - private_apps_legacy:
+        - crm.objects.custom.write
+      - oauth2_legacy:
+        - crm.objects.feedback_submissions.read
+      - private_apps_legacy:
         - e-commerce
-      - oauth2:
-        - crm.objects.contacts.write
-      - private_apps:
-        - crm.objects.contacts.write
       - private_apps:
         - crm.schemas.companies.read
       - oauth2:
@@ -588,12 +664,56 @@ paths:
         - e-commerce
       - private_apps_legacy:
         - tickets
+      - private_apps_legacy:
+        - crm.objects.feedback_submissions.read
       - oauth2_legacy:
         - crm.objects.goals.read
       - private_apps:
         - crm.schemas.line_items.read
+      - oauth2_legacy:
+        - crm.objects.custom.write
       - oauth2:
         - crm.schemas.line_items.read
+      - oauth2:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.deals.write
+      - private_apps:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.schemas.contacts.read
+      - oauth2:
+        - crm.objects.quotes.write
+      - private_apps:
+        - crm.schemas.contacts.read
+      - private_apps:
+        - crm.objects.quotes.write
+      - private_apps:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2_legacy:
+        - crm.objects.custom.read
+      - private_apps_legacy:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
+      - private_apps:
+        - crm.objects.line_items.write
+      - oauth2:
+        - crm.objects.quotes.read
+      - private_apps:
+        - crm.objects.quotes.read
       summary: Return an audit of all changes to the pipeline
       tags:
       - Pipeline Audits
@@ -633,40 +753,40 @@ paths:
       security:
       - oauth2_legacy:
         - media_bridge.read
-      - oauth2:
-        - crm.objects.contacts.read
       - private_apps:
         - crm.objects.deals.read
       - private_apps_legacy:
         - timeline
+      - private_apps_legacy:
+        - crm.objects.marketing_events.read
+      - oauth2_legacy:
+        - crm.objects.marketing_events.write
       - oauth2:
         - crm.objects.deals.read
       - private_apps_legacy:
         - contacts
       - private_apps:
-        - crm.objects.contacts.read
+        - crm.objects.owners.read
+      - oauth2:
+        - crm.objects.owners.read
       - oauth2_legacy:
         - crm.schemas.custom.read
       - private_apps:
         - crm.objects.companies.read
-      - private_apps:
-        - crm.objects.deals.write
       - oauth2:
         - crm.schemas.quotes.read
       - private_apps:
         - crm.schemas.quotes.read
-      - oauth2:
-        - crm.objects.deals.write
       - oauth2:
         - crm.objects.companies.read
+      - oauth2_legacy:
+        - crm.objects.marketing_events.read
+      - private_apps_legacy:
+        - crm.objects.marketing_events.write
       - private_apps_legacy:
         - crm.schemas.custom.read
       - private_apps_legacy:
         - crm.objects.goals.read
-      - private_apps:
-        - crm.schemas.deals.read
-      - oauth2:
-        - crm.schemas.deals.read
       - oauth2_legacy:
         - timeline
       - private_apps_legacy:
@@ -675,18 +795,14 @@ paths:
         - crm.objects.companies.write
       - oauth2:
         - crm.objects.companies.write
-      - oauth2:
-        - crm.schemas.contacts.read
-      - private_apps:
-        - crm.schemas.contacts.read
       - oauth2_legacy:
         - tickets
       - private_apps_legacy:
+        - crm.objects.custom.write
+      - oauth2_legacy:
+        - crm.objects.feedback_submissions.read
+      - private_apps_legacy:
         - e-commerce
-      - oauth2:
-        - crm.objects.contacts.write
-      - private_apps:
-        - crm.objects.contacts.write
       - private_apps:
         - crm.schemas.companies.read
       - oauth2:
@@ -695,12 +811,56 @@ paths:
         - e-commerce
       - private_apps_legacy:
         - tickets
+      - private_apps_legacy:
+        - crm.objects.feedback_submissions.read
       - oauth2_legacy:
         - crm.objects.goals.read
       - private_apps:
         - crm.schemas.line_items.read
+      - oauth2_legacy:
+        - crm.objects.custom.write
       - oauth2:
         - crm.schemas.line_items.read
+      - oauth2:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.deals.write
+      - private_apps:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.schemas.contacts.read
+      - oauth2:
+        - crm.objects.quotes.write
+      - private_apps:
+        - crm.schemas.contacts.read
+      - private_apps:
+        - crm.objects.quotes.write
+      - private_apps:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2_legacy:
+        - crm.objects.custom.read
+      - private_apps_legacy:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
+      - private_apps:
+        - crm.objects.line_items.write
+      - oauth2:
+        - crm.objects.quotes.read
+      - private_apps:
+        - crm.objects.quotes.read
       summary: Return all stages of a pipeline
       tags:
       - Pipeline Stages
@@ -799,40 +959,40 @@ paths:
       security:
       - oauth2_legacy:
         - media_bridge.read
-      - oauth2:
-        - crm.objects.contacts.read
       - private_apps:
         - crm.objects.deals.read
       - private_apps_legacy:
         - timeline
+      - private_apps_legacy:
+        - crm.objects.marketing_events.read
+      - oauth2_legacy:
+        - crm.objects.marketing_events.write
       - oauth2:
         - crm.objects.deals.read
       - private_apps_legacy:
         - contacts
       - private_apps:
-        - crm.objects.contacts.read
+        - crm.objects.owners.read
+      - oauth2:
+        - crm.objects.owners.read
       - oauth2_legacy:
         - crm.schemas.custom.read
       - private_apps:
         - crm.objects.companies.read
-      - private_apps:
-        - crm.objects.deals.write
       - oauth2:
         - crm.schemas.quotes.read
       - private_apps:
         - crm.schemas.quotes.read
-      - oauth2:
-        - crm.objects.deals.write
       - oauth2:
         - crm.objects.companies.read
+      - oauth2_legacy:
+        - crm.objects.marketing_events.read
+      - private_apps_legacy:
+        - crm.objects.marketing_events.write
       - private_apps_legacy:
         - crm.schemas.custom.read
       - private_apps_legacy:
         - crm.objects.goals.read
-      - private_apps:
-        - crm.schemas.deals.read
-      - oauth2:
-        - crm.schemas.deals.read
       - oauth2_legacy:
         - timeline
       - private_apps_legacy:
@@ -841,18 +1001,14 @@ paths:
         - crm.objects.companies.write
       - oauth2:
         - crm.objects.companies.write
-      - oauth2:
-        - crm.schemas.contacts.read
-      - private_apps:
-        - crm.schemas.contacts.read
       - oauth2_legacy:
         - tickets
       - private_apps_legacy:
+        - crm.objects.custom.write
+      - oauth2_legacy:
+        - crm.objects.feedback_submissions.read
+      - private_apps_legacy:
         - e-commerce
-      - oauth2:
-        - crm.objects.contacts.write
-      - private_apps:
-        - crm.objects.contacts.write
       - private_apps:
         - crm.schemas.companies.read
       - oauth2:
@@ -861,12 +1017,56 @@ paths:
         - e-commerce
       - private_apps_legacy:
         - tickets
+      - private_apps_legacy:
+        - crm.objects.feedback_submissions.read
       - oauth2_legacy:
         - crm.objects.goals.read
       - private_apps:
         - crm.schemas.line_items.read
+      - oauth2_legacy:
+        - crm.objects.custom.write
       - oauth2:
         - crm.schemas.line_items.read
+      - oauth2:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.deals.write
+      - private_apps:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.schemas.contacts.read
+      - oauth2:
+        - crm.objects.quotes.write
+      - private_apps:
+        - crm.schemas.contacts.read
+      - private_apps:
+        - crm.objects.quotes.write
+      - private_apps:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2_legacy:
+        - crm.objects.custom.read
+      - private_apps_legacy:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
+      - private_apps:
+        - crm.objects.line_items.write
+      - oauth2:
+        - crm.objects.quotes.read
+      - private_apps:
+        - crm.objects.quotes.read
       summary: Retrieve all pipelines
       tags:
       - Pipelines
@@ -1036,40 +1236,40 @@ paths:
       security:
       - oauth2_legacy:
         - media_bridge.read
-      - oauth2:
-        - crm.objects.contacts.read
       - private_apps:
         - crm.objects.deals.read
       - private_apps_legacy:
         - timeline
+      - private_apps_legacy:
+        - crm.objects.marketing_events.read
+      - oauth2_legacy:
+        - crm.objects.marketing_events.write
       - oauth2:
         - crm.objects.deals.read
       - private_apps_legacy:
         - contacts
       - private_apps:
-        - crm.objects.contacts.read
+        - crm.objects.owners.read
+      - oauth2:
+        - crm.objects.owners.read
       - oauth2_legacy:
         - crm.schemas.custom.read
       - private_apps:
         - crm.objects.companies.read
-      - private_apps:
-        - crm.objects.deals.write
       - oauth2:
         - crm.schemas.quotes.read
       - private_apps:
         - crm.schemas.quotes.read
-      - oauth2:
-        - crm.objects.deals.write
       - oauth2:
         - crm.objects.companies.read
+      - oauth2_legacy:
+        - crm.objects.marketing_events.read
+      - private_apps_legacy:
+        - crm.objects.marketing_events.write
       - private_apps_legacy:
         - crm.schemas.custom.read
       - private_apps_legacy:
         - crm.objects.goals.read
-      - private_apps:
-        - crm.schemas.deals.read
-      - oauth2:
-        - crm.schemas.deals.read
       - oauth2_legacy:
         - timeline
       - private_apps_legacy:
@@ -1078,18 +1278,14 @@ paths:
         - crm.objects.companies.write
       - oauth2:
         - crm.objects.companies.write
-      - oauth2:
-        - crm.schemas.contacts.read
-      - private_apps:
-        - crm.schemas.contacts.read
       - oauth2_legacy:
         - tickets
       - private_apps_legacy:
+        - crm.objects.custom.write
+      - oauth2_legacy:
+        - crm.objects.feedback_submissions.read
+      - private_apps_legacy:
         - e-commerce
-      - oauth2:
-        - crm.objects.contacts.write
-      - private_apps:
-        - crm.objects.contacts.write
       - private_apps:
         - crm.schemas.companies.read
       - oauth2:
@@ -1098,12 +1294,56 @@ paths:
         - e-commerce
       - private_apps_legacy:
         - tickets
+      - private_apps_legacy:
+        - crm.objects.feedback_submissions.read
       - oauth2_legacy:
         - crm.objects.goals.read
       - private_apps:
         - crm.schemas.line_items.read
+      - oauth2_legacy:
+        - crm.objects.custom.write
       - oauth2:
         - crm.schemas.line_items.read
+      - oauth2:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.contacts.read
+      - private_apps:
+        - crm.objects.deals.write
+      - oauth2:
+        - crm.objects.deals.write
+      - private_apps:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.schemas.deals.read
+      - oauth2:
+        - crm.schemas.contacts.read
+      - oauth2:
+        - crm.objects.quotes.write
+      - private_apps:
+        - crm.schemas.contacts.read
+      - private_apps:
+        - crm.objects.quotes.write
+      - private_apps:
+        - crm.objects.line_items.read
+      - oauth2:
+        - crm.objects.contacts.write
+      - private_apps:
+        - crm.objects.contacts.write
+      - oauth2:
+        - crm.objects.line_items.read
+      - oauth2_legacy:
+        - crm.objects.custom.read
+      - private_apps_legacy:
+        - crm.objects.custom.read
+      - oauth2:
+        - crm.objects.line_items.write
+      - private_apps:
+        - crm.objects.line_items.write
+      - oauth2:
+        - crm.objects.quotes.read
+      - private_apps:
+        - crm.objects.quotes.read
       summary: Return a pipeline stage by ID
       tags:
       - Pipeline Stages
@@ -1278,14 +1518,12 @@ components:
         metadata:
           additionalProperties:
             type: string
-          description: "A JSON object containing properties that are not present on\
-            \ all object pipelines.\n\nFor `deals` pipelines, the `probability` field\
-            \ is required (`{ \"probability\": 0.5 }`), and represents the likelihood\
-            \ a deal will close. Possible values are between 0.0 and 1.0 in increments\
-            \ of 0.1.\n\nFor `tickets` pipelines, the `ticketState` field is optional\
-            \ (`{ \"ticketState\": \"OPEN\" }`), and represents whether the ticket\
-            \ remains open or has been closed by a member of your Support team. Possible\
-            \ values are `OPEN` or `CLOSED`."
+          description: |-
+            A JSON object containing properties that are not present on all object pipelines.
+
+            For `deals` pipelines, the `probability` field is required (`{ "probability": 0.5 }`), and represents the likelihood a deal will close. Possible values are between 0.0 and 1.0 in increments of 0.1.
+
+            For `tickets` pipelines, the `ticketState` field is optional (`{ "ticketState": "OPEN" }`), and represents whether the ticket remains open or has been closed by a member of your Support team. Possible values are `OPEN` or `CLOSED`.
           example:
             ticketState: CLOSED
           type: object
@@ -1342,7 +1580,6 @@ components:
         createdAt:
           description: The date the pipeline stage was created. The stages on default
             pipelines will have createdAt = 0.
-          example: 2019-10-30T03:30:17.883Z
           format: date-time
           type: string
         archivedAt:
@@ -1357,14 +1594,12 @@ components:
         metadata:
           additionalProperties:
             type: string
-          description: "A JSON object containing properties that are not present on\
-            \ all object pipelines.\n\nFor `deals` pipelines, the `probability` field\
-            \ is required (`{ \"probability\": 0.5 }`), and represents the likelihood\
-            \ a deal will close. Possible values are between 0.0 and 1.0 in increments\
-            \ of 0.1.\n\nFor `tickets` pipelines, the `ticketState` field is optional\
-            \ (`{ \"ticketState\": \"OPEN\" }`), and represents whether the ticket\
-            \ remains open or has been closed by a member of your Support team. Possible\
-            \ values are `OPEN` or `CLOSED`."
+          description: |-
+            A JSON object containing properties that are not present on all object pipelines.
+
+            For `deals` pipelines, the `probability` field is required (`{ "probability": 0.5 }`), and represents the likelihood a deal will close. Possible values are between 0.0 and 1.0 in increments of 0.1.
+
+            For `tickets` pipelines, the `ticketState` field is optional (`{ "ticketState": "OPEN" }`), and represents whether the ticket remains open or has been closed by a member of your Support team. Possible values are `OPEN` or `CLOSED`.
           example:
             ticketState: OPEN
           type: object
@@ -1393,7 +1628,6 @@ components:
           type: string
         updatedAt:
           description: The date the pipeline stage was last updated.
-          example: 2019-12-07T16:50:06.678Z
           format: date-time
           type: string
       required:
@@ -1578,7 +1812,6 @@ components:
         createdAt:
           description: The date the pipeline was created. The default pipelines will
             have createdAt = 0.
-          example: 2019-10-30T03:30:17.883Z
           format: date-time
           type: string
         archivedAt:
@@ -1630,7 +1863,6 @@ components:
           type: string
         updatedAt:
           description: The date the pipeline was last updated.
-          example: 2019-12-07T16:50:06.678Z
           format: date-time
           type: string
       required:
@@ -1683,14 +1915,12 @@ components:
         metadata:
           additionalProperties:
             type: string
-          description: "A JSON object containing properties that are not present on\
-            \ all object pipelines.\n\nFor `deals` pipelines, the `probability` field\
-            \ is required (`{ \"probability\": 0.5 }`), and represents the likelihood\
-            \ a deal will close. Possible values are between 0.0 and 1.0 in increments\
-            \ of 0.1.\n\nFor `tickets` pipelines, the `ticketState` field is optional\
-            \ (`{ \"ticketState\": \"OPEN\" }`), and represents whether the ticket\
-            \ remains open or has been closed by a member of your Support team. Possible\
-            \ values are `OPEN` or `CLOSED`."
+          description: |-
+            A JSON object containing properties that are not present on all object pipelines.
+
+            For `deals` pipelines, the `probability` field is required (`{ "probability": 0.5 }`), and represents the likelihood a deal will close. Possible values are between 0.0 and 1.0 in increments of 0.1.
+
+            For `tickets` pipelines, the `ticketState` field is optional (`{ "ticketState": "OPEN" }`), and represents whether the ticket remains open or has been closed by a member of your Support team. Possible values are `OPEN` or `CLOSED`.
           example:
             ticketState: CLOSED
           type: object
@@ -1819,12 +2049,17 @@ components:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
+            crm.objects.marketing_events.write: Write marketing events
+            crm.objects.custom.write: Change custom object records
+            crm.objects.feedback_submissions.read: View feedback survey submissions
+            crm.objects.marketing_events.read: Read marketing events
             crm.objects.goals.read: Read goals
-            media_bridge.read: Read media and media events
-            e-commerce: e-commerce
-            timeline: Create timeline events
             crm.schemas.custom.read: View custom object definitions
+            crm.objects.custom.read: View custom object records
             tickets: Read and write tickets
+            e-commerce: e-commerce
+            media_bridge.read: Read media and media events
+            timeline: Create timeline events
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
     oauth2:
@@ -1832,20 +2067,25 @@ components:
         authorizationCode:
           authorizationUrl: https://app.hubspot.com/oauth/authorize
           scopes:
-            crm.objects.deals.write: ' '
-            crm.schemas.deals.read: ' '
-            crm.objects.contacts.read: ' '
-            crm.schemas.quotes.read: Quotes schemas
-            crm.objects.contacts.write: ' '
-            crm.schemas.contacts.read: ' '
-            crm.objects.companies.write: ' '
-            crm.objects.companies.read: ' '
             crm.schemas.companies.read: ' '
-            crm.objects.deals.read: ' '
+            crm.objects.owners.read: ' '
+            crm.schemas.quotes.read: Quotes schemas
+            crm.objects.companies.write: ' '
             crm.schemas.line_items.read: Line Items schemas
+            crm.objects.quotes.read: Quotes
+            crm.objects.line_items.read: Line Items
+            crm.schemas.contacts.read: ' '
+            crm.objects.deals.read: ' '
+            crm.objects.contacts.read: ' '
+            crm.schemas.deals.read: ' '
+            crm.objects.contacts.write: ' '
+            crm.objects.deals.write: ' '
+            crm.objects.line_items.write: Line Items
+            crm.objects.quotes.write: Quotes
+            crm.objects.companies.read: ' '
             crm.schemas.deals.write: ' '
-            crm.schemas.contacts.write: ' '
             crm.schemas.companies.write: ' '
+            crm.schemas.contacts.write: ' '
           tokenUrl: https://api.hubapi.com/oauth/v1/token
       type: oauth2
     private_apps_legacy:

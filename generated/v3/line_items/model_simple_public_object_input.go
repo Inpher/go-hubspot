@@ -14,18 +14,20 @@ import (
 	"encoding/json"
 )
 
+// checks if the SimplePublicObjectInput type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SimplePublicObjectInput{}
+
 // SimplePublicObjectInput struct for SimplePublicObjectInput
 type SimplePublicObjectInput struct {
-	Properties map[string]string `json:"properties"`
+	Properties *map[string]string `json:"properties,omitempty"`
 }
 
 // NewSimplePublicObjectInput instantiates a new SimplePublicObjectInput object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSimplePublicObjectInput(properties map[string]string) *SimplePublicObjectInput {
+func NewSimplePublicObjectInput() *SimplePublicObjectInput {
 	this := SimplePublicObjectInput{}
-	this.Properties = properties
 	return &this
 }
 
@@ -37,36 +39,52 @@ func NewSimplePublicObjectInputWithDefaults() *SimplePublicObjectInput {
 	return &this
 }
 
-// GetProperties returns the Properties field value
+// GetProperties returns the Properties field value if set, zero value otherwise.
 func (o *SimplePublicObjectInput) GetProperties() map[string]string {
-	if o == nil {
+	if o == nil || IsNil(o.Properties) {
 		var ret map[string]string
 		return ret
 	}
-
-	return o.Properties
+	return *o.Properties
 }
 
-// GetPropertiesOk returns a tuple with the Properties field value
+// GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SimplePublicObjectInput) GetPropertiesOk() (*map[string]string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Properties) {
 		return nil, false
 	}
-	return &o.Properties, true
+	return o.Properties, true
 }
 
-// SetProperties sets field value
+// HasProperties returns a boolean if a field has been set.
+func (o *SimplePublicObjectInput) HasProperties() bool {
+	if o != nil && !IsNil(o.Properties) {
+		return true
+	}
+
+	return false
+}
+
+// SetProperties gets a reference to the given map[string]string and assigns it to the Properties field.
 func (o *SimplePublicObjectInput) SetProperties(v map[string]string) {
-	o.Properties = v
+	o.Properties = &v
 }
 
 func (o SimplePublicObjectInput) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["properties"] = o.Properties
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SimplePublicObjectInput) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Properties) {
+		toSerialize["properties"] = o.Properties
+	}
+	return toSerialize, nil
 }
 
 type NullableSimplePublicObjectInput struct {

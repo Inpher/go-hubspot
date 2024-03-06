@@ -16,7 +16,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/clarkmcc/go-hubspot"
+	"github.com/inpher/go-hubspot"
 	"net/url"
 )
 
@@ -43,8 +43,8 @@ SendSend Sends Custom Behavioral Event
 
 Endpoint to send an instance of a behavioral event
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiSendSendRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiSendSendRequest
 */
 func (a *BehavioralEventsTrackingApiService) SendSend(ctx context.Context) ApiSendSendRequest {
 	return ApiSendSendRequest{

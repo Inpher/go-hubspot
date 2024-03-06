@@ -13,20 +13,20 @@ package marketing_events_beta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 
-	"github.com/clarkmcc/go-hubspot"
+	"github.com/inpher/go-hubspot"
 	"net/url"
 	"strings"
 )
 
-// AttendanceSubscriberStateChangesApiService AttendanceSubscriberStateChangesApi service
-type AttendanceSubscriberStateChangesApiService service
+// AttendanceSubscriberStateChangesAPIService AttendanceSubscriberStateChangesAPI service
+type AttendanceSubscriberStateChangesAPIService service
 
 type ApiAttendanceCreateCreateRequest struct {
 	ctx                                context.Context
-	ApiService                         *AttendanceSubscriberStateChangesApiService
+	ApiService                         *AttendanceSubscriberStateChangesAPIService
 	externalEventId                    string
 	subscriberState                    string
 	batchInputMarketingEventSubscriber *BatchInputMarketingEventSubscriber
@@ -54,12 +54,12 @@ AttendanceCreateCreate Record
 
 Record a subscription state between multiple HubSpot contacts and a marketing event, using HubSpot contact ids.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param externalEventId The id of the marketing event
- @param subscriberState The new subscriber state for the HubSpot contacts and the specified marketing event. For example: 'register', 'attend' or 'cancel'.
- @return ApiAttendanceCreateCreateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param externalEventId The id of the marketing event
+	@param subscriberState The new subscriber state for the HubSpot contacts and the specified marketing event. For example: 'register', 'attend' or 'cancel'.
+	@return ApiAttendanceCreateCreateRequest
 */
-func (a *AttendanceSubscriberStateChangesApiService) AttendanceCreateCreate(ctx context.Context, externalEventId string, subscriberState string) ApiAttendanceCreateCreateRequest {
+func (a *AttendanceSubscriberStateChangesAPIService) AttendanceCreateCreate(ctx context.Context, externalEventId string, subscriberState string) ApiAttendanceCreateCreateRequest {
 	return ApiAttendanceCreateCreateRequest{
 		ApiService:      a,
 		ctx:             ctx,
@@ -69,8 +69,9 @@ func (a *AttendanceSubscriberStateChangesApiService) AttendanceCreateCreate(ctx 
 }
 
 // Execute executes the request
-//  @return BatchResponseSubscriberVidResponse
-func (a *AttendanceSubscriberStateChangesApiService) AttendanceCreateCreateExecute(r ApiAttendanceCreateCreateRequest) (*BatchResponseSubscriberVidResponse, *http.Response, error) {
+//
+//	@return BatchResponseSubscriberVidResponse
+func (a *AttendanceSubscriberStateChangesAPIService) AttendanceCreateCreateExecute(r ApiAttendanceCreateCreateRequest) (*BatchResponseSubscriberVidResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -78,14 +79,14 @@ func (a *AttendanceSubscriberStateChangesApiService) AttendanceCreateCreateExecu
 		localVarReturnValue *BatchResponseSubscriberVidResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AttendanceSubscriberStateChangesApiService.AttendanceCreateCreate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AttendanceSubscriberStateChangesAPIService.AttendanceCreateCreate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/marketing/v3/marketing-events/attendance/{externalEventId}/{subscriberState}/create"
-	localVarPath = strings.Replace(localVarPath, "{"+"externalEventId"+"}", url.PathEscape(parameterToString(r.externalEventId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"subscriberState"+"}", url.PathEscape(parameterToString(r.subscriberState, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"externalEventId"+"}", url.PathEscape(parameterValueToString(r.externalEventId, "externalEventId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"subscriberState"+"}", url.PathEscape(parameterValueToString(r.subscriberState, "subscriberState")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -95,7 +96,7 @@ func (a *AttendanceSubscriberStateChangesApiService) AttendanceCreateCreateExecu
 	}
 
 	if r.externalAccountId != nil {
-		localVarQueryParams.Add("externalAccountId", parameterToString(*r.externalAccountId, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "externalAccountId", r.externalAccountId, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -136,9 +137,9 @@ func (a *AttendanceSubscriberStateChangesApiService) AttendanceCreateCreateExecu
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -154,6 +155,7 @@ func (a *AttendanceSubscriberStateChangesApiService) AttendanceCreateCreateExecu
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -172,7 +174,7 @@ func (a *AttendanceSubscriberStateChangesApiService) AttendanceCreateCreateExecu
 
 type ApiAttendanceEmailCreateCreateByEmailRequest struct {
 	ctx                                     context.Context
-	ApiService                              *AttendanceSubscriberStateChangesApiService
+	ApiService                              *AttendanceSubscriberStateChangesAPIService
 	externalEventId                         string
 	subscriberState                         string
 	batchInputMarketingEventEmailSubscriber *BatchInputMarketingEventEmailSubscriber
@@ -200,12 +202,12 @@ AttendanceEmailCreateCreateByEmail Record
 
 Record a subscription state between multiple HubSpot contacts and a marketing event, using contact email addresses. If contact is not present it will be automatically created.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param externalEventId The id of the marketing event
- @param subscriberState The new subscriber state for the HubSpot contacts and the specified marketing event. For example: 'register', 'attend' or 'cancel'.
- @return ApiAttendanceEmailCreateCreateByEmailRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param externalEventId The id of the marketing event
+	@param subscriberState The new subscriber state for the HubSpot contacts and the specified marketing event. For example: 'register', 'attend' or 'cancel'.
+	@return ApiAttendanceEmailCreateCreateByEmailRequest
 */
-func (a *AttendanceSubscriberStateChangesApiService) AttendanceEmailCreateCreateByEmail(ctx context.Context, externalEventId string, subscriberState string) ApiAttendanceEmailCreateCreateByEmailRequest {
+func (a *AttendanceSubscriberStateChangesAPIService) AttendanceEmailCreateCreateByEmail(ctx context.Context, externalEventId string, subscriberState string) ApiAttendanceEmailCreateCreateByEmailRequest {
 	return ApiAttendanceEmailCreateCreateByEmailRequest{
 		ApiService:      a,
 		ctx:             ctx,
@@ -215,8 +217,9 @@ func (a *AttendanceSubscriberStateChangesApiService) AttendanceEmailCreateCreate
 }
 
 // Execute executes the request
-//  @return BatchResponseSubscriberEmailResponse
-func (a *AttendanceSubscriberStateChangesApiService) AttendanceEmailCreateCreateByEmailExecute(r ApiAttendanceEmailCreateCreateByEmailRequest) (*BatchResponseSubscriberEmailResponse, *http.Response, error) {
+//
+//	@return BatchResponseSubscriberEmailResponse
+func (a *AttendanceSubscriberStateChangesAPIService) AttendanceEmailCreateCreateByEmailExecute(r ApiAttendanceEmailCreateCreateByEmailRequest) (*BatchResponseSubscriberEmailResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -224,14 +227,14 @@ func (a *AttendanceSubscriberStateChangesApiService) AttendanceEmailCreateCreate
 		localVarReturnValue *BatchResponseSubscriberEmailResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AttendanceSubscriberStateChangesApiService.AttendanceEmailCreateCreateByEmail")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AttendanceSubscriberStateChangesAPIService.AttendanceEmailCreateCreateByEmail")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/marketing/v3/marketing-events/attendance/{externalEventId}/{subscriberState}/email-create"
-	localVarPath = strings.Replace(localVarPath, "{"+"externalEventId"+"}", url.PathEscape(parameterToString(r.externalEventId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"subscriberState"+"}", url.PathEscape(parameterToString(r.subscriberState, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"externalEventId"+"}", url.PathEscape(parameterValueToString(r.externalEventId, "externalEventId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"subscriberState"+"}", url.PathEscape(parameterValueToString(r.subscriberState, "subscriberState")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -241,7 +244,7 @@ func (a *AttendanceSubscriberStateChangesApiService) AttendanceEmailCreateCreate
 	}
 
 	if r.externalAccountId != nil {
-		localVarQueryParams.Add("externalAccountId", parameterToString(*r.externalAccountId, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "externalAccountId", r.externalAccountId, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -282,9 +285,9 @@ func (a *AttendanceSubscriberStateChangesApiService) AttendanceEmailCreateCreate
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -300,6 +303,7 @@ func (a *AttendanceSubscriberStateChangesApiService) AttendanceEmailCreateCreate
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

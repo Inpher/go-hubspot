@@ -13,20 +13,20 @@ package calling
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 
-	"github.com/clarkmcc/go-hubspot"
+	"github.com/inpher/go-hubspot"
 	"net/url"
 	"strings"
 )
 
-// RecordingSettingsApiService RecordingSettingsApi service
-type RecordingSettingsApiService service
+// RecordingSettingsAPIService RecordingSettingsAPI service
+type RecordingSettingsAPIService service
 
 type ApiGetCrmV3ExtensionsCallingAppIdSettingsRecordingGetUrlFormatRequest struct {
 	ctx        context.Context
-	ApiService *RecordingSettingsApiService
+	ApiService *RecordingSettingsAPIService
 	appId      int32
 }
 
@@ -37,11 +37,11 @@ func (r ApiGetCrmV3ExtensionsCallingAppIdSettingsRecordingGetUrlFormatRequest) E
 /*
 GetCrmV3ExtensionsCallingAppIdSettingsRecordingGetUrlFormat Method for GetCrmV3ExtensionsCallingAppIdSettingsRecordingGetUrlFormat
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId
- @return ApiGetCrmV3ExtensionsCallingAppIdSettingsRecordingGetUrlFormatRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId
+	@return ApiGetCrmV3ExtensionsCallingAppIdSettingsRecordingGetUrlFormatRequest
 */
-func (a *RecordingSettingsApiService) GetCrmV3ExtensionsCallingAppIdSettingsRecordingGetUrlFormat(ctx context.Context, appId int32) ApiGetCrmV3ExtensionsCallingAppIdSettingsRecordingGetUrlFormatRequest {
+func (a *RecordingSettingsAPIService) GetCrmV3ExtensionsCallingAppIdSettingsRecordingGetUrlFormat(ctx context.Context, appId int32) ApiGetCrmV3ExtensionsCallingAppIdSettingsRecordingGetUrlFormatRequest {
 	return ApiGetCrmV3ExtensionsCallingAppIdSettingsRecordingGetUrlFormatRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -50,8 +50,9 @@ func (a *RecordingSettingsApiService) GetCrmV3ExtensionsCallingAppIdSettingsReco
 }
 
 // Execute executes the request
-//  @return RecordingSettingsResponse
-func (a *RecordingSettingsApiService) GetCrmV3ExtensionsCallingAppIdSettingsRecordingGetUrlFormatExecute(r ApiGetCrmV3ExtensionsCallingAppIdSettingsRecordingGetUrlFormatRequest) (*RecordingSettingsResponse, *http.Response, error) {
+//
+//	@return RecordingSettingsResponse
+func (a *RecordingSettingsAPIService) GetCrmV3ExtensionsCallingAppIdSettingsRecordingGetUrlFormatExecute(r ApiGetCrmV3ExtensionsCallingAppIdSettingsRecordingGetUrlFormatRequest) (*RecordingSettingsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -59,13 +60,13 @@ func (a *RecordingSettingsApiService) GetCrmV3ExtensionsCallingAppIdSettingsReco
 		localVarReturnValue *RecordingSettingsResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RecordingSettingsApiService.GetCrmV3ExtensionsCallingAppIdSettingsRecordingGetUrlFormat")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RecordingSettingsAPIService.GetCrmV3ExtensionsCallingAppIdSettingsRecordingGetUrlFormat")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/extensions/calling/{appId}/settings/recording"
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterValueToString(r.appId, "appId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -108,9 +109,9 @@ func (a *RecordingSettingsApiService) GetCrmV3ExtensionsCallingAppIdSettingsReco
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -126,6 +127,7 @@ func (a *RecordingSettingsApiService) GetCrmV3ExtensionsCallingAppIdSettingsReco
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -144,7 +146,7 @@ func (a *RecordingSettingsApiService) GetCrmV3ExtensionsCallingAppIdSettingsReco
 
 type ApiPatchCrmV3ExtensionsCallingAppIdSettingsRecordingUpdateUrlFormatRequest struct {
 	ctx                           context.Context
-	ApiService                    *RecordingSettingsApiService
+	ApiService                    *RecordingSettingsAPIService
 	appId                         int32
 	recordingSettingsPatchRequest *RecordingSettingsPatchRequest
 }
@@ -161,11 +163,11 @@ func (r ApiPatchCrmV3ExtensionsCallingAppIdSettingsRecordingUpdateUrlFormatReque
 /*
 PatchCrmV3ExtensionsCallingAppIdSettingsRecordingUpdateUrlFormat Method for PatchCrmV3ExtensionsCallingAppIdSettingsRecordingUpdateUrlFormat
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId
- @return ApiPatchCrmV3ExtensionsCallingAppIdSettingsRecordingUpdateUrlFormatRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId
+	@return ApiPatchCrmV3ExtensionsCallingAppIdSettingsRecordingUpdateUrlFormatRequest
 */
-func (a *RecordingSettingsApiService) PatchCrmV3ExtensionsCallingAppIdSettingsRecordingUpdateUrlFormat(ctx context.Context, appId int32) ApiPatchCrmV3ExtensionsCallingAppIdSettingsRecordingUpdateUrlFormatRequest {
+func (a *RecordingSettingsAPIService) PatchCrmV3ExtensionsCallingAppIdSettingsRecordingUpdateUrlFormat(ctx context.Context, appId int32) ApiPatchCrmV3ExtensionsCallingAppIdSettingsRecordingUpdateUrlFormatRequest {
 	return ApiPatchCrmV3ExtensionsCallingAppIdSettingsRecordingUpdateUrlFormatRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -174,8 +176,9 @@ func (a *RecordingSettingsApiService) PatchCrmV3ExtensionsCallingAppIdSettingsRe
 }
 
 // Execute executes the request
-//  @return RecordingSettingsResponse
-func (a *RecordingSettingsApiService) PatchCrmV3ExtensionsCallingAppIdSettingsRecordingUpdateUrlFormatExecute(r ApiPatchCrmV3ExtensionsCallingAppIdSettingsRecordingUpdateUrlFormatRequest) (*RecordingSettingsResponse, *http.Response, error) {
+//
+//	@return RecordingSettingsResponse
+func (a *RecordingSettingsAPIService) PatchCrmV3ExtensionsCallingAppIdSettingsRecordingUpdateUrlFormatExecute(r ApiPatchCrmV3ExtensionsCallingAppIdSettingsRecordingUpdateUrlFormatRequest) (*RecordingSettingsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPatch
 		localVarPostBody    interface{}
@@ -183,13 +186,13 @@ func (a *RecordingSettingsApiService) PatchCrmV3ExtensionsCallingAppIdSettingsRe
 		localVarReturnValue *RecordingSettingsResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RecordingSettingsApiService.PatchCrmV3ExtensionsCallingAppIdSettingsRecordingUpdateUrlFormat")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RecordingSettingsAPIService.PatchCrmV3ExtensionsCallingAppIdSettingsRecordingUpdateUrlFormat")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/extensions/calling/{appId}/settings/recording"
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterValueToString(r.appId, "appId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -237,9 +240,9 @@ func (a *RecordingSettingsApiService) PatchCrmV3ExtensionsCallingAppIdSettingsRe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -255,6 +258,7 @@ func (a *RecordingSettingsApiService) PatchCrmV3ExtensionsCallingAppIdSettingsRe
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -273,7 +277,7 @@ func (a *RecordingSettingsApiService) PatchCrmV3ExtensionsCallingAppIdSettingsRe
 
 type ApiPostCrmV3ExtensionsCallingAppIdSettingsRecordingRegisterUrlFormatRequest struct {
 	ctx                      context.Context
-	ApiService               *RecordingSettingsApiService
+	ApiService               *RecordingSettingsAPIService
 	appId                    int32
 	recordingSettingsRequest *RecordingSettingsRequest
 }
@@ -290,11 +294,11 @@ func (r ApiPostCrmV3ExtensionsCallingAppIdSettingsRecordingRegisterUrlFormatRequ
 /*
 PostCrmV3ExtensionsCallingAppIdSettingsRecordingRegisterUrlFormat Method for PostCrmV3ExtensionsCallingAppIdSettingsRecordingRegisterUrlFormat
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId
- @return ApiPostCrmV3ExtensionsCallingAppIdSettingsRecordingRegisterUrlFormatRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId
+	@return ApiPostCrmV3ExtensionsCallingAppIdSettingsRecordingRegisterUrlFormatRequest
 */
-func (a *RecordingSettingsApiService) PostCrmV3ExtensionsCallingAppIdSettingsRecordingRegisterUrlFormat(ctx context.Context, appId int32) ApiPostCrmV3ExtensionsCallingAppIdSettingsRecordingRegisterUrlFormatRequest {
+func (a *RecordingSettingsAPIService) PostCrmV3ExtensionsCallingAppIdSettingsRecordingRegisterUrlFormat(ctx context.Context, appId int32) ApiPostCrmV3ExtensionsCallingAppIdSettingsRecordingRegisterUrlFormatRequest {
 	return ApiPostCrmV3ExtensionsCallingAppIdSettingsRecordingRegisterUrlFormatRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -303,8 +307,9 @@ func (a *RecordingSettingsApiService) PostCrmV3ExtensionsCallingAppIdSettingsRec
 }
 
 // Execute executes the request
-//  @return RecordingSettingsResponse
-func (a *RecordingSettingsApiService) PostCrmV3ExtensionsCallingAppIdSettingsRecordingRegisterUrlFormatExecute(r ApiPostCrmV3ExtensionsCallingAppIdSettingsRecordingRegisterUrlFormatRequest) (*RecordingSettingsResponse, *http.Response, error) {
+//
+//	@return RecordingSettingsResponse
+func (a *RecordingSettingsAPIService) PostCrmV3ExtensionsCallingAppIdSettingsRecordingRegisterUrlFormatExecute(r ApiPostCrmV3ExtensionsCallingAppIdSettingsRecordingRegisterUrlFormatRequest) (*RecordingSettingsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -312,13 +317,13 @@ func (a *RecordingSettingsApiService) PostCrmV3ExtensionsCallingAppIdSettingsRec
 		localVarReturnValue *RecordingSettingsResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RecordingSettingsApiService.PostCrmV3ExtensionsCallingAppIdSettingsRecordingRegisterUrlFormat")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RecordingSettingsAPIService.PostCrmV3ExtensionsCallingAppIdSettingsRecordingRegisterUrlFormat")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/crm/v3/extensions/calling/{appId}/settings/recording"
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterValueToString(r.appId, "appId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -366,9 +371,9 @@ func (a *RecordingSettingsApiService) PostCrmV3ExtensionsCallingAppIdSettingsRec
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -384,6 +389,7 @@ func (a *RecordingSettingsApiService) PostCrmV3ExtensionsCallingAppIdSettingsRec
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

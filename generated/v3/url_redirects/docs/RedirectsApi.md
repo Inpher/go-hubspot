@@ -1,14 +1,14 @@
-# \RedirectsApi
+# \RedirectsAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Archive**](RedirectsApi.md#Archive) | **Delete** /cms/v3/url-redirects/{urlRedirectId} | Delete a redirect
-[**Create**](RedirectsApi.md#Create) | **Post** /cms/v3/url-redirects/ | Create a redirect
-[**GetByID**](RedirectsApi.md#GetByID) | **Get** /cms/v3/url-redirects/{urlRedirectId} | Get details for a redirect
-[**GetPage**](RedirectsApi.md#GetPage) | **Get** /cms/v3/url-redirects/ | Get current redirects
-[**Update**](RedirectsApi.md#Update) | **Patch** /cms/v3/url-redirects/{urlRedirectId} | Update a redirect
+[**Archive**](RedirectsAPI.md#Archive) | **Delete** /cms/v3/url-redirects/{urlRedirectId} | Delete a redirect
+[**Create**](RedirectsAPI.md#Create) | **Post** /cms/v3/url-redirects/ | Create a redirect
+[**GetByID**](RedirectsAPI.md#GetByID) | **Get** /cms/v3/url-redirects/{urlRedirectId} | Get details for a redirect
+[**GetPage**](RedirectsAPI.md#GetPage) | **Get** /cms/v3/url-redirects/ | Get current redirects
+[**Update**](RedirectsAPI.md#Update) | **Patch** /cms/v3/url-redirects/{urlRedirectId} | Update a redirect
 
 
 
@@ -26,22 +26,22 @@ Delete a redirect
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    urlRedirectId := "urlRedirectId_example" // string | The ID of the target redirect.
+	urlRedirectId := "urlRedirectId_example" // string | The ID of the target redirect.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RedirectsApi.Archive(context.Background(), urlRedirectId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RedirectsApi.Archive``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.RedirectsAPI.Archive(context.Background(), urlRedirectId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `RedirectsAPI.Archive``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -94,24 +94,24 @@ Create a redirect
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    urlMappingCreateRequestBody := *openapiclient.NewUrlMappingCreateRequestBody(int32(123), "RoutePrefix_example", "Destination_example") // UrlMappingCreateRequestBody | 
+	urlMappingCreateRequestBody := *openapiclient.NewUrlMappingCreateRequestBody(int32(123), "RoutePrefix_example", "Destination_example") // UrlMappingCreateRequestBody | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RedirectsApi.Create(context.Background()).UrlMappingCreateRequestBody(urlMappingCreateRequestBody).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RedirectsApi.Create``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `Create`: UrlMapping
-    fmt.Fprintf(os.Stdout, "Response from `RedirectsApi.Create`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.RedirectsAPI.Create(context.Background()).UrlMappingCreateRequestBody(urlMappingCreateRequestBody).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `RedirectsAPI.Create``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `Create`: UrlMapping
+	fmt.Fprintf(os.Stdout, "Response from `RedirectsAPI.Create`: %v\n", resp)
 }
 ```
 
@@ -160,24 +160,24 @@ Get details for a redirect
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    urlRedirectId := "urlRedirectId_example" // string | The ID of the target redirect.
+	urlRedirectId := "urlRedirectId_example" // string | The ID of the target redirect.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RedirectsApi.GetByID(context.Background(), urlRedirectId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RedirectsApi.GetByID``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetByID`: UrlMapping
-    fmt.Fprintf(os.Stdout, "Response from `RedirectsApi.GetByID`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.RedirectsAPI.GetByID(context.Background(), urlRedirectId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `RedirectsAPI.GetByID``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetByID`: UrlMapping
+	fmt.Fprintf(os.Stdout, "Response from `RedirectsAPI.GetByID`: %v\n", resp)
 }
 ```
 
@@ -230,34 +230,34 @@ Get current redirects
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    openapiclient "./openapi"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    createdAt := time.Now() // time.Time | Only return redirects created on exactly this date. (optional)
-    createdAfter := time.Now() // time.Time | Only return redirects created after this date. (optional)
-    createdBefore := time.Now() // time.Time | Only return redirects created before this date. (optional)
-    updatedAt := time.Now() // time.Time | Only return redirects last updated on exactly this date. (optional)
-    updatedAfter := time.Now() // time.Time | Only return redirects last updated after this date. (optional)
-    updatedBefore := time.Now() // time.Time | Only return redirects last updated before this date. (optional)
-    sort := []string{"Inner_example"} // []string |  (optional)
-    after := "after_example" // string | The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results. (optional)
-    limit := int32(56) // int32 | Maximum number of result per page (optional)
-    archived := true // bool | Whether to return only results that have been archived. (optional)
+	createdAt := time.Now() // time.Time | Only return redirects created on exactly this date. (optional)
+	createdAfter := time.Now() // time.Time | Only return redirects created after this date. (optional)
+	createdBefore := time.Now() // time.Time | Only return redirects created before this date. (optional)
+	updatedAt := time.Now() // time.Time | Only return redirects last updated on exactly this date. (optional)
+	updatedAfter := time.Now() // time.Time | Only return redirects last updated after this date. (optional)
+	updatedBefore := time.Now() // time.Time | Only return redirects last updated before this date. (optional)
+	sort := []string{"Inner_example"} // []string |  (optional)
+	after := "after_example" // string | The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results. (optional)
+	limit := int32(56) // int32 | Maximum number of result per page (optional)
+	archived := true // bool | Whether to return only results that have been archived. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RedirectsApi.GetPage(context.Background()).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Sort(sort).After(after).Limit(limit).Archived(archived).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RedirectsApi.GetPage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetPage`: CollectionResponseWithTotalUrlMappingForwardPaging
-    fmt.Fprintf(os.Stdout, "Response from `RedirectsApi.GetPage`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.RedirectsAPI.GetPage(context.Background()).CreatedAt(createdAt).CreatedAfter(createdAfter).CreatedBefore(createdBefore).UpdatedAt(updatedAt).UpdatedAfter(updatedAfter).UpdatedBefore(updatedBefore).Sort(sort).After(after).Limit(limit).Archived(archived).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `RedirectsAPI.GetPage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetPage`: CollectionResponseWithTotalUrlMappingForwardPaging
+	fmt.Fprintf(os.Stdout, "Response from `RedirectsAPI.GetPage`: %v\n", resp)
 }
 ```
 
@@ -315,25 +315,25 @@ Update a redirect
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    urlRedirectId := "urlRedirectId_example" // string | 
-    urlMapping := *openapiclient.NewUrlMapping(false, int32(123), false, false, "Destination_example", false, false, int32(123), "RoutePrefix_example", false, "Id_example") // UrlMapping | 
+	urlRedirectId := "urlRedirectId_example" // string | 
+	urlMapping := *openapiclient.NewUrlMapping(false, int32(123), false, false, "Destination_example", false, false, int32(123), "RoutePrefix_example", false, "Id_example") // UrlMapping | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RedirectsApi.Update(context.Background(), urlRedirectId).UrlMapping(urlMapping).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RedirectsApi.Update``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `Update`: UrlMapping
-    fmt.Fprintf(os.Stdout, "Response from `RedirectsApi.Update`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.RedirectsAPI.Update(context.Background(), urlRedirectId).UrlMapping(urlMapping).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `RedirectsAPI.Update``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `Update`: UrlMapping
+	fmt.Fprintf(os.Stdout, "Response from `RedirectsAPI.Update`: %v\n", resp)
 }
 ```
 

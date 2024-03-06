@@ -11,8 +11,13 @@ API version: v3
 package marketing_events_beta
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the PropertyValue type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PropertyValue{}
 
 // PropertyValue struct for PropertyValue
 type PropertyValue struct {
@@ -43,6 +48,8 @@ type PropertyValue struct {
 	Timestamp    int64 `json:"timestamp"`
 	IsLargeValue *bool `json:"isLargeValue,omitempty"`
 }
+
+type _PropertyValue PropertyValue
 
 // NewPropertyValue instantiates a new PropertyValue object
 // This constructor will assign default values to properties that have it defined,
@@ -170,7 +177,7 @@ func (o *PropertyValue) SetSource(v string) {
 
 // GetUpdatedByUserId returns the UpdatedByUserId field value if set, zero value otherwise.
 func (o *PropertyValue) GetUpdatedByUserId() int32 {
-	if o == nil || o.UpdatedByUserId == nil {
+	if o == nil || IsNil(o.UpdatedByUserId) {
 		var ret int32
 		return ret
 	}
@@ -180,7 +187,7 @@ func (o *PropertyValue) GetUpdatedByUserId() int32 {
 // GetUpdatedByUserIdOk returns a tuple with the UpdatedByUserId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PropertyValue) GetUpdatedByUserIdOk() (*int32, bool) {
-	if o == nil || o.UpdatedByUserId == nil {
+	if o == nil || IsNil(o.UpdatedByUserId) {
 		return nil, false
 	}
 	return o.UpdatedByUserId, true
@@ -188,7 +195,7 @@ func (o *PropertyValue) GetUpdatedByUserIdOk() (*int32, bool) {
 
 // HasUpdatedByUserId returns a boolean if a field has been set.
 func (o *PropertyValue) HasUpdatedByUserId() bool {
-	if o != nil && o.UpdatedByUserId != nil {
+	if o != nil && !IsNil(o.UpdatedByUserId) {
 		return true
 	}
 
@@ -202,7 +209,7 @@ func (o *PropertyValue) SetUpdatedByUserId(v int32) {
 
 // GetPersistenceTimestamp returns the PersistenceTimestamp field value if set, zero value otherwise.
 func (o *PropertyValue) GetPersistenceTimestamp() int64 {
-	if o == nil || o.PersistenceTimestamp == nil {
+	if o == nil || IsNil(o.PersistenceTimestamp) {
 		var ret int64
 		return ret
 	}
@@ -212,7 +219,7 @@ func (o *PropertyValue) GetPersistenceTimestamp() int64 {
 // GetPersistenceTimestampOk returns a tuple with the PersistenceTimestamp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PropertyValue) GetPersistenceTimestampOk() (*int64, bool) {
-	if o == nil || o.PersistenceTimestamp == nil {
+	if o == nil || IsNil(o.PersistenceTimestamp) {
 		return nil, false
 	}
 	return o.PersistenceTimestamp, true
@@ -220,7 +227,7 @@ func (o *PropertyValue) GetPersistenceTimestampOk() (*int64, bool) {
 
 // HasPersistenceTimestamp returns a boolean if a field has been set.
 func (o *PropertyValue) HasPersistenceTimestamp() bool {
-	if o != nil && o.PersistenceTimestamp != nil {
+	if o != nil && !IsNil(o.PersistenceTimestamp) {
 		return true
 	}
 
@@ -330,7 +337,7 @@ func (o *PropertyValue) SetName(v string) {
 
 // GetUseTimestampAsPersistenceTimestamp returns the UseTimestampAsPersistenceTimestamp field value if set, zero value otherwise.
 func (o *PropertyValue) GetUseTimestampAsPersistenceTimestamp() bool {
-	if o == nil || o.UseTimestampAsPersistenceTimestamp == nil {
+	if o == nil || IsNil(o.UseTimestampAsPersistenceTimestamp) {
 		var ret bool
 		return ret
 	}
@@ -340,7 +347,7 @@ func (o *PropertyValue) GetUseTimestampAsPersistenceTimestamp() bool {
 // GetUseTimestampAsPersistenceTimestampOk returns a tuple with the UseTimestampAsPersistenceTimestamp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PropertyValue) GetUseTimestampAsPersistenceTimestampOk() (*bool, bool) {
-	if o == nil || o.UseTimestampAsPersistenceTimestamp == nil {
+	if o == nil || IsNil(o.UseTimestampAsPersistenceTimestamp) {
 		return nil, false
 	}
 	return o.UseTimestampAsPersistenceTimestamp, true
@@ -348,7 +355,7 @@ func (o *PropertyValue) GetUseTimestampAsPersistenceTimestampOk() (*bool, bool) 
 
 // HasUseTimestampAsPersistenceTimestamp returns a boolean if a field has been set.
 func (o *PropertyValue) HasUseTimestampAsPersistenceTimestamp() bool {
-	if o != nil && o.UseTimestampAsPersistenceTimestamp != nil {
+	if o != nil && !IsNil(o.UseTimestampAsPersistenceTimestamp) {
 		return true
 	}
 
@@ -434,7 +441,7 @@ func (o *PropertyValue) SetTimestamp(v int64) {
 
 // GetIsLargeValue returns the IsLargeValue field value if set, zero value otherwise.
 func (o *PropertyValue) GetIsLargeValue() bool {
-	if o == nil || o.IsLargeValue == nil {
+	if o == nil || IsNil(o.IsLargeValue) {
 		var ret bool
 		return ret
 	}
@@ -444,7 +451,7 @@ func (o *PropertyValue) GetIsLargeValue() bool {
 // GetIsLargeValueOk returns a tuple with the IsLargeValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PropertyValue) GetIsLargeValueOk() (*bool, bool) {
-	if o == nil || o.IsLargeValue == nil {
+	if o == nil || IsNil(o.IsLargeValue) {
 		return nil, false
 	}
 	return o.IsLargeValue, true
@@ -452,7 +459,7 @@ func (o *PropertyValue) GetIsLargeValueOk() (*bool, bool) {
 
 // HasIsLargeValue returns a boolean if a field has been set.
 func (o *PropertyValue) HasIsLargeValue() bool {
-	if o != nil && o.IsLargeValue != nil {
+	if o != nil && !IsNil(o.IsLargeValue) {
 		return true
 	}
 
@@ -465,53 +472,86 @@ func (o *PropertyValue) SetIsLargeValue(v bool) {
 }
 
 func (o PropertyValue) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["sourceId"] = o.SourceId
-	}
-	if true {
-		toSerialize["selectedByUser"] = o.SelectedByUser
-	}
-	if true {
-		toSerialize["sourceLabel"] = o.SourceLabel
-	}
-	if true {
-		toSerialize["source"] = o.Source
-	}
-	if o.UpdatedByUserId != nil {
-		toSerialize["updatedByUserId"] = o.UpdatedByUserId
-	}
-	if o.PersistenceTimestamp != nil {
-		toSerialize["persistenceTimestamp"] = o.PersistenceTimestamp
-	}
-	if true {
-		toSerialize["sourceMetadata"] = o.SourceMetadata
-	}
-	if true {
-		toSerialize["sourceVid"] = o.SourceVid
-	}
-	if true {
-		toSerialize["requestId"] = o.RequestId
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.UseTimestampAsPersistenceTimestamp != nil {
-		toSerialize["useTimestampAsPersistenceTimestamp"] = o.UseTimestampAsPersistenceTimestamp
-	}
-	if true {
-		toSerialize["value"] = o.Value
-	}
-	if true {
-		toSerialize["selectedByUserTimestamp"] = o.SelectedByUserTimestamp
-	}
-	if true {
-		toSerialize["timestamp"] = o.Timestamp
-	}
-	if o.IsLargeValue != nil {
-		toSerialize["isLargeValue"] = o.IsLargeValue
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PropertyValue) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["sourceId"] = o.SourceId
+	toSerialize["selectedByUser"] = o.SelectedByUser
+	toSerialize["sourceLabel"] = o.SourceLabel
+	toSerialize["source"] = o.Source
+	if !IsNil(o.UpdatedByUserId) {
+		toSerialize["updatedByUserId"] = o.UpdatedByUserId
+	}
+	if !IsNil(o.PersistenceTimestamp) {
+		toSerialize["persistenceTimestamp"] = o.PersistenceTimestamp
+	}
+	toSerialize["sourceMetadata"] = o.SourceMetadata
+	toSerialize["sourceVid"] = o.SourceVid
+	toSerialize["requestId"] = o.RequestId
+	toSerialize["name"] = o.Name
+	if !IsNil(o.UseTimestampAsPersistenceTimestamp) {
+		toSerialize["useTimestampAsPersistenceTimestamp"] = o.UseTimestampAsPersistenceTimestamp
+	}
+	toSerialize["value"] = o.Value
+	toSerialize["selectedByUserTimestamp"] = o.SelectedByUserTimestamp
+	toSerialize["timestamp"] = o.Timestamp
+	if !IsNil(o.IsLargeValue) {
+		toSerialize["isLargeValue"] = o.IsLargeValue
+	}
+	return toSerialize, nil
+}
+
+func (o *PropertyValue) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"sourceId",
+		"selectedByUser",
+		"sourceLabel",
+		"source",
+		"sourceMetadata",
+		"sourceVid",
+		"requestId",
+		"name",
+		"value",
+		"selectedByUserTimestamp",
+		"timestamp",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPropertyValue := _PropertyValue{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPropertyValue)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PropertyValue(varPropertyValue)
+
+	return err
 }
 
 type NullablePropertyValue struct {

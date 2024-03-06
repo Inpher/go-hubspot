@@ -8,7 +8,7 @@ configuration.go
 docs/Error.md
 docs/ErrorDetail.md
 docs/ExternalSettings.md
-docs/SettingsApi.md
+docs/SettingsAPI.md
 git_push.sh
 go.mod
 go.sum

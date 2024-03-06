@@ -1,14 +1,14 @@
-# \PublicSmtpTokensApi
+# \PublicSmtpTokensAPI
 
 All URIs are relative to *https://api.hubapi.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ArchiveToken**](PublicSmtpTokensApi.md#ArchiveToken) | **Delete** /marketing/v3/transactional/smtp-tokens/{tokenId} | Delete a single token by ID.
-[**CreateToken**](PublicSmtpTokensApi.md#CreateToken) | **Post** /marketing/v3/transactional/smtp-tokens | Create a SMTP API token.
-[**GetTokenByID**](PublicSmtpTokensApi.md#GetTokenByID) | **Get** /marketing/v3/transactional/smtp-tokens/{tokenId} | Query a single token by ID.
-[**GetTokensPage**](PublicSmtpTokensApi.md#GetTokensPage) | **Get** /marketing/v3/transactional/smtp-tokens | Query SMTP API tokens by campaign name or an emailCampaignId.
-[**ResetPassword**](PublicSmtpTokensApi.md#ResetPassword) | **Post** /marketing/v3/transactional/smtp-tokens/{tokenId}/password-reset | Reset the password of an existing token.
+[**ArchiveToken**](PublicSmtpTokensAPI.md#ArchiveToken) | **Delete** /marketing/v3/transactional/smtp-tokens/{tokenId} | Delete a single token by ID.
+[**CreateToken**](PublicSmtpTokensAPI.md#CreateToken) | **Post** /marketing/v3/transactional/smtp-tokens | Create a SMTP API token.
+[**GetTokenByID**](PublicSmtpTokensAPI.md#GetTokenByID) | **Get** /marketing/v3/transactional/smtp-tokens/{tokenId} | Query a single token by ID.
+[**GetTokensPage**](PublicSmtpTokensAPI.md#GetTokensPage) | **Get** /marketing/v3/transactional/smtp-tokens | Query SMTP API tokens by campaign name or an emailCampaignId.
+[**ResetPassword**](PublicSmtpTokensAPI.md#ResetPassword) | **Post** /marketing/v3/transactional/smtp-tokens/{tokenId}/password-reset | Reset the password of an existing token.
 
 
 
@@ -26,22 +26,22 @@ Delete a single token by ID.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    tokenId := "tokenId_example" // string | Identifier generated when a token is created.
+	tokenId := "tokenId_example" // string | Identifier generated when a token is created.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PublicSmtpTokensApi.ArchiveToken(context.Background(), tokenId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PublicSmtpTokensApi.ArchiveToken``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.PublicSmtpTokensAPI.ArchiveToken(context.Background(), tokenId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PublicSmtpTokensAPI.ArchiveToken``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -94,24 +94,24 @@ Create a SMTP API token.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    smtpApiTokenRequestEgg := *openapiclient.NewSmtpApiTokenRequestEgg(false, "CampaignName_example") // SmtpApiTokenRequestEgg | A request object that includes the campaign name tied to the token and whether contacts should be created for email recipients.
+	smtpApiTokenRequestEgg := *openapiclient.NewSmtpApiTokenRequestEgg(false, "CampaignName_example") // SmtpApiTokenRequestEgg | A request object that includes the campaign name tied to the token and whether contacts should be created for email recipients.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PublicSmtpTokensApi.CreateToken(context.Background()).SmtpApiTokenRequestEgg(smtpApiTokenRequestEgg).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PublicSmtpTokensApi.CreateToken``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateToken`: SmtpApiTokenView
-    fmt.Fprintf(os.Stdout, "Response from `PublicSmtpTokensApi.CreateToken`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PublicSmtpTokensAPI.CreateToken(context.Background()).SmtpApiTokenRequestEgg(smtpApiTokenRequestEgg).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PublicSmtpTokensAPI.CreateToken``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateToken`: SmtpApiTokenView
+	fmt.Fprintf(os.Stdout, "Response from `PublicSmtpTokensAPI.CreateToken`: %v\n", resp)
 }
 ```
 
@@ -160,24 +160,24 @@ Query a single token by ID.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    tokenId := "tokenId_example" // string | Identifier generated when a token is created.
+	tokenId := "tokenId_example" // string | Identifier generated when a token is created.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PublicSmtpTokensApi.GetTokenByID(context.Background(), tokenId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PublicSmtpTokensApi.GetTokenByID``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetTokenByID`: SmtpApiTokenView
-    fmt.Fprintf(os.Stdout, "Response from `PublicSmtpTokensApi.GetTokenByID`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PublicSmtpTokensAPI.GetTokenByID(context.Background(), tokenId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PublicSmtpTokensAPI.GetTokenByID``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetTokenByID`: SmtpApiTokenView
+	fmt.Fprintf(os.Stdout, "Response from `PublicSmtpTokensAPI.GetTokenByID`: %v\n", resp)
 }
 ```
 
@@ -230,27 +230,27 @@ Query SMTP API tokens by campaign name or an emailCampaignId.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    campaignName := "campaignName_example" // string | A name for the campaign tied to the SMTP API token. (optional)
-    emailCampaignId := "emailCampaignId_example" // string | Identifier assigned to the campaign provided during the token creation. (optional)
-    after := "after_example" // string | Starting point to get the next set of results. (optional)
-    limit := int32(56) // int32 | Maximum number of tokens to return. (optional)
+	campaignName := "campaignName_example" // string | A name for the campaign tied to the SMTP API token. (optional)
+	emailCampaignId := "emailCampaignId_example" // string | Identifier assigned to the campaign provided during the token creation. (optional)
+	after := "after_example" // string | Starting point to get the next set of results. (optional)
+	limit := int32(56) // int32 | Maximum number of tokens to return. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PublicSmtpTokensApi.GetTokensPage(context.Background()).CampaignName(campaignName).EmailCampaignId(emailCampaignId).After(after).Limit(limit).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PublicSmtpTokensApi.GetTokensPage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetTokensPage`: CollectionResponseSmtpApiTokenViewForwardPaging
-    fmt.Fprintf(os.Stdout, "Response from `PublicSmtpTokensApi.GetTokensPage`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PublicSmtpTokensAPI.GetTokensPage(context.Background()).CampaignName(campaignName).EmailCampaignId(emailCampaignId).After(after).Limit(limit).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PublicSmtpTokensAPI.GetTokensPage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetTokensPage`: CollectionResponseSmtpApiTokenViewForwardPaging
+	fmt.Fprintf(os.Stdout, "Response from `PublicSmtpTokensAPI.GetTokensPage`: %v\n", resp)
 }
 ```
 
@@ -302,24 +302,24 @@ Reset the password of an existing token.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    tokenId := "tokenId_example" // string | Identifier generated when a token is created.
+	tokenId := "tokenId_example" // string | Identifier generated when a token is created.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PublicSmtpTokensApi.ResetPassword(context.Background(), tokenId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PublicSmtpTokensApi.ResetPassword``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ResetPassword`: SmtpApiTokenView
-    fmt.Fprintf(os.Stdout, "Response from `PublicSmtpTokensApi.ResetPassword`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PublicSmtpTokensAPI.ResetPassword(context.Background(), tokenId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PublicSmtpTokensAPI.ResetPassword``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ResetPassword`: SmtpApiTokenView
+	fmt.Fprintf(os.Stdout, "Response from `PublicSmtpTokensAPI.ResetPassword`: %v\n", resp)
 }
 ```
 
